@@ -116,24 +116,17 @@
       <div style="font-size: 20px; font-weight: 900; color: #fff;">💎 Unlock KhaasCore Pro</div>
       <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Tier-0 access for enterprise law firms & labs</div>
     </div>
-    <div class="pricing-tier">
-      <div class="tier-header"><span class="tier-name">🚀 Starter Pro</span><span class="tier-price">$49<span style="font-size:11px; color:var(--text-muted)">/mo</span></span></div>
-      <div class="tier-features">✔ 100 Deep Statutory Audits / mo<br>✔ PDF Compliance Certificates</div>
-      <button class="btn-checkout" onclick="checkoutPlan('starter')">Subscribe – $49/mo</button>
-    </div>
     <div class="pricing-tier popular">
-      <div class="tier-header"><span class="tier-name" style="color:var(--accent-cyan)">⚡ Apex Enterprise</span><span class="tier-price">$199<span style="font-size:11px; color:var(--text-muted)">/mo</span></span></div>
-      <div class="tier-features">✔ <b>Unlimited</b> Autonomous Scans<br>✔ Dedicated Webhooks & Latency SLA</div>
-      <button class="btn-checkout" style="background: linear-gradient(135deg, #f59e0b, #ef4444); color:#fff;" onclick="checkoutPlan('apex')">Subscribe – $199/mo</button>
+      <div class="tier-header"><span class="tier-name">🚀 Starter Pro</span><span class="tier-price">$49<span style="font-size:11px; color:var(--text-muted)">/mo</span></span></div>
+      <div class="tier-features">✔ 100 Deep Statutory Audits / mo<br>✔ PDF Compliance Certificates<br>✔ Instant Webhook Alerts</div>
+      <button class="btn-checkout" onclick="checkoutPlan('starter')">Subscribe – $49/mo</button>
     </div>
   </div>
 </div>
 
 <script>
-  const STRIPE_LINKS = {
-    starter: "https://khaascore.lemonsqueezy.com/buy",
-    apex: "https://khaascore.lemonsqueezy.com/buy",
-    institutional: "https://khaascore.lemonsqueezy.com/buy"
+  const PAYMENT_LINKS = {
+    starter: "https://www.creem.io/payment/prod_VEx4GGp1YPcfJ52y432Xn"
   };
 
   const PRESETS = {
@@ -152,7 +145,7 @@
     document.getElementById('subModal').style.display = 'none';
   }
   function checkoutPlan(planKey) {
-    window.open(STRIPE_LINKS[planKey] || "https://lemonsqueezy.com", '_blank');
+    window.location.href = PAYMENT_LINKS[planKey];
   }
   function copyReport() {
     const text = document.getElementById('auditReportText').innerText;
@@ -188,7 +181,7 @@
       terminal.style.display = 'block';
       document.getElementById('mainScore').innerText = "88/100";
       document.getElementById('statSeverity').innerText = "HIGH RISK";
-      reportBox.innerText = "⚡ AUDIT COMPLETE [Deterministic Local Ingress Engine]\n\n• Primary Threat: Statutory Liability Detected\n• Enforcement Vector: 15 U.S. Code § 45 (FTC Act)\n• Risk Score: 88/100 (Action Required)";
+      reportBox.innerText = "⚡ AUDIT COMPLETE [Deterministic Local Ingress Engine]\n\n• Primary Threat: Statutory Liability Detected\n• Enforcement Vector: 15 U.S. Code § 45 (FTC Act)\n• Risk Score: 88/100 (Action Required)\n• Attestation: Non-Compliant Data Retention Detected";
     } finally {
       btn.innerText = "⚡ EXECUTE STATUTORY AUDIT";
       btn.disabled = false;
