@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHAASCORE - AI Risk & Compliance Platform</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.85);
+            --border-color: #30363d;
+            --accent-cyan: #58a6ff;
+            --accent-green: #3fb950;
+            --text-main: #f0f6fc;
+            --text-sub: #8b949e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: radial-gradient(circle at 50% 0%, #161b22 0%, #0d1117 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 760px;
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p.subtitle {
+            color: var(--text-sub);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .feature-card {
+            background: rgba(13, 17, 23, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.2rem;
+        }
+        .feature-card h3 {
+            font-size: 1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.4rem;
+        }
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+        .cta-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #238636;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.2s ease;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background: #2ea043;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="badge">
+            <div class="badge-dot"></div>
+            System Online & Active
+        </div>
+        <h1>KHAASCORE AI</h1>
+        <p class="subtitle">Autonomous US Legal Risk & Compliance Intelligence Platform. Built for real-time audit, security, and automated regulation monitoring.</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <h3>⚡ Risk Engine</h3>
+                <p>Instant legal risk scoring & policy gap analysis.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🛡️ Compliance Audit</h3>
+                <p>Autonomous US regulatory compliance verification.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Live Telemetry</h3>
+                <p>Real-time analytics and insight pipeline integration.</p>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <a href="https://github.com/kamransiddiki6287-hash/khaascore-ai" class="btn-primary" target="_blank">View GitHub Project</a>
+        </div>
+    </div>
+
+    <!-- Vercel Web Analytics -->
+    <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
 
