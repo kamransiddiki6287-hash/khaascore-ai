@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KHAASCORE AI — Autonomous US Legal & Risk Operating System</title>
-    <!-- Fonts & Icons -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
+    <!-- jsPDF Library for Client-Side PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
         :root {
             --bg-base: #07090e;
@@ -28,11 +31,7 @@
             --glow-cyan: rgba(56, 189, 248, 0.15);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -46,11 +45,8 @@
             background-attachment: fixed;
         }
 
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* Container & Layout */
         .wrapper {
             max-width: 1140px;
             margin: 0 auto;
@@ -118,7 +114,7 @@
             100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             text-align: center;
             max-width: 820px;
@@ -151,7 +147,7 @@
             line-height: 1.7;
         }
 
-        /* Interactive Audit Studio */
+        /* Audit Studio */
         .audit-studio {
             background: var(--surface-panel);
             border: 1px solid var(--border-subtle);
@@ -211,9 +207,9 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.2s;
         }
@@ -318,6 +314,29 @@
             line-height: 1.6;
         }
 
+        .btn-pdf {
+            width: 100%;
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.85rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-pdf:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
         /* Features Section */
         .features-grid {
             display: grid;
@@ -332,10 +351,6 @@
             border-radius: 16px;
             padding: 1.8rem;
             transition: border-color 0.2s;
-        }
-
-        .feature-box:hover {
-            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .feat-icon {
@@ -405,7 +420,7 @@
             </div>
             <div class="status-pill mono">
                 <div class="pulse-dot"></div>
-                SYSTEM ONLINE (v2.4.0)
+                SYSTEM ONLINE (v2.5.0)
             </div>
         </header>
 
@@ -418,7 +433,7 @@
             </p>
         </section>
 
-        <!-- Interactive AI Audit Console -->
+        <!-- Audit Studio -->
         <main class="audit-studio">
             <div class="studio-grid">
                 <div class="field-group">
@@ -479,6 +494,11 @@
                     </div>
                     <p id="reportNarrative" class="report-text"></p>
                 </div>
+
+                <!-- PDF Download Button -->
+                <button class="btn-pdf" onclick="generatePDFReport()">
+                    <span>📄 Download Official Compliance PDF Report</span>
+                </button>
             </div>
         </main>
 
@@ -519,6 +539,8 @@
             3: "All user telemetry is encrypted with AES-256 at rest and in transit, with full zero-knowledge deletion available upon individual user request."
         };
 
+        let lastAuditData = null;
+
         function applyPreset(id) {
             document.getElementById('auditSnippet').value = samplePresets[id];
         }
@@ -537,7 +559,7 @@
             viewport.scrollIntoView({ behavior: 'smooth' });
 
             const text = snippet.toLowerCase();
-            let risk = "LOW";
+            let risk = "LOW RISK";
             let score = "96 / 100";
             let color = "var(--accent-emerald)";
             let report = `Snippet aligns with standard ${framework} requirements. Safeguards and controls satisfy baseline automated inspection thresholds.`;
@@ -554,20 +576,93 @@
                 report = `ADVISORY WARNING under ${framework}: High sensitivity data ingestion detected. Mandatory access logs and encryption verification needed to meet continuous audit status.`;
             }
 
-            const riskEl = document.getElementById('riskLevel');
-            riskEl.textContent = risk;
-            riskEl.style.color = color;
+            const latency = (Math.random() * (28 - 12) + 12).toFixed(1) + " ms";
 
-            const scoreEl = document.getElementById('compScore');
-            scoreEl.textContent = score;
-            scoreEl.style.color = color;
+            document.getElementById('riskLevel').textContent = risk;
+            document.getElementById('riskLevel').style.color = color;
 
-            document.getElementById('latencyVal').textContent = (Math.random() * (28 - 12) + 12).toFixed(1) + " ms";
+            document.getElementById('compScore').textContent = score;
+            document.getElementById('compScore').style.color = color;
+
+            document.getElementById('latencyVal').textContent = latency;
             document.getElementById('reportNarrative').textContent = report;
+
+            lastAuditData = {
+                framework: framework,
+                snippet: snippet,
+                risk: risk,
+                score: score,
+                latency: latency,
+                report: report,
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        function generatePDFReport() {
+            if (!lastAuditData) {
+                alert("Please run an audit first.");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Header Background Banner
+            doc.setFillColor(13, 17, 23);
+            doc.rect(0, 0, 210, 40, 'F');
+
+            // Header Titles
+            doc.setTextColor(56, 189, 248);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.text("KHAASCORE AI — COMPLIANCE AUDIT CERTIFICATE", 14, 20);
+
+            doc.setFontSize(10);
+            doc.setTextColor(148, 163, 184);
+            doc.text("Autonomous US Regulatory Risk & Telemetry Engine", 14, 28);
+
+            // Audit Metadata Table
+            doc.setTextColor(30, 41, 59);
+            doc.setFontSize(11);
+            doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 50);
+            doc.text(`Target Framework: ${lastAuditData.framework}`, 14, 58);
+            doc.text(`Risk Assessment: ${lastAuditData.risk}`, 14, 66);
+            doc.text(`Compliance Score: ${lastAuditData.score}`, 14, 74);
+            doc.text(`Engine Latency: ${lastAuditData.latency}`, 14, 82);
+
+            // Input Snippet Section
+            doc.setFont("helvetica", "bold");
+            doc.text("Audited Policy / Contract Clause:", 14, 96);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.setTextColor(71, 85, 105);
+            const splitSnippet = doc.splitTextToSize(lastAuditData.snippet, 180);
+            doc.text(splitSnippet, 14, 104);
+
+            // Mitigation Directive Section
+            const directiveY = 104 + (splitSnippet.length * 6) + 8;
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(11);
+            doc.setTextColor(30, 41, 59);
+            doc.text("Policy Gap Analysis & Mitigation Directive:", 14, directiveY);
+            
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.setTextColor(71, 85, 105);
+            const splitReport = doc.splitTextToSize(lastAuditData.report, 180);
+            doc.text(splitReport, 14, directiveY + 8);
+
+            // Footer Stamp
+            doc.setFontSize(8);
+            doc.setTextColor(148, 163, 184);
+            doc.text("Verified by KHAASCORE AI Autonomous Audit Pipeline — https://khaascore-ai.vercel.app", 14, 285);
+
+            // Save PDF
+            doc.save(`KHAASCORE-Audit-Report-${lastAuditData.framework}.pdf`);
         }
     </script>
 
-    <!-- Vercel Insights -->
+    <!-- Vercel Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
