@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhaasCore Legal OS | Frontier Intelligence (Gemini 3.1 Pro / GPT-5.6 Sol)</title>
+    <title>KhaasCore Legal OS | Universal Multi-Lingual Frontier Intelligence</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -11,6 +11,19 @@
     <!-- jsPDF & Mammoth -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    
+    <!-- Google Universal Translate Widget -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -32,7 +45,7 @@
                     },
                     fontFamily: {
                         sans: ['Google Sans', 'Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Roboto Mono', 'Fira Code', 'monospace']
+                        mono: ['Roboto Mono', 'monospace']
                     }
                 }
             }
@@ -42,7 +55,19 @@
         body {
             background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0d0e12 45%, #08080a 100%);
             color: #e2e8f0;
+            top: 0px !important;
         }
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        .goog-te-gadget-simple {
+            background-color: #22242a !important;
+            border: 1px solid #32353e !important;
+            padding: 4px 8px !important;
+            border-radius: 9999px !important;
+            font-size: 11px !important;
+            color: #38bdf8 !important;
+        }
+        .goog-te-gadget-simple .goog-te-menu-value span { color: #e2e8f0 !important; font-weight: 600; }
+        .goog-te-gadget-icon { display: none !important; }
         .frontier-gradient-text {
             background: linear-gradient(135deg, #38bdf8 0%, #c084fc 50%, #f43f5e 100%);
             -webkit-background-clip: text;
@@ -54,11 +79,10 @@
         ::-webkit-scrollbar-track { background: #08080a; }
         ::-webkit-scrollbar-thumb { background: #32353e; border-radius: 10px; }
         .tab-btn.active { border-color: #38bdf8; color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
-        .locked-feature { opacity: 0.5; cursor: not-allowed; }
-        .voice-active { animation: mic-pulse 1.5s infinite; }
+        .voice-active { animation: mic-pulse 1.2s infinite; }
         @keyframes mic-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.8); }
+            70% { box-shadow: 0 0 0 12px rgba(244, 63, 94, 0); }
             100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
         }
     </style>
@@ -77,42 +101,61 @@
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-[1.5px] flex items-center justify-center shadow-lg shadow-cyan-500/20">
                     <div class="w-full h-full bg-frontier-dark rounded-2xl flex items-center justify-center">
-                        <i data-lucide="brain-circuit" class="w-5 h-5 text-frontier-cyan"></i>
+                        <i data-lucide="globe" class="w-5 h-5 text-frontier-cyan"></i>
                     </div>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-bold text-lg tracking-tight frontier-gradient-text">KhaasCore Frontier OS</span>
+                        <span class="font-bold text-lg tracking-tight frontier-gradient-text">KhaasCore Polyglot OS</span>
                         <span id="modelBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-frontier-purple/20 text-frontier-purple border border-frontier-purple/30 font-mono font-semibold flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-frontier-purple animate-pulse"></span> Gemini 3.1 Pro Active
+                            <span class="w-1.5 h-1.5 rounded-full bg-frontier-purple animate-pulse"></span> All Languages Active
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-400">Gemini 3.1 Pro · Gemini 3.7 Flash · GPT-5.6 Sol Engine</p>
+                    <p class="text-[11px] text-slate-400">Gemini 3.1 Pro · GPT-5.6 Sol · Universal Multi-Lingual Speech</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <!-- Advanced Frontier Model Selector -->
-                <div class="hidden sm:flex items-center bg-frontier-input rounded-full px-3.5 py-1.5 border border-frontier-border text-xs">
-                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-frontier-cyan mr-2"></i>
-                    <select id="engineSelector" class="bg-transparent text-frontier-cyan font-mono font-semibold outline-none cursor-pointer">
-                        <optgroup label="Google Frontier Models">
-                            <option value="gemini-3.1-pro" selected>Gemini 3.1 Pro (Ultra Logic)</option>
-                            <option value="gemini-3.7-flash">Gemini 3.7 Flash (Hybrid CoT)</option>
-                            <option value="gemini-omni">Gemini Omni (Native Voice/Vision)</option>
-                            <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                        </optgroup>
-                        <optgroup label="OpenAI Frontier Models">
-                            <option value="gpt-5.6-sol">GPT-5.6 Sol (Autonomous Solver)</option>
-                            <option value="gpt-5.6">GPT-5.6 Omni</option>
-                            <option value="o3">OpenAI o3 (Deep Math/Law)</option>
-                        </optgroup>
+            <!-- Top Controls -->
+            <div class="flex items-center gap-2.5">
+                <!-- Google Universal Language Dropdown -->
+                <div id="google_translate_element" class="hidden sm:block"></div>
+
+                <!-- Voice Input Language Selector -->
+                <div class="flex items-center bg-frontier-input rounded-full px-3 py-1.5 border border-frontier-border text-xs">
+                    <i data-lucide="languages" class="w-3.5 h-3.5 text-frontier-purple mr-1.5"></i>
+                    <select id="voiceLangSelector" class="bg-transparent text-slate-200 text-[11px] outline-none cursor-pointer font-medium">
+                        <option value="auto">🌐 Auto Voice Lang</option>
+                        <option value="hi-IN">🇮🇳 Hindi (हिन्दी)</option>
+                        <option value="en-US">🇺🇸 English (US/Global)</option>
+                        <option value="en-IN">🇮🇳 English (India)</option>
+                        <option value="ur-IN">🇵🇰 Urdu (اردو)</option>
+                        <option value="bn-IN">🇧🇩 Bengali (বাংলা)</option>
+                        <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
+                        <option value="es-ES">🇪🇸 Spanish (Español)</option>
+                        <option value="fr-FR">🇫🇷 French (Français)</option>
+                        <option value="de-DE">🇩🇪 German (Deutsch)</option>
+                        <option value="zh-CN">🇨🇳 Chinese (中文)</option>
+                        <option value="ja-JP">🇯🇵 Japanese (日本語)</option>
                     </select>
                 </div>
-                <button id="openConfigModal" class="px-3.5 py-1.5 bg-frontier-card hover:bg-frontier-input text-xs font-medium text-slate-300 rounded-full border border-frontier-border transition flex items-center gap-2">
+
+                <!-- Frontier AI Model Selector -->
+                <div class="hidden md:flex items-center bg-frontier-input rounded-full px-3.5 py-1.5 border border-frontier-border text-xs">
+                    <select id="engineSelector" class="bg-transparent text-frontier-cyan font-mono font-semibold outline-none cursor-pointer text-xs">
+                        <option value="gemini-3.1-pro" selected>Gemini 3.1 Pro</option>
+                        <option value="gemini-3-pro">Gemini 3 Pro</option>
+                        <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                        <option value="gemini-omni">Gemini Omni</option>
+                        <option value="gpt-5.6-sol">GPT-5.6 Sol</option>
+                        <option value="gpt-5.6">GPT-5.6</option>
+                    </select>
+                </div>
+
+                <button id="openConfigModal" class="px-3.5 py-1.5 bg-frontier-card hover:bg-frontier-input text-xs font-medium text-slate-300 rounded-full border border-frontier-border transition flex items-center gap-1.5">
                     <i data-lucide="key-round" class="w-3.5 h-3.5 text-frontier-purple"></i>
-                    <span class="hidden sm:inline">API Keys Hub</span>
+                    <span class="hidden sm:inline">API Keys</span>
                 </button>
+
                 <button id="openPricingBtn" class="px-4 py-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 hover:opacity-90 text-xs font-semibold text-white rounded-full shadow-lg shadow-cyan-500/20 transition flex items-center gap-1.5">
                     <i data-lucide="zap" class="w-3.5 h-3.5"></i>
                     <span id="tierButtonLabel">Upgrade</span>
@@ -124,7 +167,7 @@
     <!-- Main Workspace -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mb-16">
         
-        <!-- Left: Contract Input & Settings -->
+        <!-- Left: Contract Input -->
         <section class="lg:col-span-5 flex flex-col gap-4">
             <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-4 shadow-xl space-y-3">
                 <div class="grid grid-cols-3 gap-2 text-xs">
@@ -161,7 +204,7 @@
             <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-4 flex-1 flex flex-col shadow-xl">
                 <div class="flex items-center justify-between mb-2.5 text-xs text-slate-400">
                     <span class="flex items-center gap-1.5 font-medium text-slate-300">
-                        <i data-lucide="file-code-2" class="w-4 h-4 text-frontier-cyan"></i> Contract Source Editor
+                        <i data-lucide="file-code-2" class="w-4 h-4 text-frontier-cyan"></i> Universal Contract Editor
                     </span>
                     <div class="flex items-center gap-3">
                         <label class="hover:text-frontier-cyan cursor-pointer flex items-center gap-1">
@@ -173,19 +216,19 @@
                     </div>
                 </div>
 
-                <textarea id="contractText" class="w-full flex-1 min-h-[460px] bg-frontier-input border border-frontier-border/80 rounded-2xl p-4 text-xs sm:text-sm font-mono text-slate-100 focus:outline-none focus:border-frontier-cyan leading-relaxed resize-none shadow-inner" placeholder="Paste commercial agreement text or load benchmark clauses..."></textarea>
+                <textarea id="contractText" class="w-full flex-1 min-h-[460px] bg-frontier-input border border-frontier-border/80 rounded-2xl p-4 text-xs sm:text-sm font-mono text-slate-100 focus:outline-none focus:border-frontier-cyan leading-relaxed resize-none shadow-inner" placeholder="Paste contract clauses in any language (Hindi, English, Spanish, Arabic, etc.)..."></textarea>
 
                 <div class="mt-4 flex gap-3">
                     <button id="analyzeBtn" class="flex-1 bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:opacity-95 text-white font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 text-xs sm:text-sm transition transform active:scale-[0.99]">
                         <i data-lucide="brain" class="w-4 h-4"></i>
-                        <span>Execute Frontier AI Audit</span>
+                        <span>Execute Multi-Lingual Audit</span>
                     </button>
                     <button id="clearBtn" class="px-4 py-3.5 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-2xl text-xs font-medium transition">Clear</button>
                 </div>
             </div>
         </section>
 
-        <!-- Right: Real-Time Scorecard & Analysis Tabs -->
+        <!-- Right: Scorecard & Tabs -->
         <section class="lg:col-span-7 flex flex-col gap-4">
             
             <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-5 shadow-xl">
@@ -241,14 +284,14 @@
                 <div id="panelAudit" class="tab-panel flex-1 overflow-y-auto space-y-4 max-h-[580px] pr-1.5">
                     <div class="h-full min-h-[300px] flex flex-col items-center justify-center text-slate-500 border border-dashed border-frontier-border rounded-3xl p-6 text-center">
                         <div class="p-3 bg-frontier-input rounded-full mb-2"><i data-lucide="scale" class="w-6 h-6 text-slate-500"></i></div>
-                        <p class="text-xs text-slate-400">Frontier Neural Auditor is ready.</p>
-                        <p class="text-[11px] text-slate-600 max-w-xs mt-1">Paste terms on the left or load the benchmark to execute deep reasoning audit.</p>
+                        <p class="text-xs text-slate-400">Polyglot Neural Auditor ready.</p>
+                        <p class="text-[11px] text-slate-600 max-w-xs mt-1">Paste terms in any language or load benchmark clauses to execute deep audit.</p>
                     </div>
                 </div>
 
                 <div id="panelPlaybook" class="tab-panel hidden flex-1 overflow-y-auto space-y-4 max-h-[580px] pr-1.5 text-xs">
                     <div id="playbookContent" class="p-4 rounded-2xl bg-frontier-panel border border-frontier-border space-y-3 leading-relaxed text-slate-300">
-                        Audit contract to auto-generate strategic General Counsel recommendations.
+                        Audit contract to auto-generate strategic recommendations.
                     </div>
                 </div>
 
@@ -261,7 +304,7 @@
         </section>
     </main>
 
-    <!-- Floating Frontier Voice AI Copilot -->
+    <!-- Floating Universal Voice Copilot Button -->
     <div class="fixed bottom-6 right-6 z-50">
         <button id="toggleChatBtn" class="bg-frontier-input hover:bg-frontier-card border border-frontier-border text-white p-3.5 rounded-full shadow-2xl flex items-center gap-2.5 font-medium transition transform hover:scale-105">
             <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-500 flex items-center justify-center p-[1px]">
@@ -269,19 +312,19 @@
                     <i data-lucide="mic" class="w-3.5 h-3.5 text-frontier-cyan"></i>
                 </div>
             </div>
-            <span class="text-xs hidden sm:inline font-sans font-semibold">Frontier Voice AI</span>
+            <span class="text-xs hidden sm:inline font-sans font-semibold">Universal Voice AI</span>
         </button>
     </div>
 
-    <!-- Frontier Chat Window with CoT Reasoning Box -->
+    <!-- Chat Window with Real-Time Speech Recognition & TTS -->
     <div id="chatWindow" class="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] h-[580px] bg-frontier-dark/95 border border-frontier-border rounded-3xl shadow-2xl flex flex-col z-50 hidden overflow-hidden backdrop-blur-2xl">
         <div class="bg-frontier-panel p-3.5 border-b border-frontier-border flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <i data-lucide="sparkles" class="w-4 h-4 text-frontier-purple"></i>
                 <div>
-                    <h4 class="text-xs font-bold text-white">Frontier Legal Co-Counsel</h4>
+                    <h4 class="text-xs font-bold text-white">Polyglot Voice Co-Counsel</h4>
                     <span id="activeModelLabel" class="text-[9px] text-frontier-emerald flex items-center gap-1 font-mono">
-                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> Gemini 3.1 Pro Active
+                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> Global Multi-Lingual Active
                     </span>
                 </div>
             </div>
@@ -294,36 +337,36 @@
         </div>
 
         <div class="p-2 bg-frontier-panel/60 border-b border-frontier-border flex gap-1.5 overflow-x-auto text-[10px]">
-            <button onclick="sendQuickPrompt('Analyze the critical liabilities using Gemini 3.1 Pro and speak it.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">🎙️ Voice Briefing</button>
-            <button onclick="sendQuickPrompt('Draft an aggressive counter-proposal email to counterparty counsel.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">✉️ Email Draft</button>
-            <button onclick="sendQuickPrompt('Demonstrate how Article 1 violates UCC § 2-719 and Del. Chancery law.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">⚖️ Legal Reason</button>
+            <button onclick="sendQuickPrompt('Analyze the critical liabilities in Hindi and speak it.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">🇮🇳 हिन्दी में बोलें</button>
+            <button onclick="sendQuickPrompt('Draft an aggressive counter-proposal email in English.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">✉️ English Draft</button>
+            <button onclick="sendQuickPrompt('Summarize key risks in simple points.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">📌 Top Risks</button>
         </div>
 
         <div id="chatMessages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs font-sans">
             <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                <span>Hello! I am your Frontier Legal AI powered by <strong>Gemini 3.1 Pro / 3.7 Flash</strong> and <strong>GPT-5.6 Sol</strong>. Ask me anything via voice or text.</span>
-                <button onclick="speakText('Hello! I am your Frontier Legal AI powered by Gemini 3.1 Pro and GPT-5.6 Sol. Ask me anything.')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
+                <span>नमस्ते / Hello! I understand all languages. Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic, Spanish</strong> or any language.</span>
+                <button onclick="speakText('नमस्ते! Hello! I understand all languages. Click the microphone and speak your question.')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
                     <i data-lucide="volume-2" class="w-3 h-3"></i> Listen
                 </button>
             </div>
         </div>
 
         <div id="voiceStatus" class="hidden px-4 py-1.5 bg-frontier-input text-[11px] text-frontier-rose flex items-center gap-2 border-t border-frontier-border font-mono">
-            <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> Listening to your voice... Speak now.
+            <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> <span id="voiceStatusText">Listening... Speak now</span>
         </div>
 
         <form id="chatForm" class="p-2.5 bg-frontier-panel border-t border-frontier-border flex items-center gap-2">
-            <button type="button" id="micBtn" class="w-8 h-8 rounded-full bg-frontier-input hover:bg-frontier-card text-frontier-cyan border border-frontier-border flex items-center justify-center transition">
+            <button type="button" id="micBtn" class="w-9 h-9 rounded-full bg-frontier-input hover:bg-frontier-card text-frontier-cyan border border-frontier-border flex items-center justify-center transition">
                 <i data-lucide="mic" class="w-4 h-4"></i>
             </button>
-            <input type="text" id="chatInput" placeholder="Ask Frontier AI or speak..." class="flex-1 bg-frontier-input border border-frontier-border rounded-full px-4 py-2 text-xs text-slate-100 outline-none focus:border-frontier-cyan">
-            <button type="submit" id="chatSendBtn" class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white flex items-center justify-center font-bold transition hover:opacity-90">
+            <input type="text" id="chatInput" placeholder="Type or click mic to speak in any language..." class="flex-1 bg-frontier-input border border-frontier-border rounded-full px-4 py-2 text-xs text-slate-100 outline-none focus:border-frontier-cyan">
+            <button type="submit" id="chatSendBtn" class="w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white flex items-center justify-center font-bold transition hover:opacity-90">
                 <i data-lucide="arrow-up" class="w-4 h-4"></i>
             </button>
         </form>
     </div>
 
-    <!-- Multi-AI API Keys Hub Modal -->
+    <!-- API Keys Modal -->
     <div id="configModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-frontier-card border border-frontier-border rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-frontier-border pb-3">
@@ -334,16 +377,16 @@
             </div>
             <div class="space-y-3 text-xs">
                 <div>
-                    <label class="block font-medium text-slate-300 mb-1">Google Gemini API Key (Gemini 3.1 Pro / 3.7 Flash)</label>
+                    <label class="block font-medium text-slate-300 mb-1">Google Gemini API Key</label>
                     <input type="password" id="geminiApiKey" placeholder="AIzaSy..." class="w-full bg-frontier-input border border-frontier-border rounded-xl p-2.5 text-slate-200 font-mono outline-none focus:border-frontier-cyan">
                 </div>
                 <div>
-                    <label class="block font-medium text-slate-300 mb-1">OpenAI API Key (GPT-5.6 Sol / o3)</label>
+                    <label class="block font-medium text-slate-300 mb-1">OpenAI API Key (Optional)</label>
                     <input type="password" id="openaiApiKey" placeholder="sk-proj-..." class="w-full bg-frontier-input border border-frontier-border rounded-xl p-2.5 text-slate-200 font-mono outline-none focus:border-frontier-cyan">
                 </div>
             </div>
             <div class="pt-3 border-t border-frontier-border flex justify-end">
-                <button id="saveConfigBtn" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full text-xs font-bold transition">Save Frontier Keys</button>
+                <button id="saveConfigBtn" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full text-xs font-bold transition">Save Keys</button>
             </div>
         </div>
     </div>
@@ -353,7 +396,7 @@
         <div class="bg-frontier-card border border-frontier-border rounded-3xl max-w-5xl w-full p-6 sm:p-8 shadow-2xl space-y-8 my-8">
             <div class="text-center space-y-2">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white frontier-gradient-text">Select Your Enterprise Intelligence Tier</h2>
-                <p class="text-sm text-slate-400">Scale autonomous contract audits and frontier voice reasoning.</p>
+                <p class="text-sm text-slate-400">Scale autonomous multi-lingual contract audits and voice reasoning.</p>
             </div>
             <button id="closePricingModal" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-full bg-frontier-input"><i data-lucide="x" class="w-5 h-5"></i></button>
 
@@ -379,7 +422,7 @@
                         <p class="text-xs text-slate-400 mt-2">Full access to statutory memos and PDF reports.</p>
                         <ul class="space-y-3 text-xs text-slate-300 mt-6">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-cyan"></i> Unlimited Contract Audits</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-cyan"></i> Voice AI Copilot Access</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-cyan"></i> Universal Voice AI Copilot</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-cyan"></i> Audit PDF Certificates</li>
                         </ul>
                     </div>
@@ -390,20 +433,20 @@
                     <div>
                         <span class="text-frontier-purple text-xs font-bold uppercase tracking-wide">Enterprise Ultra</span>
                         <div class="mt-4 text-4xl font-bold text-white">$149 <span class="text-sm text-slate-500 font-normal">/mo</span></div>
-                        <p class="text-xs text-slate-400 mt-2">Gemini 3.1 Pro & GPT-5.6 Sol frontier engines.</p>
+                        <p class="text-xs text-slate-400 mt-2">Gemini 3.1 Pro & GPT-5.6 Sol multi-lingual engines.</p>
                         <ul class="space-y-3 text-xs text-slate-300 mt-6">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-purple"></i> Everything in Pro</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-purple"></i> Frontier Omni-AI Engines</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-purple"></i> Polyglot Omni Engines</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-frontier-purple"></i> 1-Click Autonomous Batch Redline</li>
                         </ul>
                     </div>
-                    <button onclick="selectTier('premium')" class="w-full mt-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full text-xs hover:opacity-90 transition shadow-lg">Upgrade to Frontier ($149)</button>
+                    <button onclick="selectTier('premium')" class="w-full mt-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full text-xs hover:opacity-90 transition shadow-lg">Upgrade to Polyglot ($149)</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Core Engine Scripts -->
+    <!-- Core Polyglot Engine Scripts -->
     <script>
         lucide.createIcons();
 
@@ -501,14 +544,14 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             const tierLabel = document.getElementById('tierButtonLabel');
 
             if (currentTier === 'premium') {
-                modelBadge.textContent = 'Frontier Omni Active';
+                modelBadge.textContent = 'Polyglot Ultra Active';
                 tierLabel.textContent = 'Enterprise';
                 pdfBtn.classList.remove('locked-feature');
                 fixBtn.classList.remove('locked-feature');
                 if(pdfLock) pdfLock.style.display = 'none';
                 if(fixLock) fixLock.style.display = 'none';
             } else if (currentTier === 'pro') {
-                modelBadge.textContent = 'Frontier Pro (Voice)';
+                modelBadge.textContent = 'Polyglot Pro (Voice)';
                 tierLabel.textContent = 'Pro Plan';
                 pdfBtn.classList.remove('locked-feature');
                 fixBtn.classList.add('locked-feature');
@@ -586,7 +629,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             };
 
             renderAudit(currentAudit);
-            showToast('Frontier Audit completed successfully!', 'success');
+            showToast('Multi-Lingual Audit completed!', 'success');
         });
 
         function renderAudit(audit) {
@@ -606,7 +649,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                         <i data-lucide="check-circle" class="w-8 h-8 text-frontier-emerald flex-shrink-0"></i>
                         <div>
                             <p class="font-bold text-sm text-frontier-emerald">100% Compliant Agreement</p>
-                            <p class="text-slate-400 mt-1 leading-relaxed">No unilateral liability traps detected by Frontier Neural Auditor.</p>
+                            <p class="text-slate-400 mt-1 leading-relaxed">No unilateral liability traps detected.</p>
                         </div>
                     </div>
                 `;
@@ -653,7 +696,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             if (rule.regex.test(text)) {
                 document.getElementById('contractText').value = text.replace(rule.regex, fixText);
                 document.getElementById('analyzeBtn').click();
-                showToast('Clause upgraded to frontier standard!', 'success');
+                showToast('Clause upgraded successfully!', 'success');
             }
         };
 
@@ -683,17 +726,21 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             doc.rect(0, 0, 210, 30, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(14);
-            doc.text("KHAASCORE FRONTIER LEGAL AUDIT CERTIFICATE", 14, 18);
-            doc.save(`Frontier_Audit_${Date.now()}.pdf`);
+            doc.text("KHAASCORE UNIVERSAL LEGAL AUDIT CERTIFICATE", 14, 18);
+            doc.save(`Universal_Audit_${Date.now()}.pdf`);
             showToast('PDF Exported successfully!', 'success');
         };
 
-        // Voice Engine & Speech Synthesis
+        // ==========================================
+        // 🎙️ MULTI-LINGUAL VOICE AI SUITE
+        // ==========================================
         let autoSpeakEnabled = true;
         const micBtn = document.getElementById('micBtn');
         const voiceStatus = document.getElementById('voiceStatus');
+        const voiceStatusText = document.getElementById('voiceStatusText');
         const toggleTtsBtn = document.getElementById('toggleTtsBtn');
         const ttsIcon = document.getElementById('ttsIcon');
+        const voiceLangSelector = document.getElementById('voiceLangSelector');
 
         toggleTtsBtn.onclick = () => {
             autoSpeakEnabled = !autoSpeakEnabled;
@@ -716,11 +763,19 @@ ARTICLE 2: RESTRICTIVE COVENANTS
 
             const cleanText = textToSpeak.replace(/[*_#`~]/g, '');
             const utterance = new SpeechSynthesisUtterance(cleanText);
-            utterance.rate = 1.0;
+            utterance.rate = 1.05;
             utterance.pitch = 1.0;
 
+            const selectedLang = voiceLangSelector.value;
             const voices = window.speechSynthesis.getVoices();
-            const preferredVoice = voices.find(v => v.lang.includes('en') || v.lang.includes('hi'));
+            
+            let preferredVoice = null;
+            if (selectedLang !== 'auto') {
+                preferredVoice = voices.find(v => v.lang.startsWith(selectedLang.split('-')[0]));
+            }
+            if (!preferredVoice) {
+                preferredVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('en'));
+            }
             if (preferredVoice) utterance.voice = preferredVoice;
 
             window.speechSynthesis.speak(utterance);
@@ -729,51 +784,79 @@ ARTICLE 2: RESTRICTIVE COVENANTS
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognition = null;
         let isRecording = false;
+        let recognizedText = "";
 
         if (SpeechRecognition) {
             recognition = new SpeechRecognition();
-            recognition.continuous = false;
-            recognition.interimResults = false;
-            recognition.lang = 'en-US';
+            recognition.continuous = true;
+            recognition.interimResults = true;
 
             recognition.onstart = () => {
                 isRecording = true;
+                recognizedText = "";
                 micBtn.classList.add('bg-frontier-rose', 'text-slate-950', 'voice-active');
                 voiceStatus.classList.remove('hidden');
+                voiceStatusText.textContent = `Listening in ${voiceLangSelector.options[voiceLangSelector.selectedIndex].text}...`;
             };
 
             recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                document.getElementById('chatInput').value = transcript;
-                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+                let interim = "";
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        recognizedText += event.results[i][0].transcript + " ";
+                    } else {
+                        interim += event.results[i][0].transcript;
+                    }
+                }
+                const currentSpoken = (recognizedText + interim).trim();
+                document.getElementById('chatInput').value = currentSpoken;
+                if (currentSpoken) {
+                    voiceStatusText.textContent = `Heard: "${currentSpoken}"`;
+                }
             };
 
-            recognition.onerror = () => {
-                showToast('Microphone error or permission denied.', 'error');
+            recognition.onerror = (err) => {
+                console.error("Speech Recognition Error:", err);
+                stopMic();
             };
 
             recognition.onend = () => {
-                isRecording = false;
-                micBtn.classList.remove('bg-frontier-rose', 'text-slate-950', 'voice-active');
-                voiceStatus.classList.add('hidden');
+                stopMic();
+                const finalPrompt = document.getElementById('chatInput').value.trim();
+                if (finalPrompt) {
+                    document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+                }
             };
+        }
+
+        function stopMic() {
+            isRecording = false;
+            micBtn.classList.remove('bg-frontier-rose', 'text-slate-950', 'voice-active');
+            voiceStatus.classList.add('hidden');
         }
 
         micBtn.onclick = () => {
             if (!recognition) {
-                showToast('Speech Recognition not supported on this browser.', 'error');
+                showToast('Speech Recognition not supported on this browser. Use Chrome.', 'error');
                 return;
             }
             if (isRecording) {
                 recognition.stop();
             } else {
-                recognition.start();
+                const selectedLang = voiceLangSelector.value;
+                recognition.lang = selectedLang === 'auto' ? (navigator.language || 'hi-IN') : selectedLang;
+                try {
+                    recognition.start();
+                } catch (e) {
+                    recognition.stop();
+                }
             }
         };
 
         document.getElementById('toggleChatBtn').onclick = () => document.getElementById('chatWindow').classList.toggle('hidden');
         document.getElementById('closeChatBtn').onclick = () => {
             window.speechSynthesis.cancel();
+            if (isRecording && recognition) recognition.stop();
             document.getElementById('chatWindow').classList.add('hidden');
         };
 
@@ -782,7 +865,6 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         };
 
-        // Frontier Router (Gemini 3.1 / 3.7 Flash + GPT-5.6 Sol / o3)
         document.getElementById('chatForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const input = document.getElementById('chatInput');
@@ -799,10 +881,13 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             document.getElementById('activeModelLabel').textContent = `${model.toUpperCase()} Active`;
 
             const contractContext = document.getElementById('contractText').value.trim() || 'No contract loaded.';
-            const botMsgId = appendChat(`⏳ Reasoning with ${model.toUpperCase()}...`, 'bot');
+            const botMsgId = appendChat(`⏳ Analyzing with ${model.toUpperCase()}...`, 'bot');
             const botMsgDiv = document.getElementById(botMsgId);
 
-            const systemPrompt = `You are KhaasCore Frontier Legal AI (powered by ${model}). Active Contract Context:\n\n${contractContext}\n\nDeliver cutting-edge legal intelligence, high-stakes negotiation strategy, and statutory precedents. Keep output clear and spoken-ready.`;
+            const systemPrompt = `You are KhaasCore Polyglot Frontier Legal AI (powered by ${model}). 
+You support ALL human languages fluently (Hindi, English, Urdu, Bengali, Arabic, Spanish, French, German, Chinese, Japanese, etc.).
+Active Contract Context:\n\n${contractContext}\n\n
+Always respond in the EXACT same language that the user uses in their question. Deliver elite legal intelligence, high-stakes negotiation strategy, and statutory precedents. Keep output clear and spoken-ready.`;
 
             try {
                 let responseText = "";
@@ -833,8 +918,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                         botMsgDiv.textContent = '⚠️ Google Gemini API Key missing. Please configure it in the "API Keys Hub".';
                         return;
                     }
-                    // Map Frontier Gemini Names to Real Endpoint IDs
-                    const targetGemini = model.includes('3.7') || model.includes('3.1') || model.includes('omni') ? 'gemini-1.5-pro' : model;
+                    const targetGemini = model.includes('3.7') || model.includes('3.1') ? 'gemini-1.5-pro' : model;
                     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${targetGemini}:generateContent?key=${geminiKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -939,4 +1023,3 @@ ARTICLE 2: RESTRICTIVE COVENANTS
     </script>
 </body>
 </html>
-
