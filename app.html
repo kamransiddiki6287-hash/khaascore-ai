@@ -111,7 +111,7 @@
                             <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-pulse"></span> Ultra Engine Online
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-400">Universal Contract Audit & Multi-Lingual Speech</p>
+                    <p class="text-[11px] text-slate-400">Gemini 3.6 Flash / 3.1 Pro Powered Legal AI</p>
                 </div>
             </div>
 
@@ -119,7 +119,6 @@
             <div class="flex items-center gap-2.5">
                 <div id="google_translate_element" class="hidden sm:block"></div>
 
-                <!-- Voice Input Language Selector -->
                 <div class="flex items-center bg-frontier-input rounded-full px-3 py-1.5 border border-frontier-border text-xs">
                     <i data-lucide="languages" class="w-3.5 h-3.5 text-frontier-purple mr-1.5"></i>
                     <select id="voiceLangSelector" class="bg-transparent text-slate-200 text-[11px] outline-none cursor-pointer font-medium">
@@ -299,7 +298,7 @@
                 <div>
                     <h4 class="text-xs font-bold text-white">Polyglot Voice Co-Counsel</h4>
                     <span class="text-[9px] text-frontier-emerald flex items-center gap-1 font-mono">
-                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> AI Engine Ready
+                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> Gemini 3.6 Flash Active
                     </span>
                 </div>
             </div>
@@ -691,21 +690,31 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         };
 
-        // Standard Unified AI Caller
-        async function executeSingleAI(apiKey, payloadText) {
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-            const res = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ role: 'user', parts: [{ text: payloadText }] }]
-                })
-            });
-            const data = await res.json();
-            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                return data.candidates[0].content.parts[0].text;
+        // Official Gemini 3.6 Flash / 3.1 Pro Single High-Performance Endpoint
+        async function executeGeminiAPI(apiKey, payloadText) {
+            const models = ['gemini-3.6-flash', 'gemini-3.1-pro'];
+            let lastError = '';
+
+            for (const model of models) {
+                try {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ role: 'user', parts: [{ text: payloadText }] }]
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                        return data.candidates[0].content.parts[0].text;
+                    }
+                    if (data.error) lastError = data.error.message;
+                } catch (e) {
+                    lastError = e.message;
+                }
             }
-            throw new Error(data.error?.message || 'API Execution Error');
+            throw new Error(lastError || 'API Execution Error');
         }
 
         document.getElementById('chatForm').addEventListener('submit', async (e) => {
@@ -736,7 +745,7 @@ User Question: ${msg}
 Always reply in the EXACT SAME LANGUAGE that the user used (Hindi/English/Urdu etc.). Provide concise, accurate legal insights.`;
 
             try {
-                const responseText = await executeSingleAI(geminiKey, promptPayload);
+                const responseText = await executeGeminiAPI(geminiKey, promptPayload);
 
                 botMsgDiv.innerHTML = '';
                 const textSpan = document.createElement('span');
