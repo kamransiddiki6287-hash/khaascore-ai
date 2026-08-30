@@ -90,7 +90,6 @@
         <i id="toastIcon" data-lucide="info" class="w-4 h-4 text-frontier-cyan"></i>
         <span id="toastMsg" class="text-slate-200">System Ready</span>
     </div>
-
     <!-- Header -->
     <header class="border-b border-frontier-border/60 bg-frontier-panel/85 backdrop-blur-xl sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -110,7 +109,6 @@
                     <p class="text-[11px] text-slate-400">Gemini 3.6 Flash / 3.1 Pro Powered Legal AI</p>
                 </div>
             </div>
-
             <div class="flex items-center gap-2.5">
                 <div id="google_translate_element" class="hidden sm:block"></div>
 
@@ -124,7 +122,6 @@
                         <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
                     </select>
                 </div>
-
                 <button id="openConfigModal" class="px-3.5 py-1.5 bg-frontier-card hover:bg-frontier-input text-xs font-medium text-slate-300 rounded-full border border-frontier-border transition flex items-center gap-1.5">
                     <i data-lucide="key-round" class="w-3.5 h-3.5 text-frontier-purple"></i>
                     <span class="hidden sm:inline">API Key</span>
@@ -132,10 +129,8 @@
             </div>
         </div>
     </header>
-
     <!-- Main Workspace -->
-    <main class="max-w-7xl mx-auto px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mb-16">
-        
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mb-16
         <!-- Left: Contract Input -->
         <section class="lg:col-span-5 flex flex-col gap-4">
             <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-4 shadow-xl space-y-3">
@@ -764,18 +759,13 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             const promptPayload = `You are KhaasCore Frontier Legal AI.
 Contract Context:
 ${contractContext}
-
 User Question: ${msg}
-
 Reply in Hindi/English with direct, short points (max 2 sentences).`;
-
-            try {
+        try {
                 const responseText = await executeGeminiAPI(geminiKey, promptPayload);
-
                 botMsgDiv.innerHTML = '';
                 const textSpan = document.createElement('span');
                 botMsgDiv.appendChild(textSpan);
-
                 let i = 0;
                 const timer = setInterval(() => {
                     textSpan.textContent += responseText.charAt(i);
@@ -783,7 +773,6 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
                     if (i >= responseText.length) {
                         clearInterval(timer);
                         isProcessingRequest = false;
-                        
                         const listenBtn = document.createElement('button');
                         listenBtn.className = 'mt-2 text-[11px] text-slate-900 bg-frontier-cyan font-bold px-3 py-1.5 rounded-xl flex items-center gap-1.5 active:scale-95 transition';
                         listenBtn.innerHTML = '<i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 आवाज़ में सुनें (Listen)';
@@ -800,8 +789,28 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
                 botMsgDiv.textContent = `⚠️ Error: ${err.message}`;
             }
         });
+        // --- DUAL GEMINI MODELS (PRO & FLASH) ---
+const AI_MODELS = {
+  flash: "gemini-1.5-flash", // तेज़ वॉयस और चैट के लिए
+  pro: "gemini-1.5-pro"       // डीप लीगल ऑडिट के लिए
+};
+async function executeGeminiAPI(apiKey, promptPayload, isHeavyAudit = false) {
+  if (!apiKey) {
+    throw new Error("कृपया पहले ऊपर API Key बटन दबाकर अपनी Gemini Key सेव करें!");
+  }
+  const selectedModel = isHeavyAudit ? AI_MODELS.pro : AI_MODELS.flash;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`;
 
-        function appendChat(text, sender) {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(promptPayload)
+  });
+  const data = await response.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.candidates[0].content.parts[0].text;
+}
+function appendChat(text, sender) {
             const box = document.getElementById('chatMessages');
             const div = document.createElement('div');
             const id = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
@@ -814,7 +823,6 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
             box.scrollTop = box.scrollHeight;
             return id;
         }
-
         document.getElementById('openConfigModal').onclick = () => {
             document.getElementById('geminiApiKey').value = localStorage.getItem('khaas_gemini_key') || '';
             document.getElementById('configModal').classList.remove('hidden');
@@ -825,18 +833,15 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
             document.getElementById('configModal').classList.add('hidden');
             showToast('Gemini API Key securely saved!', 'success');
         };
-
         document.getElementById('loadPresetBtn').onclick = () => {
             document.getElementById('contractText').value = MASTER_PRESET;
             showToast('Benchmark contract loaded.', 'info');
         };
-
         document.getElementById('clearBtn').onclick = () => { 
             document.getElementById('contractText').value = ''; 
             document.getElementById('panelAudit').innerHTML = ''; 
             showToast('Editor cleared.', 'info');
         };
-
         document.getElementById('fileUploader').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -859,7 +864,6 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
         });
           // --- VOICE SPEECH RECOGNITION (HINDI & MOBILE FIX) ---
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
   if (SpeechRecognition) {
     const recognition = new SpeechRecognition();
     recognition.continuous = false;
@@ -869,7 +873,6 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
       const el = document.getElementById('voiceLangSelector');
       return el ? el.value : 'hi-IN';
     }
-
     window.toggleVoiceRecognition = function() {
       try {
         recognition.lang = getVoiceLang();
@@ -878,18 +881,15 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
         try { recognition.stop(); } catch(err) {}
       }
     };
-
     const micBtn = document.getElementById('micBtn') || document.querySelector('[onclick*="toggleVoice"]');
     if (micBtn) {
       micBtn.onclick = window.toggleVoiceRecognition;
     }
-
     recognition.onstart = () => {
       const status = document.getElementById('recordingStatus');
       if (status) status.classList.remove('hidden');
       if (micBtn) micBtn.classList.add('voice-active');
     };
-
     recognition.onresult = (event) => {
       let text = '';
       for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -898,14 +898,12 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
       const input = document.getElementById('textQueryInput') || document.getElementById('userVoiceInput');
       if (input) input.value = text;
     };
-
     recognition.onerror = (event) => {
       console.warn("Speech Error:", event.error);
       if (micBtn) micBtn.classList.remove('voice-active');
       const status = document.getElementById('recordingStatus');
       if (status) status.classList.add('hidden');
     };
-
     recognition.onend = () => {
       if (micBtn) micBtn.classList.remove('voice-active');
       const status = document.getElementById('recordingStatus');
