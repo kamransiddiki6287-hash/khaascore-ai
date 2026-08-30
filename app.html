@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KhaasCore Legal OS | Universal Multi-Lingual Frontier Intelligence</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- jsPDF & Mammoth -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     
-    <!-- Google Universal Translate Widget -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -122,7 +118,6 @@
                 <div class="flex items-center bg-frontier-input rounded-full px-3 py-1.5 border border-frontier-border text-xs">
                     <i data-lucide="languages" class="w-3.5 h-3.5 text-frontier-purple mr-1.5"></i>
                     <select id="voiceLangSelector" class="bg-transparent text-slate-200 text-[11px] outline-none cursor-pointer font-medium">
-                        <option value="auto">🌐 Auto Voice Lang</option>
                         <option value="hi-IN" selected>🇮🇳 Hindi (हिन्दी)</option>
                         <option value="en-US">🇺🇸 English</option>
                         <option value="ur-IN">🇵🇰 Urdu (اردو)</option>
@@ -313,22 +308,25 @@
         </div>
 
         <div class="p-2 bg-frontier-panel/60 border-b border-frontier-border flex gap-1.5 overflow-x-auto text-[10px]">
-            <button onclick="sendQuickPrompt('Analyze the critical liabilities in Hindi and speak it.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">🇮🇳 हिन्दी में बोलें</button>
+            <button onclick="sendQuickPrompt('नमस्ते, इस कॉन्ट्रैक्ट का मुख्य रिस्क क्या है?')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">🇮🇳 मुख्य रिस्क पूछें</button>
             <button onclick="sendQuickPrompt('Draft an aggressive counter-proposal email in English.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">✉️ English Draft</button>
             <button onclick="sendQuickPrompt('Summarize key risks in simple points.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">📌 Top Risks</button>
         </div>
 
         <div id="chatMessages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs font-sans">
             <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                <span>नमस्ते / Hello! Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic</strong> or any language.</span>
-                <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI असिस्टेंट हूँ। माइक दबाकर कुछ भी पूछें।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
+                <span>नमस्ते! माइक दबाकर बोलें या नीचे टेस्ट बटन दबाकर सीधे आवाज़ सुनें।</span>
+                <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आप मुझसे कोई भी सवाल पूछ सकते हैं।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
                     <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
                 </button>
             </div>
         </div>
 
-        <div id="voiceStatus" class="hidden px-4 py-1.5 bg-frontier-input text-[11px] text-frontier-rose flex items-center gap-2 border-t border-frontier-border font-mono">
-            <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> <span id="voiceStatusText">Listening... Speak now</span>
+        <div id="voiceStatus" class="hidden px-4 py-1.5 bg-frontier-input text-[11px] text-frontier-rose flex items-center justify-between border-t border-frontier-border font-mono">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> <span id="voiceStatusText">Listening...</span>
+            </div>
+            <button type="button" onclick="stopMicManual()" class="text-[10px] bg-frontier-rose/20 text-frontier-rose px-2 py-0.5 rounded-md border border-frontier-rose/40 font-bold">Stop & Send</button>
         </div>
 
         <form id="chatForm" class="p-2.5 bg-frontier-panel border-t border-frontier-border flex items-center gap-2">
@@ -341,9 +339,6 @@
             </button>
         </form>
     </div>
-
-    <!-- Hidden Audio Element for Fallback Speech -->
-    <audio id="ttsAudioFallback" class="hidden"></audio>
 
     <!-- API Key Modal -->
     <div id="configModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -584,68 +579,45 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             showToast('PDF Exported successfully!', 'success');
         };
 
-        // Ultra-Reliable Multi-Engine Speech System (WebSpeech + Cloud Audio Stream)
+        // 100% Robust Mobile-Ready Audio & Speech
         let autoSpeakEnabled = true;
         let isProcessingRequest = false;
-
-        function stopAllAudio() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            const fallbackAudio = document.getElementById('ttsAudioFallback');
-            if (fallbackAudio) {
-                fallbackAudio.pause();
-                fallbackAudio.currentTime = 0;
-            }
-        }
+        let globalUtterance = null;
 
         window.speakDirect = function(textToSpeak) {
-            stopAllAudio();
+            if (!('speechSynthesis' in window)) {
+                showToast('Speech not supported on this browser', 'error');
+                return;
+            }
+
+            try {
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.resume(); // Android Chrome wakeup call
+            } catch(e) {}
+
             const cleanText = textToSpeak.replace(/[*_#`~>]/g, '').trim();
             if (!cleanText) return;
 
-            const selectedLang = document.getElementById('voiceLangSelector').value;
-            const langCode = selectedLang === 'auto' ? 'hi' : selectedLang.split('-')[0];
+            globalUtterance = new SpeechSynthesisUtterance(cleanText);
+            globalUtterance.rate = 0.95;
+            globalUtterance.pitch = 1.0;
+            globalUtterance.volume = 1.0;
 
-            let spokenSuccessfully = false;
+            const selectedLang = document.getElementById('voiceLangSelector').value || 'hi-IN';
+            globalUtterance.lang = selectedLang;
 
-            if ('speechSynthesis' in window) {
-                try {
-                    const utterance = new SpeechSynthesisUtterance(cleanText);
-                    utterance.rate = 1.0;
-                    utterance.pitch = 1.0;
-                    utterance.volume = 1.0;
-                    utterance.lang = selectedLang === 'auto' ? 'hi-IN' : selectedLang;
-
-                    const voices = window.speechSynthesis.getVoices();
-                    if (voices.length > 0) {
-                        const matchedVoice = voices.find(v => v.lang.toLowerCase().includes(langCode));
-                        if (matchedVoice) utterance.voice = matchedVoice;
-                    }
-
-                    utterance.onstart = () => { spokenSuccessfully = true; };
-                    window.speechSynthesis.speak(utterance);
-                } catch (e) {
-                    spokenSuccessfully = false;
-                }
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                const langPrefix = selectedLang.split('-')[0];
+                const matchedVoice = voices.find(v => v.lang.toLowerCase().includes(langPrefix));
+                if (matchedVoice) globalUtterance.voice = matchedVoice;
             }
 
-            // High-Performance Cloud Audio Fallback if WebSpeech is blocked by mobile OS
-            setTimeout(() => {
-                if (!window.speechSynthesis.speaking && !spokenSuccessfully) {
-                    try {
-                        const fallbackAudio = document.getElementById('ttsAudioFallback');
-                        const encodedText = encodeURIComponent(cleanText.substring(0, 180));
-                        fallbackAudio.src = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${langCode}&client=tw-ob`;
-                        fallbackAudio.play().catch(() => {});
-                    } catch (err) {}
-                }
-            }, 300);
+            window.speechSynthesis.speak(globalUtterance);
         };
 
         const micBtn = document.getElementById('micBtn');
         const voiceStatus = document.getElementById('voiceStatus');
-        const voiceStatusText = document.getElementById('voiceStatusText');
         const toggleTtsBtn = document.getElementById('toggleTtsBtn');
         const ttsIcon = document.getElementById('ttsIcon');
         const voiceLangSelector = document.getElementById('voiceLangSelector');
@@ -654,14 +626,14 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             const box = document.getElementById('chatMessages');
             box.innerHTML = `
                 <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                    <span>नमस्ते / Hello! Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic</strong> or any language.</span>
-                    <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI असिस्टेंट हूँ। माइक दबाकर कुछ भी पूछें।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
+                    <span>नमस्ते! माइक दबाकर बोलें या नीचे टेस्ट बटन दबाकर सीधे आवाज़ सुनें।</span>
+                    <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आप मुझसे कोई भी सवाल पूछ सकते हैं।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
                         <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
                     </button>
                 </div>
             `;
-            stopAllAudio();
-            showToast('Chat history cleared', 'info');
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            showToast('Chat cleared', 'info');
             lucide.createIcons();
         };
 
@@ -672,7 +644,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 ttsIcon.className = 'w-4 h-4 text-frontier-cyan';
                 showToast('Voice Output Enabled', 'info');
             } else {
-                stopAllAudio();
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
                 ttsIcon.setAttribute('data-lucide', 'volume-x');
                 ttsIcon.className = 'w-4 h-4 text-slate-500';
                 showToast('Voice Output Muted', 'info');
@@ -693,43 +665,54 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 isRecording = true;
                 micBtn.classList.add('bg-frontier-rose', 'text-slate-950', 'voice-active');
                 voiceStatus.classList.remove('hidden');
-                voiceStatusText.textContent = `Listening in ${voiceLangSelector.options[voiceLangSelector.selectedIndex].text}...`;
             };
 
             recognition.onresult = (event) => {
                 const spoken = event.results[0][0].transcript;
-                stopMic();
+                stopMicImmediate();
                 if (spoken && spoken.trim().length > 0 && !isProcessingRequest) {
                     document.getElementById('chatInput').value = spoken.trim();
                     document.getElementById('chatForm').dispatchEvent(new Event('submit'));
                 }
             };
 
-            recognition.onerror = () => stopMic();
-            recognition.onend = () => stopMic();
+            recognition.onerror = () => stopMicImmediate();
+            recognition.onend = () => stopMicImmediate();
         }
 
-        function stopMic() {
+        function stopMicImmediate() {
             isRecording = false;
             micBtn.classList.remove('bg-frontier-rose', 'text-slate-950', 'voice-active');
             voiceStatus.classList.add('hidden');
         }
 
+        window.stopMicManual = function() {
+            if (recognition && isRecording) {
+                recognition.stop();
+            }
+            stopMicImmediate();
+            const curVal = document.getElementById('chatInput').value.trim();
+            if (curVal && !isProcessingRequest) {
+                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+            }
+        };
+
         micBtn.onclick = () => {
-            stopAllAudio();
+            try {
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.resume();
+            } catch(e) {}
+
             if (!recognition) {
-                showToast('Speech Recognition not supported. Use Chrome.', 'error');
+                showToast('Use phone keyboard mic if speech fails.', 'info');
                 return;
             }
             if (isRecording) {
                 recognition.stop();
+                stopMicImmediate();
             } else {
-                if (isProcessingRequest) {
-                    showToast('AI is still responding...', 'info');
-                    return;
-                }
-                const selectedLang = voiceLangSelector.value;
-                recognition.lang = selectedLang === 'auto' ? 'hi-IN' : selectedLang;
+                if (isProcessingRequest) return;
+                recognition.lang = voiceLangSelector.value || 'hi-IN';
                 try {
                     recognition.start();
                 } catch (e) {
@@ -740,10 +723,11 @@ ARTICLE 2: RESTRICTIVE COVENANTS
 
         document.getElementById('toggleChatBtn').onclick = () => {
             document.getElementById('chatWindow').classList.toggle('hidden');
+            try { window.speechSynthesis.resume(); } catch(e) {}
         };
 
         document.getElementById('closeChatBtn').onclick = () => {
-            stopAllAudio();
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             if (isRecording && recognition) recognition.stop();
             document.getElementById('chatWindow').classList.add('hidden');
         };
@@ -809,7 +793,7 @@ ${contractContext}
 
 User Question: ${msg}
 
-Reply in the EXACT SAME LANGUAGE as the user query (e.g. Hindi/Urdu/English). Keep the reply concise, natural and spoke-ready.`;
+Reply in the EXACT SAME LANGUAGE as the user query (Hindi/Urdu/English). Keep the reply concise, short and natural for speech output.`;
 
             try {
                 const responseText = await executeGeminiAPI(geminiKey, promptPayload);
@@ -837,7 +821,7 @@ Reply in the EXACT SAME LANGUAGE as the user query (e.g. Hindi/Urdu/English). Ke
                             speakDirect(responseText);
                         }
                     }
-                }, 8);
+                }, 6);
 
             } catch (err) {
                 isProcessingRequest = false;
