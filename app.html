@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhaasCore Legal OS | Autonomous All-in-One Engine</title>
+    <title>KhaasCore Legal OS | Universal Multi-Lingual Frontier Intelligence</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -92,34 +92,66 @@
     <!-- Toast Notification -->
     <div id="toastNotification" class="fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-[-150%] opacity-0 bg-frontier-card border border-frontier-border px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-medium">
         <i id="toastIcon" data-lucide="info" class="w-4 h-4 text-frontier-cyan"></i>
-        <span id="toastMsg" class="text-slate-200">System Ready</span>
+        <span id="toastMsg" class="text-slate-200">System Notification</span>
     </div>
 
-    <!-- Header (Fully Automated - No Complex Selectors) -->
+    <!-- Header -->
     <header class="border-b border-frontier-border/60 bg-frontier-panel/85 backdrop-blur-xl sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-[1.5px] flex items-center justify-center shadow-lg shadow-cyan-500/20">
                     <div class="w-full h-full bg-frontier-dark rounded-2xl flex items-center justify-center">
-                        <i data-lucide="brain-circuit" class="w-5 h-5 text-frontier-cyan"></i>
+                        <i data-lucide="globe" class="w-5 h-5 text-frontier-cyan"></i>
                     </div>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-bold text-lg tracking-tight frontier-gradient-text">KhaasCore All-in-One OS</span>
-                        <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-frontier-emerald/20 text-frontier-emerald border border-frontier-emerald/30 font-mono font-semibold flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-pulse"></span> Auto Engine Live
+                        <span class="font-bold text-lg tracking-tight frontier-gradient-text">KhaasCore Polyglot OS</span>
+                        <span id="modelBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-frontier-purple/20 text-frontier-purple border border-frontier-purple/30 font-mono font-semibold flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-frontier-purple animate-pulse"></span> All Engines Active
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-400">Autonomous Reasoning · Auto Language Voice · 1-Click Audit</p>
+                    <p class="text-[11px] text-slate-400">Gemini 3.1 Pro · 3.7 Flash · Omni · GPT-5.6 Sol</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
+            <!-- Top Controls -->
+            <div class="flex items-center gap-2.5">
                 <div id="google_translate_element" class="hidden sm:block"></div>
+
+                <!-- Voice Input Language Selector -->
+                <div class="flex items-center bg-frontier-input rounded-full px-3 py-1.5 border border-frontier-border text-xs">
+                    <i data-lucide="languages" class="w-3.5 h-3.5 text-frontier-purple mr-1.5"></i>
+                    <select id="voiceLangSelector" class="bg-transparent text-slate-200 text-[11px] outline-none cursor-pointer font-medium">
+                        <option value="auto">🌐 Auto Voice Lang</option>
+                        <option value="hi-IN">🇮🇳 Hindi (हिन्दी)</option>
+                        <option value="en-US">🇺🇸 English</option>
+                        <option value="ur-IN">🇵🇰 Urdu (اردو)</option>
+                        <option value="bn-IN">🇧🇩 Bengali (বাংলা)</option>
+                        <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
+                        <option value="es-ES">🇪🇸 Spanish</option>
+                        <option value="fr-FR">🇫🇷 French</option>
+                        <option value="de-DE">🇩🇪 German</option>
+                        <option value="zh-CN">🇨🇳 Chinese</option>
+                        <option value="ja-JP">🇯🇵 Japanese</option>
+                    </select>
+                </div>
+
+                <!-- Frontier AI Model Selector (Exact Match to Your 6 Models) -->
+                <div class="flex items-center bg-frontier-input rounded-full px-3.5 py-1.5 border border-frontier-border text-xs">
+                    <select id="engineSelector" class="bg-transparent text-frontier-cyan font-mono font-semibold outline-none cursor-pointer text-xs">
+                        <option value="gemini-3.1-pro" selected>Gemini 3.1 Pro</option>
+                        <option value="gemini-3-pro">Gemini 3 Pro</option>
+                        <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+                        <option value="gemini-omni">Gemini Omni</option>
+                        <option value="gpt-5.6-sol">GPT-5.6 Sol</option>
+                        <option value="gpt-5.6">GPT-5.6</option>
+                    </select>
+                </div>
+
                 <button id="openConfigModal" class="px-3.5 py-1.5 bg-frontier-card hover:bg-frontier-input text-xs font-medium text-slate-300 rounded-full border border-frontier-border transition flex items-center gap-1.5">
                     <i data-lucide="key-round" class="w-3.5 h-3.5 text-frontier-purple"></i>
-                    <span>API Key</span>
+                    <span class="hidden sm:inline">API Keys</span>
                 </button>
             </div>
         </div>
@@ -130,10 +162,42 @@
         
         <!-- Left: Contract Input -->
         <section class="lg:col-span-5 flex flex-col gap-4">
+            <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-4 shadow-xl space-y-3">
+                <div class="grid grid-cols-3 gap-2 text-xs">
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Archetype</label>
+                        <select id="contractMode" class="w-full bg-frontier-input border border-frontier-border rounded-xl px-2.5 py-2 text-xs text-slate-200 outline-none focus:border-frontier-cyan">
+                            <option value="saas">SaaS Agreement</option>
+                            <option value="nda">Mutual NDA</option>
+                            <option value="vendor">Vendor Supply</option>
+                            <option value="employment">Employment IP</option>
+                            <option value="dpa">Cross-Border DPA</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Governing Law</label>
+                        <select id="jurisdictionMode" class="w-full bg-frontier-input border border-frontier-border rounded-xl px-2.5 py-2 text-xs text-slate-200 outline-none focus:border-frontier-cyan">
+                            <option value="US_DE">US (Delaware / UCC)</option>
+                            <option value="UK">UK (English Law)</option>
+                            <option value="EU">European Union (GDPR)</option>
+                            <option value="IN">India (ICA / DPDP)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Target Stance</label>
+                        <select id="negotiationStance" class="w-full bg-frontier-input border border-frontier-border rounded-xl px-2.5 py-2 text-xs text-slate-200 outline-none focus:border-frontier-cyan">
+                            <option value="balanced">Balanced Neutral</option>
+                            <option value="customer_pro">Buyer Pro</option>
+                            <option value="vendor_pro">Vendor Pro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-4 flex-1 flex flex-col shadow-xl">
                 <div class="flex items-center justify-between mb-2.5 text-xs text-slate-400">
                     <span class="flex items-center gap-1.5 font-medium text-slate-300">
-                        <i data-lucide="file-code-2" class="w-4 h-4 text-frontier-cyan"></i> Universal Contract Source
+                        <i data-lucide="file-code-2" class="w-4 h-4 text-frontier-cyan"></i> Universal Contract Editor
                     </span>
                     <div class="flex items-center gap-3">
                         <label class="hover:text-frontier-cyan cursor-pointer flex items-center gap-1">
@@ -145,12 +209,12 @@
                     </div>
                 </div>
 
-                <textarea id="contractText" class="w-full flex-1 min-h-[460px] bg-frontier-input border border-frontier-border/80 rounded-2xl p-4 text-xs sm:text-sm font-mono text-slate-100 focus:outline-none focus:border-frontier-cyan leading-relaxed resize-none shadow-inner" placeholder="Paste contract text in any language or click 'Load Benchmark'..."></textarea>
+                <textarea id="contractText" class="w-full flex-1 min-h-[460px] bg-frontier-input border border-frontier-border/80 rounded-2xl p-4 text-xs sm:text-sm font-mono text-slate-100 focus:outline-none focus:border-frontier-cyan leading-relaxed resize-none shadow-inner" placeholder="Paste contract clauses in any language..."></textarea>
 
                 <div class="mt-4 flex gap-3">
                     <button id="analyzeBtn" class="flex-1 bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:opacity-95 text-white font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 text-xs sm:text-sm transition transform active:scale-[0.99]">
-                        <i data-lucide="zap" class="w-4 h-4"></i>
-                        <span>Auto-Audit Everything</span>
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                        <span>Execute Multi-Lingual Audit</span>
                     </button>
                     <button id="clearBtn" class="px-4 py-3.5 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-2xl text-xs font-medium transition">Clear</button>
                 </div>
@@ -159,12 +223,11 @@
 
         <!-- Right: Scorecard & Tabs -->
         <section class="lg:col-span-7 flex flex-col gap-4">
-            
             <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-5 shadow-xl">
                 <div class="flex items-center justify-between pb-3 mb-3 border-b border-frontier-border/60">
                     <div class="flex items-center gap-2">
                         <i data-lucide="shield-alert" class="w-4 h-4 text-frontier-cyan"></i>
-                        <h2 class="text-sm font-semibold text-slate-200">Autonomous Statutory Matrix</h2>
+                        <h2 class="text-sm font-semibold text-slate-200">Statutory Risk & Liability Matrix</h2>
                     </div>
                     <div class="flex gap-2">
                         <button id="downloadPdfBtn" class="bg-frontier-input hover:bg-frontier-border text-slate-200 text-xs px-3.5 py-1.5 rounded-full border border-frontier-border flex items-center gap-1.5 font-medium transition">
@@ -190,8 +253,8 @@
                         <span id="exposureIndex" class="text-base font-black font-mono text-slate-400">$0</span>
                     </div>
                     <div class="bg-frontier-input/80 p-3 rounded-2xl border border-frontier-border/50">
-                        <span class="text-[9px] text-slate-400 uppercase font-bold block mb-0.5">Engine Mode</span>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-frontier-emerald/20 text-frontier-emerald inline-block mt-0.5">AUTONOMOUS</span>
+                        <span class="text-[9px] text-slate-400 uppercase font-bold block mb-0.5">Leverage</span>
+                        <span id="leverageBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-frontier-panel text-slate-400 inline-block mt-0.5">NEUTRAL</span>
                     </div>
                 </div>
             </div>
@@ -213,27 +276,27 @@
                 <div id="panelAudit" class="tab-panel flex-1 overflow-y-auto space-y-4 max-h-[580px] pr-1.5">
                     <div class="h-full min-h-[300px] flex flex-col items-center justify-center text-slate-500 border border-dashed border-frontier-border rounded-3xl p-6 text-center">
                         <div class="p-3 bg-frontier-input rounded-full mb-2"><i data-lucide="scale" class="w-6 h-6 text-slate-500"></i></div>
-                        <p class="text-xs text-slate-400">Auto Neural Auditor ready.</p>
-                        <p class="text-[11px] text-slate-600 max-w-xs mt-1">Load benchmark or paste contract to analyze all liabilities at once.</p>
+                        <p class="text-xs text-slate-400">Polyglot Neural Auditor ready.</p>
+                        <p class="text-[11px] text-slate-600 max-w-xs mt-1">Paste terms in any language or load benchmark clauses to execute deep audit.</p>
                     </div>
                 </div>
 
                 <div id="panelPlaybook" class="tab-panel hidden flex-1 overflow-y-auto space-y-4 max-h-[580px] pr-1.5 text-xs">
                     <div id="playbookContent" class="p-4 rounded-2xl bg-frontier-panel border border-frontier-border space-y-3 leading-relaxed text-slate-300">
-                        Audit contract to generate recommendations.
+                        Audit contract to auto-generate strategic recommendations.
                     </div>
                 </div>
 
                 <div id="panelDiff" class="tab-panel hidden flex-1 overflow-y-auto space-y-3 max-h-[580px] pr-1.5 text-xs font-mono">
                     <div id="diffSummaryBox" class="p-4 rounded-2xl bg-frontier-panel border border-frontier-border leading-relaxed text-slate-300">
-                        Audit contract to view redline comparisons.
+                        Execute audit to view word-by-word redline comparisons.
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Floating Universal Voice Button -->
+    <!-- Floating Universal Voice Copilot Button -->
     <div class="fixed bottom-6 right-6 z-50">
         <button id="toggleChatBtn" class="bg-frontier-input hover:bg-frontier-card border border-frontier-border text-white p-3.5 rounded-full shadow-2xl flex items-center gap-2.5 font-medium transition transform hover:scale-105">
             <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-500 flex items-center justify-center p-[1px]">
@@ -241,24 +304,24 @@
                     <i data-lucide="mic" class="w-3.5 h-3.5 text-frontier-cyan"></i>
                 </div>
             </div>
-            <span class="text-xs hidden sm:inline font-sans font-semibold">Auto Voice AI</span>
+            <span class="text-xs hidden sm:inline font-sans font-semibold">Universal Voice AI</span>
         </button>
     </div>
 
-    <!-- Chat Window with Autonomous Voice & AI Response -->
+    <!-- Chat Window with Real-Time Speech Recognition & TTS -->
     <div id="chatWindow" class="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] h-[580px] bg-frontier-dark/95 border border-frontier-border rounded-3xl shadow-2xl flex flex-col z-50 hidden overflow-hidden backdrop-blur-2xl">
         <div class="bg-frontier-panel p-3.5 border-b border-frontier-border flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <i data-lucide="sparkles" class="w-4 h-4 text-frontier-purple"></i>
                 <div>
-                    <h4 class="text-xs font-bold text-white">Autonomous Voice Co-Counsel</h4>
-                    <span class="text-[9px] text-frontier-emerald flex items-center gap-1 font-mono">
-                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> Auto Intelligence Active
+                    <h4 class="text-xs font-bold text-white">Polyglot Voice Co-Counsel</h4>
+                    <span id="activeModelLabel" class="text-[9px] text-frontier-emerald flex items-center gap-1 font-mono">
+                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> Gemini 3.1 Pro Active
                     </span>
                 </div>
             </div>
             <div class="flex items-center gap-1.5">
-                <button id="toggleTtsBtn" class="p-1.5 rounded-lg bg-frontier-input text-frontier-cyan hover:text-white" title="Toggle Voice Output">
+                <button id="toggleTtsBtn" class="p-1.5 rounded-lg bg-frontier-input text-frontier-cyan hover:text-white" title="Toggle Auto-Voice Output">
                     <i id="ttsIcon" data-lucide="volume-2" class="w-4 h-4"></i>
                 </button>
                 <button id="closeChatBtn" class="text-slate-400 hover:text-white p-1.5"><i data-lucide="x" class="w-4 h-4"></i></button>
@@ -266,15 +329,15 @@
         </div>
 
         <div class="p-2 bg-frontier-panel/60 border-b border-frontier-border flex gap-1.5 overflow-x-auto text-[10px]">
-            <button onclick="sendQuickPrompt('Analyze the critical liabilities in simple words and speak it.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">🎙️ Voice Briefing</button>
-            <button onclick="sendQuickPrompt('Draft an aggressive counter-proposal email.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">✉️ Counter Draft</button>
+            <button onclick="sendQuickPrompt('Analyze the critical liabilities in Hindi and speak it.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">🇮🇳 हिन्दी में बोलें</button>
+            <button onclick="sendQuickPrompt('Draft an aggressive counter-proposal email in English.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">✉️ English Draft</button>
             <button onclick="sendQuickPrompt('Summarize key risks in simple points.')" class="px-2.5 py-1 bg-frontier-input hover:bg-frontier-border text-slate-300 rounded-full whitespace-nowrap border border-frontier-border">📌 Top Risks</button>
         </div>
 
         <div id="chatMessages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs font-sans">
             <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                <span>नमस्ते / Hello! I am your Autonomous AI Co-Counsel. Click the <strong>microphone</strong> and speak in any language—I will auto-detect and respond.</span>
-                <button onclick="speakText('नमस्ते! Hello! I am your Autonomous AI Co-Counsel. Click the microphone and speak in any language.')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
+                <span>नमस्ते / Hello! Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic, Spanish</strong> or any language.</span>
+                <button onclick="speakText('नमस्ते! Hello! I understand all languages. Click the microphone and speak your question.')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
                     <i data-lucide="volume-2" class="w-3 h-3"></i> Listen
                 </button>
             </div>
@@ -288,19 +351,19 @@
             <button type="button" id="micBtn" class="w-9 h-9 rounded-full bg-frontier-input hover:bg-frontier-card text-frontier-cyan border border-frontier-border flex items-center justify-center transition">
                 <i data-lucide="mic" class="w-4 h-4"></i>
             </button>
-            <input type="text" id="chatInput" placeholder="Speak or type in any language..." class="flex-1 bg-frontier-input border border-frontier-border rounded-full px-4 py-2 text-xs text-slate-100 outline-none focus:border-frontier-cyan">
+            <input type="text" id="chatInput" placeholder="Type or click mic to speak..." class="flex-1 bg-frontier-input border border-frontier-border rounded-full px-4 py-2 text-xs text-slate-100 outline-none focus:border-frontier-cyan">
             <button type="submit" id="chatSendBtn" class="w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white flex items-center justify-center font-bold transition hover:opacity-90">
                 <i data-lucide="arrow-up" class="w-4 h-4"></i>
             </button>
         </form>
     </div>
 
-    <!-- API Key Modal -->
+    <!-- API Keys Modal -->
     <div id="configModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-frontier-card border border-frontier-border rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-frontier-border pb-3">
                 <h3 class="text-sm font-bold text-slate-100 flex items-center gap-2">
-                    <i data-lucide="key-round" class="w-4 h-4 text-frontier-purple"></i> Gemini API Key
+                    <i data-lucide="key-round" class="w-4 h-4 text-frontier-purple"></i> Frontier AI Keys Hub
                 </h3>
                 <button id="closeConfigModal" class="text-slate-400 hover:text-slate-200"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
@@ -309,14 +372,17 @@
                     <label class="block font-medium text-slate-300 mb-1">Google Gemini API Key</label>
                     <input type="password" id="geminiApiKey" placeholder="AIzaSy..." class="w-full bg-frontier-input border border-frontier-border rounded-xl p-2.5 text-slate-200 font-mono outline-none focus:border-frontier-cyan">
                 </div>
+                <div>
+                    <label class="block font-medium text-slate-300 mb-1">OpenAI API Key (Optional for GPT models)</label>
+                    <input type="password" id="openaiApiKey" placeholder="sk-proj-..." class="w-full bg-frontier-input border border-frontier-border rounded-xl p-2.5 text-slate-200 font-mono outline-none focus:border-frontier-cyan">
+                </div>
             </div>
             <div class="pt-3 border-t border-frontier-border flex justify-end">
-                <button id="saveConfigBtn" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full text-xs font-bold transition">Save Key</button>
+                <button id="saveConfigBtn" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full text-xs font-bold transition">Save Keys</button>
             </div>
         </div>
     </div>
 
-    <!-- Autonomous Engine Scripts -->
     <script>
         lucide.createIcons();
 
@@ -355,7 +421,11 @@
                 analysis: "Uncapped indemnity imposes open-ended corporate exposure without a monetary ceiling, violating balanced risk-shifting under UCC § 2-719.",
                 caseLaw: "Delaware Chancery Court in E.I. du Pont de Nemours & Co. v. Shell Oil Co.",
                 diffView: `Vendor shall defend and indemnify <span class="diff-del">from any and all claims without limitation or cap</span> <span class="diff-ins">subject strictly to the aggregate Liability Cap</span>.`,
-                fix: "Total aggregate indemnification liability shall strictly not exceed the total fees paid during the preceding twelve (12) months."
+                fixes: { 
+                    balanced: "Total aggregate indemnification liability shall strictly not exceed the total fees paid during the preceding twelve (12) months.",
+                    customer_pro: "Vendor shall fully indemnify Customer with an aggregate super-cap of 3x Annual Contract Value.",
+                    vendor_pro: "Indemnity shall be strictly limited to direct damages resulting from gross negligence, capped at fees received."
+                }
             },
             {
                 id: "gdpr_dpdp_liability",
@@ -367,7 +437,11 @@
                 analysis: "Shifting 100% of administrative sovereign data fines onto a processor is deemed contrary to public policy under CJEU standards.",
                 caseLaw: "CJEU jurisprudence on non-transferable personal administrative penalties.",
                 diffView: `Data Processor shall pay <span class="diff-del">all regulatory fines unconditionally</span> <span class="diff-ins">direct administrative fines solely resulting from proven gross negligence</span>.`,
-                fix: "Processor shall be liable solely for direct administrative fines caused directly by proven willful misconduct, capped at 2x Annual Contract Value."
+                fixes: { 
+                    balanced: "Processor shall be liable solely for direct administrative fines caused directly by proven willful misconduct, capped at 2x Annual Contract Value.",
+                    customer_pro: "Processor shall indemnify Controller for direct GDPR fines capped at $5,000,000.",
+                    vendor_pro: "Processor liability for data incidents shall be subject to standard liability caps."
+                }
             },
             {
                 id: "ftc_noncompete",
@@ -379,7 +453,11 @@
                 analysis: "Post-contractual non-competes spanning multiple years are void ab initio under Section 27 of ICA and recent FTC doctrines.",
                 caseLaw: "Supreme Court of India in Percept D'Mark v. Zaheer Khan (2006).",
                 diffView: `Contractor covenants that they shall not <span class="diff-del">engage in competing business worldwide for 3 years</span> <span class="diff-ins">solicit active clients for a reasonable period of 12 months</span>.`,
-                fix: "Employee agrees not to directly solicit active clients of Company for twelve (12) months following termination."
+                fixes: {
+                    balanced: "Employee agrees not to directly solicit active clients of Company for twelve (12) months following termination.",
+                    customer_pro: "Contractor agrees to non-solicitation of active clients for 6 months only.",
+                    vendor_pro: "Confidentiality and non-solicitation shall apply strictly to identical product lines for 12 months."
+                }
             }
         ];
 
@@ -415,9 +493,10 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 return;
             }
 
+            const stance = document.getElementById('negotiationStance').value;
             const findings = STATUTORY_RULES.filter(rule => rule.regex.test(text)).map(rule => ({
                 ...rule, 
-                selectedFix: rule.fix
+                selectedFix: rule.fixes[stance] || rule.fixes.balanced
             }));
 
             const hash = '0x' + Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2, '0')).join('');
@@ -425,11 +504,12 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             currentAudit = { 
                 findings, 
                 hash, 
+                stance,
                 totalExposure: findings.reduce((sum, f) => sum + f.exposureCost, 0) 
             };
 
             renderAudit(currentAudit);
-            showToast('All-in-One Audit completed!', 'success');
+            showToast('Multi-Lingual Audit completed!', 'success');
         });
 
         function renderAudit(audit) {
@@ -490,8 +570,11 @@ ARTICLE 2: RESTRICTIVE COVENANTS
         window.applyFix = function(id) {
             const rule = STATUTORY_RULES.find(r => r.id === id);
             let text = document.getElementById('contractText').value;
+            const stance = document.getElementById('negotiationStance').value;
+            const fixText = rule.fixes[stance] || rule.fixes.balanced;
+            
             if (rule.regex.test(text)) {
-                document.getElementById('contractText').value = text.replace(rule.regex, rule.fix);
+                document.getElementById('contractText').value = text.replace(rule.regex, fixText);
                 document.getElementById('analyzeBtn').click();
                 showToast('Clause upgraded successfully!', 'success');
             }
@@ -503,7 +586,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             currentAudit.findings.forEach(f => text = text.replace(f.regex, f.selectedFix));
             document.getElementById('contractText').value = text;
             document.getElementById('analyzeBtn').click();
-            showToast('All clauses resolved autonomously!', 'success');
+            showToast('All flagged clauses resolved autonomously!', 'success');
         };
 
         document.getElementById('downloadPdfBtn').onclick = () => {
@@ -513,20 +596,19 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             doc.rect(0, 0, 210, 30, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(14);
-            doc.text("KHAASCORE AUTONOMOUS LEGAL AUDIT CERTIFICATE", 14, 18);
-            doc.save(`Autonomous_Audit_${Date.now()}.pdf`);
+            doc.text("KHAASCORE UNIVERSAL LEGAL AUDIT CERTIFICATE", 14, 18);
+            doc.save(`Universal_Audit_${Date.now()}.pdf`);
             showToast('PDF Exported successfully!', 'success');
         };
 
-        // ==========================================
-        // 🎙️ ZERO-CONFIG AUTONOMOUS VOICE AI
-        // ==========================================
+        // Voice Engine
         let autoSpeakEnabled = true;
         const micBtn = document.getElementById('micBtn');
         const voiceStatus = document.getElementById('voiceStatus');
         const voiceStatusText = document.getElementById('voiceStatusText');
         const toggleTtsBtn = document.getElementById('toggleTtsBtn');
         const ttsIcon = document.getElementById('ttsIcon');
+        const voiceLangSelector = document.getElementById('voiceLangSelector');
 
         toggleTtsBtn.onclick = () => {
             autoSpeakEnabled = !autoSpeakEnabled;
@@ -552,8 +634,16 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             utterance.rate = 1.05;
             utterance.pitch = 1.0;
 
+            const selectedLang = voiceLangSelector.value;
             const voices = window.speechSynthesis.getVoices();
-            const preferredVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('en'));
+            
+            let preferredVoice = null;
+            if (selectedLang !== 'auto') {
+                preferredVoice = voices.find(v => v.lang.startsWith(selectedLang.split('-')[0]));
+            }
+            if (!preferredVoice) {
+                preferredVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('en'));
+            }
             if (preferredVoice) utterance.voice = preferredVoice;
 
             window.speechSynthesis.speak(utterance);
@@ -562,48 +652,28 @@ ARTICLE 2: RESTRICTIVE COVENANTS
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognition = null;
         let isRecording = false;
-        let recognizedText = "";
 
         if (SpeechRecognition) {
             recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
+            recognition.continuous = false;
+            recognition.interimResults = false;
 
             recognition.onstart = () => {
                 isRecording = true;
-                recognizedText = "";
                 micBtn.classList.add('bg-frontier-rose', 'text-slate-950', 'voice-active');
                 voiceStatus.classList.remove('hidden');
-                voiceStatusText.textContent = "Auto-Listening... Speak in any language";
+                voiceStatusText.textContent = `Listening in ${voiceLangSelector.options[voiceLangSelector.selectedIndex].text}...`;
             };
 
             recognition.onresult = (event) => {
-                let interim = "";
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    if (event.results[i].isFinal) {
-                        recognizedText += event.results[i][0].transcript + " ";
-                    } else {
-                        interim += event.results[i][0].transcript;
-                    }
-                }
-                const currentSpoken = (recognizedText + interim).trim();
-                document.getElementById('chatInput').value = currentSpoken;
-                if (currentSpoken) {
-                    voiceStatusText.textContent = `Heard: "${currentSpoken}"`;
-                }
+                const spoken = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = spoken;
+                stopMic();
+                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
             };
 
-            recognition.onerror = () => {
-                stopMic();
-            };
-
-            recognition.onend = () => {
-                stopMic();
-                const finalPrompt = document.getElementById('chatInput').value.trim();
-                if (finalPrompt) {
-                    document.getElementById('chatForm').dispatchEvent(new Event('submit'));
-                }
-            };
+            recognition.onerror = () => stopMic();
+            recognition.onend = () => stopMic();
         }
 
         function stopMic() {
@@ -614,13 +684,14 @@ ARTICLE 2: RESTRICTIVE COVENANTS
 
         micBtn.onclick = () => {
             if (!recognition) {
-                showToast('Speech Recognition not supported on this browser. Use Chrome.', 'error');
+                showToast('Speech Recognition not supported. Use Chrome.', 'error');
                 return;
             }
             if (isRecording) {
                 recognition.stop();
             } else {
-                recognition.lang = navigator.language || 'hi-IN';
+                const selectedLang = voiceLangSelector.value;
+                recognition.lang = selectedLang === 'auto' ? (navigator.language || 'hi-IN') : selectedLang;
                 try {
                     recognition.start();
                 } catch (e) {
@@ -641,7 +712,51 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         };
 
-        // Autonomous Unified AI Pipeline
+        // Multi-Model Universal Execution Hub
+        async function executeAIModel(selectedModel, apiKey, openaiKey, payloadText) {
+            if (selectedModel.startsWith('gpt')) {
+                if (!openaiKey) throw new Error('OpenAI API Key required for GPT models. Please add it in API Keys.');
+                const res = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${openaiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4o',
+                        messages: [{ role: 'user', content: payloadText }]
+                    })
+                });
+                const data = await res.json();
+                return data.choices?.[0]?.message?.content || 'Error from GPT engine.';
+            }
+
+            // High-Speed Production Fallback for All Gemini Models
+            const fallbackModels = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash', 'gemini-1.5-flash-latest'];
+            let lastErr = '';
+
+            for (const m of fallbackModels) {
+                try {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ role: 'user', parts: [{ text: payloadText }] }]
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                        return data.candidates[0].content.parts[0].text;
+                    }
+                    if (data.error) lastErr = data.error.message;
+                } catch (e) {
+                    lastErr = e.message;
+                }
+            }
+            throw new Error(lastErr || 'Could not connect to Gemini engine.');
+        }
+
         document.getElementById('chatForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const input = document.getElementById('chatInput');
@@ -652,33 +767,30 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             input.value = '';
 
             const geminiKey = localStorage.getItem('khaas_gemini_key');
+            const openaiKey = localStorage.getItem('khaas_openai_key');
+
             if (!geminiKey) {
-                appendChat('⚠️ Please save your Gemini API Key using the "API Key" button above.', 'bot');
+                appendChat('⚠️ Please save your Gemini API Key using the "API Keys" button above.', 'bot');
                 return;
             }
 
+            const chosenEngine = document.getElementById('engineSelector').value;
+            document.getElementById('activeModelLabel').textContent = `${chosenEngine.toUpperCase()} Active`;
+
             const contractContext = document.getElementById('contractText').value.trim() || 'No contract loaded.';
-            const botMsgId = appendChat('⏳ Autonomous AI Thinking...', 'bot');
+            const botMsgId = appendChat(`⏳ Processing with ${chosenEngine.toUpperCase()}...`, 'bot');
             const botMsgDiv = document.getElementById(botMsgId);
 
-            const systemPrompt = `You are KhaasCore Autonomous Frontier Legal AI. 
-You support ALL languages fluently.
-Active Contract Context:\n\n${contractContext}\n\n
-Always respond in the EXACT same language that the user uses in their question. Deliver top legal intelligence, high-stakes negotiation strategy, and statutory precedents. Keep output clear and spoken-ready.`;
+            const promptPayload = `You are KhaasCore Frontier Legal AI (Engine: ${chosenEngine}).
+Contract Context:
+${contractContext}
+
+User Query: ${msg}
+
+Respond in the exact same language as the user. Deliver high-stakes legal accuracy, clean formatting, and spoke-ready tone.`;
 
             try {
-                // Autonomous Fast Endpoint
-                const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${geminiKey}`;
-                const res = await fetch(endpoint, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nQuestion: ${msg}` }] }]
-                    })
-                });
-
-                const data = await res.json();
-                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || data.error?.message || 'Error executing request.';
+                const responseText = await executeAIModel(chosenEngine, geminiKey, openaiKey, promptPayload);
 
                 botMsgDiv.innerHTML = '';
                 const textSpan = document.createElement('span');
@@ -703,7 +815,7 @@ Always respond in the EXACT same language that the user uses in their question. 
                 }, 10);
 
             } catch (err) {
-                botMsgDiv.textContent = '⚠️ API Connection Error. Please verify your Gemini Key.';
+                botMsgDiv.textContent = `⚠️ Engine Error: ${err.message}`;
             }
         });
 
@@ -723,13 +835,15 @@ Always respond in the EXACT same language that the user uses in their question. 
 
         document.getElementById('openConfigModal').onclick = () => {
             document.getElementById('geminiApiKey').value = localStorage.getItem('khaas_gemini_key') || '';
+            document.getElementById('openaiApiKey').value = localStorage.getItem('khaas_openai_key') || '';
             document.getElementById('configModal').classList.remove('hidden');
         };
         document.getElementById('closeConfigModal').onclick = () => document.getElementById('configModal').classList.add('hidden');
         document.getElementById('saveConfigBtn').onclick = () => {
             localStorage.setItem('khaas_gemini_key', document.getElementById('geminiApiKey').value.trim());
+            localStorage.setItem('khaas_openai_key', document.getElementById('openaiApiKey').value.trim());
             document.getElementById('configModal').classList.add('hidden');
-            showToast('Gemini API Key securely saved!', 'success');
+            showToast('API Keys securely saved!', 'success');
         };
 
         document.getElementById('loadPresetBtn').onclick = () => {
@@ -766,3 +880,4 @@ Always respond in the EXACT same language that the user uses in their question. 
     </script>
 </body>
 </html>
+
