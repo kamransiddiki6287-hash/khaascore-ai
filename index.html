@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KhaasCore Legal OS | Enterprise Contract Intelligence & Redlining Platform</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- jsPDF CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Mammoth CDN (DOCX) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script>
         tailwind.config = {
@@ -31,11 +35,13 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-white">
 
+    <!-- Top Announcement / Enterprise Tier Banner -->
     <div class="bg-gradient-to-r from-brand-700 via-indigo-700 to-purple-800 text-white text-[11px] font-semibold py-1.5 px-4 text-center tracking-wide flex items-center justify-center gap-2">
         <span class="bg-white/20 px-2 py-0.5 rounded-full uppercase text-[9px] font-black">Enterprise SaaS Tier</span>
         <span>KhaasCore Deep Legal Matrix: $45,000/mo Autonomous AI Redlining & Case-Law Risk Engine</span>
     </div>
 
+    <!-- Header -->
     <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -45,7 +51,7 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-black text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">KhaasCore Legal OS</span>
-                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold">v9.0 Ultra Enterprise</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold">v9.2 Clean PDF</span>
                     </div>
                     <p class="text-[11px] text-slate-400">Autonomous Contract Audit, Multi-Jurisdiction Case Law & Redline Engine</p>
                 </div>
@@ -65,8 +71,10 @@
         </div>
     </header>
 
+    <!-- Main Workspace -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
         
+        <!-- Left Panel: Input & Archetype Configurations -->
         <section class="lg:col-span-5 flex flex-col gap-4">
             
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3">
@@ -102,6 +110,7 @@
                 </div>
             </div>
 
+            <!-- Editor -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex-1 flex flex-col shadow-xl">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
@@ -134,8 +143,10 @@
             </div>
         </section>
 
+        <!-- Right Panel: Executive Deep Memo & Redline Analysis -->
         <section class="lg:col-span-7 flex flex-col gap-4">
             
+            <!-- Dashboard KPIs -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
                 <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
                     <div class="flex items-center gap-2">
@@ -152,6 +163,7 @@
                     </div>
                 </div>
 
+                <!-- 4 KPI Tiles -->
                 <div class="grid grid-cols-4 gap-2.5 text-center">
                     <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
                         <span class="text-[10px] text-slate-400 uppercase font-bold block mb-0.5">रिस्क स्कोर</span>
@@ -177,6 +189,7 @@
                 </div>
             </div>
 
+            <!-- Deep Analysis Result Container -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex-1 flex flex-col shadow-xl">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
@@ -186,6 +199,7 @@
                     <span id="actionRequiredCount" class="text-[11px] text-slate-400 font-mono">0 ऐक्शन आवश्यक</span>
                 </div>
 
+                <!-- Scrollable Detailed Cards -->
                 <div id="resultsContainer" class="flex-1 overflow-y-auto space-y-6 max-h-[620px] pr-1.5">
                     <div class="h-full min-h-[300px] flex flex-col items-center justify-center text-slate-500 border border-dashed border-slate-800 rounded-xl p-6 text-center">
                         <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800 mb-2">
@@ -200,6 +214,7 @@
 
     </main>
 
+    <!-- Modal: $45k Pricing / Tier Architecture -->
     <div id="pricingModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-5">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -237,24 +252,32 @@
         </div>
     </div>
 
+    <!-- Deep Engine Logic with Dual Hindi UI / English PDF Metadata -->
     <script>
         lucide.createIcons();
 
-        // 6 Ultra-Deep Statutory Rules ($45k Enterprise Knowledge Base)
+        // 6 Rules with Clean English Analysis for Clean PDFs & Rich Hindi UI
         const STATUTORY_RULES = [
             {
                 id: "ucc_indemnity",
                 titleHi: "असीमित क्षतिपूर्ति देयता (Uncapped Indemnification Trap)",
                 titleEn: "Uncapped Indemnification & Unlimited Third-Party Liability Exposure",
-                statute: "UCC § 2-719 / Delaware General Corporation Law (DGCL) / NY UCC § 2-715",
+                statute: "UCC § 2-719 / Delaware Corporate Law / NY UCC § 2-715",
                 risk: "CRITICAL",
                 exposureCost: 2500000,
                 regex: /(indemnif(y|ies|ication).*hold harmless.*(unlimited|any and all|all claims|without limitation))|(indemnification liability shall not be capped)/i,
                 
-                deepLegalAnalysis: "यह क्लॉज़ कंपनी पर पूर्णतः एकतरफा और असीमित वित्तीय देयता (Uncapped Indemnity) थोपता है। UCC § 2-719 और डेलावेयर कॉर्पोरेट लॉ के तहत, यदि किसी क्षतिपूर्ति क्लॉज़ पर मॉनेटरी कैप (Aggregate Liability Cap) नहीं लगाया जाता है, तो किसी तीसरे पक्ष द्वारा किए गए मुकदमे या बौद्धिक संपदा विवाद में कंपनी को अपनी पूरी बैलेंस शीट और परिसंपत्तियों (Assets) से भरपाई करनी पड़ सकती है, जिससे सीधे दिवालियापन (Insolvency) का खतरा उत्पन्न होता है।",
-                caseLawPrecedent: "कानूनी मिसाल (Case Precedent): 'Delaware Chancery Court in *E.I. du Pont de Nemours & Co. v. Shell Oil Co.*' ने स्थापित किया है कि बिना स्पष्ट मॉनेटरी कैप के क्षतिपूर्ति प्रावधान संपूर्ण कॉर्पोरेट परिसंपत्तियों को असीमित रिस्क में डालते हैं।",
-                financialImpact: "अधिकतम वित्तीय जोखिम: असीमित (Estimated ~$2,500,000+ USD)। बिना कैप के तीसरे पक्ष के मुकदमे, कानूनी फीस और सेटलमेंट की लागत अनुबंध के कुल मूल्य से 100 गुना अधिक हो सकती है।",
-                negotiationStrategy: "वार्ता रणनीति (Negotiation Playbook): जोर देकर कहें कि सभी क्षतिपूर्ति दावों को पिछले 12 महीनों में प्राप्त कुल फीस तक सीमित किया जाए (12-Month Trailing Fees Cap) और अप्रत्यक्ष या परिणामी नुकसानों (Consequential/Punitive Damages) को स्पष्ट रूप से बाहर किया जाए।",
+                deepLegalAnalysisHi: "यह क्लॉज़ कंपनी पर पूर्णतः एकतरफा और असीमित वित्तीय देयता थोपता है। UCC § 2-719 और डेलावेयर कॉर्पोरेट लॉ के तहत, बिना मॉनेटरी कैप के क्षतिपूर्ति क्लॉज़ कंपनी को असीमित कानूनी खर्चों और दिवालियापन के जोखिम में डालता है।",
+                deepLegalAnalysisEn: "This provision unlawfully imposes unconstrained, open-ended indemnification liability without a monetary liability cap. Under UCC Section 2-719 and Delaware Chancery Court standards, failure to expressly cap indemnification obligations exposes the indemnifying party to catastrophic third-party damages, consequential liabilities, and bankruptcy risks far exceeding total contract earnings.",
+                
+                caseLawPrecedentHi: "डेलावेयर चांसरी कोर्ट: 'E.I. du Pont de Nemours & Co. v. Shell Oil Co.' ने स्थापित किया कि बिना स्पष्ट कैप वाले क्षतिपूर्ति प्रावधान संपूर्ण कॉर्पोरेट संपत्ति को खतरे में डालते हैं।",
+                caseLawPrecedentEn: "Delaware Chancery Court in E.I. du Pont de Nemours & Co. v. Shell Oil Co. established that absent an explicit aggregate liability cap, indemnity obligations bind total corporate assets regardless of underlying transaction size.",
+                
+                financialImpactHi: "अधिकतम जोखिम: असीमित (~$2,500,000+ USD)। कानूनी फीस और सेटलमेंट अनुबंध मूल्य से 100 गुना अधिक हो सकते हैं।",
+                financialImpactEn: "Maximum exposure: Unlimited (~$2,500,000+ USD). Third-party litigation defense costs and settlement figures can exceed contract fees by 100x.",
+                
+                negotiationStrategyHi: "वार्ता रणनीति: पिछले 12 महीनों में भुगतान की गई फीस का कैप (12-Month Trailing Fees Cap) लगाएं और परिणामी नुकसान को बाहर करें।",
+                negotiationStrategyEn: "Negotiation position: Demand a strict aggregate liability cap tied to 12-month trailing fees paid and explicitly exclude consequential or punitive damages.",
                 
                 diffView: `Vendor shall defend, indemnify and hold harmless Customer from <span class="diff-del">any and all third-party claims, liabilities, damages, and legal expenses without limitation or cap</span> <span class="diff-ins">direct third-party claims resulting from proven IP infringement, subject strictly to the aggregate Liability Cap specified in Section 8</span>.`,
                 
@@ -273,10 +296,17 @@
                 exposureCost: 4500000,
                 regex: /(liable for all regulatory fines and penalties arising from any data incident)|(fully indemnify for statutory fines)/i,
                 
-                deepLegalAnalysis: "यह क्लॉज़ डेटा प्रोसेसर पर किसी भी डेटा घटना (Data Incident) के तहत लगने वाले सभी नियामक जुर्मानों और कानूनी पेनाल्टी की 100% क्षतिपूर्ति की जिम्मेदारी डालता है। GDPR (Art. 83 के तहत €20M या 4% ग्लोबल टर्नओवर तक जुर्माना) और भारतीय DPDP Act 2023 (₹250 करोड़ तक पेनाल्टी) के तहत वैधानिक पेनाल्टी को एकतरफा रूप से प्रोसेसर पर शिफ्ट नहीं किया जा सकता, जब तक कि गंभीर लापरवाही (Gross Negligence) सिद्ध न हो।",
-                caseLawPrecedent: "नियामक मिसाल: EU Court of Justice (CJEU) के दिशानिर्देशों के तहत विनियामक प्रशासनिक जुर्माना (Administrative Fines) वैधानिक होते हैं और उन्हें कमर्शियल इंडेम्निटी के जरिए 100% अनकंडीशनली शिफ्ट करना सार्वजनिक नीति (Public Policy) के खिलाफ माना जाता है।",
-                financialImpact: "वित्तीय भार: करोड़ों रुपये/डॉलर का संभावित विनियामक जुर्माना (~$4,500,000 USD Super-Exposure Risk)।",
-                negotiationStrategy: "वार्ता रणनीति: केवल प्रत्यक्ष नुकसान (Direct Damages) और साबित हुई सकल लापरवाही तक सीमित करें। देयता पर 2x Annual Contract Value का 'Super-Cap' लगाएं।",
+                deepLegalAnalysisHi: "यह क्लॉज़ डेटा प्रोसेसर पर किसी भी डेटा घटना के सभी नियामक जुर्मानों की 100% क्षतिपूर्ति डालता है। GDPR (Art. 83) और भारतीय DPDP Act 2023 के तहत प्रशासनिक जुर्मानों को एकतरफा रूप से प्रोसेसर पर शिफ्ट नहीं किया जा सकता।",
+                deepLegalAnalysisEn: "This clause shifts 100% of sovereign administrative regulatory penalties directly onto the data processor. Under GDPR Article 83 (penalties up to EUR 20M or 4% of global turnover) and the Indian DPDP Act 2023 Section 33 (penalties up to INR 250 Crores), statutory fines are personal to statutory non-compliance and cannot be unconditionally shifted absent proven gross negligence.",
+                
+                caseLawPrecedentHi: "EU Court of Justice (CJEU): नियामक प्रशासनिक जुर्माने वैधानिक होते हैं और उन्हें कमर्शियल इंडेम्निटी के जरिए 100% शिफ्ट करना सार्वजनिक नीति के खिलाफ है।",
+                caseLawPrecedentEn: "CJEU jurisprudence holds that regulatory data protection fines are punitive and personal; indiscriminate indemnification shifting violates public policy considerations.",
+                
+                financialImpactHi: "वित्तीय भार: करोड़ों रुपये/डॉलर का संभावित विनियामक जुर्माना (~$4,500,000 USD Super-Exposure)।",
+                financialImpactEn: "Financial impact: Severe statutory exposure (~$4,500,000 USD maximum regulatory bracket under enterprise DPA guidelines).",
+                
+                negotiationStrategyHi: "वार्ता रणनीति: केवल प्रत्यक्ष नुकसान और साबित हुई सकल लापरवाही तक सीमित करें। देयता पर 2x Annual Contract Value का सुपर-कैप लगाएं।",
+                negotiationStrategyEn: "Negotiation position: Limit indemnity strictly to direct damages caused by proven gross negligence, with a defined Super-Cap of 2x Annual Contract Value.",
                 
                 diffView: `Data Processor agrees that it shall fully indemnify and pay <span class="diff-del">all regulatory fines and penalties unconditionally under applicable data protection laws</span> <span class="diff-ins">direct administrative fines caused solely by proven gross negligence, subject to an aggregate Super-Cap of 2x the Annual Contract Value</span>.`,
                 
@@ -295,10 +325,17 @@
                 exposureCost: 750000,
                 regex: /(shall not engage.*competing business.*worldwide)|(non-compete for a period of (2|3|5) years post-termination)/i,
                 
-                deepLegalAnalysis: "यह क्लॉज़ 3 साल की अत्यधिक समयावधि और 'Worldwide' भौगोलिक सीमा के साथ किसी भी प्रतिस्पर्धी व्यवसाय में काम करने पर पूर्ण प्रतिबंध लगाता है। FTC 2024 नॉन-कम्पीट नियम और भारतीय अनुबंध अधिनियम (ICA) की धारा 27 के तहत ऐसे व्यापक प्रतिबंध 'Restraint of Trade' माने जाते हैं और कोर्ट में शून्य (Void ab initio) घोषित कर दिए जाते हैं। इसके कारण अनुबंध के अन्य प्रावधानों की कानूनी वैधता भी खतरे में पड़ जाती है।",
-                caseLawPrecedent: "भारतीय व यूएस मिसाल: भारतीय सुप्रीम कोर्ट इन *Percept D'Mark (India) Pvt. Ltd. v. Zaheer Khan* (2006) ने स्पष्ट किया कि रोजगार समाप्ति के बाद कोई भी नॉन-कम्पीट क्लॉज धारा 27 के तहत पूरी तरह शून्य और अमान्य है।",
-                financialImpact: "वित्तीय भार: भविष्य के नए क्लाइंट्स, स्टार्टअप्स या पार्टनरशिप्स पर अनुचित कानूनी मुकदमों का जोखिम (~$750,000 USD)।",
-                negotiationStrategy: "वार्ता रणनीति: नॉन-कम्पीट को पूरी तरह हटाकर इसे केवल 'नॉन-सॉलिसिटेशन' (मौजूदा क्लाइंट्स और कर्मचारियों को न चुराने) तक सीमित करें, जिसकी अवधि अधिकतम 6 से 12 महीने और केवल वास्तविक एक्टिव मार्केट में हो।",
+                deepLegalAnalysisHi: "यह क्लॉज़ 3 साल और 'Worldwide' सीमा के साथ प्रतिस्पर्धी व्यवसाय पर पूर्ण प्रतिबंध लगाता है। FTC 2024 नियमों और भारतीय अनुबंध अधिनियम की धारा 27 के तहत ऐसे व्यापक प्रतिबंध शून्य (Void) घोषित होते हैं।",
+                deepLegalAnalysisEn: "This covenant restricts commercial engagement worldwide for three years post-termination. Under the FTC Non-Compete Rule (16 CFR Part 910) and Section 27 of the Indian Contract Act 1872, post-contractual non-compete covenants are deemed void ab initio as unlawful restraints of trade, endangering whole contract enforceability.",
+                
+                caseLawPrecedentHi: "भारतीय सुप्रीम कोर्ट: 'Percept D'Mark v. Zaheer Khan' (2006) ने स्पष्ट किया कि रोजगार समाप्ति के बाद कोई भी नॉन-कम्पीट क्लॉज धारा 27 के तहत पूरी तरह शून्य है।",
+                caseLawPrecedentEn: "Supreme Court of India in Percept D'Mark (India) Pvt. Ltd. v. Zaheer Khan (2006) affirmed that post-termination restrictive covenants are completely void under Section 27.",
+                
+                financialImpactHi: "वित्तीय भार: भविष्य के नए क्लाइंट्स या पार्टनरशिप्स पर अनुचित कानूनी मुकदमों का जोखिम (~$750,000 USD)।",
+                financialImpactEn: "Financial impact: Potential loss of commercial opportunities and litigation defense expenditures (~$750,000 USD).",
+                
+                negotiationStrategyHi: "वार्ता रणनीति: नॉन-कम्पीट हटाकर केवल 6 से 12 महीने का नॉन-सॉलिसिटेशन क्लॉज रखें।",
+                negotiationStrategyEn: "Negotiation position: Strike the non-compete entirety and replace with a narrow 12-month client and employee non-solicitation clause.",
                 
                 diffView: `Contractor agrees that they shall not engage in any competing business <span class="diff-del">worldwide for 3 years post-termination within any industry related to the Company</span> <span class="diff-ins">or solicit active clients of the Company for a reasonable period of twelve (12) months post-termination strictly within direct active markets</span>.`,
                 
@@ -317,10 +354,17 @@
                 exposureCost: 900000,
                 regex: /(audit.*(at any time without notice|unrestricted access to servers and source code))/i,
                 
-                deepLegalAnalysis: "यह क्लॉज़ क्लाइंट को बिना किसी पूर्व सूचना (Without Notice) के प्रोडक्शन सर्वर्स और सोर्स कोड का अनियंत्रित ऑडिट करने की अनुमति देता है। यह SOC 2 Type II, ISO 27001 और SOX 404 सुरक्षा मानकों का सीधा उल्लंघन है। किसी भी बाहरी पार्टी को बिना सुरक्षा प्रोटोकॉल और मल्टी-टेनेंट आइसोलेशन के सर्वर एक्सेस देने से अन्य ग्राहकों का संवेदनशील डेटा लीक होने का गंभीर खतरा पैदा होता है।",
-                caseLawPrecedent: "उद्योग मानक: AICPA Trust Services Criteria के तहत मल्टी-टेनेंट क्लाउड इंफ्रास्ट्रक्चर पर किसी एक ग्राहक को अनियंत्रित एक्सेस देना सभी अन्य ग्राहकों के डेटा प्राइवेसी नियमों का गंभीर उल्लंघन है।",
-                financialImpact: "वित्तीय भार: सुरक्षा अनुपालन विफलता, डेटा ब्रीच और थर्ड-पार्टी ऑडिटिंग का भारी खर्च (~$900,000 USD)।",
-                negotiationStrategy: "वार्ता रणनीति: ऑन-साइट डायरेक्ट सर्वर एक्सेस को खारिज करें। ऑडिट को साल में 1 बार, 30 दिन के पूर्व लिखित नोटिस, सामान्य व्यावसायिक घंटों और प्रमाणित थर्ड-पार्टी ऑडिटर के माध्यम से सीमित करें या केवल स्वतंत्र SOC 2 रिपोर्ट उपलब्ध कराएं।",
+                deepLegalAnalysisHi: "यह क्लॉज़ बिना पूर्व सूचना के सर्वर्स और सोर्स कोड का अनियंत्रित ऑडिट करने की अनुमति देता है, जो SOC 2 Type II और SOX 404 मानकों का सीधा उल्लंघन है।",
+                deepLegalAnalysisEn: "This provision grants unannounced on-demand physical and root access to production servers and proprietary source code repositories. In multi-tenant enterprise architectures, unconstrained direct audit violates SOC 2 Type II, ISO 27001, and SOX 404 security compliance, creating severe cross-tenant data breach liabilities.",
+                
+                caseLawPrecedentHi: "उद्योग मानक: AICPA Trust Services Criteria के तहत मल्टी-टेनेंट इंफ्रास्ट्रक्चर पर किसी ग्राहक को अनियंत्रित एक्सेस देना डेटा प्राइवेसी का उल्लंघन है।",
+                caseLawPrecedentEn: "AICPA Trust Services Criteria prohibits granting unsegregated customer root access into shared multi-tenant SaaS environments.",
+                
+                financialImpactHi: "वित्तीय भार: सुरक्षा अनुपालन विफलता, डेटा ब्रीच और ऑडिटिंग का भारी खर्च (~$900,000 USD)।",
+                financialImpactEn: "Financial impact: Direct security compromise risks, audit overheads, and certification revocation expenses (~$900,000 USD).",
+                
+                negotiationStrategyHi: "वार्ता रणनीति: ऑडिट को साल में 1 बार, 30 दिन के पूर्व नोटिस और स्वतंत्र SOC 2 रिपोर्ट तक सीमित करें।",
+                negotiationStrategyEn: "Negotiation position: Restrict audits to once annually upon 30 business days' written notice, conducted via independent certified auditors or third-party SOC 2 Type II reports.",
                 
                 diffView: `Customer reserves the unilateral right to audit systems and inspect <span class="diff-del">unrestricted access to servers and source code at any time without notice</span> <span class="diff-ins">upon at least thirty (30) business days' prior written notice, once per calendar year, subject to mutual security and NDA protocols</span>.`,
                 
@@ -339,10 +383,17 @@
                 exposureCost: 350000,
                 regex: /(terminate this agreement immediately in its sole discretion without cause)|(sole discretion without any prior notice)/i,
                 
-                deepLegalAnalysis: "यह प्रावधान एक पार्टी को बिना किसी कारण (Without Cause) और बिना किसी पूर्व नोटिस के तुरंत अनुबंध समाप्त करने का एकतरफा अधिकार देता है। डेलावेयर और कॉमन लॉ के 'Good Faith and Fair Dealing' सिद्धांत के तहत यह व्यावसायिक असंतुलन पैदा करता है, जिससे इन्फ्रास्ट्रक्चर लागत, संसाधनों के नुकसान और अचानक राजस्व रुकने का भारी व्यावसायिक जोखिम पैदा होता है।",
-                caseLawPrecedent: "कानूनी सिद्धांत: *Restatement (Second) of Contracts § 205* के अनुसार हर अनुबंध में 'Good faith and fair dealing' अंतर्निहित होता है। बिना नोटिस के तुरंत समाप्ति से वेंडर के संचित निवेश की भरपाई का अधिकार बनता है।",
-                financialImpact: "वित्तीय भार: अप्रत्याशित राजस्व हानि और परिचालन व्यवधान (~$350,000 USD)।",
-                negotiationStrategy: "वार्ता रणनीति: दोनों पक्षों के लिए 30 दिनों का पूर्व लिखित नोटिस (30-Day Notice Period) अनिवार्य करें तथा समाप्ति की स्थिति में बकाया सभी राशियों का तत्काल भुगतान तय करें।",
+                deepLegalAnalysisHi: "यह प्रावधान एक पार्टी को बिना कारण और बिना नोटिस तुरंत अनुबंध रद्द करने का अधिकार देता है, जो 'Good Faith and Fair Dealing' सिद्धांत के खिलाफ है।",
+                deepLegalAnalysisEn: "This section permits immediate unilateral termination for convenience without notice or cure opportunity. Under Delaware contract law and Restatement (Second) of Contracts Section 205, termination without commercial notice violates the implied covenant of good faith and fair dealing, threatening substantial sunk capital investments.",
+                
+                caseLawPrecedentHi: "कानूनी सिद्धांत: Restatement (Second) of Contracts § 205 के अनुसार बिना नोटिस के तुरंत समाप्ति से वेंडर के संचित निवेश की भरपाई का अधिकार बनता है।",
+                caseLawPrecedentEn: "Restatement (Second) of Contracts § 205 imposes an affirmative duty of good faith in contract performance and discretionary termination clauses.",
+                
+                financialImpactHi: "वित्तीय भार: अप्रत्याशित राजस्व हानि और परिचालन व्यवधान (~$350,000 USD)।",
+                financialImpactEn: "Financial impact: Abrupt operational cash-flow disruption and unamortized onboarding costs (~$350,000 USD).",
+                
+                negotiationStrategyHi: "वार्ता रणनीति: दोनों पक्षों के लिए 30 दिनों का पूर्व लिखित नोटिस अनिवार्य करें और बकाया भुगतान तय करें।",
+                negotiationStrategyEn: "Negotiation position: Demand a reciprocal 30-day prior written notice period with mandatory pro-rata payment for all services rendered up to termination date.",
                 
                 diffView: `The Company may terminate this agreement <span class="diff-del">immediately in its sole discretion without cause or prior written notice</span> <span class="diff-ins">for convenience upon at least thirty (30) calendar days' prior written notice to the other party</span>.`,
                 
@@ -361,10 +412,17 @@
                 exposureCost: 200000,
                 regex: /(confidentiality.*(in perpetuity|survive indefinitely|forever))|(obligation of confidentiality shall not expire)/i,
                 
-                deepLegalAnalysis: "यह क्लॉज़ सामान्य व्यावसायिक पत्राचार और सामान्य जानकारी को भी हमेशा के लिए (In Perpetuity / Indefinitely) गोपनीय रखने का दायित्व बनाता है। वाणिज्यिक कानून के तहत केवल वास्तविक 'ट्रेड सीक्रेट्स' (Trade Secrets) ही अनिश्चित काल तक सुरक्षा के हकदार होते हैं; सामान्य व्यावसायिक जानकारी पर 2 से 3 साल के बाद गोपनीयता समाप्त होनी चाहिए।",
-                caseLawPrecedent: "यूएस फेडरल सिद्धांत: 18 U.S. Code § 1836 (DTSA) के तहत किसी भी जानकारी को हमेशा गोपनीय रखने के लिए उसका स्वतंत्र आर्थिक मूल्य और उचित सुरक्षा उपाय होना आवश्यक है।",
-                financialImpact: "वित्तीय भार: वर्षों बाद भी अनजाने में सूचना साझा करने पर मुकदमों का जोखिम (~$200,000 USD)।",
-                negotiationStrategy: "वार्ता रणनीति: सामान्य सूचना के लिए 3 वर्ष की निश्चित अवधि तय करें और ट्रेड सीक्रेट्स को कानून के तहत परिभाषित सुरक्षा दें।",
+                deepLegalAnalysisHi: "यह क्लॉज़ सामान्य व्यावसायिक जानकारी को भी हमेशा के लिए गोपनीय रखने का दायित्व बनाता है, जबकि केवल ट्रेड सीक्रेट्स को ही ऐसी सुरक्षा मिलनी चाहिए।",
+                deepLegalAnalysisEn: "This provision creates indefinite non-disclosure obligations for standard commercial correspondence, customer lists, and non-trade-secret artifacts. Under the Defend Trade Secrets Act (18 U.S.C. 1836), indefinite survival is enforceable solely for bona fide statutory trade secrets; general information must expire after a standard commercial term.",
+                
+                caseLawPrecedentHi: "यूएस फेडरल सिद्धांत: 18 U.S. Code § 1836 (DTSA) के तहत किसी भी जानकारी को हमेशा गोपनीय रखने के लिए उसका स्वतंत्र आर्थिक मूल्य होना जरूरी है।",
+                caseLawPrecedentEn: "Under 18 U.S. Code § 1836 (DTSA), indefinite protection requires continuous independent economic value and reasonable efforts to maintain secrecy.",
+                
+                financialImpactHi: "वित्तीय भार: वर्षों बाद भी अनजाने में सूचना साझा करने पर मुकदमों का जोखिम (~$200,000 USD)।",
+                financialImpactEn: "Financial impact: Long-term compliance monitoring overheads and exposure to frivolous post-term litigation (~$200,000 USD).",
+                
+                negotiationStrategyHi: "वार्ता रणनीति: सामान्य सूचना के लिए 3 वर्ष की अवधि तय करें और ट्रेड सीक्रेट्स को कानून के तहत सुरक्षा दें।",
+                negotiationStrategyEn: "Negotiation position: Cap general confidentiality at 3 years post-termination, preserving indefinite protection solely for bona fide statutory trade secrets.",
                 
                 diffView: `The Receiving Party agrees that all Confidential Information <span class="diff-del">shall remain protected in perpetuity and survive indefinitely following termination</span> <span class="diff-ins">shall survive for three (3) years from disclosure; provided that bona fide Trade Secrets remain protected as long as permitted under law</span>.`,
                 
@@ -547,6 +605,7 @@ ARTICLE 4: UNILATERAL TERMINATION AND REMEDIES
                         : 'bg-amber-500/10 text-amber-400 border-amber-500/30';
 
                     card.innerHTML = `
+                        <!-- Card Header -->
                         <div class="flex items-start justify-between gap-3 border-b border-slate-800/80 pb-3">
                             <div>
                                 <div class="flex items-center gap-2 mb-1">
@@ -558,42 +617,47 @@ ARTICLE 4: UNILATERAL TERMINATION AND REMEDIES
                             <span class="text-[10px] font-mono text-slate-400 bg-slate-900 border border-slate-800 px-2 py-1 rounded text-right">${item.statute}</span>
                         </div>
 
+                        <!-- 1. Deep Statutory Analysis Section -->
                         <div class="space-y-1.5 text-xs">
                             <span class="font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
                                 <i data-lucide="alert-octagon" class="w-4 h-4"></i> 1. विस्तृत कानूनी विश्लेषण व वैधानिक उल्लंघन (Deep Statutory Memo)
                             </span>
                             <p class="text-slate-300 bg-rose-950/20 p-3.5 rounded-xl border border-rose-900/30 leading-relaxed font-sans">
-                                ${item.deepLegalAnalysis}
+                                ${item.deepLegalAnalysisHi}
                             </p>
                         </div>
 
+                        <!-- 2. Case Law Precedent & Judicial Standing -->
                         <div class="space-y-1 text-xs bg-slate-900/90 p-3 rounded-xl border border-slate-800">
                             <span class="font-bold text-purple-400 flex items-center gap-1.5">
                                 <i data-lucide="book-open-check" class="w-3.5 h-3.5"></i> 2. अदालत की कानूनी मिसाल (Case Law & Judicial Precedent):
                             </span>
-                            <p class="text-slate-400 text-[11px] leading-relaxed italic">${item.caseLawPrecedent}</p>
+                            <p class="text-slate-400 text-[11px] leading-relaxed italic">${item.caseLawPrecedentHi}</p>
                         </div>
 
+                        <!-- 3. Financial Impact & Negotiation Strategy -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                             <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-1">
                                 <span class="font-bold text-amber-400 flex items-center gap-1">
                                     <i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> 3. वित्तीय व देनदारी प्रभाव:
                                 </span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">${item.financialImpact}</p>
+                                <p class="text-slate-400 text-[11px] leading-relaxed">${item.financialImpactHi}</p>
                             </div>
                             <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 space-y-1">
                                 <span class="font-bold text-cyan-400 flex items-center gap-1">
                                     <i data-lucide="crosshair" class="w-3.5 h-3.5"></i> 4. नेगोशिएशन रणनीति (Talking Points):
                                 </span>
-                                <p class="text-slate-400 text-[11px] leading-relaxed">${item.negotiationStrategy}</p>
+                                <p class="text-slate-400 text-[11px] leading-relaxed">${item.negotiationStrategyHi}</p>
                             </div>
                         </div>
 
+                        <!-- 4. Visual Redline Markup -->
                         <div class="p-3.5 bg-slate-900/90 rounded-xl border border-slate-800 text-xs font-mono leading-relaxed space-y-1.5">
                             <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">5. विजुअल ब्लैकलाइन / रेडलाइन डिफ (Word-by-Word Diff):</span>
                             <div>${item.diffView}</div>
                         </div>
 
+                        <!-- 5. Re-drafted Output with Action Button -->
                         <div class="space-y-1.5 pt-1">
                             <div class="flex items-center justify-between text-[11px]">
                                 <span class="font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
@@ -646,7 +710,7 @@ ARTICLE 4: UNILATERAL TERMINATION AND REMEDIES
             analyzeBtn.click();
         });
 
-        // 100% In-Depth Clean Multi-Page PDF Generation
+        // 100% In-Depth Clean Multi-Page PDF Generation (No Corrupted Characters)
         downloadPdfBtn.addEventListener('click', () => {
             if (!currentAudit) return;
             const { jsPDF } = window.jspdf;
@@ -685,7 +749,7 @@ ARTICLE 4: UNILATERAL TERMINATION AND REMEDIES
                 doc.text("STATUS: FULLY COMPLIANT - ZERO STATUTORY RISKS IDENTIFIED", 14, y);
             } else {
                 currentAudit.findings.forEach((f, idx) => {
-                    if (y > 210) {
+                    if (y > 200) {
                         doc.addPage();
                         y = 20;
                     }
@@ -711,11 +775,24 @@ ARTICLE 4: UNILATERAL TERMINATION AND REMEDIES
                     doc.text("Detailed Statutory Harm & Analysis:", 14, y);
                     y += 4.5;
                     doc.setFont("helvetica", "normal");
-                    const splitAnalysis = doc.splitTextToSize(f.deepLegalAnalysis, 180);
+                    const splitAnalysis = doc.splitTextToSize(f.deepLegalAnalysisEn, 180);
                     doc.text(splitAnalysis, 14, y);
                     y += (splitAnalysis.length * 4.2) + 2;
 
+                    // Case Law Precedent
+                    doc.setFontSize(8.5);
+                    doc.setFont("helvetica", "bold");
+                    doc.setTextColor(109, 40, 217);
+                    doc.text("Case Law Precedent:", 14, y);
+                    y += 4.5;
+                    doc.setFont("helvetica", "italic");
+                    doc.setTextColor(75, 85, 99);
+                    const splitCaseLaw = doc.splitTextToSize(f.caseLawPrecedentEn, 180);
+                    doc.text(splitCaseLaw, 14, y);
+                    y += (splitCaseLaw.length * 4.2) + 2;
+
                     // AI Recommended Redraft
+                    doc.setFontSize(8.5);
                     doc.setFont("helvetica", "bold");
                     doc.setTextColor(5, 150, 105);
                     doc.text("AI Compliant Re-Drafted Clause:", 14, y);
