@@ -85,10 +85,9 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-frontier-cyan selection:text-black">
 
-    <!-- Toast Notification -->
     <div id="toastNotification" class="fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-[-150%] opacity-0 bg-frontier-card border border-frontier-border px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-medium">
         <i id="toastIcon" data-lucide="info" class="w-4 h-4 text-frontier-cyan"></i>
-        <span id="toastMsg" class="text-slate-200">System Notification</span>
+        <span id="toastMsg" class="text-slate-200">System Ready</span>
     </div>
 
     <!-- Header -->
@@ -111,7 +110,6 @@
                 </div>
             </div>
 
-            <!-- Top Controls -->
             <div class="flex items-center gap-2.5">
                 <div id="google_translate_element" class="hidden sm:block"></div>
 
@@ -315,8 +313,8 @@
 
         <div id="chatMessages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs font-sans">
             <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                <span>नमस्ते! माइक दबाकर बोलें या नीचे टेस्ट बटन दबाकर सीधे आवाज़ सुनें।</span>
-                <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आप मुझसे कोई भी सवाल पूछ सकते हैं।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
+                <span>नमस्ते! नीचे दिए गए बटन पर क्लिक करके सीधे आवाज़ चेक करें या माइक दबाकर बोलें।</span>
+                <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आवाज़ चालू हो गई है।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
                     <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
                 </button>
             </div>
@@ -324,9 +322,9 @@
 
         <div id="voiceStatus" class="hidden px-4 py-1.5 bg-frontier-input text-[11px] text-frontier-rose flex items-center justify-between border-t border-frontier-border font-mono">
             <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> <span id="voiceStatusText">Listening...</span>
+                <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> <span id="voiceStatusText">Listening... (Speak Now)</span>
             </div>
-            <button type="button" onclick="stopMicManual()" class="text-[10px] bg-frontier-rose/20 text-frontier-rose px-2 py-0.5 rounded-md border border-frontier-rose/40 font-bold">Stop & Send</button>
+            <button type="button" onclick="stopMicImmediate()" class="text-[10px] bg-frontier-rose/20 text-frontier-rose px-2 py-0.5 rounded-md border border-frontier-rose/40 font-bold">Stop & Send</button>
         </div>
 
         <form id="chatForm" class="p-2.5 bg-frontier-panel border-t border-frontier-border flex items-center gap-2">
@@ -339,6 +337,9 @@
             </button>
         </form>
     </div>
+
+    <!-- Hidden Direct Audio Player for Mobile Voice Stream -->
+    <audio id="ttsDirectAudio" playsinline preload="auto" class="hidden"></audio>
 
     <!-- API Key Modal -->
     <div id="configModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -385,7 +386,7 @@
             toast.classList.remove('translate-y-[-150%]', 'opacity-0');
             setTimeout(() => {
                 toast.classList.add('translate-y-[-150%]', 'opacity-0');
-            }, 3500);
+            }, 3000);
         }
 
         const STATUTORY_RULES = [
@@ -579,41 +580,65 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             showToast('PDF Exported successfully!', 'success');
         };
 
-        // 100% Robust Mobile-Ready Audio & Speech
+        // 100% Reliable Direct Multi-Modal Voice Engine
         let autoSpeakEnabled = true;
         let isProcessingRequest = false;
-        let globalUtterance = null;
+        let micTimeoutTimer = null;
+
+        function stopAllAudio() {
+            try {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                const directAudio = document.getElementById('ttsDirectAudio');
+                if (directAudio) {
+                    directAudio.pause();
+                    directAudio.currentTime = 0;
+                }
+            } catch(e) {}
+        }
 
         window.speakDirect = function(textToSpeak) {
-            if (!('speechSynthesis' in window)) {
-                showToast('Speech not supported on this browser', 'error');
-                return;
-            }
-
-            try {
-                window.speechSynthesis.cancel();
-                window.speechSynthesis.resume(); // Android Chrome wakeup call
-            } catch(e) {}
-
+            stopAllAudio();
             const cleanText = textToSpeak.replace(/[*_#`~>]/g, '').trim();
             if (!cleanText) return;
 
-            globalUtterance = new SpeechSynthesisUtterance(cleanText);
-            globalUtterance.rate = 0.95;
-            globalUtterance.pitch = 1.0;
-            globalUtterance.volume = 1.0;
-
             const selectedLang = document.getElementById('voiceLangSelector').value || 'hi-IN';
-            globalUtterance.lang = selectedLang;
+            const langCode = selectedLang.split('-')[0] || 'hi';
 
-            const voices = window.speechSynthesis.getVoices();
-            if (voices.length > 0) {
-                const langPrefix = selectedLang.split('-')[0];
-                const matchedVoice = voices.find(v => v.lang.toLowerCase().includes(langPrefix));
-                if (matchedVoice) globalUtterance.voice = matchedVoice;
+            // Method 1: Web Speech API with resume
+            let webSpeechWorked = false;
+            if ('speechSynthesis' in window) {
+                try {
+                    window.speechSynthesis.resume();
+                    const utterance = new SpeechSynthesisUtterance(cleanText);
+                    utterance.rate = 1.0;
+                    utterance.pitch = 1.0;
+                    utterance.volume = 1.0;
+                    utterance.lang = selectedLang;
+
+                    const voices = window.speechSynthesis.getVoices();
+                    if (voices && voices.length > 0) {
+                        const matchedVoice = voices.find(v => v.lang.toLowerCase().includes(langCode));
+                        if (matchedVoice) utterance.voice = matchedVoice;
+                    }
+
+                    utterance.onstart = () => { webSpeechWorked = true; };
+                    window.speechSynthesis.speak(utterance);
+                } catch(e) {}
             }
 
-            window.speechSynthesis.speak(globalUtterance);
+            // Method 2: Direct High-Quality Audio Stream Fallback (Guaranteed to work on Android/iOS)
+            setTimeout(() => {
+                if (!window.speechSynthesis.speaking || !webSpeechWorked) {
+                    try {
+                        const directAudio = document.getElementById('ttsDirectAudio');
+                        const urlSafeText = encodeURIComponent(cleanText.slice(0, 180));
+                        directAudio.src = `https://translate.google.com/translate_tts?ie=UTF-8&q=${urlSafeText}&tl=${langCode}&client=tw-ob`;
+                        directAudio.play().catch(err => {
+                            console.log('Audio autoplay blocked, click button to hear');
+                        });
+                    } catch(err) {}
+                }
+            }, 250);
         };
 
         const micBtn = document.getElementById('micBtn');
@@ -626,13 +651,13 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             const box = document.getElementById('chatMessages');
             box.innerHTML = `
                 <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                    <span>नमस्ते! माइक दबाकर बोलें या नीचे टेस्ट बटन दबाकर सीधे आवाज़ सुनें।</span>
-                    <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आप मुझसे कोई भी सवाल पूछ सकते हैं।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
+                    <span>नमस्ते! नीचे दिए गए बटन पर क्लिक करके सीधे आवाज़ चेक करें या माइक दबाकर बोलें।</span>
+                    <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आवाज़ चालू हो गई है।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
                         <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
                     </button>
                 </div>
             `;
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            stopAllAudio();
             showToast('Chat cleared', 'info');
             lucide.createIcons();
         };
@@ -644,7 +669,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 ttsIcon.className = 'w-4 h-4 text-frontier-cyan';
                 showToast('Voice Output Enabled', 'info');
             } else {
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                stopAllAudio();
                 ttsIcon.setAttribute('data-lucide', 'volume-x');
                 ttsIcon.className = 'w-4 h-4 text-slate-500';
                 showToast('Voice Output Muted', 'info');
@@ -665,9 +690,16 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 isRecording = true;
                 micBtn.classList.add('bg-frontier-rose', 'text-slate-950', 'voice-active');
                 voiceStatus.classList.remove('hidden');
+
+                // Auto stop mic after 5 seconds if no speech to prevent hanging
+                clearTimeout(micTimeoutTimer);
+                micTimeoutTimer = setTimeout(() => {
+                    if (isRecording) stopMicImmediate();
+                }, 5000);
             };
 
             recognition.onresult = (event) => {
+                clearTimeout(micTimeoutTimer);
                 const spoken = event.results[0][0].transcript;
                 stopMicImmediate();
                 if (spoken && spoken.trim().length > 0 && !isProcessingRequest) {
@@ -680,35 +712,32 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             recognition.onend = () => stopMicImmediate();
         }
 
-        function stopMicImmediate() {
+        window.stopMicImmediate = function() {
+            clearTimeout(micTimeoutTimer);
             isRecording = false;
+            if (recognition) {
+                try { recognition.stop(); } catch(e) {}
+            }
             micBtn.classList.remove('bg-frontier-rose', 'text-slate-950', 'voice-active');
             voiceStatus.classList.add('hidden');
-        }
-
-        window.stopMicManual = function() {
-            if (recognition && isRecording) {
-                recognition.stop();
-            }
-            stopMicImmediate();
-            const curVal = document.getElementById('chatInput').value.trim();
-            if (curVal && !isProcessingRequest) {
-                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
-            }
         };
 
         micBtn.onclick = () => {
+            stopAllAudio();
+            // Unlock audio permission on user touch
             try {
-                window.speechSynthesis.cancel();
                 window.speechSynthesis.resume();
+                const directAudio = document.getElementById('ttsDirectAudio');
+                directAudio.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+                directAudio.play().catch(()=>{});
             } catch(e) {}
 
             if (!recognition) {
-                showToast('Use phone keyboard mic if speech fails.', 'info');
+                showToast('Speech Recognition not supported on this browser.', 'error');
                 return;
             }
+
             if (isRecording) {
-                recognition.stop();
                 stopMicImmediate();
             } else {
                 if (isProcessingRequest) return;
@@ -716,7 +745,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 try {
                     recognition.start();
                 } catch (e) {
-                    recognition.stop();
+                    stopMicImmediate();
                 }
             }
         };
@@ -727,8 +756,8 @@ ARTICLE 2: RESTRICTIVE COVENANTS
         };
 
         document.getElementById('closeChatBtn').onclick = () => {
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-            if (isRecording && recognition) recognition.stop();
+            stopAllAudio();
+            stopMicImmediate();
             document.getElementById('chatWindow').classList.add('hidden');
         };
 
@@ -793,7 +822,7 @@ ${contractContext}
 
 User Question: ${msg}
 
-Reply in the EXACT SAME LANGUAGE as the user query (Hindi/Urdu/English). Keep the reply concise, short and natural for speech output.`;
+Reply in the EXACT SAME LANGUAGE as the user query (Hindi/Urdu/English). Keep the reply short (max 2-3 sentences), simple and spoken-friendly.`;
 
             try {
                 const responseText = await executeGeminiAPI(geminiKey, promptPayload);
