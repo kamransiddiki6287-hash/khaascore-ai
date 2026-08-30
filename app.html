@@ -857,6 +857,74 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
                 reader.readAsText(file);
             }
         });
-    </script>
+          // --- VOICE SPEECH RECOGNITION (HINDI & MOBILE FIX) ---
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+
+    function getVoiceLang() {
+      const el = document.getElementById('voiceLangSelector');
+      return el ? el.value : 'hi-IN';
+    }
+
+    window.toggleVoiceRecognition = function() {
+      try {
+        recognition.lang = getVoiceLang();
+        recognition.start();
+      } catch (e) {
+        try { recognition.stop(); } catch(err) {}
+      }
+    };
+
+    const micBtn = document.getElementById('micBtn') || document.querySelector('[onclick*="toggleVoice"]');
+    if (micBtn) {
+      micBtn.onclick = window.toggleVoiceRecognition;
+    }
+
+    recognition.onstart = () => {
+      const status = document.getElementById('recordingStatus');
+      if (status) status.classList.remove('hidden');
+      if (micBtn) micBtn.classList.add('voice-active');
+    };
+
+    recognition.onresult = (event) => {
+      let text = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        text += event.results[i][0].transcript;
+      }
+      const input = document.getElementById('textQueryInput') || document.getElementById('userVoiceInput');
+      if (input) input.value = text;
+    };
+
+    recognition.onerror = (event) => {
+      console.warn("Speech Error:", event.error);
+      if (micBtn) micBtn.classList.remove('voice-active');
+      const status = document.getElementById('recordingStatus');
+      if (status) status.classList.add('hidden');
+    };
+
+    recognition.onend = () => {
+      if (micBtn) micBtn.classList.remove('voice-active');
+      const status = document.getElementById('recordingStatus');
+      if (status) status.classList.add('hidden');
+
+      const input = document.getElementById('textQueryInput') || document.getElementById('userVoiceInput');
+      if (input && input.value.trim() !== '') {
+        const query = input.value.trim();
+        if (typeof appendChat === 'function') {
+          appendChat(query, 'user');
+        }
+        if (typeof executeAiQuery === 'function') {
+          executeAiQuery(query);
+        } else if (typeof sendVoiceMessage === 'function') {
+          sendVoiceMessage();
+        }
+      }
+    };
+  }
+</script>
 </body>
 </html>
