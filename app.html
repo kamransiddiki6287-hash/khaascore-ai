@@ -123,12 +123,11 @@
                     <i data-lucide="languages" class="w-3.5 h-3.5 text-frontier-purple mr-1.5"></i>
                     <select id="voiceLangSelector" class="bg-transparent text-slate-200 text-[11px] outline-none cursor-pointer font-medium">
                         <option value="auto">🌐 Auto Voice Lang</option>
-                        <option value="hi-IN">🇮🇳 Hindi (हिन्दी)</option>
+                        <option value="hi-IN" selected>🇮🇳 Hindi (हिन्दी)</option>
                         <option value="en-US">🇺🇸 English</option>
                         <option value="ur-IN">🇵🇰 Urdu (اردو)</option>
                         <option value="bn-IN">🇧🇩 Bengali (বাংলা)</option>
                         <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
-                        <option value="es-ES">🇪🇸 Spanish</option>
                     </select>
                 </div>
 
@@ -303,6 +302,9 @@
                 </div>
             </div>
             <div class="flex items-center gap-1.5">
+                <button id="clearChatBtn" class="p-1.5 rounded-lg bg-frontier-input text-slate-400 hover:text-white" title="Clear Chat History">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
                 <button id="toggleTtsBtn" class="p-1.5 rounded-lg bg-frontier-input text-frontier-cyan hover:text-white" title="Toggle Auto-Voice Output">
                     <i id="ttsIcon" data-lucide="volume-2" class="w-4 h-4"></i>
                 </button>
@@ -320,7 +322,7 @@
             <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
                 <span>नमस्ते / Hello! Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic</strong> or any language.</span>
                 <button onclick="speakText('नमस्ते! मैं आपका लीगल AI असिस्टेंट हूँ। माइक दबाकर कुछ भी पूछें।')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
-                    <i data-lucide="volume-2" class="w-3 h-3"></i> Listen
+                    <i data-lucide="volume-2" class="w-3 h-3"></i> Test Voice (आवाज़ सुनें)
                 </button>
             </div>
         </div>
@@ -579,14 +581,42 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             showToast('PDF Exported successfully!', 'success');
         };
 
-        // Voice Engine
+        // Mobile-Ready Speech Engine
         let autoSpeakEnabled = true;
+        let isProcessingRequest = false;
+        let cachedVoices = [];
+
+        function loadVoices() {
+            if ('speechSynthesis' in window) {
+                cachedVoices = window.speechSynthesis.getVoices();
+            }
+        }
+        if ('speechSynthesis' in window) {
+            loadVoices();
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
         const micBtn = document.getElementById('micBtn');
         const voiceStatus = document.getElementById('voiceStatus');
         const voiceStatusText = document.getElementById('voiceStatusText');
         const toggleTtsBtn = document.getElementById('toggleTtsBtn');
         const ttsIcon = document.getElementById('ttsIcon');
         const voiceLangSelector = document.getElementById('voiceLangSelector');
+
+        document.getElementById('clearChatBtn').onclick = () => {
+            const box = document.getElementById('chatMessages');
+            box.innerHTML = `
+                <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
+                    <span>नमस्ते / Hello! Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic</strong> or any language.</span>
+                    <button onclick="speakText('नमस्ते! मैं आपका लीगल AI असिस्टेंट हूँ। माइक दबाकर कुछ भी पूछें।')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
+                        <i data-lucide="volume-2" class="w-3 h-3"></i> Test Voice (आवाज़ सुनें)
+                    </button>
+                </div>
+            `;
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            showToast('Chat history cleared', 'info');
+            lucide.createIcons();
+        };
 
         toggleTtsBtn.onclick = () => {
             autoSpeakEnabled = !autoSpeakEnabled;
@@ -595,7 +625,7 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 ttsIcon.className = 'w-4 h-4 text-frontier-cyan';
                 showToast('Voice Output Enabled', 'info');
             } else {
-                window.speechSynthesis.cancel();
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
                 ttsIcon.setAttribute('data-lucide', 'volume-x');
                 ttsIcon.className = 'w-4 h-4 text-slate-500';
                 showToast('Voice Output Muted', 'info');
@@ -604,25 +634,30 @@ ARTICLE 2: RESTRICTIVE COVENANTS
         };
 
         window.speakText = function(textToSpeak) {
-            if (!('speechSynthesis' in window)) return;
+            if (!('speechSynthesis' in window)) {
+                showToast('Speech synthesis not supported on this browser', 'error');
+                return;
+            }
             window.speechSynthesis.cancel();
 
-            const cleanText = textToSpeak.replace(/[*_#`~]/g, '');
+            const cleanText = textToSpeak.replace(/[*_#`~>]/g, '').trim();
+            if (!cleanText) return;
+
             const utterance = new SpeechSynthesisUtterance(cleanText);
-            utterance.rate = 1.05;
+            utterance.rate = 1.0;
             utterance.pitch = 1.0;
+            utterance.volume = 1.0;
 
             const selectedLang = voiceLangSelector.value;
-            const voices = window.speechSynthesis.getVoices();
-            
-            let preferredVoice = null;
             if (selectedLang !== 'auto') {
-                preferredVoice = voices.find(v => v.lang.startsWith(selectedLang.split('-')[0]));
+                utterance.lang = selectedLang;
+            } else {
+                utterance.lang = 'hi-IN';
             }
-            if (!preferredVoice) {
-                preferredVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('en'));
-            }
-            if (preferredVoice) utterance.voice = preferredVoice;
+
+            if (cachedVoices.length === 0) cachedVoices = window.speechSynthesis.getVoices();
+            const voice = cachedVoices.find(v => v.lang.includes('hi') || v.lang.includes('Hindi') || v.lang.includes('en'));
+            if (voice) utterance.voice = voice;
 
             window.speechSynthesis.speak(utterance);
         };
@@ -645,9 +680,11 @@ ARTICLE 2: RESTRICTIVE COVENANTS
 
             recognition.onresult = (event) => {
                 const spoken = event.results[0][0].transcript;
-                document.getElementById('chatInput').value = spoken;
                 stopMic();
-                document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+                if (spoken && spoken.trim().length > 0 && !isProcessingRequest) {
+                    document.getElementById('chatInput').value = spoken.trim();
+                    document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+                }
             };
 
             recognition.onerror = () => stopMic();
@@ -661,6 +698,12 @@ ARTICLE 2: RESTRICTIVE COVENANTS
         }
 
         micBtn.onclick = () => {
+            // Unlock Mobile Audio context on user click
+            if ('speechSynthesis' in window) {
+                const dummy = new SpeechSynthesisUtterance('');
+                window.speechSynthesis.speak(dummy);
+            }
+
             if (!recognition) {
                 showToast('Speech Recognition not supported. Use Chrome.', 'error');
                 return;
@@ -668,8 +711,12 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             if (isRecording) {
                 recognition.stop();
             } else {
+                if (isProcessingRequest) {
+                    showToast('AI is still responding...', 'info');
+                    return;
+                }
                 const selectedLang = voiceLangSelector.value;
-                recognition.lang = selectedLang === 'auto' ? (navigator.language || 'hi-IN') : selectedLang;
+                recognition.lang = selectedLang === 'auto' ? 'hi-IN' : selectedLang;
                 try {
                     recognition.start();
                 } catch (e) {
@@ -678,19 +725,26 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             }
         };
 
-        document.getElementById('toggleChatBtn').onclick = () => document.getElementById('chatWindow').classList.toggle('hidden');
+        document.getElementById('toggleChatBtn').onclick = () => {
+            document.getElementById('chatWindow').classList.toggle('hidden');
+            // Warm up speech synthesis
+            if ('speechSynthesis' in window) {
+                loadVoices();
+            }
+        };
+
         document.getElementById('closeChatBtn').onclick = () => {
-            window.speechSynthesis.cancel();
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             if (isRecording && recognition) recognition.stop();
             document.getElementById('chatWindow').classList.add('hidden');
         };
 
         window.sendQuickPrompt = function(promptText) {
+            if (isProcessingRequest) return;
             document.getElementById('chatInput').value = promptText;
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         };
 
-        // Official Gemini 3.6 Flash / 3.1 Pro Single High-Performance Endpoint
         async function executeGeminiAPI(apiKey, payloadText) {
             const models = ['gemini-3.6-flash', 'gemini-3.1-pro'];
             let lastError = '';
@@ -719,16 +773,20 @@ ARTICLE 2: RESTRICTIVE COVENANTS
 
         document.getElementById('chatForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (isProcessingRequest) return;
+
             const input = document.getElementById('chatInput');
             const msg = input.value.trim();
             if (!msg) return;
 
+            isProcessingRequest = true;
             appendChat(msg, 'user');
             input.value = '';
 
             const geminiKey = localStorage.getItem('khaas_gemini_key');
             if (!geminiKey) {
                 appendChat('⚠️ Please save your Gemini API Key using the "API Key" button above.', 'bot');
+                isProcessingRequest = false;
                 return;
             }
 
@@ -742,7 +800,7 @@ ${contractContext}
 
 User Question: ${msg}
 
-Always reply in the EXACT SAME LANGUAGE that the user used (Hindi/English/Urdu etc.). Provide concise, accurate legal insights.`;
+Reply in the EXACT SAME LANGUAGE as the user query (e.g. Hindi/Urdu/English). Keep the reply concise, natural and spoke-ready.`;
 
             try {
                 const responseText = await executeGeminiAPI(geminiKey, promptPayload);
@@ -757,19 +815,23 @@ Always reply in the EXACT SAME LANGUAGE that the user used (Hindi/English/Urdu e
                     i++;
                     if (i >= responseText.length) {
                         clearInterval(timer);
+                        isProcessingRequest = false;
                         
                         const listenBtn = document.createElement('button');
-                        listenBtn.className = 'mt-2 text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline';
-                        listenBtn.innerHTML = '<i data-lucide="volume-2" class="w-3 h-3"></i> Listen Again';
+                        listenBtn.className = 'mt-2 text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline font-bold';
+                        listenBtn.innerHTML = '<i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 आवाज़ में सुनें (Listen)';
                         listenBtn.onclick = () => speakText(responseText);
                         botMsgDiv.appendChild(listenBtn);
                         lucide.createIcons();
 
-                        if (autoSpeakEnabled) speakText(responseText);
+                        if (autoSpeakEnabled) {
+                            speakText(responseText);
+                        }
                     }
-                }, 10);
+                }, 8);
 
             } catch (err) {
+                isProcessingRequest = false;
                 botMsgDiv.textContent = `⚠️ Error: ${err.message}`;
             }
         });
@@ -777,7 +839,7 @@ Always reply in the EXACT SAME LANGUAGE that the user used (Hindi/English/Urdu e
         function appendChat(text, sender) {
             const box = document.getElementById('chatMessages');
             const div = document.createElement('div');
-            const id = 'msg_' + Date.now();
+            const id = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
             div.id = id;
             div.className = sender === 'user' 
                 ? 'bg-gradient-to-r from-cyan-600 to-indigo-600 text-white p-3 rounded-2xl ml-6 border border-cyan-400/40 shadow whitespace-pre-wrap'
