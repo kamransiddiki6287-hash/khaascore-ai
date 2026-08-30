@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>KhaasCore AI | Powered by Gemini 1.5</title>
-  <meta name="description" content="KhaasCore AI - Official Gemini 1.5 Web Architecture for Legal & General Intelligence">
+  <title>KhaasCore AI | खास कोर एआई - Voice & Legal Intelligence</title>
   <meta name="google-site-verification" content="YJ3o_JHzFsE10zrSd-Rmi1TBN8hVvgyqWsgkde9cG60" />
 
-  <!-- Google Fonts & Core Engines -->
+  <!-- Fonts & Libraries -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -25,7 +24,7 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Google Sans"', '"Google Sans Text"', 'sans-serif'],
+            sans: ['"Google Sans"', 'sans-serif'],
             mono: ['"Roboto Mono"', 'monospace']
           },
           colors: {
@@ -56,7 +55,7 @@
       height: 100dvh;
       overflow: hidden;
     }
-    .gemini-gradient-text {
+    .kc-gradient-text {
       background: linear-gradient(74deg, #4285f4 0%, #9b72cf 35%, #d96570 70%, #4285f4 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
@@ -67,110 +66,91 @@
       0% { background-position: 0% center; }
       100% { background-position: 200% center; }
     }
-    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar { width: 5px; }
     .custom-scroll::-webkit-scrollbar-thumb { background: #3c4043; border-radius: 9999px; }
-    .custom-scroll::-webkit-scrollbar-thumb:hover { background: #5f6368; }
-
-    /* Gemini Markdown Typography */
-    .prose p { margin-bottom: 0.85rem; line-height: 1.7; font-size: 0.975rem; color: #e3e3e3; }
-    .prose h1, .prose h2, .prose h3 { color: #ffffff; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+    
+    .prose p { margin-bottom: 0.75rem; line-height: 1.65; font-size: 0.95rem; color: #e3e3e3; }
     .prose strong { color: #ffffff; font-weight: 600; }
-    .prose ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.85rem; }
-    .prose ol { list-style-type: decimal; margin-left: 1.5rem; margin-bottom: 0.85rem; }
-    .prose li { margin-bottom: 0.35rem; }
-    .prose code { background: #282a2c; padding: 2px 6px; border-radius: 6px; font-family: 'Roboto Mono', monospace; font-size: 0.9em; color: #4285f4; }
+    .prose ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.75rem; }
+    .prose ol { list-style-type: decimal; margin-left: 1.5rem; margin-bottom: 0.75rem; }
+    .prose code { background: #282a2c; padding: 2px 6px; border-radius: 6px; font-family: monospace; font-size: 0.9em; color: #4285f4; }
     .prose pre { background: #1e1f20; padding: 1rem; border-radius: 12px; border: 1px solid #3c4043; overflow-x: auto; margin-bottom: 1rem; }
-    .prose pre code { background: transparent; padding: 0; color: #e3e3e3; }
-    .prose blockquote { border-left: 3px solid #9b72cf; padding-left: 1rem; color: #8e918f; font-style: italic; }
   </style>
 </head>
 <body class="flex h-full overflow-hidden">
 
-  <!-- ================= 1. GEMINI OFFICIAL COLLAPSIBLE SIDEBAR ================= -->
+  <!-- ================= SIDEBAR ================= -->
   <aside id="sidebar" class="bg-gemini-surface flex flex-col justify-between p-3 border-r border-gemini-border/40 transition-all duration-300 w-16 md:w-64 z-50 shrink-0">
     <div class="space-y-4">
-      
-      <!-- Top: Hamburger + New Chat -->
       <div class="flex items-center gap-2">
         <button onclick="toggleSidebarFull()" class="p-2.5 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white transition">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
-        <button onclick="startNewChat()" class="hidden md:flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gemini-input hover:bg-gemini-hover border border-gemini-border text-xs font-medium text-white w-full shadow-sm transition">
+        <button onclick="startNewChat()" class="hidden md:flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gemini-input hover:bg-gemini-hover border border-gemini-border text-xs font-semibold text-white w-full shadow-sm transition">
           <i data-lucide="plus" class="w-4 h-4 text-gemini-blue"></i>
-          <span>New chat</span>
+          <span>New Chat</span>
         </button>
       </div>
 
-      <!-- Icon-only for mobile, Full List for desktop -->
       <div class="space-y-1">
         <div onclick="startNewChat()" class="md:hidden p-2.5 rounded-full hover:bg-gemini-hover text-gemini-blue flex justify-center cursor-pointer" title="New Chat">
           <i data-lucide="plus" class="w-5 h-5"></i>
         </div>
 
         <div class="hidden md:block text-[11px] font-bold text-gemini-muted px-3 py-1 uppercase tracking-wider">
-          Recent
+          KhaasCore Recent
         </div>
         
         <div id="sidebarChatList" class="space-y-1 overflow-y-auto max-h-[50vh] custom-scroll">
-          <!-- Recent session items injected here -->
+          <!-- Sessions -->
         </div>
       </div>
     </div>
 
-    <!-- Bottom Sidebar (Gems, Help, Settings) -->
     <div class="space-y-1 border-t border-gemini-border/40 pt-3">
       <div onclick="openPlansModal()" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gemini-hover text-gemini-muted hover:text-white cursor-pointer transition">
         <i data-lucide="sparkles" class="w-5 h-5 text-gemini-purple shrink-0"></i>
-        <span class="text-xs font-medium hidden md:inline truncate">Gemini Advanced</span>
+        <span class="text-xs font-semibold hidden md:inline truncate">KhaasCore Advanced</span>
       </div>
       <div onclick="openSettingsModal()" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gemini-hover text-gemini-muted hover:text-white cursor-pointer transition">
         <i data-lucide="settings" class="w-5 h-5 text-amber-400 shrink-0"></i>
         <span class="text-xs font-medium hidden md:inline truncate" id="sidebarSettingText">Settings & Key</span>
       </div>
-      <div class="flex items-center gap-3 p-2 rounded-xl text-gemini-muted text-[11px] hidden md:flex font-mono">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
-        <span>Muzaffarpur, Bihar</span>
-      </div>
     </div>
   </aside>
 
-  <!-- ================= 2. MAIN GEMINI VIEWPORT ================= -->
+  <!-- ================= MAIN VIEWPORT ================= -->
   <div class="flex-1 flex flex-col h-full overflow-hidden relative">
     
-    <!-- TOP NAVBAR -->
-    <header class="flex items-center justify-between px-4 sm:px-6 py-3 bg-gemini-bg z-30 shrink-0">
+    <!-- TOP HEADER -->
+    <header class="flex items-center justify-between px-4 sm:px-6 py-3 bg-gemini-bg z-30 shrink-0 border-b border-gemini-border/30">
       <div class="flex items-center gap-2">
-        <span class="text-lg font-medium text-white tracking-tight">KhaasCore AI</span>
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-500 via-indigo-500 to-pink-500 flex items-center justify-center font-black text-white text-xs shadow-md">
+          KC
+        </div>
+        <span class="text-lg font-bold text-white tracking-tight">KhaasCore AI</span>
+        
         <div class="relative inline-block">
-          <button onclick="toggleModelDropdown()" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg hover:bg-gemini-hover text-gemini-muted hover:text-white text-xs font-medium transition">
+          <button onclick="toggleModelDropdown()" class="flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-gemini-hover text-gemini-muted hover:text-white text-xs font-semibold transition">
             <span id="activeModelLabel">1.5 Flash</span>
             <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
           </button>
           
-          <!-- Dropdown Menu -->
-          <div id="modelDropdown" class="hidden absolute left-0 mt-1.5 w-60 bg-gemini-surface border border-gemini-border rounded-2xl p-1.5 shadow-2xl z-50 space-y-1">
-            <div onclick="selectEngine('gemini-1.5-flash', '1.5 Flash')" class="p-2.5 rounded-xl hover:bg-gemini-hover cursor-pointer flex items-center justify-between text-xs">
-              <div>
-                <div class="font-bold text-white flex items-center gap-1.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-gemini-blue"></i> 1.5 Flash</div>
-                <div class="text-[10px] text-gemini-muted">Fast & multipurpose workhorse</div>
-              </div>
+          <div id="modelDropdown" class="hidden absolute left-0 mt-1.5 w-56 bg-gemini-surface border border-gemini-border rounded-2xl p-1.5 shadow-2xl z-50 space-y-1">
+            <div onclick="selectEngine('gemini-1.5-flash', '1.5 Flash')" class="p-2.5 rounded-xl hover:bg-gemini-hover cursor-pointer text-xs">
+              <div class="font-bold text-white flex items-center gap-1.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-gemini-blue"></i> 1.5 Flash</div>
             </div>
-            <div onclick="selectEngine('gemini-1.5-pro', '1.5 Pro')" class="p-2.5 rounded-xl hover:bg-gemini-hover cursor-pointer flex items-center justify-between text-xs">
-              <div>
-                <div class="font-bold text-gemini-purple flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-gemini-purple"></i> 1.5 Pro</div>
-                <div class="text-[10px] text-gemini-muted">Next-gen reasoning & 1M context</div>
-              </div>
+            <div onclick="selectEngine('gemini-1.5-pro', '1.5 Pro')" class="p-2.5 rounded-xl hover:bg-gemini-hover cursor-pointer text-xs">
+              <div class="font-bold text-gemini-purple flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-gemini-purple"></i> 1.5 Pro Ultra</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Right Profile & Advanced Upgrade -->
-      <div class="flex items-center gap-3">
-        <button onclick="openPlansModal()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 hover:opacity-90 border border-purple-500/40 text-xs font-medium text-white transition">
+      <div class="flex items-center gap-2">
+        <button onclick="openPlansModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 hover:opacity-90 border border-purple-500/40 text-xs font-bold text-white transition">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-gemini-purple"></i>
-          <span class="hidden sm:inline">Try Gemini Advanced</span>
-          <span class="sm:hidden font-bold">Upgrade</span>
+          <span>Upgrade</span>
         </button>
 
         <button onclick="openSettingsModal()" class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-600 flex items-center justify-center font-bold text-xs text-white shadow-md">
@@ -182,15 +162,14 @@
     <!-- CHAT MESSAGES SCROLL CONTAINER -->
     <main id="chatArea" class="flex-1 overflow-y-auto custom-scroll p-4 sm:p-8 max-w-4xl w-full mx-auto space-y-6">
       
-      <!-- GEMINI OFFICIAL HERO GREETING -->
-      <div id="heroGreeting" class="pt-12 sm:pt-16 pb-4 space-y-6">
+      <!-- HERO GREETING -->
+      <div id="heroGreeting" class="pt-8 sm:pt-12 pb-4 space-y-5">
         
-        <!-- Animated 4-Point Multi-Color Sparkle Star -->
         <div class="w-12 h-12">
           <svg viewBox="0 0 24 24" class="w-full h-full animate-pulse" fill="none">
-            <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" fill="url(#gemini-sparkle-grad)" />
+            <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" fill="url(#kc-grad)" />
             <defs>
-              <linearGradient id="gemini-sparkle-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <linearGradient id="kc-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
                 <stop stop-color="#4285F4"/>
                 <stop offset="0.5" stop-color="#9B72CF"/>
                 <stop offset="1" stop-color="#D96570"/>
@@ -200,41 +179,40 @@
         </div>
 
         <div class="space-y-2">
-          <h1 class="text-4xl sm:text-5xl font-medium tracking-tight">
-            <span class="gemini-gradient-text">Hello, how can I help today?</span>
+          <h1 class="text-3xl sm:text-5xl font-black tracking-tight">
+            <span class="kc-gradient-text">नमस्ते! मैं KhaasCore AI हूँ</span>
           </h1>
-          <p class="text-base text-gemini-muted font-normal">
-            KhaasCore AI leverages Google Gemini 1.5 architecture to analyze contracts, draft legal briefs, code, and reason in Hindi & English.
+          <p class="text-sm sm:text-base text-gemini-muted leading-relaxed">
+            **खास कोर एआई** - बोलकर सवाल पूछें (माइक 🎙️ दबाएँ) या कॉन्ट्रैक्ट व कोई भी सवाल यहाँ लिखें।
           </p>
         </div>
 
-        <!-- Gemini Prompt Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6">
-          <div onclick="submitPrompt('Audit this SaaS clause: The company may terminate without cause, notice or liability.')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/40 hover:border-gemini-blue cursor-pointer transition flex flex-col justify-between h-32">
-            <span class="text-sm text-gemini-text leading-snug">Audit termination & zero liability risk in agreements</span>
+        <!-- Suggestion Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+          <div onclick="submitPrompt('इस अनुबंध क्लॉज का ऑडिट करें: The company reserves the right to terminate this contract immediately without cause, notice, or liability.')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/50 cursor-pointer transition flex flex-col justify-between h-32">
+            <span class="text-xs sm:text-sm text-gemini-text font-medium leading-snug">🚩 एकतरफा अनुबंध समाप्ति व शून्य देयता का ऑडिट करें</span>
             <i data-lucide="shield-alert" class="w-4 h-4 text-gemini-blue self-end"></i>
           </div>
 
-          <div onclick="submitPrompt('भारतीय अनुबंध अधिनियम 1872 के तहत एक सख्त NDA एग्रीमेंट ड्राफ्ट करें।')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/40 hover:border-gemini-purple cursor-pointer transition flex flex-col justify-between h-32">
-            <span class="text-sm text-gemini-text leading-snug">भारतीय कानून अनुसार NDA और रोज़गार अनुबंध बनाएँ</span>
+          <div onclick="submitPrompt('भारतीय अनुबंध अधिनियम 1872 के तहत एक सख्त NDA एग्रीमेंट ड्राफ्ट करें।')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/50 cursor-pointer transition flex flex-col justify-between h-32">
+            <span class="text-xs sm:text-sm text-gemini-text font-medium leading-snug">📄 भारतीय कानून अनुसार NDA अनुबंध बनाएँ</span>
             <i data-lucide="file-text" class="w-4 h-4 text-gemini-purple self-end"></i>
           </div>
 
-          <div onclick="submitPrompt('Explain quantum computing and 1M token context window in simple Hindi.')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/40 hover:border-emerald-400 cursor-pointer transition flex flex-col justify-between h-32">
-            <span class="text-sm text-gemini-text leading-snug">क्वांटम कंप्यूटिंग और 1M टोकन संदर्भ को समझें</span>
+          <div onclick="submitPrompt('KhaasCore AI की क्षमताओं और कार्यप्रणाली को आसान हिंदी में समझाइए।')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/50 cursor-pointer transition flex flex-col justify-between h-32">
+            <span class="text-xs sm:text-sm text-gemini-text font-medium leading-snug">⚡ KhaasCore सुपरइंटेलिजेंस को समझें</span>
             <i data-lucide="cpu" class="w-4 h-4 text-emerald-400 self-end"></i>
           </div>
         </div>
       </div>
 
-      <!-- Dynamic Messages Container -->
+      <!-- Live Messages -->
       <div id="messagesList" class="space-y-6"></div>
     </main>
 
-    <!-- ================= 3. FLOATING GEMINI CAPSULE INPUT ================= -->
+    <!-- ================= FLOATING CAPSULE INPUT ================= -->
     <footer class="p-3 sm:p-6 max-w-4xl w-full mx-auto shrink-0">
       
-      <!-- Upload Attachment Pill Preview -->
       <div id="attachmentPill" class="hidden items-center justify-between bg-gemini-surface border border-gemini-border rounded-xl px-3 py-1.5 mb-2 text-xs text-slate-300 max-w-md">
         <span class="flex items-center gap-2 truncate font-mono">
           <i data-lucide="paperclip" class="w-3.5 h-3.5 text-gemini-blue shrink-0"></i>
@@ -243,121 +221,96 @@
         <button onclick="clearAttachment()" class="text-gemini-muted hover:text-rose-400"><i data-lucide="x" class="w-4 h-4"></i></button>
       </div>
 
-      <!-- Capsule Container -->
       <div class="relative bg-gemini-input rounded-3xl border border-gemini-border/60 p-2.5 sm:p-3.5 shadow-2xl focus-within:border-gemini-blue transition">
-        <textarea id="promptInput" rows="1" placeholder="Ask Gemini 1.5 or paste legal clauses..." class="w-full bg-transparent text-sm text-gemini-text placeholder-gemini-muted outline-none resize-none px-3 pt-1 max-h-36 custom-scroll" oninput="autoResizeTextarea(this)" onkeydown="handleInputKey(event)"></textarea>
+        <textarea id="promptInput" rows="1" placeholder="KhaasCore AI से कुछ भी पूछें या बोलें..." class="w-full bg-transparent text-sm text-gemini-text placeholder-gemini-muted outline-none resize-none px-3 pt-1 max-h-36 custom-scroll" oninput="autoResizeTextarea(this)" onkeydown="handleInputKey(event)"></textarea>
         
         <div class="flex items-center justify-between pt-2 px-1">
           <div class="flex items-center gap-1">
             <input type="file" id="docFileInput" class="hidden" accept=".txt,.pdf,.docx,image/*" onchange="parseUploadedFile(event)">
             
-            <button onclick="document.getElementById('docFileInput').click()" class="p-2 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white transition" title="Add files or images">
+            <button onclick="document.getElementById('docFileInput').click()" class="p-2.5 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white transition" title="Add File">
               <i data-lucide="plus" class="w-4 h-4"></i>
             </button>
 
-            <button onclick="startVoiceRecognition()" id="micBtn" class="p-2 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white transition" title="Voice Input">
-              <i data-lucide="mic" class="w-4 h-4"></i>
+            <!-- FIXED HIGH-RESPONSIVE MIC BUTTON -->
+            <button onclick="startVoiceRecognition()" id="micBtn" class="p-2.5 rounded-full bg-gemini-surface hover:bg-gemini-hover text-gemini-muted hover:text-white border border-gemini-border transition active:scale-95" title="Tap to Speak">
+              <i data-lucide="mic" class="w-4 h-4 text-gemini-blue"></i>
             </button>
           </div>
 
-          <button onclick="dispatchPrompt()" id="submitBtn" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:bg-slate-200 active:scale-95 transition shadow-md disabled:opacity-30">
+          <button onclick="dispatchPrompt()" id="submitBtn" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:bg-slate-200 active:scale-95 transition shadow-md">
             <i data-lucide="arrow-up" class="w-5 h-5 font-black"></i>
           </button>
         </div>
       </div>
-      <p class="text-[11px] text-center text-gemini-muted mt-2 font-normal">
-        Gemini may display inaccurate info, including about people, so double-check its responses.
+      <p class="text-[11px] text-center text-gemini-muted mt-2">
+        KhaasCore AI (खास कोर एआई) • Voice & Superintelligence OS
       </p>
     </footer>
   </div>
 
-  <!-- ================= MODAL: GEMINI ADVANCED / GOOGLE ONE AI TIER ================= -->
+  <!-- ================= MODALS ================= -->
   <div id="plansModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-    <div class="bg-gemini-surface border border-gemini-border rounded-3xl max-w-3xl w-full p-6 sm:p-8 space-y-6 shadow-2xl custom-scroll max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b border-gemini-border/60 pb-4">
-        <div>
-          <h2 class="text-2xl font-bold gemini-gradient-text">Google AI Premium with Gemini Advanced</h2>
-          <p class="text-xs text-gemini-muted mt-1">Get our most capable AI models and priority access to new features.</p>
-        </div>
-        <button onclick="closePlansModal()" class="p-2 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Gemini Advanced Pro Plan -->
-        <div class="p-6 rounded-2xl bg-gradient-to-b from-indigo-950/40 to-gemini-bg border-2 border-gemini-purple flex flex-col justify-between space-y-4 relative shadow-xl shadow-indigo-500/10">
-          <span class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-gemini-purple text-[10px] font-bold text-white uppercase tracking-wider">Recommended</span>
-          <div>
-            <div class="text-sm font-bold text-gemini-purple">Gemini Advanced (1.5 Pro)</div>
-            <div class="text-3xl font-black text-white mt-2">$29 <span class="text-xs font-normal text-gemini-muted">/ month</span></div>
-            <p class="text-xs text-gemini-muted mt-2">Next-gen 1.5 Pro model with 1 million token context window.</p>
-            <ul class="mt-4 space-y-2 text-xs text-gemini-text">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Complex coding, reasoning & math</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Deep statutory contract audit</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Upload large PDFs (up to 1,500 pages)</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Priority access during peak times</li>
-            </ul>
-          </div>
-          <button onclick="initiateCheckout('Gemini Advanced ($29/mo)')" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 font-bold text-xs text-white shadow-lg transition">Start Free Trial / Subscribe</button>
-        </div>
-
-        <!-- Enterprise Tier -->
-        <div class="p-6 rounded-2xl bg-gemini-bg border border-gemini-border flex flex-col justify-between space-y-4">
-          <div>
-            <div class="text-sm font-bold text-gemini-blue">Enterprise Workspace</div>
-            <div class="text-3xl font-black text-white mt-2">$99 <span class="text-xs font-normal text-gemini-muted">/ month</span></div>
-            <p class="text-xs text-gemini-muted mt-2">For law firms, corporations and multi-seat engineering teams.</p>
-            <ul class="mt-4 space-y-2 text-xs text-gemini-text">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Multi-seat team collaboration</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Custom enterprise API endpoint</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Zero data retention privacy compliance</li>
-            </ul>
-          </div>
-          <button onclick="initiateCheckout('Enterprise Workspace ($99/mo)')" class="w-full py-3 rounded-xl bg-gemini-hover hover:bg-gemini-border border border-gemini-border font-bold text-xs text-white">Contact Enterprise Sales</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= MODAL: SETTINGS & GEMINI API KEY ================= -->
-  <div id="settingsModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-    <div class="bg-gemini-surface border border-gemini-border rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+    <div class="bg-gemini-surface border border-gemini-border rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-gemini-border pb-3">
-        <h3 class="font-bold text-sm text-white flex items-center gap-2">
-          <i data-lucide="settings" class="w-4 h-4 text-amber-400"></i> Settings & API Configuration
-        </h3>
-        <button onclick="closeSettingsModal()" class="text-gemini-muted hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+        <h2 class="text-xl font-bold kc-gradient-text">Upgrade to KhaasCore Advanced</h2>
+        <button onclick="closePlansModal()" class="text-gemini-muted hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
-      
-      <div class="space-y-3">
-        <label class="text-xs font-medium text-gemini-muted block">Google AI Studio Gemini API Key:</label>
-        <input type="password" id="modalKeyInput" placeholder="AIzaSy..." class="w-full bg-gemini-bg border border-gemini-border rounded-xl p-3 text-xs text-white outline-none focus:border-gemini-blue font-mono">
-        <p class="text-[11px] text-gemini-muted">Get your key from Google AI Studio. It is securely saved in your browser local storage.</p>
-      </div>
-
-      <div class="flex gap-2 pt-2">
-        <button onclick="saveApiKey()" class="flex-1 py-2.5 bg-gemini-blue hover:bg-blue-600 rounded-xl font-bold text-xs text-white transition">Save Changes</button>
-        <button onclick="clearChatHistory()" class="px-4 py-2.5 bg-rose-600/20 text-rose-300 hover:bg-rose-600/30 rounded-xl text-xs font-semibold">Clear History</button>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-5 rounded-2xl bg-gradient-to-b from-indigo-950/40 to-gemini-bg border-2 border-gemini-purple flex flex-col justify-between space-y-3">
+          <div>
+            <div class="text-sm font-bold text-gemini-purple">Professional OS</div>
+            <div class="text-2xl font-black text-white mt-1">$29 <span class="text-xs font-normal text-gemini-muted">/ mo</span></div>
+            <p class="text-xs text-gemini-muted mt-2">Unlimited Voice AI, 1M Context & Deep Audit.</p>
+          </div>
+          <button onclick="alert('Checkout initiated for Pro ($29/mo)')" class="w-full py-2.5 rounded-xl bg-gemini-purple font-bold text-xs text-white">Subscribe $29</button>
+        </div>
+        <div class="p-5 rounded-2xl bg-gemini-bg border border-gemini-border flex flex-col justify-between space-y-3">
+          <div>
+            <div class="text-sm font-bold text-gemini-blue">Enterprise Firm</div>
+            <div class="text-2xl font-black text-white mt-1">$99 <span class="text-xs font-normal text-gemini-muted">/ mo</span></div>
+            <p class="text-xs text-gemini-muted mt-2">Team Seats & Custom Legal Playbooks.</p>
+          </div>
+          <button onclick="alert('Enterprise tier selected.')" class="w-full py-2.5 rounded-xl bg-gemini-hover border border-gemini-border font-bold text-xs text-white">Contact Sales $99</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ================= 4. JAVASCRIPT APP LOGIC ================= -->
+  <div id="settingsModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
+    <div class="bg-gemini-surface border border-gemini-border rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-gemini-border pb-2">
+        <h3 class="font-bold text-sm text-white flex items-center gap-1.5"><i data-lucide="settings" class="w-4 h-4 text-amber-400"></i> Settings & Key</h3>
+        <button onclick="closeSettingsModal()" class="text-gemini-muted hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+      </div>
+      <div>
+        <label class="text-xs text-gemini-muted block mb-1">Google Gemini API Key:</label>
+        <input type="password" id="modalKeyInput" placeholder="AIzaSy..." class="w-full bg-gemini-bg border border-gemini-border rounded-xl p-2.5 text-xs text-white outline-none focus:border-gemini-blue font-mono">
+      </div>
+      <div class="flex gap-2">
+        <button onclick="saveApiKey()" class="flex-1 py-2 bg-gemini-blue rounded-xl font-bold text-xs text-white">Save Key</button>
+        <button onclick="clearChatHistory()" class="px-3 py-2 bg-rose-600/20 text-rose-300 rounded-xl text-xs font-semibold">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
     lucide.createIcons();
 
     let activeModel = 'gemini-1.5-flash';
     let attachedContent = null;
     let attachedName = null;
-    let chatHistory = [];
-    let currentSessionId = 'gemini_' + Date.now();
-    let savedSessions = JSON.parse(localStorage.getItem('GEMINI_SAVED_SESSIONS') || '{}');
+    let currentSessionId = 'kc_' + Date.now();
+    let savedSessions = JSON.parse(localStorage.getItem('KC_SAVED_SESSIONS') || '{}');
+    let recognitionInstance = null;
 
     function syncKeyStatus() {
       const k = localStorage.getItem('GEMINI_API_KEY');
       const sideTxt = document.getElementById('sidebarSettingText');
       if (k && k.length > 5) {
         sideTxt.innerText = "API Connected ✓";
-        sideTxt.className = "text-emerald-400 font-medium hidden md:inline truncate";
+        sideTxt.className = "text-emerald-400 font-semibold hidden md:inline truncate";
       } else {
         sideTxt.innerText = "Settings & Key";
         sideTxt.className = "text-xs font-medium hidden md:inline truncate";
@@ -365,39 +318,16 @@
     }
     syncKeyStatus();
 
-    function renderSidebarSessions() {
-      const c = document.getElementById('sidebarChatList');
-      c.innerHTML = '';
-      Object.keys(savedSessions).reverse().forEach(id => {
-        const item = savedSessions[id];
-        const div = document.createElement('div');
-        div.className = "p-2 rounded-xl hover:bg-gemini-hover cursor-pointer text-xs text-gemini-text flex items-center justify-between group truncate";
-        div.innerHTML = `
-          <div class="flex items-center gap-2 truncate" onclick="loadSession('${id}')">
-            <i data-lucide="message-square" class="w-3.5 h-3.5 text-gemini-muted shrink-0"></i>
-            <span class="truncate">${item.title}</span>
-          </div>
-          <button onclick="deleteSession('${id}', event)" class="opacity-0 group-hover:opacity-100 p-1 text-gemini-muted hover:text-rose-400"><i data-lucide="trash-2" class="w-3 h-3"></i></button>
-        `;
-        c.appendChild(div);
-      });
-      lucide.createIcons();
-    }
-    renderSidebarSessions();
-
     function toggleSidebarFull() {
       const sb = document.getElementById('sidebar');
       sb.classList.toggle('w-16');
       sb.classList.toggle('w-64');
-      document.querySelectorAll('#sidebar .hidden.md\\:inline, #sidebar .hidden.md\\:block, #sidebar .hidden.md\\:flex').forEach(el => {
+      document.querySelectorAll('#sidebar .hidden.md\\:inline, #sidebar .hidden.md\\:block').forEach(el => {
         el.classList.toggle('hidden');
       });
     }
 
-    function toggleModelDropdown() {
-      document.getElementById('modelDropdown').classList.toggle('hidden');
-    }
-
+    function toggleModelDropdown() { document.getElementById('modelDropdown').classList.toggle('hidden'); }
     function selectEngine(modelId, label) {
       activeModel = modelId;
       document.getElementById('activeModelLabel').innerText = label;
@@ -406,7 +336,6 @@
 
     function openPlansModal() { document.getElementById('plansModal').classList.remove('hidden'); }
     function closePlansModal() { document.getElementById('plansModal').classList.add('hidden'); }
-
     function openSettingsModal() { 
       document.getElementById('settingsModal').classList.remove('hidden');
       document.getElementById('modalKeyInput').value = localStorage.getItem('GEMINI_API_KEY') || '';
@@ -419,7 +348,7 @@
         localStorage.setItem('GEMINI_API_KEY', v);
         syncKeyStatus();
         closeSettingsModal();
-        alert('Gemini API Key saved successfully!');
+        alert('API Key Saved!');
       }
     }
 
@@ -438,40 +367,16 @@
     function startNewChat() {
       document.getElementById('messagesList').innerHTML = '';
       document.getElementById('heroGreeting').classList.remove('hidden');
-      chatHistory = [];
-      currentSessionId = 'gemini_' + Date.now();
+      currentSessionId = 'kc_' + Date.now();
       clearAttachment();
+      window.speechSynthesis.cancel();
     }
 
     function clearChatHistory() {
       savedSessions = {};
-      localStorage.removeItem('GEMINI_SAVED_SESSIONS');
+      localStorage.removeItem('KC_SAVED_SESSIONS');
       startNewChat();
-      renderSidebarSessions();
       closeSettingsModal();
-    }
-
-    function loadSession(id) {
-      currentSessionId = id;
-      const s = savedSessions[id];
-      if(!s) return;
-      document.getElementById('messagesList').innerHTML = '';
-      document.getElementById('heroGreeting').classList.add('hidden');
-      s.messages.forEach(m => {
-        if(m.role === 'user') {
-          renderUserBubble(m.text);
-        } else {
-          renderAiBubble(m.text, false);
-        }
-      });
-    }
-
-    function deleteSession(id, e) {
-      e.stopPropagation();
-      delete savedSessions[id];
-      localStorage.setItem('GEMINI_SAVED_SESSIONS', JSON.stringify(savedSessions));
-      renderSidebarSessions();
-      if(id === currentSessionId) startNewChat();
     }
 
     function submitPrompt(q) {
@@ -479,7 +384,6 @@
       dispatchPrompt();
     }
 
-    // Attachment Parser (PDF, DOCX, TXT)
     async function parseUploadedFile(e) {
       const file = e.target.files[0];
       if(!file) return;
@@ -519,11 +423,7 @@
       document.getElementById('attachmentPill').classList.remove('flex');
     }
 
-    function initiateCheckout(tier) {
-      alert(`Connecting to Google AI Billing & Merchant Checkout for: ${tier}`);
-    }
-
-    // ================= DISPATCH PROMPT & REAL GEMINI STREAMING =================
+    // ================= DISPATCH PROMPT & AUTO-SPEAK =================
     async function dispatchPrompt() {
       const input = document.getElementById('promptInput');
       let text = input.value.trim();
@@ -531,34 +431,29 @@
 
       let payload = text;
       if (attachedContent) {
-        payload = `[DOCUMENT ATTACHMENT: ${attachedName}]\n${attachedContent}\n\n[USER PROMPT]:\n${text || 'Audit and extract all critical insights from this file.'}`;
+        payload = `[ATTACHMENT: ${attachedName}]\n${attachedContent}\n\n[INSTRUCTION]:\n${text || 'Audit and explain this file.'}`;
       }
 
       document.getElementById('heroGreeting').classList.add('hidden');
-
-      // Render User Bubble
       renderUserBubble(text || attachedName);
 
-      // Save to session history
       if(!savedSessions[currentSessionId]) {
         savedSessions[currentSessionId] = { title: (text || attachedName).slice(0, 28), messages: [] };
       }
       savedSessions[currentSessionId].messages.push({ role: 'user', text: payload });
-      localStorage.setItem('GEMINI_SAVED_SESSIONS', JSON.stringify(savedSessions));
-      renderSidebarSessions();
+      localStorage.setItem('KC_SAVED_SESSIONS', JSON.stringify(savedSessions));
 
       input.value = '';
       input.style.height = 'auto';
       clearAttachment();
 
-      // Render AI Bubble Shell
       const msgId = 'msg-' + Date.now();
-      renderAiBubble('<span class="inline-flex items-center gap-2 text-gemini-muted animate-pulse"><i data-lucide="sparkles" class="w-4 h-4 text-gemini-blue animate-spin"></i> Gemini is thinking...</span>', true, msgId);
+      renderAiBubble('<span class="inline-flex items-center gap-2 text-gemini-muted animate-pulse"><i data-lucide="sparkles" class="w-4 h-4 text-gemini-blue animate-spin"></i> KhaasCore AI जवाब तैयार कर रहा है...</span>', true, msgId);
 
       const outDiv = document.getElementById(msgId);
       const key = localStorage.getItem('GEMINI_API_KEY');
 
-      // LIVE GOOGLE GEMINI 1.5 PRO / FLASH API CALL
+      // 1. LIVE GEMINI API
       if (key && key.startsWith('AIzaSy')) {
         try {
           const contents = savedSessions[currentSessionId].messages.map(m => ({
@@ -571,7 +466,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               contents: contents,
-              systemInstruction: { parts: [{ text: "You are KhaasCore AI, an elite legal intelligence, coding and multi-lingual assistant matching Google Gemini 1.5 Pro architecture. Give direct, beautifully formatted markdown answers with clear structure." }] }
+              systemInstruction: { parts: [{ text: "You are KhaasCore AI (खास कोर एआई), an elite legal and general superintelligence. Give direct, precise markdown responses in conversational Hindi and English." }] }
             })
           });
 
@@ -579,8 +474,10 @@
           if (data.candidates && data.candidates[0].content.parts[0].text) {
             const reply = data.candidates[0].content.parts[0].text;
             savedSessions[currentSessionId].messages.push({ role: 'model', text: reply });
-            localStorage.setItem('GEMINI_SAVED_SESSIONS', JSON.stringify(savedSessions));
-            typewriterStream(outDiv, reply);
+            localStorage.setItem('KC_SAVED_SESSIONS', JSON.stringify(savedSessions));
+            outDiv.innerHTML = marked.parse(reply);
+            scrollBottom();
+            speakSpeech(msgId); // AUTO SPEAK RESPONSE
             return;
           }
         } catch (e) {
@@ -588,26 +485,23 @@
         }
       }
 
-      // BUILT-IN OFFLINE NEURAL FALLBACK (Always Works)
+      // 2. BUILT-IN OFFLINE RESPONSE (AUTO SPEAK ENABLED)
       setTimeout(() => {
-        const fallBack = `### ⚖️ KhaasCore Legal & General Intelligence
+        const fallBack = `### ⚖️ KhaasCore Legal Intelligence
 
-**Response to:** *"${text || attachedName}"*
+**आपके सवाल का उत्तर:**
 
-#### 1. Core Statutory Analysis
-* **🚩 Risk Classification:** High Liability & Unilateral Exposure.
-* **🚩 Statutory Basis:** Provisions violating Section 73/74 of the Indian Contract Act 1872 or standard bilateral UCC commercial norms are voidable.
+1. **कानूनी विश्लेषण:** यह विषय अनुबंध अधिनियम और वैधानिक निष्पक्षता के दृष्टिकोण से महत्वपूर्ण है।
+2. **सुझाव:** अनुबंध में 30 दिन का नोटिस पीरियड और दोनों पक्षों की आपसी सहमति सुनिश्चित करें।
 
-#### 2. Auto-Fixed Neutral Clause
-> *"Both parties agree that termination requires a thirty (30) days prior written notice with a mandatory fifteen (15) days cure period."*
-
----
-*(💡 Tip: To unlock full 1M Token Context & live web capabilities, enter your Gemini API Key in Settings.)*`;
+*(नोट: सीधे लाइव AI से जुड़ने के लिए सेटिंग्स में अपनी API Key दर्ज करें।)*`;
 
         savedSessions[currentSessionId].messages.push({ role: 'model', text: fallBack });
-        localStorage.setItem('GEMINI_SAVED_SESSIONS', JSON.stringify(savedSessions));
-        typewriterStream(outDiv, fallBack);
-      }, 700);
+        localStorage.setItem('KC_SAVED_SESSIONS', JSON.stringify(savedSessions));
+        outDiv.innerHTML = marked.parse(fallBack);
+        scrollBottom();
+        speakSpeech(msgId); // AUTO SPEAK RESPONSE
+      }, 600);
     }
 
     function renderUserBubble(text) {
@@ -626,32 +520,25 @@
     function renderAiBubble(content, isHTML = false, msgId = 'msg-' + Date.now()) {
       const list = document.getElementById('messagesList');
       const div = document.createElement('div');
-      div.className = "flex gap-4 max-w-3xl";
+      div.className = "flex gap-3 max-w-3xl";
       div.innerHTML = `
-        <!-- Gemini Star Logo -->
-        <div class="w-7 h-7 shrink-0 mt-0.5">
-          <svg viewBox="0 0 24 24" class="w-full h-full" fill="none">
-            <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" fill="url(#sparkle-${msgId})" />
-            <defs>
-              <linearGradient id="sparkle-${msgId}" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#4285F4"/>
-                <stop offset="0.5" stop-color="#9B72CF"/>
-                <stop offset="1" stop-color="#D96570"/>
-              </linearGradient>
-            </defs>
-          </svg>
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-500 via-indigo-500 to-pink-500 flex items-center justify-center font-bold text-white text-xs shrink-0 mt-0.5 shadow-md">
+          KC
         </div>
 
-        <div class="space-y-2 flex-1 overflow-hidden">
+        <div class="space-y-1.5 flex-1 overflow-hidden">
+          <div class="text-xs font-bold text-gemini-muted">KhaasCore AI</div>
           <div id="${msgId}" class="prose text-sm text-gemini-text leading-relaxed font-normal">
             ${isHTML ? content : marked.parse(content)}
           </div>
           
-          <!-- Gemini Action Bar -->
-          <div class="flex items-center gap-1.5 pt-2 text-gemini-muted">
-            <button onclick="speakSpeech('${msgId}')" class="p-1.5 rounded-full hover:bg-gemini-hover hover:text-white" title="Listen"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
-            <button onclick="copyBubbleText('${msgId}')" class="p-1.5 rounded-full hover:bg-gemini-hover hover:text-white" title="Copy"><i data-lucide="copy" class="w-4 h-4"></i></button>
-            <button onclick="alert('Shared to link!')" class="p-1.5 rounded-full hover:bg-gemini-hover hover:text-white" title="Share"><i data-lucide="share-2" class="w-4 h-4"></i></button>
+          <div class="flex items-center gap-2 pt-2 text-gemini-muted">
+            <button onclick="speakSpeech('${msgId}')" class="p-1.5 rounded-full hover:bg-gemini-hover text-gemini-blue hover:text-white border border-gemini-border/50" title="Listen Audio">
+              <i data-lucide="volume-2" class="w-4 h-4"></i>
+            </button>
+            <button onclick="copyBubbleText('${msgId}')" class="p-1.5 rounded-full hover:bg-gemini-hover hover:text-white" title="Copy">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
           </div>
         </div>
       `;
@@ -660,22 +547,28 @@
       scrollBottom();
     }
 
-    function typewriterStream(container, markdownText) {
-      container.innerHTML = marked.parse(markdownText);
-      scrollBottom();
-    }
-
     function scrollBottom() {
       const area = document.getElementById('chatArea');
       area.scrollTop = area.scrollHeight;
     }
 
+    // ================= FIXED SPEECH OUTPUT (TTS) =================
     function speakSpeech(id) {
       const el = document.getElementById(id);
       if(!el) return;
       window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(el.innerText.replace(/[#*`_>]/g, ''));
+      
+      const cleanText = el.innerText.replace(/[#*`_>🚩]/g, '').trim();
+      const u = new SpeechSynthesisUtterance(cleanText);
       u.lang = 'hi-IN';
+      u.rate = 1.0;
+      u.pitch = 1.0;
+
+      // Voices Fallback
+      const voices = window.speechSynthesis.getVoices();
+      const hiVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN'));
+      if (hiVoice) u.voice = hiVoice;
+
       window.speechSynthesis.speak(u);
     }
 
@@ -686,24 +579,56 @@
       alert('Copied to clipboard!');
     }
 
+    // ================= FIXED HIGH-RESPONSIVE VOICE INPUT (STT) =================
     function startVoiceRecognition() {
-      if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-        alert('Voice is best supported in Google Chrome.');
+      window.speechSynthesis.cancel(); // Stop talking when listening
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('Voice input supported on Chrome/Edge. Please allow microphone permission.');
         return;
       }
-      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const rec = new SR();
-      rec.lang = 'hi-IN';
-      const mic = document.getElementById('micBtn');
-      mic.classList.add('text-rose-500', 'animate-pulse');
 
-      rec.onresult = (e) => {
-        document.getElementById('promptInput').value = e.results[0][0].transcript;
-        mic.classList.remove('text-rose-500', 'animate-pulse');
+      if (recognitionInstance) {
+        try { recognitionInstance.stop(); } catch(e){}
+      }
+
+      recognitionInstance = new SpeechRecognition();
+      recognitionInstance.lang = 'hi-IN';
+      recognitionInstance.interimResults = false;
+      recognitionInstance.maxAlternatives = 1;
+
+      const mic = document.getElementById('micBtn');
+      mic.classList.add('bg-rose-600', 'text-white', 'animate-pulse');
+
+      recognitionInstance.onstart = () => {
+        document.getElementById('promptInput').placeholder = "सुन रहा हूँ... बोलिए...";
+      };
+
+      recognitionInstance.onresult = (e) => {
+        const transcript = e.results[0][0].transcript;
+        document.getElementById('promptInput').value = transcript;
+        mic.classList.remove('bg-rose-600', 'text-white', 'animate-pulse');
+        document.getElementById('promptInput').placeholder = "KhaasCore AI से कुछ भी पूछें या बोलें...";
         dispatchPrompt();
       };
-      rec.onerror = () => mic.classList.remove('text-rose-500', 'animate-pulse');
-      rec.start();
+
+      recognitionInstance.onerror = (e) => {
+        console.error("Speech Error:", e);
+        mic.classList.remove('bg-rose-600', 'text-white', 'animate-pulse');
+        document.getElementById('promptInput').placeholder = "KhaasCore AI से कुछ भी पूछें या बोलें...";
+      };
+
+      recognitionInstance.onend = () => {
+        mic.classList.remove('bg-rose-600', 'text-white', 'animate-pulse');
+        document.getElementById('promptInput').placeholder = "KhaasCore AI से कुछ भी पूछें या बोलें...";
+      };
+
+      try {
+        recognitionInstance.start();
+      } catch (err) {
+        console.error(err);
+      }
     }
   </script>
 </body>
