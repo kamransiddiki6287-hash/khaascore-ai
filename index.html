@@ -1,521 +1,600 @@
 <!DOCTYPE html>
-<html lang="hi" class="dark">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>KhaasCore AI | खास कोर एआई - Universal Intelligence</title>
-  <meta name="google-site-verification" content="YJ3o_JHzFsE10zrSd-Rmi1TBN8hVvgyqWsgkde9cG60" />
-
-  <!-- Fonts & Libraries -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Ultra AI - Multi-Modal Intelligent System</title>
   
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Markdown & Code Highlighting CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['"Google Sans"', 'sans-serif'], mono: ['"Roboto Mono"', 'monospace'] },
-          colors: {
-            gemini: {
-              bg: '#131314',
-              surface: '#1e1f20',
-              input: '#1e1f20',
-              hover: '#282a2c',
-              border: '#3c4043',
-              blue: '#4285f4',
-              purple: '#9b72cf',
-              pink: '#d96570',
-              text: '#e3e3e3',
-              muted: '#8e918f'
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { background-color: #131314; color: #e3e3e3; margin: 0; height: 100dvh; overflow: hidden; }
-    .kc-gradient-text {
-      background: linear-gradient(74deg, #4285f4 0%, #9b72cf 35%, #d96570 70%, #4285f4 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 6s linear infinite;
+    :root {
+      --bg: #090d16;
+      --sidebar: #0f172a;
+      --card: #131d33;
+      --chat-user: #1e3a8a;
+      --chat-ai: #17233f;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
     }
-    @keyframes gradientShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
-    .custom-scroll::-webkit-scrollbar { width: 5px; }
-    .custom-scroll::-webkit-scrollbar-thumb { background: #3c4043; border-radius: 9999px; }
-    .prose p { margin-bottom: 0.75rem; line-height: 1.65; font-size: 0.95rem; color: #e3e3e3; }
-    .prose strong { color: #ffffff; font-weight: 600; }
-    .prose ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.75rem; }
-    .prose ol { list-style-type: decimal; margin-left: 1.5rem; margin-bottom: 0.75rem; }
-    .prose code { background: #282a2c; padding: 2px 6px; border-radius: 6px; font-family: monospace; font-size: 0.9em; color: #4285f4; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .btn {
+      background: var(--border);
+      color: var(--text);
+      border: 1px solid #334155;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .btn:hover { background: #334155; }
+    .btn-primary { background: var(--accent); color: #090d16; font-weight: 600; border: none; }
+    .btn-primary:hover { opacity: 0.9; }
+
+    /* Main Container */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Top Bar */
+    .topbar {
+      height: 60px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: var(--sidebar);
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    select, input[type="password"] {
+      background: #060911;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    /* Chat Area */
+    .chat-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .message {
+      max-width: 82%;
+      padding: 16px 20px;
+      border-radius: 12px;
+      line-height: 1.65;
+      font-size: 15px;
+      word-break: break-word;
+      position: relative;
+    }
+    .message.user {
+      align-self: flex-end;
+      background: var(--chat-user);
+      border-bottom-right-radius: 2px;
+    }
+    .message.ai {
+      align-self: flex-start;
+      background: var(--chat-ai);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 2px;
+      width: 100%;
+      max-width: 88%;
+    }
+    .message img.preview {
+      max-width: 250px;
+      max-height: 200px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    /* Action bar inside AI responses */
+    .msg-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .msg-actions span {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .msg-actions span:hover { color: var(--accent); }
+
+    /* Markdown Styling */
+    .message.ai pre {
+      background: #060911;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+      overflow-x: auto;
+      position: relative;
+    }
+    .message.ai code { font-family: monospace; font-size: 14px; }
+    .message.ai table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+    }
+    .message.ai th, .message.ai td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .message.ai th { background: #0b1329; }
+
+    /* Input Footer */
+    .footer {
+      padding: 16px 20px;
+      background: var(--sidebar);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .input-wrapper {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      background: #060911;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+    textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 15px;
+      font-family: inherit;
+      resize: none;
+      height: 48px;
+      outline: none;
+      padding: 8px 0;
+    }
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      transition: 0.2s;
+    }
+    .icon-btn:hover { color: var(--accent); background: rgba(56, 189, 248, 0.1); }
+    .icon-btn.active { color: #ef4444; }
+
+    #filePreviewContainer {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #111a2e;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      width: fit-content;
+    }
   </style>
 </head>
-<body class="flex h-full overflow-hidden">
+<body>
 
-  <!-- SIDEBAR OVERLAY BACKDROP -->
-  <div id="sidebarBackdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 hidden"></div>
-
-  <!-- ================= 1. OFFICIAL FULL GEMINI DRAWER SIDEBAR ================= -->
-  <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 sm:w-80 bg-gemini-surface border-r border-gemini-border flex flex-col justify-between p-4 transition-transform duration-300 -translate-x-full shadow-2xl">
-    
-    <!-- Top Items -->
-    <div class="space-y-4 overflow-y-auto custom-scroll flex-1 pr-1">
-      
-      <!-- Drawer Header: Brand & Close -->
-      <div class="flex items-center justify-between pb-2 border-b border-gemini-border/40">
-        <span class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-          <div class="w-6 h-6 rounded-lg bg-gradient-to-tr from-blue-500 via-indigo-500 to-pink-500 flex items-center justify-center font-black text-white text-[10px]">KC</div>
-          KhaasCore AI
-        </span>
-        <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <!-- Main Navigation List (Exact Matches from screenshot) -->
-      <div class="space-y-1 text-sm font-medium">
-        
-        <div onclick="startNewChat(); toggleSidebar();" class="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl hover:bg-gemini-hover cursor-pointer text-white transition active:scale-98">
-          <i data-lucide="edit-3" class="w-5 h-5 text-gemini-blue"></i>
-          <span>New chat</span>
-        </div>
-
-        <div onclick="searchChatsModal()" class="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl hover:bg-gemini-hover cursor-pointer text-gemini-text transition">
-          <i data-lucide="search" class="w-5 h-5 text-gemini-muted"></i>
-          <span>Search chats</span>
-        </div>
-
-        <div onclick="filterMode('Spark AI')" class="flex items-center justify-between px-3 py-2.5 rounded-2xl hover:bg-gemini-hover cursor-pointer text-gemini-text transition">
-          <span class="flex items-center gap-3.5">
-            <i data-lucide="sparkles" class="w-5 h-5 text-gemini-purple"></i>
-            <span>Spark</span>
-          </span>
-          <span class="text-[9px] bg-gemini-hover text-gemini-purple px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border border-gemini-purple/30">BETA</span>
-        </div>
-
-        <div onclick="filterMode('Students Mode')" class="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl hover:bg-gemini-hover cursor-pointer text-gemini-text transition">
-          <i data-lucide="graduation-cap" class="w-5 h-5 text-emerald-400"></i>
-          <span>Students</span>
-        </div>
-
-        <div onclick="filterMode('Images Engine')" class="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl hover:bg-gemini-hover cursor-pointer text-gemini-text transition">
-          <i data-lucide="image" class="w-5 h-5 text-pink-400"></i>
-          <span>Images</span>
-        </div>
-
-        <div onclick="filterMode('Videos Assistant')" class="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl hover:bg-gemini-hover cursor-pointer text-gemini-text transition">
-          <i data-lucide="clapperboard" class="w-5 h-5 text-amber-400"></i>
-          <span>Videos</span>
-        </div>
-
-        <div onclick="filterMode('Library & Vault')" class="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl hover:bg-gemini-hover cursor-pointer text-gemini-text transition">
-          <i data-lucide="layout-grid" class="w-5 h-5 text-blue-400"></i>
-          <span>Library</span>
-        </div>
-      </div>
-
-      <!-- Notebooks Section -->
-      <div class="pt-3 border-t border-gemini-border/30 space-y-1">
-        <div class="text-xs font-semibold text-gemini-muted px-3 mb-1">Notebooks</div>
-        <div onclick="createNewNotebook()" class="flex items-center gap-3.5 px-3 py-2 rounded-2xl hover:bg-gemini-hover cursor-pointer text-gemini-text text-sm transition">
-          <i data-lucide="plus" class="w-4 h-4 text-gemini-muted"></i>
-          <span>New notebook</span>
-        </div>
-      </div>
-
-      <!-- Recent Sessions List -->
-      <div class="pt-3 border-t border-gemini-border/30 space-y-1">
-        <div class="text-xs font-semibold text-gemini-muted px-3 mb-1">Recent</div>
-        <div id="recentChatsContainer" class="space-y-1 text-xs">
-          <div onclick="loadCustomHistory('KhaasCore वॉइस और एपीआई इंटीग्रेशन')" class="p-2.5 rounded-2xl bg-gemini-hover text-white flex items-center gap-2 cursor-pointer truncate">
-            <i data-lucide="message-square" class="w-3.5 h-3.5 text-gemini-blue shrink-0"></i>
-            <span class="truncate">KhaasCore वॉइस और एपीआई इंटीग्रेशन</span>
-          </div>
-          <div onclick="loadCustomHistory('AI लीगल इंजन और ऑडिट रिपोर्ट')" class="p-2.5 rounded-2xl hover:bg-gemini-hover text-gemini-text flex items-center gap-2 cursor-pointer truncate">
-            <i data-lucide="message-square" class="w-3.5 h-3.5 text-gemini-muted shrink-0"></i>
-            <span class="truncate">AI लीगल इंजन और ऑडिट रिपोर्ट</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom User Profile: Kamran Siddiki (PRO) -->
-    <div class="pt-3 border-t border-gemini-border/40 flex items-center justify-between">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="openPlansModal()">
-        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-500 via-indigo-500 to-pink-500 flex items-center justify-center font-bold text-white text-xs shadow-md">
-          KS
-        </div>
-        <div>
-          <div class="text-xs font-bold text-white leading-snug">Kamran Siddiki</div>
-          <div class="text-[10px] text-gemini-purple font-bold flex items-center gap-1">
-            <i data-lucide="sparkles" class="w-3 h-3"></i> PRO MEMBER
-          </div>
-        </div>
-      </div>
-
-      <button onclick="openPlansModal()" class="p-2 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white" title="Billing & Plans">
-        <i data-lucide="settings" class="w-5 h-5"></i>
-      </button>
-    </div>
-  </aside>
-
-  <!-- ================= 2. MAIN VIEWPORT ================= -->
-  <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-    
-    <!-- TOP NAVBAR -->
-    <header class="flex items-center justify-between px-4 sm:px-6 py-3 bg-gemini-bg z-30 shrink-0 border-b border-gemini-border/30">
-      <div class="flex items-center gap-3">
-        <!-- 2 LINES HAMBURGER BUTTON -->
-        <button onclick="toggleSidebar()" class="p-2 rounded-xl hover:bg-gemini-hover text-white transition active:scale-95 flex flex-col justify-center gap-1.5">
-          <span class="w-5 h-0.5 bg-white rounded-full"></span>
-          <span class="w-5 h-0.5 bg-white rounded-full"></span>
-        </button>
-
-        <div class="flex items-center gap-2">
-          <span class="text-lg font-bold text-white tracking-tight">KhaasCore AI</span>
-          <span class="text-[11px] px-2 py-0.5 rounded-md bg-gemini-surface text-gemini-blue border border-gemini-border font-semibold">1.5 Flash</span>
-        </div>
-      </div>
-
-      <!-- Upgrade $29 Button (WORKING PRICING MODAL TRIGGER) -->
-      <div class="flex items-center gap-2">
-        <button onclick="openPlansModal()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 hover:opacity-90 border border-purple-500/40 text-xs font-bold text-white shadow-lg transition active:scale-95">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-gemini-purple"></i>
-          <span>Upgrade $29</span>
-        </button>
-
-        <div onclick="openPlansModal()" class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-600 flex items-center justify-center font-bold text-xs text-white shadow-md cursor-pointer">
-          KS
-        </div>
-      </div>
-    </header>
-
-    <!-- CHAT MESSAGES SCROLL CONTAINER -->
-    <main id="chatArea" class="flex-1 overflow-y-auto custom-scroll p-4 sm:p-8 max-w-4xl w-full mx-auto space-y-6">
-      
-      <!-- HERO GREETING -->
-      <div id="heroGreeting" class="pt-8 sm:pt-12 pb-4 space-y-5">
-        
-        <div class="w-12 h-12">
-          <svg viewBox="0 0 24 24" class="w-full h-full animate-pulse" fill="none">
-            <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" fill="url(#kc-grad)" />
-            <defs>
-              <linearGradient id="kc-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#4285F4"/><stop offset="0.5" stop-color="#9B72CF"/><stop offset="1" stop-color="#D96570"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-
-        <div class="space-y-2">
-          <h1 class="text-3xl sm:text-5xl font-black tracking-tight"><span class="kc-gradient-text">नमस्ते! मैं KhaasCore AI हूँ</span></h1>
-          <p class="text-sm sm:text-base text-gemini-muted leading-relaxed">**खास कोर एआई** - बोलकर सवाल पूछें (माइक 🎙️ दबाएँ) या कॉन्ट्रैक्ट व कोई भी सवाल यहाँ लिखें।</p>
-        </div>
-
-        <!-- Suggestion Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
-          <div onclick="submitPrompt('भारतीय अनुबंध अधिनियम 1872 अनुसार एक सम्पूर्ण NDA एग्रीमेंट का ड्राफ्ट तैयार करें।')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/50 cursor-pointer transition flex flex-col justify-between h-28">
-            <span class="text-xs sm:text-sm text-gemini-text font-medium leading-snug">📄 भारतीय कानून अनुसार NDA अनुबंध ड्राफ्ट करें</span>
-            <i data-lucide="file-text" class="w-4 h-4 text-gemini-purple self-end"></i>
-          </div>
-          <div onclick="submitPrompt('नौकरी से बिना नोटिस निकाले जाने पर लेबर लॉ के अनुसार कर्मचारी के क्या अधिकार हैं?')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/50 cursor-pointer transition flex flex-col justify-between h-28">
-            <span class="text-xs sm:text-sm text-gemini-text font-medium leading-snug">⚖️ बिना नोटिस नौकरी से निकालने पर कानूनी अधिकार</span>
-            <i data-lucide="shield-alert" class="w-4 h-4 text-gemini-blue self-end"></i>
-          </div>
-          <div onclick="submitPrompt('KhaasCore AI की क्षमताओं और कार्यप्रणाली को सरल हिंदी में समझाओ।')" class="p-4 rounded-2xl bg-gemini-surface hover:bg-gemini-hover border border-gemini-border/50 cursor-pointer transition flex flex-col justify-between h-28">
-            <span class="text-xs sm:text-sm text-gemini-text font-medium leading-snug">⚡ KhaasCore AI की पूरी कार्यप्रणाली समझें</span>
-            <i data-lucide="cpu" class="w-4 h-4 text-emerald-400 self-end"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dynamic Messages Thread -->
-      <div id="messagesList" class="space-y-6"></div>
-    </main>
-
-    <!-- FLOATING CAPSULE INPUT -->
-    <footer class="p-3 sm:p-6 max-w-4xl w-full mx-auto shrink-0">
-      <div class="relative bg-gemini-input rounded-3xl border border-gemini-border/60 p-2.5 sm:p-3.5 shadow-2xl focus-within:border-gemini-blue transition">
-        <textarea id="promptInput" rows="1" placeholder="KhaasCore AI से कुछ भी पूछें या बोलें..." class="w-full bg-transparent text-sm text-gemini-text placeholder-gemini-muted outline-none resize-none px-3 pt-1 max-h-36 custom-scroll" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();dispatchPrompt();}"></textarea>
-        
-        <div class="flex items-center justify-between pt-2 px-1">
-          <button onclick="startVoiceRecognition()" id="micBtn" class="p-2.5 rounded-full bg-gemini-surface hover:bg-gemini-hover text-gemini-muted hover:text-white border border-gemini-border transition active:scale-95" title="Tap to Speak">
-            <i data-lucide="mic" class="w-4 h-4 text-gemini-blue"></i>
-          </button>
-          
-          <button onclick="dispatchPrompt()" class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:bg-slate-200 active:scale-95 transition shadow-md">
-            <i data-lucide="arrow-up" class="w-5 h-5 font-black"></i>
-          </button>
-        </div>
-      </div>
-      <p class="text-[11px] text-center text-gemini-muted mt-2">KhaasCore AI (खास कोर एआई) • Voice & Superintelligence OS</p>
-    </footer>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="brand"><i data-lucide="sparkles"></i> Nexus Ultra AI</div>
+    <button class="btn btn-primary" onclick="startNewChat()"><i data-lucide="plus"></i> New Chat</button>
+    <button class="btn" onclick="exportChat()"><i data-lucide="download"></i> Export Chat</button>
+    <button class="btn" onclick="clearAllData()"><i data-lucide="trash-2"></i> Clear History</button>
   </div>
 
-  <!-- ================= 3. WORKING PRICING & CHECKOUT MODAL ($29 & $99) ================= -->
-  <div id="plansModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-    <div class="bg-gemini-surface border border-gemini-border rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl custom-scroll max-h-[90vh] overflow-y-auto">
-      
-      <div class="flex justify-between items-center border-b border-gemini-border pb-4">
-        <div>
-          <h2 class="text-2xl font-bold kc-gradient-text">KhaasCore AI Advanced Plans</h2>
-          <p class="text-xs text-gemini-muted mt-1">Unlock 1.5 Pro Deep Legal Reasoning, Voice Dialogue & Enterprise Features.</p>
-        </div>
-        <button onclick="closePlansModal()" class="p-2 rounded-full hover:bg-gemini-hover text-gemini-muted hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <!-- Main Chat -->
+  <div class="main">
+    <div class="topbar">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <input type="password" id="apiKey" placeholder="Gemini API Key (AIzaSy...)" style="width: 240px;" />
+        <button class="btn" onclick="saveApiKey()" style="padding: 6px 12px; font-size: 12px;">Save Key</button>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- Pro Plan $29 -->
-        <div class="p-5 rounded-2xl bg-gradient-to-b from-indigo-950/40 to-gemini-bg border-2 border-gemini-purple flex flex-col justify-between space-y-4 relative shadow-xl shadow-indigo-500/10">
-          <span class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-gemini-purple text-[10px] font-bold text-white uppercase tracking-wider">Most Popular</span>
-          <div>
-            <div class="text-sm font-bold text-gemini-purple">Professional OS</div>
-            <div class="text-3xl font-black text-white mt-2">$29 <span class="text-xs font-normal text-gemini-muted">/ month</span></div>
-            <p class="text-xs text-gemini-muted mt-2">For lawyers, founders, corporate counsels & legal tech advisors.</p>
-            <ul class="mt-4 space-y-2 text-xs text-gemini-text">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Unlimited Legal Audits & Drafts</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Full Voice Dialogue Engine</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> 1M Token Context Window</li>
-            </ul>
-          </div>
-          <button onclick="executePayment('$29 Professional OS')" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 font-bold text-xs text-white shadow-lg transition active:scale-95">Subscribe Pro ($29/mo)</button>
-        </div>
+      <div class="controls">
+        <label style="font-size: 12px; color: var(--text-muted);">Mode:</label>
+        <select id="modeSelect">
+          <option value="adaptive">🎯 Adaptive (सटीक व विस्तृत)</option>
+          <option value="deep">📚 10,000-Word Exhaustive (गहरा विश्लेषण)</option>
+          <option value="concise">⚡ Concise (संक्षिप्त व बिंदुवार)</option>
+          <option value="code">💻 Software Architect (कोडिंग मोड)</option>
+        </select>
+      </div>
+    </div>
 
-        <!-- Enterprise Plan $99 -->
-        <div class="p-5 rounded-2xl bg-gemini-bg border border-gemini-border flex flex-col justify-between space-y-4">
-          <div>
-            <div class="text-sm font-bold text-gemini-blue">Enterprise Firm</div>
-            <div class="text-3xl font-black text-white mt-2">$99 <span class="text-xs font-normal text-gemini-muted">/ month</span></div>
-            <p class="text-xs text-gemini-muted mt-2">For full law firms, corporations and multi-seat engineering teams.</p>
-            <ul class="mt-4 space-y-2 text-xs text-gemini-text">
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Multi-Seat Team Access</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Custom Statutory Playbooks</li>
-              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Dedicated High-Speed API</li>
-            </ul>
-          </div>
-          <button onclick="executePayment('$99 Enterprise Firm')" class="w-full py-3 rounded-xl bg-gemini-hover hover:bg-gemini-border border border-gemini-border font-bold text-xs text-white transition active:scale-95">Contact Sales ($99/mo)</button>
-        </div>
+    <div class="chat-container" id="chatBox">
+      <div class="message ai">
+        नमस्ते! मैं आपका संपूर्ण मल्टीमॉडल AI साथी हूँ। आप मुझे तस्वीरें दिखा सकते हैं, वॉइस से बात कर सकते हैं, या जितना विस्तृत चाहें उतना लंबा व सटीक विश्लेषण प्राप्त कर सकते हैं।
+      </div>
+    </div>
+
+    <!-- Footer Input -->
+    <div class="footer">
+      <div id="filePreviewContainer">
+        <span id="fileName">file.png</span>
+        <i data-lucide="x" style="cursor:pointer; width:14px;" onclick="removeFile()"></i>
+      </div>
+
+      <div class="input-wrapper">
+        <input type="file" id="fileInput" accept="image/*,application/pdf" style="display: none;" onchange="handleFileUpload(event)">
+        <button class="icon-btn" title="Upload Image / Document" onclick="document.getElementById('fileInput').click()">
+          <i data-lucide="paperclip"></i>
+        </button>
+
+        <textarea id="userInput" placeholder="अपना सवाल पूछें या निर्देश दें..." onkeydown="handleKeyDown(event)"></textarea>
+
+        <button class="icon-btn" id="micBtn" title="Speak" onclick="toggleSpeechRecognition()">
+          <i data-lucide="mic"></i>
+        </button>
+
+        <button class="btn btn-primary" id="sendBtn" onclick="submitMessage()" style="padding: 8px 16px;">
+          <i data-lucide="send"></i>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- ================= 4. JAVASCRIPT APP LOGIC ================= -->
   <script>
     lucide.createIcons();
 
-    // Obfuscated Key Assembly (Safe from GitHub Scanner)
-    const _k1 = "AQ.Ab8RN6JPLODZTy";
-    const _k2 = "PtH_WAPnByyZs4GouS8CIy57tApRuJwwCqbg";
-    const PRIMARY_KEY = _k1 + _k2;
-
     let chatHistory = [];
-    let recognitionInstance = null;
+    let currentUploadedBase64 = null;
+    let currentMimeType = null;
+    let recognition = null;
+    let isListening = false;
 
-    // Toggle Drawer Sidebar
-    function toggleSidebar() {
-      const sb = document.getElementById('sidebar');
-      const bd = document.getElementById('sidebarBackdrop');
-      sb.classList.toggle('-translate-x-full');
-      bd.classList.toggle('hidden');
+    window.onload = () => {
+      const savedKey = localStorage.getItem('gemini_api_key');
+      if (savedKey) document.getElementById('apiKey').value = savedKey;
+
+      const savedHistory = localStorage.getItem('gemini_chat_history');
+      if (savedHistory) {
+        chatHistory = JSON.parse(savedHistory);
+        renderHistory();
+      }
+    };
+
+    function saveApiKey() {
+      const key = document.getElementById('apiKey').value.trim();
+      if (!key) return alert('कृपया मान्य API Key डालें!');
+      localStorage.setItem('gemini_api_key', key);
+      alert('API Key सफलतापूर्वक सुरक्षित की गई!');
     }
 
-    function openPlansModal() { 
-      document.getElementById('plansModal').classList.remove('hidden'); 
-      if(!document.getElementById('sidebar').classList.contains('-translate-x-full')) toggleSidebar();
+    function handleKeyDown(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        submitMessage();
+      }
     }
-    function closePlansModal() { document.getElementById('plansModal').classList.add('hidden'); }
 
-    function executePayment(tier) {
-      alert(`✅ Stripe/Razorpay Checkout Initialized for: ${tier}\n\nInvoice ID: KC-${Math.floor(100000 + Math.random() * 900000)}\nStatus: Active.`);
-      closePlansModal();
+    // Speech-to-Text
+    function toggleSpeechRecognition() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        return alert('आपके ब्राउज़र में वॉइस इनपुट सपोर्ट उपलब्ध नहीं है।');
+      }
+
+      if (isListening) {
+        recognition.stop();
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = 'hi-IN';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        isListening = true;
+        document.getElementById('micBtn').classList.add('active');
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('userInput').value += ' ' + transcript;
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        document.getElementById('micBtn').classList.remove('active');
+      };
+
+      recognition.start();
+    }
+
+    // Text-to-Speech
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const cleanText = text.replace(/[#*`_\[\]]/g, '');
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'hi-IN';
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // File Handling
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        currentUploadedBase64 = reader.result.split(',')[1];
+        currentMimeType = file.type;
+        document.getElementById('fileName').innerText = file.name;
+        document.getElementById('filePreviewContainer').style.display = 'flex';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeFile() {
+      currentUploadedBase64 = null;
+      currentMimeType = null;
+      document.getElementById('fileInput').value = '';
+      document.getElementById('filePreviewContainer').style.display = 'none';
+    }
+
+    // Dynamic System Prompts
+    function getSystemInstruction(mode) {
+      switch(mode) {
+        case 'deep':
+          return `आप एक उच्च-स्तरीय अकादमिक, शोधकर्ता और विषय विशेषज्ञ हैं। उपयोगकर्ता के हर सवाल का उत्तर अत्यंत विस्तृत, संपूर्ण, चरणबद्ध और 5,000 से 10,000 शब्दों जैसे गहन विश्लेषण के साथ दें। हर पहलू, केस स्टडी और डेटा को गहराई से कवर करें।`;
+        case 'concise':
+          return `आप एक अत्यधिक सटीक और संक्षिप्त सहायक हैं। बिना किसी लंबी भूमिका के उत्तर केवल 2-4 बुलेट पॉइंट्स या आवश्यक पंक्तियों में दें।`;
+        case 'code':
+          return `आप एक सीनियर सॉफ्टवेयर आर्किटेक्ट हैं। बेस्ट प्रैक्टिसेज, क्लीन कोड आर्किटेक्चर, एरर हैंडलिंग और संपूर्ण कोड स्निपेट्स प्रदान करें।`;
+        default:
+          return `आप एक अत्यंत बुद्धिमान, दोस्ताना और तार्किक AI साथी हैं। उपयोगकर्ता जितनी लंबाई, गहराई और जिस लहजे में उत्तर मांगे, ठीक उसी निर्देश का कड़ाई से पालन करें। फॉर्मेटिंग के लिए Markdown, Tables और Code Blocks का व्यवस्थित उपयोग करें।`;
+      }
+    }
+
+    async function submitMessage() {
+      const apiKey = document.getElementById('apiKey').value.trim() || localStorage.getItem('gemini_api_key');
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      const mode = document.getElementById('modeSelect').value;
+
+      if (!apiKey) return alert('कृपया पहले अपनी Gemini API Key दर्ज करें!');
+      if (!text && !currentUploadedBase64) return;
+
+      // Prepare User Payload
+      const userParts = [];
+      if (currentUploadedBase64) {
+        userParts.push({
+          inlineData: { mimeType: currentMimeType, data: currentUploadedBase64 }
+        });
+      }
+      if (text) {
+        userParts.push({ text });
+      }
+
+      // Render User Message
+      renderMessage({ role: 'user', text, image: currentUploadedBase64, mimeType: currentMimeType });
+      chatHistory.push({ role: 'user', parts: userParts });
+
+      input.value = '';
+      const sendBtn = document.getElementById('sendBtn');
+      sendBtn.disabled = true;
+
+      // Temporary AI Node for Streaming
+      const aiNode = createAIMessageContainer();
+      const contentSpan = aiNode.querySelector('.content-body');
+      let fullResponseText = '';
+
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:streamGenerateContent?alt=sse&key=${apiKey}`;
+
+      const requestBody = {
+        systemInstruction: { parts: [{ text: getSystemInstruction(mode) }] },
+        contents: chatHistory,
+        generationConfig: {
+          maxOutputTokens: 8192,
+          temperature: mode === 'code' ? 0.2 : 0.7
+        }
+      };
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody)
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error?.message || 'Server Error');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        removeFile();
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n');
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const json = JSON.parse(line.replace('data: ', '').trim());
+                const piece = json.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                fullResponseText += piece;
+                contentSpan.innerHTML = marked.parse(fullResponseText);
+                hljs.highlightAll();
+                document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+              } catch (e) {}
+            }
+          }
+        }
+
+        chatHistory.push({ role: 'model', parts: [{ text: fullResponseText }] });
+        saveHistoryToStorage();
+        attachActionEvents(aiNode, fullResponseText);
+
+      } catch (err) {
+        contentSpan.innerHTML = `<span style="color:#ef4444;">त्रुटि: ${err.message}</span>`;
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+
+    function createAIMessageContainer() {
+      const chatBox = document.getElementById('chatBox');
+      const div = document.createElement('div');
+      div.className = 'message ai';
+      div.innerHTML = `<div class="content-body">...</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      return div;
+    }
+
+    function attachActionEvents(aiNode, fullText) {
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'msg-actions';
+      actionsDiv.innerHTML = `
+        <span onclick="copyToClipboard(\`${encodeURIComponent(fullText)}\`)"><i data-lucide="copy" style="width:14px;"></i> Copy</span>
+        <span onclick="speakText(\`${encodeURIComponent(fullText)}\`)"><i data-lucide="volume-2" style="width:14px;"></i> Listen</span>
+      `;
+      aiNode.appendChild(actionsDiv);
+      lucide.createIcons();
+    }
+
+    function copyToClipboard(encodedText) {
+      navigator.clipboard.writeText(decodeURIComponent(encodedText));
+      alert('टेक्स्ट कॉपी कर लिया गया!');
+    }
+
+    function renderMessage(msg) {
+      const chatBox = document.getElementById('chatBox');
+      const div = document.createElement('div');
+      div.className = `message ${msg.role}`;
+
+      if (msg.image) {
+        const img = document.createElement('img');
+        img.className = 'preview';
+        img.src = `data:${msg.mimeType};base64,${msg.image}`;
+        div.appendChild(img);
+      }
+
+      if (msg.text) {
+        const body = document.createElement('div');
+        body.innerHTML = msg.role === 'ai' ? marked.parse(msg.text) : msg.text;
+        div.appendChild(body);
+      }
+
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      hljs.highlightAll();
+    }
+
+    function saveHistoryToStorage() {
+      localStorage.setItem('gemini_chat_history', JSON.stringify(chatHistory));
+    }
+
+    function renderHistory() {
+      const chatBox = document.getElementById('chatBox');
+      chatBox.innerHTML = '';
+      chatHistory.forEach(item => {
+        const text = item.parts.find(p => p.text)?.text || '';
+        renderMessage({ role: item.role === 'model' ? 'ai' : 'user', text });
+      });
     }
 
     function startNewChat() {
-      document.getElementById('messagesList').innerHTML = '';
-      document.getElementById('heroGreeting').classList.remove('hidden');
-      chatHistory = [];
-      window.speechSynthesis.cancel();
-    }
-
-    function searchChatsModal() {
-      const q = prompt("Search your KhaasCore Chat History:");
-      if(q) {
-        submitPrompt(`Search result for query: ${q}`);
-        toggleSidebar();
+      if (confirm('क्या आप नई बातचीत शुरू करना चाहते हैं?')) {
+        chatHistory = [];
+        localStorage.removeItem('gemini_chat_history');
+        location.reload();
       }
     }
 
-    function filterMode(modeName) {
-      alert(`Switched to: ${modeName}`);
-      toggleSidebar();
+    function exportChat() {
+      const blob = new Blob([JSON.stringify(chatHistory, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `chat-session-${Date.now()}.json`;
+      a.click();
     }
 
-    function createNewNotebook() {
-      const name = prompt("Enter new notebook title:", "Legal Playbook 2026");
-      if(name) {
-        alert(`Notebook '${name}' created successfully in your vault.`);
-        toggleSidebar();
+    function clearAllData() {
+      if (confirm('क्या आप सभी चैट्स और API Key हटाना चाहते हैं?')) {
+        localStorage.clear();
+        location.reload();
       }
-    }
-
-    function loadCustomHistory(title) {
-      submitPrompt(`Summarize and continue conversation for: ${title}`);
-      toggleSidebar();
-    }
-
-    function submitPrompt(q) {
-      document.getElementById('promptInput').value = q;
-      dispatchPrompt();
-    }
-
-    // MAIN PROMPT DISPATCHER
-    async function dispatchPrompt() {
-      const input = document.getElementById('promptInput');
-      let text = input.value.trim();
-      if(!text) return;
-
-      document.getElementById('heroGreeting').classList.add('hidden');
-      renderUserBubble(text);
-      input.value = '';
-
-      const msgId = 'msg-' + Date.now();
-      renderAiBubble('<span class="inline-flex items-center gap-2 text-gemini-muted animate-pulse"><i data-lucide="sparkles" class="w-4 h-4 text-gemini-blue animate-spin"></i> KhaasCore AI विश्लेषण कर रहा है...</span>', true, msgId);
-
-      const outDiv = document.getElementById(msgId);
-      chatHistory.push({ role: "user", parts: [{ text: text }] });
-
-      let generatedText = null;
-      const modelsToTry = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-1.0-pro'];
-
-      for (const m of modelsToTry) {
-        try {
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${PRIMARY_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: chatHistory,
-              systemInstruction: { parts: [{ text: "You are KhaasCore AI (खास कोर एआई), an elite legal and general superintelligence. Give thorough, accurate, beautifully formatted markdown answers tailored specifically to the user's query in Hindi and English." }] }
-            })
-          });
-
-          if (res.ok) {
-            const data = await res.json();
-            if (data.candidates && data.candidates[0].content.parts[0].text) {
-              generatedText = data.candidates[0].content.parts[0].text;
-              break;
-            }
-          }
-        } catch (err) {
-          console.warn(`Model ${m} call failed:`, err);
-        }
-      }
-
-      if (generatedText) {
-        chatHistory.push({ role: "model", parts: [{ text: generatedText }] });
-        outDiv.innerHTML = marked.parse(generatedText);
-        scrollBottom();
-        speakSpeech(msgId);
-        return;
-      }
-
-      // DYNAMIC SMART ENGINE FALLBACK
-      setTimeout(() => {
-        let smartReply = "";
-        const lower = text.toLowerCase();
-
-        if (lower.includes('nda') || lower.includes('एग्रीमेंट') || lower.includes('अनुबंध') || lower.includes('draft')) {
-          smartReply = `### 📄 गैर-प्रकटीकरण अनुबंध (Non-Disclosure Agreement - NDA)\n**भारतीय अनुबंध अधिनियम, 1872 के अनुसार:**\n\n1. **पक्षकार:** प्रकटीकरणकर्ता (Disclosing Party) एवं प्राप्तकर्ता (Receiving Party)।\n2. **गोपनीय जानकारी:** इसमें सभी तकनीकी डेटा, व्यापारिक योजनाएं, सोर्स कोड एवं वित्तीय विवरण शामिल हैं।\n3. **दायित्व:** प्राप्तकर्ता जानकारी को गुप्त रखेगा और बिना लिखित पूर्व सहमति के किसी तीसरे पक्ष को साझा नहीं करेगा।\n4. **अवधि:** यह बाध्यता अनुबंध समाप्ति के 3 वर्ष बाद तक प्रभावी रहेगी।\n5. **क्षेत्राधिकार:** किसी भी विवाद की स्थिति में न्यायालयीन क्षेत्राधिकार भारतीय विधि के अधीन होगा।`;
-        } else if (lower.includes('नौकरी') || lower.includes('termination') || lower.includes('लेबर') || lower.includes('अधिकार')) {
-          smartReply = `### ⚖️ बिना नोटिस नौकरी से निकालने पर कानूनी अधिकार (Indian Labour Law)\n\n1. **इंडस्ट्रियल डिस्प्यूट्स एक्ट, 1947 (Section 25F):** यदि कोई कर्मचारी 240 दिन से अधिक कार्यरत है, तो उसे 1 माह की पूर्व सूचना या नोटिस अवधि का वेतन (Notice Pay) देना अनिवार्य है।\n2. **ग्रेच्युटी एवं लीव एनकैशमेंट:** 5 वर्ष पूरे होने पर ग्रेच्युटी और अर्जित छुट्टियों का भुगतान अनिवार्य है।\n3. **गैर-कानूनी समाप्ति (Wrongful Termination):** बिना कारण या बिना जाँच (Domestic Enquiry) के तत्काल निष्कासन पर लेबर कमिश्नर या लेबर कोर्ट में चुनौती दी जा सकती है।`;
-        } else {
-          smartReply = `### 💡 KhaasCore AI विश्लेषण\n\n**आपके सवाल का उत्तर:**\n\nआपने पूछा: *"${text}"*\n\n1. **मुख्य अवलोकन:** यह विषय कानूनी, तकनीकी और व्यावहारिक दृष्टिकोण से अत्यंत महत्वपूर्ण है।\n2. **सलाह:** इस संदर्भ में उचित प्रक्रिया और लिखित दस्तावेजों का पालन करें।`;
-        }
-
-        chatHistory.push({ role: "model", parts: [{ text: smartReply }] });
-        outDiv.innerHTML = marked.parse(smartReply);
-        scrollBottom();
-        speakSpeech(msgId);
-      }, 500);
-    }
-
-    function renderUserBubble(text) {
-      const list = document.getElementById('messagesList');
-      const div = document.createElement('div');
-      div.className = "flex justify-end";
-      div.innerHTML = `<div class="bg-gemini-surface border border-gemini-border text-gemini-text px-4 py-3 rounded-2xl max-w-2xl text-sm leading-relaxed shadow-sm">${text.replace(/\\n/g, '<br>')}</div>`;
-      list.appendChild(div);
-      scrollBottom();
-    }
-
-    function renderAiBubble(content, isHTML = false, msgId = 'msg-' + Date.now()) {
-      const list = document.getElementById('messagesList');
-      const div = document.createElement('div');
-      div.className = "flex gap-3 max-w-3xl";
-      div.innerHTML = `
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-500 via-indigo-500 to-pink-500 flex items-center justify-center font-bold text-white text-xs shrink-0 mt-0.5 shadow-md">KC</div>
-        <div class="space-y-1.5 flex-1 overflow-hidden">
-          <div class="text-xs font-bold text-gemini-muted">KhaasCore AI</div>
-          <div id="${msgId}" class="prose text-sm text-gemini-text leading-relaxed font-normal">${isHTML ? content : marked.parse(content)}</div>
-          <div class="flex items-center gap-2 pt-2 text-gemini-muted">
-            <button onclick="speakSpeech('${msgId}')" class="p-1.5 rounded-full hover:bg-gemini-hover text-gemini-blue hover:text-white border border-gemini-border/50" title="Listen Audio"><i data-lucide="volume-2" class="w-4 h-4"></i></button>
-            <button onclick="navigator.clipboard.writeText(document.getElementById('${msgId}').innerText);alert('Copied!')" class="p-1.5 rounded-full hover:bg-gemini-hover hover:text-white" title="Copy"><i data-lucide="copy" class="w-4 h-4"></i></button>
-          </div>
-        </div>
-      `;
-      list.appendChild(div);
-      lucide.createIcons();
-      scrollBottom();
-    }
-
-    function scrollBottom() {
-      const area = document.getElementById('chatArea');
-      area.scrollTop = area.scrollHeight;
-    }
-
-    function speakSpeech(id) {
-      const el = document.getElementById(id);
-      if(!el) return;
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(el.innerText.replace(/[#*`_>🚩]/g, '').trim());
-      u.lang = 'hi-IN';
-      u.rate = 1.0;
-      window.speechSynthesis.speak(u);
-    }
-
-    function startVoiceRecognition() {
-      window.speechSynthesis.cancel();
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRecognition) {
-        alert('Voice input supported in Chrome/Edge.');
-        return;
-      }
-      if (recognitionInstance) { try { recognitionInstance.stop(); } catch(e){} }
-
-      recognitionInstance = new SpeechRecognition();
-      recognitionInstance.lang = 'hi-IN';
-      const mic = document.getElementById('micBtn');
-      mic.classList.add('bg-rose-600', 'text-white', 'animate-pulse');
-
-      recognitionInstance.onstart = () => { document.getElementById('promptInput').placeholder = "सुन रहा हूँ... बोलिए..."; };
-      recognitionInstance.onresult = (e) => {
-        document.getElementById('promptInput').value = e.results[0][0].transcript;
-        mic.classList.remove('bg-rose-600', 'text-white', 'animate-pulse');
-        document.getElementById('promptInput').placeholder = "KhaasCore AI से कुछ भी पूछें या बोलें...";
-        dispatchPrompt();
-      };
-      recognitionInstance.onerror = () => { mic.classList.remove('bg-rose-600', 'text-white', 'animate-pulse'); };
-      recognitionInstance.onend = () => { mic.classList.remove('bg-rose-600', 'text-white', 'animate-pulse'); };
-      recognitionInstance.start();
     }
   </script>
 </body>
