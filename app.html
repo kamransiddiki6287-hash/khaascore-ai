@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE_KEY"></script>
     
     <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -298,9 +299,6 @@
                 <button id="clearChatBtn" class="p-1.5 rounded-lg bg-frontier-input text-slate-400 hover:text-white" title="Clear Chat History">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
-                <button id="toggleTtsBtn" class="p-1.5 rounded-lg bg-frontier-input text-frontier-cyan hover:text-white" title="Toggle Auto-Voice Output">
-                    <i id="ttsIcon" data-lucide="volume-2" class="w-4 h-4"></i>
-                </button>
                 <button id="closeChatBtn" class="text-slate-400 hover:text-white p-1.5"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
         </div>
@@ -313,33 +311,30 @@
 
         <div id="chatMessages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs font-sans">
             <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                <span>नमस्ते! नीचे दिए गए बटन पर क्लिक करके सीधे आवाज़ चेक करें या माइक दबाकर बोलें।</span>
-                <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आवाज़ चालू हो गई है।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
-                    <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
+                <span>नमस्ते! माइक दबाकर बोलें या नीचे टेस्ट बटन दबाकर सीधे आवाज़ सुनें।</span>
+                <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आपकी आवाज़ और स्पीकर दोनों चालू हैं।')" class="self-start text-[11px] text-slate-900 bg-frontier-cyan font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 shadow-lg active:scale-95 transition">
+                    <i data-lucide="volume-2" class="w-4 h-4"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
                 </button>
             </div>
         </div>
 
         <div id="voiceStatus" class="hidden px-4 py-1.5 bg-frontier-input text-[11px] text-frontier-rose flex items-center justify-between border-t border-frontier-border font-mono">
             <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> <span id="voiceStatusText">Listening... (Speak Now)</span>
+                <span class="w-2 h-2 rounded-full bg-frontier-rose animate-ping"></span> <span>Recording (3s auto-send)...</span>
             </div>
-            <button type="button" onclick="stopMicImmediate()" class="text-[10px] bg-frontier-rose/20 text-frontier-rose px-2 py-0.5 rounded-md border border-frontier-rose/40 font-bold">Stop & Send</button>
+            <button type="button" onclick="stopMicImmediate()" class="text-[10px] bg-frontier-rose text-slate-950 font-black px-2.5 py-0.5 rounded-md">Send Now</button>
         </div>
 
         <form id="chatForm" class="p-2.5 bg-frontier-panel border-t border-frontier-border flex items-center gap-2">
-            <button type="button" id="micBtn" class="w-9 h-9 rounded-full bg-frontier-input hover:bg-frontier-card text-frontier-cyan border border-frontier-border flex items-center justify-center transition">
+            <button type="button" id="micBtn" class="w-10 h-10 rounded-full bg-frontier-input hover:bg-frontier-card text-frontier-cyan border border-frontier-border flex items-center justify-center transition">
                 <i data-lucide="mic" class="w-4 h-4"></i>
             </button>
             <input type="text" id="chatInput" placeholder="Type or click mic to speak..." class="flex-1 bg-frontier-input border border-frontier-border rounded-full px-4 py-2 text-xs text-slate-100 outline-none focus:border-frontier-cyan">
-            <button type="submit" id="chatSendBtn" class="w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white flex items-center justify-center font-bold transition hover:opacity-90">
+            <button type="submit" id="chatSendBtn" class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white flex items-center justify-center font-bold transition hover:opacity-90">
                 <i data-lucide="arrow-up" class="w-4 h-4"></i>
             </button>
         </form>
     </div>
-
-    <!-- Hidden Direct Audio Player for Mobile Voice Stream -->
-    <audio id="ttsDirectAudio" playsinline preload="auto" class="hidden"></audio>
 
     <!-- API Key Modal -->
     <div id="configModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -580,100 +575,53 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             showToast('PDF Exported successfully!', 'success');
         };
 
-        // 100% Reliable Direct Multi-Modal Voice Engine
-        let autoSpeakEnabled = true;
+        // 100% Fail-Safe Voice Engine (WebSpeech + Native Fallback)
         let isProcessingRequest = false;
         let micTimeoutTimer = null;
 
-        function stopAllAudio() {
-            try {
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-                const directAudio = document.getElementById('ttsDirectAudio');
-                if (directAudio) {
-                    directAudio.pause();
-                    directAudio.currentTime = 0;
-                }
-            } catch(e) {}
-        }
-
         window.speakDirect = function(textToSpeak) {
-            stopAllAudio();
             const cleanText = textToSpeak.replace(/[*_#`~>]/g, '').trim();
             if (!cleanText) return;
 
-            const selectedLang = document.getElementById('voiceLangSelector').value || 'hi-IN';
-            const langCode = selectedLang.split('-')[0] || 'hi';
+            // Stop ongoing mic before speaking
+            stopMicImmediate();
 
-            // Method 1: Web Speech API with resume
-            let webSpeechWorked = false;
-            if ('speechSynthesis' in window) {
+            if (window.responsiveVoice) {
                 try {
-                    window.speechSynthesis.resume();
-                    const utterance = new SpeechSynthesisUtterance(cleanText);
-                    utterance.rate = 1.0;
-                    utterance.pitch = 1.0;
-                    utterance.volume = 1.0;
-                    utterance.lang = selectedLang;
-
-                    const voices = window.speechSynthesis.getVoices();
-                    if (voices && voices.length > 0) {
-                        const matchedVoice = voices.find(v => v.lang.toLowerCase().includes(langCode));
-                        if (matchedVoice) utterance.voice = matchedVoice;
-                    }
-
-                    utterance.onstart = () => { webSpeechWorked = true; };
-                    window.speechSynthesis.speak(utterance);
+                    window.responsiveVoice.speak(cleanText, "Hindi Female", { rate: 1.0, pitch: 1.0 });
+                    return;
                 } catch(e) {}
             }
 
-            // Method 2: Direct High-Quality Audio Stream Fallback (Guaranteed to work on Android/iOS)
-            setTimeout(() => {
-                if (!window.speechSynthesis.speaking || !webSpeechWorked) {
-                    try {
-                        const directAudio = document.getElementById('ttsDirectAudio');
-                        const urlSafeText = encodeURIComponent(cleanText.slice(0, 180));
-                        directAudio.src = `https://translate.google.com/translate_tts?ie=UTF-8&q=${urlSafeText}&tl=${langCode}&client=tw-ob`;
-                        directAudio.play().catch(err => {
-                            console.log('Audio autoplay blocked, click button to hear');
-                        });
-                    } catch(err) {}
-                }
-            }, 250);
+            if ('speechSynthesis' in window) {
+                try {
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.resume();
+                    const utterance = new SpeechSynthesisUtterance(cleanText);
+                    utterance.lang = 'hi-IN';
+                    utterance.rate = 1.0;
+                    utterance.volume = 1.0;
+                    window.speechSynthesis.speak(utterance);
+                } catch(e) {}
+            }
         };
 
         const micBtn = document.getElementById('micBtn');
         const voiceStatus = document.getElementById('voiceStatus');
-        const toggleTtsBtn = document.getElementById('toggleTtsBtn');
-        const ttsIcon = document.getElementById('ttsIcon');
         const voiceLangSelector = document.getElementById('voiceLangSelector');
 
         document.getElementById('clearChatBtn').onclick = () => {
             const box = document.getElementById('chatMessages');
             box.innerHTML = `
                 <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                    <span>नमस्ते! नीचे दिए गए बटन पर क्लिक करके सीधे आवाज़ चेक करें या माइक दबाकर बोलें।</span>
-                    <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आवाज़ चालू हो गई है।')" class="self-start text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border">
-                        <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
+                    <span>नमस्ते! माइक दबाकर बोलें या नीचे टेस्ट बटन दबाकर सीधे आवाज़ सुनें।</span>
+                    <button onclick="speakDirect('नमस्ते! मैं आपका लीगल AI सहायक हूँ। आपकी आवाज़ और स्पीकर दोनों चालू हैं।')" class="self-start text-[11px] text-slate-900 bg-frontier-cyan font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 shadow-lg active:scale-95 transition">
+                        <i data-lucide="volume-2" class="w-4 h-4"></i> 🔊 Click to Test Voice (आवाज़ सुनें)
                     </button>
                 </div>
             `;
-            stopAllAudio();
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             showToast('Chat cleared', 'info');
-            lucide.createIcons();
-        };
-
-        toggleTtsBtn.onclick = () => {
-            autoSpeakEnabled = !autoSpeakEnabled;
-            if (autoSpeakEnabled) {
-                ttsIcon.setAttribute('data-lucide', 'volume-2');
-                ttsIcon.className = 'w-4 h-4 text-frontier-cyan';
-                showToast('Voice Output Enabled', 'info');
-            } else {
-                stopAllAudio();
-                ttsIcon.setAttribute('data-lucide', 'volume-x');
-                ttsIcon.className = 'w-4 h-4 text-slate-500';
-                showToast('Voice Output Muted', 'info');
-            }
             lucide.createIcons();
         };
 
@@ -691,11 +639,11 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 micBtn.classList.add('bg-frontier-rose', 'text-slate-950', 'voice-active');
                 voiceStatus.classList.remove('hidden');
 
-                // Auto stop mic after 5 seconds if no speech to prevent hanging
+                // Auto stop mic after 3.5 seconds to prevent OS audio block
                 clearTimeout(micTimeoutTimer);
                 micTimeoutTimer = setTimeout(() => {
                     if (isRecording) stopMicImmediate();
-                }, 5000);
+                }, 3500);
             };
 
             recognition.onresult = (event) => {
@@ -723,17 +671,12 @@ ARTICLE 2: RESTRICTIVE COVENANTS
         };
 
         micBtn.onclick = () => {
-            stopAllAudio();
-            // Unlock audio permission on user touch
-            try {
-                window.speechSynthesis.resume();
-                const directAudio = document.getElementById('ttsDirectAudio');
-                directAudio.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-                directAudio.play().catch(()=>{});
-            } catch(e) {}
+            if ('speechSynthesis' in window) {
+                try { window.speechSynthesis.cancel(); } catch(e) {}
+            }
 
             if (!recognition) {
-                showToast('Speech Recognition not supported on this browser.', 'error');
+                showToast('Use keyboard mic on this mobile browser.', 'info');
                 return;
             }
 
@@ -752,12 +695,14 @@ ARTICLE 2: RESTRICTIVE COVENANTS
 
         document.getElementById('toggleChatBtn').onclick = () => {
             document.getElementById('chatWindow').classList.toggle('hidden');
-            try { window.speechSynthesis.resume(); } catch(e) {}
+            if ('speechSynthesis' in window) {
+                try { window.speechSynthesis.resume(); } catch(e) {}
+            }
         };
 
         document.getElementById('closeChatBtn').onclick = () => {
-            stopAllAudio();
             stopMicImmediate();
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             document.getElementById('chatWindow').classList.add('hidden');
         };
 
@@ -822,7 +767,7 @@ ${contractContext}
 
 User Question: ${msg}
 
-Reply in the EXACT SAME LANGUAGE as the user query (Hindi/Urdu/English). Keep the reply short (max 2-3 sentences), simple and spoken-friendly.`;
+Reply in Hindi/English with direct, short points (max 2 sentences).`;
 
             try {
                 const responseText = await executeGeminiAPI(geminiKey, promptPayload);
@@ -840,15 +785,13 @@ Reply in the EXACT SAME LANGUAGE as the user query (Hindi/Urdu/English). Keep th
                         isProcessingRequest = false;
                         
                         const listenBtn = document.createElement('button');
-                        listenBtn.className = 'mt-2 text-[11px] text-frontier-cyan flex items-center gap-1.5 font-bold hover:underline bg-frontier-input px-3 py-1.5 rounded-xl border border-frontier-border';
+                        listenBtn.className = 'mt-2 text-[11px] text-slate-900 bg-frontier-cyan font-bold px-3 py-1.5 rounded-xl flex items-center gap-1.5 active:scale-95 transition';
                         listenBtn.innerHTML = '<i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 🔊 आवाज़ में सुनें (Listen)';
                         listenBtn.onclick = () => speakDirect(responseText);
                         botMsgDiv.appendChild(listenBtn);
                         lucide.createIcons();
 
-                        if (autoSpeakEnabled) {
-                            speakDirect(responseText);
-                        }
+                        speakDirect(responseText);
                     }
                 }, 6);
 
