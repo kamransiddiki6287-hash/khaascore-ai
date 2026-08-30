@@ -107,11 +107,11 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-bold text-lg tracking-tight frontier-gradient-text">KhaasCore Polyglot OS</span>
-                        <span id="modelBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-frontier-purple/20 text-frontier-purple border border-frontier-purple/30 font-mono font-semibold flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-frontier-purple animate-pulse"></span> All Engines Active
+                        <span id="modelBadge" class="text-[10px] px-2.5 py-0.5 rounded-full bg-frontier-emerald/20 text-frontier-emerald border border-frontier-emerald/30 font-mono font-semibold flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-pulse"></span> Ultra Engine Online
                         </span>
                     </div>
-                    <p class="text-[11px] text-slate-400">Gemini 3.1 Pro · 3.7 Flash · Omni · GPT-5.6 Sol</p>
+                    <p class="text-[11px] text-slate-400">Universal Contract Audit & Multi-Lingual Speech</p>
                 </div>
             </div>
 
@@ -130,28 +130,12 @@
                         <option value="bn-IN">🇧🇩 Bengali (বাংলা)</option>
                         <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
                         <option value="es-ES">🇪🇸 Spanish</option>
-                        <option value="fr-FR">🇫🇷 French</option>
-                        <option value="de-DE">🇩🇪 German</option>
-                        <option value="zh-CN">🇨🇳 Chinese</option>
-                        <option value="ja-JP">🇯🇵 Japanese</option>
-                    </select>
-                </div>
-
-                <!-- Frontier AI Model Selector (Exact Match to Your 6 Models) -->
-                <div class="flex items-center bg-frontier-input rounded-full px-3.5 py-1.5 border border-frontier-border text-xs">
-                    <select id="engineSelector" class="bg-transparent text-frontier-cyan font-mono font-semibold outline-none cursor-pointer text-xs">
-                        <option value="gemini-3.1-pro" selected>Gemini 3.1 Pro</option>
-                        <option value="gemini-3-pro">Gemini 3 Pro</option>
-                        <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
-                        <option value="gemini-omni">Gemini Omni</option>
-                        <option value="gpt-5.6-sol">GPT-5.6 Sol</option>
-                        <option value="gpt-5.6">GPT-5.6</option>
                     </select>
                 </div>
 
                 <button id="openConfigModal" class="px-3.5 py-1.5 bg-frontier-card hover:bg-frontier-input text-xs font-medium text-slate-300 rounded-full border border-frontier-border transition flex items-center gap-1.5">
                     <i data-lucide="key-round" class="w-3.5 h-3.5 text-frontier-purple"></i>
-                    <span class="hidden sm:inline">API Keys</span>
+                    <span class="hidden sm:inline">API Key</span>
                 </button>
             </div>
         </div>
@@ -171,7 +155,6 @@
                             <option value="nda">Mutual NDA</option>
                             <option value="vendor">Vendor Supply</option>
                             <option value="employment">Employment IP</option>
-                            <option value="dpa">Cross-Border DPA</option>
                         </select>
                     </div>
                     <div>
@@ -308,15 +291,15 @@
         </button>
     </div>
 
-    <!-- Chat Window with Real-Time Speech Recognition & TTS -->
+    <!-- Chat Window -->
     <div id="chatWindow" class="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-2rem)] h-[580px] bg-frontier-dark/95 border border-frontier-border rounded-3xl shadow-2xl flex flex-col z-50 hidden overflow-hidden backdrop-blur-2xl">
         <div class="bg-frontier-panel p-3.5 border-b border-frontier-border flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <i data-lucide="sparkles" class="w-4 h-4 text-frontier-purple"></i>
                 <div>
                     <h4 class="text-xs font-bold text-white">Polyglot Voice Co-Counsel</h4>
-                    <span id="activeModelLabel" class="text-[9px] text-frontier-emerald flex items-center gap-1 font-mono">
-                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> Gemini 3.1 Pro Active
+                    <span class="text-[9px] text-frontier-emerald flex items-center gap-1 font-mono">
+                        <span class="w-1.5 h-1.5 rounded-full bg-frontier-emerald animate-ping"></span> AI Engine Ready
                     </span>
                 </div>
             </div>
@@ -336,8 +319,8 @@
 
         <div id="chatMessages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs font-sans">
             <div class="bg-frontier-card p-3.5 rounded-2xl border border-frontier-border/60 text-slate-200 flex flex-col gap-2">
-                <span>नमस्ते / Hello! Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic, Spanish</strong> or any language.</span>
-                <button onclick="speakText('नमस्ते! Hello! I understand all languages. Click the microphone and speak your question.')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
+                <span>नमस्ते / Hello! Click the microphone and speak in <strong>Hindi, English, Urdu, Bengali, Arabic</strong> or any language.</span>
+                <button onclick="speakText('नमस्ते! मैं आपका लीगल AI असिस्टेंट हूँ। माइक दबाकर कुछ भी पूछें।')" class="self-start text-[10px] text-frontier-cyan flex items-center gap-1 hover:underline">
                     <i data-lucide="volume-2" class="w-3 h-3"></i> Listen
                 </button>
             </div>
@@ -358,12 +341,12 @@
         </form>
     </div>
 
-    <!-- API Keys Modal -->
+    <!-- API Key Modal -->
     <div id="configModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-frontier-card border border-frontier-border rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-frontier-border pb-3">
                 <h3 class="text-sm font-bold text-slate-100 flex items-center gap-2">
-                    <i data-lucide="key-round" class="w-4 h-4 text-frontier-purple"></i> Frontier AI Keys Hub
+                    <i data-lucide="key-round" class="w-4 h-4 text-frontier-purple"></i> Gemini API Key
                 </h3>
                 <button id="closeConfigModal" class="text-slate-400 hover:text-slate-200"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
@@ -372,13 +355,9 @@
                     <label class="block font-medium text-slate-300 mb-1">Google Gemini API Key</label>
                     <input type="password" id="geminiApiKey" placeholder="AIzaSy..." class="w-full bg-frontier-input border border-frontier-border rounded-xl p-2.5 text-slate-200 font-mono outline-none focus:border-frontier-cyan">
                 </div>
-                <div>
-                    <label class="block font-medium text-slate-300 mb-1">OpenAI API Key (Optional for GPT models)</label>
-                    <input type="password" id="openaiApiKey" placeholder="sk-proj-..." class="w-full bg-frontier-input border border-frontier-border rounded-xl p-2.5 text-slate-200 font-mono outline-none focus:border-frontier-cyan">
-                </div>
             </div>
             <div class="pt-3 border-t border-frontier-border flex justify-end">
-                <button id="saveConfigBtn" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full text-xs font-bold transition">Save Keys</button>
+                <button id="saveConfigBtn" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-full text-xs font-bold transition">Save Key</button>
             </div>
         </div>
     </div>
@@ -712,49 +691,21 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         };
 
-        // Multi-Model Universal Execution Hub
-        async function executeAIModel(selectedModel, apiKey, openaiKey, payloadText) {
-            if (selectedModel.startsWith('gpt')) {
-                if (!openaiKey) throw new Error('OpenAI API Key required for GPT models. Please add it in API Keys.');
-                const res = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${openaiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: 'gpt-4o',
-                        messages: [{ role: 'user', content: payloadText }]
-                    })
-                });
-                const data = await res.json();
-                return data.choices?.[0]?.message?.content || 'Error from GPT engine.';
+        // Standard Unified AI Caller
+        async function executeSingleAI(apiKey, payloadText) {
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ role: 'user', parts: [{ text: payloadText }] }]
+                })
+            });
+            const data = await res.json();
+            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                return data.candidates[0].content.parts[0].text;
             }
-
-            // High-Speed Production Fallback for All Gemini Models
-            const fallbackModels = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash', 'gemini-1.5-flash-latest'];
-            let lastErr = '';
-
-            for (const m of fallbackModels) {
-                try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${apiKey}`;
-                    const res = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ role: 'user', parts: [{ text: payloadText }] }]
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                        return data.candidates[0].content.parts[0].text;
-                    }
-                    if (data.error) lastErr = data.error.message;
-                } catch (e) {
-                    lastErr = e.message;
-                }
-            }
-            throw new Error(lastErr || 'Could not connect to Gemini engine.');
+            throw new Error(data.error?.message || 'API Execution Error');
         }
 
         document.getElementById('chatForm').addEventListener('submit', async (e) => {
@@ -767,30 +718,25 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             input.value = '';
 
             const geminiKey = localStorage.getItem('khaas_gemini_key');
-            const openaiKey = localStorage.getItem('khaas_openai_key');
-
             if (!geminiKey) {
-                appendChat('⚠️ Please save your Gemini API Key using the "API Keys" button above.', 'bot');
+                appendChat('⚠️ Please save your Gemini API Key using the "API Key" button above.', 'bot');
                 return;
             }
 
-            const chosenEngine = document.getElementById('engineSelector').value;
-            document.getElementById('activeModelLabel').textContent = `${chosenEngine.toUpperCase()} Active`;
-
             const contractContext = document.getElementById('contractText').value.trim() || 'No contract loaded.';
-            const botMsgId = appendChat(`⏳ Processing with ${chosenEngine.toUpperCase()}...`, 'bot');
+            const botMsgId = appendChat('⏳ AI Thinking...', 'bot');
             const botMsgDiv = document.getElementById(botMsgId);
 
-            const promptPayload = `You are KhaasCore Frontier Legal AI (Engine: ${chosenEngine}).
+            const promptPayload = `You are KhaasCore Frontier Legal AI.
 Contract Context:
 ${contractContext}
 
-User Query: ${msg}
+User Question: ${msg}
 
-Respond in the exact same language as the user. Deliver high-stakes legal accuracy, clean formatting, and spoke-ready tone.`;
+Always reply in the EXACT SAME LANGUAGE that the user used (Hindi/English/Urdu etc.). Provide concise, accurate legal insights.`;
 
             try {
-                const responseText = await executeAIModel(chosenEngine, geminiKey, openaiKey, promptPayload);
+                const responseText = await executeSingleAI(geminiKey, promptPayload);
 
                 botMsgDiv.innerHTML = '';
                 const textSpan = document.createElement('span');
@@ -815,7 +761,7 @@ Respond in the exact same language as the user. Deliver high-stakes legal accura
                 }, 10);
 
             } catch (err) {
-                botMsgDiv.textContent = `⚠️ Engine Error: ${err.message}`;
+                botMsgDiv.textContent = `⚠️ Error: ${err.message}`;
             }
         });
 
@@ -835,15 +781,13 @@ Respond in the exact same language as the user. Deliver high-stakes legal accura
 
         document.getElementById('openConfigModal').onclick = () => {
             document.getElementById('geminiApiKey').value = localStorage.getItem('khaas_gemini_key') || '';
-            document.getElementById('openaiApiKey').value = localStorage.getItem('khaas_openai_key') || '';
             document.getElementById('configModal').classList.remove('hidden');
         };
         document.getElementById('closeConfigModal').onclick = () => document.getElementById('configModal').classList.add('hidden');
         document.getElementById('saveConfigBtn').onclick = () => {
             localStorage.setItem('khaas_gemini_key', document.getElementById('geminiApiKey').value.trim());
-            localStorage.setItem('khaas_openai_key', document.getElementById('openaiApiKey').value.trim());
             document.getElementById('configModal').classList.add('hidden');
-            showToast('API Keys securely saved!', 'success');
+            showToast('Gemini API Key securely saved!', 'success');
         };
 
         document.getElementById('loadPresetBtn').onclick = () => {
@@ -880,4 +824,3 @@ Respond in the exact same language as the user. Deliver high-stakes legal accura
     </script>
 </body>
 </html>
-
