@@ -925,6 +925,19 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
       }
     };
   }
+  // Universal Voice AI फ्लोटिंग बटन इवेंट
+  document.addEventListener("DOMContentLoaded", () => {
+    const allBtns = document.querySelectorAll('button');
+    allBtns.forEach(btn => {
+      if (btn.innerText.includes('Universal Voice AI')) {
+        btn.onclick = () => {
+          if (window.toggleVoiceRecognition) {
+            window.toggleVoiceRecognition();
+          }
+        };
+      }
+    });
+  });
 </script>
 </body>
 </html>
