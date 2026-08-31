@@ -425,6 +425,111 @@
       padding: 4px 0 16px 0;
       width: 100%;
     }
+    <!-- ================= KhaasCore AI Pro Engine & UI Upgrade ================= -->
+<style>
+  /* KhaasCore आधुनिक बटन व इनपुट डिज़ाइन */
+  .input-capsule, .input-box, form {
+    border-radius: 28px !important;
+    background: #1e1f20 !important;
+    border: 1px solid #333537 !important;
+    transition: all 0.25s ease !important;
+  }
+
+  .input-capsule:focus-within, .input-box:focus-within {
+    border-color: #4da3ff !important;
+    box-shadow: 0 0 12px rgba(77, 163, 255, 0.25) !important;
+  }
+
+  /* गोल व पिल बटनों पर स्मूथ होवर इफेक्ट */
+  button, .btn, .icon-btn {
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease !important;
+  }
+
+  button:active, .icon-btn:active {
+    transform: scale(0.92) !important;
+  }
+
+  /* माइक एक्टिव होने पर पल्स एनिमेशन */
+  .mic-active {
+    color: #ff4d4d !important;
+    animation: khaasPulse 1s infinite alternate !important;
+  }
+
+  @keyframes khaasPulse {
+    from { transform: scale(1); filter: drop-shadow(0 0 2px #ff4d4d); }
+    to { transform: scale(1.22); filter: drop-shadow(0 0 8px #ff4d4d); }
+  }
+</style>
+
+<script>
+  // 1. यहाँ अपना Render बैकएंड का सही लिंक दर्ज करें
+  const KHAASCORE_BACKEND_URL = "https://khaascore-ai-backend.onrender.com";
+
+  // 2. ऑटो 404 फिक्स: सभी अधूरी बैकएंड रिक्वेस्ट को सीधे Render से जोड़ेगा
+  const originalFetchRequest = window.fetch;
+  window.fetch = async function (resource, config) {
+    if (typeof resource === 'string') {
+      if (resource.startsWith('/api/') || resource === '/api/chat' || resource === 'api/chat') {
+        resource = KHAASCORE_BACKEND_URL + (resource.startsWith('/') ? resource : '/' + resource);
+      }
+    }
+    return originalFetchRequest(resource, config);
+  };
+
+  // 3. लाइव वॉइस टाइपिंग (माइक फीचर) ऑटो-कनेक्टर
+  (function initVoiceInput() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'hi-IN'; // हिंदी व हिंग्लिश सपोर्ट
+
+    // पेज में मौजूद माइक बटन और इनपुट बॉक्स को ऑटो-डिटेक्ट करें
+    document.addEventListener('DOMContentLoaded', () => {
+      const micBtn = document.querySelector('.fa-microphone')?.closest('button') || document.getElementById('mic-button');
+      const inputEl = document.querySelector('textarea') || document.querySelector('input[type="text"]');
+
+      if (!micBtn || !inputEl) return;
+
+      let isListening = false;
+
+      micBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (isListening) {
+          recognition.stop();
+        } else {
+          try { recognition.start(); } catch (err) {}
+        }
+      });
+
+      recognition.onstart = () => {
+        isListening = true;
+        micBtn.classList.add('mic-active');
+        inputEl.setAttribute('data-old-placeholder', inputEl.placeholder || '');
+        inputEl.placeholder = 'सुन रहा हूँ... बोलिए';
+      };
+
+      recognition.onresult = (event) => {
+        const spokenText = event.results[0][0].transcript;
+        inputEl.value = (inputEl.value ? inputEl.value + ' ' : '') + spokenText;
+        inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        micBtn.classList.remove('mic-active');
+        inputEl.placeholder = inputEl.getAttribute('data-old-placeholder') || 'KhaasCore AI से कुछ भी पूछें...';
+      };
+
+      recognition.onerror = () => {
+        isListening = false;
+        micBtn.classList.remove('mic-active');
+      };
+    });
+  })();
+</script>
+<!-- ========================================================================= -->
 
     /* Audio Waves & TTS Voice Button */
     .audio-playback-bar {
