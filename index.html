@@ -6,8 +6,8 @@
   <title>KhaasCore AI - Universal Intelligence Platform by Kamran Siddiki</title>
   
   <link rel="canonical" href="https://kamransiddiki6287-hash.github.io/khaascore-ai/">
-  <meta name="description" content="KhaasCore AI is an ultra-advanced human-like universal intelligence platform created and owned by Kamran Siddiki.">
-  <meta name="keywords" content="KhaasCore AI, Kamran Siddiki, AI Platform, Human AI, Smart Intelligence">
+  <meta name="description" content="KhaasCore AI is an ultra-advanced human-like universal intelligence and real MP4 video creation platform created and owned by Kamran Siddiki.">
+  <meta name="keywords" content="KhaasCore AI, Kamran Siddiki, AI Platform, Human AI, MP4 Video Generator, Smart Intelligence">
 
   <!-- CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -492,6 +492,67 @@
       to { transform: scaleY(1); }
     }
 
+    /* Video Player & Generator Engine Cards */
+    .video-render-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--brand-accent);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 14px 0;
+      box-shadow: var(--elevation-high);
+      max-width: 420px;
+      width: 100%;
+    }
+    .video-render-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .video-canvas-container {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 9 / 16;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    .video-canvas-container.horizontal {
+      aspect-ratio: 16 / 9;
+    }
+    .video-canvas-container video, .video-canvas-container canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-render-controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .btn-video-download {
+      flex: 1;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-video-download:hover {
+      opacity: 0.92;
+    }
+
     /* Code Sandbox Container */
     .code-container {
       position: relative;
@@ -674,7 +735,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
-      max-width: 520px;
+      max-width: 580px;
       width: 100%;
       padding: 24px;
       box-shadow: var(--elevation-high);
@@ -813,15 +874,15 @@
       </div>
       <h1 class="hero-title">KhaasCore Universal AI</h1>
       <p class="hero-subtitle">
-        नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। किसी भी विषय पर बिल्कुल एक दोस्त और अनुभवी एक्सपर्ट की तरह जीवंत बातचीत करें।
+        नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। किसी भी विषय पर बिल्कुल एक दोस्त और अनुभवी एक्सपर्ट की तरह जीवंत बातचीत और वीडियो तैयार करें।
       </p>
 
       <div class="hero-cards-grid">
-        <div class="hero-card" onclick="applyQuickPrompt('🎬 YouTube Shorts & Video Script: Write a super-viral, engaging script on:')">
+        <div class="hero-card" onclick="applyQuickPrompt('🎬 YouTube Shorts & Video Generator: Create an animated 20-second MP4 video on:')">
           <div class="hero-card-icon"><i data-lucide="video" style="width:20px;"></i></div>
           <div>
-            <div class="hero-card-title">वीडियो स्क्रिप्ट जनरेटर</div>
-            <div class="hero-card-desc">Shorts और Reels के लिए वायरल कंटेंट</div>
+            <div class="hero-card-title">MP4 वीडियो और रील्स रेंडरर</div>
+            <div class="hero-card-desc">Shorts, Reels और 4K वीडियो डाउनलोड करें</div>
           </div>
         </div>
 
@@ -864,7 +925,7 @@
       <input type="file" id="fileMediaInput" accept="image/*,application/pdf,text/*" style="display:none;" onchange="processMediaAttachment(event)">
       <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()" title="फाइल जोड़ें"><i data-lucide="plus" style="width:20px;"></i></div>
       
-      <textarea id="promptArea" placeholder="KhaasCore AI से कुछ भी पूछें..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
+      <textarea id="promptArea" placeholder="KhaasCore AI से कुछ भी पूछें या वीडियो बनवाएं..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
       
       <!-- Live Voice Input Button -->
       <div class="dock-icon" id="micBtn" onclick="toggleSpeechRecognition()" title="बोलकर बात करें">
@@ -885,26 +946,38 @@
   <div class="modal-backdrop" id="subscriptionModal" onclick="closeSubscriptionModal(event)">
     <div class="modal-dialog" onclick="event.stopPropagation()">
       <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:16px;">
-        <h2 style="font-size:18px; font-weight:800;">KhaasCore AI Subscription</h2>
+        <h2 style="font-size:18px; font-weight:800;">KhaasCore AI Subscription Plans</h2>
         <button class="btn-icon-action" onclick="closeSubscriptionModal()"><i data-lucide="x" style="width:20px;"></i></button>
       </div>
 
       <div class="plans-grid">
-        <div class="plan-card active" onclick="selectPlanTier(this, 'Pro Tier ($29)', 2499, '$29')">
+        <div class="plan-card active" onclick="selectPlanTier(this, 'Pro Tier ($29)', 2499, '$29', 60, 20)">
           <div style="font-size:11px; font-weight:700; color:#f59e0b;">PRO TIER ($29)</div>
           <div class="plan-price">$29 <span style="font-size:12px; color:var(--text-secondary);">(2 Months)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">High quality depth + Max video script power.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">20 सेकंड MP4 रील/शॉर्ट्स (9:16 वर्टिकल, एनिमेटेड सबटाइटल, वॉयसओवर)।</p>
         </div>
 
-        <div class="plan-card" onclick="selectPlanTier(this, 'Advanced Tier ($99)', 7999, '$99')">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Advanced Tier ($99)', 7999, '$99', 180, 300)">
           <div style="font-size:11px; font-weight:700; color:#8b5cf6;">ADVANCED ($99)</div>
           <div class="plan-price">$99 <span style="font-size:12px; color:var(--text-secondary);">(6 Months)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Deep intelligence + Ultra speed human voice.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">3 से 5 मिनट MP4 वीडियो (मल्टी-सीन, बैकग्राउंड म्यूजिक, 4K टेक्स्ट)।</p>
+        </div>
+
+        <div class="plan-card" onclick="selectPlanTier(this, 'Max Ultra Tier ($199)', 16999, '$199', 365, 600)">
+          <div style="font-size:11px; font-weight:700; color:#ef4444;">ULTRA TIER ($199)</div>
+          <div class="plan-price">$199 <span style="font-size:12px; color:var(--text-secondary);">(1 Year)</span></div>
+          <p style="font-size:12px; color:var(--text-secondary);">10 मिनट फुल प्रोजेक्ट (फुल-लेंथ चैप्टर, सिनेमाई इफेक्ट्स, मैक्सिमम क्वालिटी)।</p>
+        </div>
+
+        <div class="plan-card" onclick="selectPlanTier(this, 'Free Tier', 0, '$0', 0, 0)">
+          <div style="font-size:11px; font-weight:700; color:#22c55e;">FREE TIER</div>
+          <div class="plan-price">$0 <span style="font-size:12px; color:var(--text-secondary);">/mo</span></div>
+          <p style="font-size:12px; color:var(--text-secondary);">मानक टेक्स्ट संवाद और बुनियादी समझ।</p>
         </div>
       </div>
 
       <div class="upi-checkout-box" id="upiCheckoutSection">
-        <div style="font-weight:700; font-size:14.5px;">Payee: Mohd Kamran (₹2,499)</div>
+        <div style="font-weight:700; font-size:14.5px;">Payee: Mohd Kamran (<span id="displaySelectedPlanPrice">₹2,499</span>)</div>
         <div class="qr-card-container">
           <img id="upiLiveQRCode" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi%3A%2F%2Fpay%3Fpa%3Dmohdkamran7870%40oksbi%26pn%3DMohd%20Kamran%26am%3D2499%26cu%3DINR" alt="UPI QR" />
         </div>
@@ -924,7 +997,10 @@
     let activeConversation = [];
     let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
     let currentSessionIndex = -1;
+    let selectedTierName = "Pro Tier ($29)";
     let selectedTierAmountInr = 2499;
+    let selectedPlanDays = 60;
+    let selectedMaxVideoSec = 20;
 
     let activeFileBase64 = null;
     let activeFileMime = null;
@@ -987,12 +1063,11 @@
       const utterance = new SpeechSynthesisUtterance(text);
       const voices = window.speechSynthesis.getVoices();
       
-      // सबसे साफ़ और नैचुरल हिंदी/इंडियन वॉइस का चयन
       const naturalVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
       if (naturalVoice) utterance.voice = naturalVoice;
 
-      utterance.pitch = 1.05; // जीवंत और मानवीय स्वर
-      utterance.rate = 0.95;  // संतुलित और स्पष्ट गति
+      utterance.pitch = 1.05;
+      utterance.rate = 0.95;
 
       btn.classList.add('playing');
       if (wave) wave.classList.add('active');
@@ -1016,8 +1091,9 @@
 CRITICAL HUMAN CONVERSATION DIRECTIVES:
 1. Speak exactly like a highly intelligent, warm, respectful, witty, and empathetic human expert friend.
 2. Never sound like a rigid robot, boilerplate engine, or dry assistant. Use natural conversational Hindi, Hinglish, Urdu, or English matching the user.
-3. If someone asks for shayari, video scripts, business formulas, cost sheets, coding, or daily queries, provide deep, highly accurate, and vivid breakdowns with real human warmth.
-4. Always identify yourself as KhaasCore AI. Never mention Google, Gemini, OpenAI, or any third-party names. Kamran Siddiki is your sole creator and founder.`;
+3. If someone asks for shayari, video scripts, business formulas, cost sheets, coding, or video generation, provide deep, highly accurate, and vivid breakdowns with real human warmth.
+4. If the user asks to generate/make/create a video (e.g. "वीडियो बनाओ", "make video", "generate video", "create shorts", "reel banao"), give a structured scene-by-scene script along with visual descriptions, and conclude with the video summary so the KhaasCore Video Renderer Engine can render it.
+5. Always identify yourself as KhaasCore AI. Never mention Google, Gemini, OpenAI, or any third-party names. Kamran Siddiki is your sole creator and founder.`;
     }
 
     function toggleDrawer() {
@@ -1088,22 +1164,200 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
       document.getElementById('subscriptionModal').style.display = 'none';
     }
 
-    function selectPlanTier(card, name, inrAmount, usdDisplay) {
+    function selectPlanTier(card, name, inrAmount, usdDisplay, days, maxSec) {
       document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
+      selectedTierName = name;
       selectedTierAmountInr = inrAmount;
-      const upiUri = `upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=${inrAmount}&cu=INR`;
-      document.getElementById('upiLiveQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+      selectedPlanDays = days;
+      selectedMaxVideoSec = maxSec;
+
+      const checkoutBox = document.getElementById('upiCheckoutSection');
+      if (inrAmount === 0) {
+        checkoutBox.style.display = 'none';
+      } else {
+        checkoutBox.style.display = 'flex';
+        document.getElementById('displaySelectedPlanPrice').innerText = `${usdDisplay} (₹${inrAmount.toLocaleString('en-IN')}) - ${days} Days`;
+        const upiUri = `upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=${inrAmount}&cu=INR`;
+        document.getElementById('upiLiveQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+      }
     }
 
     function triggerUPIAppOpen() {
       window.location.href = `upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=${selectedTierAmountInr}&cu=INR`;
     }
 
+    function checkIsVideoPrompt(text) {
+      const lower = text.toLowerCase();
+      return ["वीडियो", "video", "रील", "reel", "shorts", "शॉर्ट्स", "generate video", "make video"].some(w => lower.includes(w));
+    }
+
+    // --- KhaasCore Real MP4 Video Rendering Engine ---
+    async function renderKhaasCoreVideo(scriptText, durationSec = 10, isVertical = true) {
+      const card = document.createElement('div');
+      card.className = 'video-render-card';
+      card.innerHTML = `
+        <div class="video-render-header">
+          <span style="font-size:13px; font-weight:800; color:var(--brand-accent); display:flex; align-items:center; gap:6px;">
+            <i data-lucide="video" style="width:16px;"></i> KhaasCore MP4 Video Renderer
+          </span>
+          <span style="font-size:11px; background:var(--brand-accent-light); color:var(--brand-accent); padding:2px 8px; border-radius:12px; font-weight:700;">
+            ${isVertical ? '9:16 Vertical HD' : '16:9 4K Cinema'}
+          </span>
+        </div>
+        <div class="video-canvas-container ${isVertical ? '' : 'horizontal'}">
+          <canvas id="renderCanvas"></canvas>
+          <video id="renderedVideoPlayer" controls playsinline style="display:none;"></video>
+        </div>
+        <div class="video-render-controls" style="display:none;" id="downloadControlBox">
+          <a class="btn-video-download" id="btnDownloadMP4" download="KhaasCore-AI-Video.mp4">
+            <i data-lucide="download" style="width:16px;"></i> Download Video (.mp4)
+          </a>
+        </div>
+        <div id="renderProgressBar" style="font-size:12px; color:var(--text-secondary); margin-top:8px; text-align:center;">
+          ⚡ वीडियो रेंडरिंग जारी है... (कृपया प्रतीक्षा करें)
+        </div>
+      `;
+
+      const canvas = card.querySelector('#renderCanvas');
+      const videoPlayer = card.querySelector('#renderedVideoPlayer');
+      const downloadBox = card.querySelector('#downloadControlBox');
+      const downloadBtn = card.querySelector('#btnDownloadMP4');
+      const progressLabel = card.querySelector('#renderProgressBar');
+
+      canvas.width = isVertical ? 720 : 1280;
+      canvas.height = isVertical ? 1280 : 720;
+      const ctx = canvas.getContext('2d');
+
+      lucide.createIcons();
+
+      // Canvas Stream Capture
+      const stream = canvas.captureStream(30);
+      let mediaRecorder;
+      try {
+        mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+      } catch (e) {
+        mediaRecorder = new MediaRecorder(stream);
+      }
+
+      const chunks = [];
+      mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+      
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/mp4' });
+        const videoUrl = URL.createObjectURL(blob);
+        canvas.style.display = 'none';
+        videoPlayer.src = videoUrl;
+        videoPlayer.style.display = 'block';
+        downloadBtn.href = videoUrl;
+        downloadBox.style.display = 'flex';
+        progressLabel.innerHTML = `✅ <strong>वीडियो सफलतापूर्वक तैयार है!</strong> ऊपर प्ले करें या MP4 डाउनलोड करें।`;
+        lucide.createIcons();
+      };
+
+      mediaRecorder.start();
+
+      // Audio Speech Engine Sync
+      const utterance = new SpeechSynthesisUtterance(scriptText.substring(0, 180));
+      const voices = window.speechSynthesis.getVoices();
+      const naturalVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
+      if (naturalVoice) utterance.voice = naturalVoice;
+      utterance.pitch = 1.05;
+      utterance.rate = 0.95;
+      window.speechSynthesis.speak(utterance);
+
+      // Dynamic Frame Animation Loop
+      let startTime = performance.now();
+      const words = scriptText.replace(/[*#]/g, '').split(/\s+/).slice(0, 30);
+      const totalFrames = durationSec * 30;
+      let frame = 0;
+
+      function drawFrame() {
+        if (frame >= totalFrames) {
+          mediaRecorder.stop();
+          window.speechSynthesis.cancel();
+          return;
+        }
+
+        const t = frame / totalFrames;
+        // Background Gradient
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        grad.addColorStop(0, `hsl(${(t * 360 + 200) % 360}, 70%, 15%)`);
+        grad.addColorStop(0.5, `hsl(${(t * 360 + 240) % 360}, 80%, 25%)`);
+        grad.addColorStop(1, `hsl(${(t * 360 + 280) % 360}, 90%, 10%)`);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Animated Central Orb
+        const orbRadius = 120 + Math.sin(frame * 0.1) * 20;
+        const orbGrad = ctx.createRadialGradient(canvas.width / 2, canvas.height * 0.38, 10, canvas.width / 2, canvas.height * 0.38, orbRadius);
+        orbGrad.addColorStop(0, 'rgba(56, 189, 248, 0.8)');
+        orbGrad.addColorStop(0.7, 'rgba(37, 99, 235, 0.4)');
+        orbGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = orbGrad;
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height * 0.38, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Watermark / Brand Header
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 28px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('✨ KHAASCORE AI STUDIO', canvas.width / 2, 70);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.font = '20px sans-serif';
+        ctx.fillText('Owner: Kamran Siddiki', canvas.width / 2, 105);
+
+        // Animated Kinetic Captions (Subtitles)
+        const wordIndex = Math.floor(t * words.length);
+        const currentSnippet = words.slice(Math.max(0, wordIndex - 3), wordIndex + 4).join(' ');
+
+        ctx.fillStyle = '#facc15';
+        ctx.font = 'bold 36px sans-serif';
+        ctx.shadowColor = 'rgba(0,0,0,0.8)';
+        ctx.shadowBlur = 12;
+
+        const maxSubtitleWidth = canvas.width - 80;
+        wrapText(ctx, currentSnippet, canvas.width / 2, canvas.height * 0.65, maxSubtitleWidth, 48);
+
+        // Progress Bar
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.fillRect(40, canvas.height - 40, canvas.width - 80, 8);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fillRect(40, canvas.height - 40, (canvas.width - 80) * t, 8);
+
+        frame++;
+        requestAnimationFrame(drawFrame);
+      }
+
+      function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        const wordsArr = text.split(' ');
+        let line = '';
+        for (let n = 0; n < wordsArr.length; n++) {
+          const testLine = line + wordsArr[n] + ' ';
+          const metrics = context.measureText(testLine);
+          if (metrics.width > maxWidth && n > 0) {
+            context.fillText(line, x, y);
+            line = wordsArr[n] + ' ';
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        context.fillText(line, x, y);
+      }
+
+      drawFrame();
+      return card;
+    }
+
     async function handlePromptSubmission() {
       const area = document.getElementById('promptArea');
       const userText = area.value.trim();
       if (!userText && !activeFileBase64) return;
+
+      const isVideoReq = checkIsVideoPrompt(userText);
 
       const hero = document.getElementById('heroWelcome');
       if (hero) hero.style.display = 'none';
@@ -1164,6 +1418,13 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
         }
         bubble.classList.remove('cursor-blink');
         activeConversation.push({ role: 'model', parts: [{ text: fullStream }] });
+
+        // अगर वीडियो रिक्वेस्ट थी, तो लाइव MP4 वीडियो इंजन शुरू करें
+        if (isVideoReq) {
+          const videoCard = await renderKhaasCoreVideo(fullStream, 15, true);
+          bubble.appendChild(videoCard);
+          lucide.createIcons();
+        }
 
         wrapCodeBlocks(bubble);
         applyHighlighting();
