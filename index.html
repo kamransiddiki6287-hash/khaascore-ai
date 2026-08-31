@@ -2,13 +2,13 @@
 <html lang="hi" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <!-- touch-action: none रोकता है डिफ़ॉल्ट मोबाइल स्क्रॉल को ताकि रबर इफ़ेक्ट काम कर सके -->
+  <!-- touch-action: none रबर इफ़ेक्ट के लिए ज़रूरी है -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>KhaasCore AI Supreme - Premium Elastic Welcome</title>
+  <title>KhaasCore AI Supreme - Developed by Kamran Siddiki (Muzaffarpur, Bihar)</title>
   
-  <meta name="description" content="KhaasCore AI is an ultra-advanced human-like universal intelligence, 3D video creation, and business powerhouse created and owned by Kamran Siddiki.">
+  <meta name="description" content="KhaasCore AI is an ultra-advanced universal intelligence and 3D video creation powerhouse created and owned by Kamran Siddiki from Muzaffarpur, Bihar.">
 
-  <!-- Elite Ecosystem CDNs & Master Libraries -->
+  <!-- Elite Ecosystem CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -19,9 +19,9 @@
 
   <style>
     /* ==========================================================================
-       KHAASCORE SUPREME MEGA POWERHOUSE - MASSIVE ENTERPRISE STYLESHEET
-       Theme: Pure Premium White + Elastic Rubber Engine
-       Owner: Kamran Siddiki (Muzaffarpur, Bihar)
+       KHAASCORE SUPREME MEGA POWERHOUSE
+       Theme: Premium White | Single Page | Elastic Rubber Bounce
+       Owner: Kamran Siddiki | Location: Muzaffarpur, Bihar
        ========================================================================== */
     
     :root {
@@ -46,150 +46,38 @@
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
-      /* Disable selection on the welcome screen for better rubber drag feel */
-      user-select: none; 
     }
 
+    /* Single Page Fixed Body - No Scrollbars */
     html, body {
       background-color: var(--bg-canvas);
       color: var(--text-primary);
       width: 100vw;
       height: 100vh;
-      overflow: hidden; /* No scrollbars anywhere on the main body */
+      overflow: hidden; 
       overscroll-behavior: none;
-      touch-action: none; /* Crucial for custom rubber dragging */
+      touch-action: none; /* Disables default pull-to-refresh to allow our custom rubber effect */
     }
 
-    /* ==========================================================================
-       GRAND RUBBER-BAND WELCOME SCREEN (PREMIUM WHITE)
-       ========================================================================== */
-    #welcomeScreen {
-      position: fixed;
-      inset: 0;
-      background-color: #ffffff; /* Pure White Premium Look */
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      /* Bouncy transition applied via JS when snapping back */
-      overflow: hidden;
-      cursor: grab;
-    }
-    #welcomeScreen:active {
-      cursor: grabbing;
-    }
-    
-    /* Magical Flying Particles Canvas */
-    #welcomeParticles {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .welcome-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      animation: floatUp 1.5s ease-out;
-      padding: 20px;
-    }
-
-    .welcome-logo {
-      width: 130px;
-      height: 130px;
-      margin: 0 auto 35px auto;
-      border-radius: 40px;
-      background: var(--brand-gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      box-shadow: 0 25px 60px rgba(236, 72, 153, 0.35);
-      animation: pulseGlowWelcome 3s infinite alternate;
-    }
-
-    .welcome-title {
-      font-size: 60px;
-      font-weight: 900;
-      background: var(--brand-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
-      letter-spacing: -1.5px;
-    }
-
-    .welcome-subtitle {
-      font-size: 22px;
-      color: var(--text-secondary);
-      max-width: 650px;
-      margin: 0 auto 50px auto;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-
-    .btn-enter-powerhouse {
-      background: var(--brand-gradient);
-      color: #ffffff;
-      border: none;
-      padding: 20px 45px;
-      border-radius: 50px;
-      font-size: 22px;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      pointer-events: auto; /* Allow click even during drag */
-    }
-
-    .btn-enter-powerhouse:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 25px 50px rgba(236, 72, 153, 0.5);
-    }
-
-    .drag-hint {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 600;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0.6;
-      animation: bounceHint 2s infinite;
-      z-index: 2;
-    }
-
-    @keyframes floatUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulseGlowWelcome {
-      from { transform: scale(1); filter: hue-rotate(0deg); }
-      to { transform: scale(1.06); filter: hue-rotate(45deg); }
-    }
-    @keyframes bounceHint {
-      0%, 100% { transform: translate(-50%, 0); }
-      50% { transform: translate(-50%, -10px); }
-    }
-
-    /* Hide Main App Initially */
-    #mainAppWrapper {
-      opacity: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
+    /* Elastic Rubber Container */
+    #appContainer {
       width: 100vw;
-      transition: opacity 1.5s ease-in;
-      pointer-events: none; /* Disabled until welcome screen is gone */
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      cursor: grab;
+      background: #ffffff;
+      z-index: 10;
+    }
+    #appContainer:active { cursor: grabbing; }
+
+    /* Background pattern behind the rubber bounce */
+    body::before {
+      content: 'KhaasCore AI';
+      position: absolute;
+      top: 20px; left: 0; right: 0;
+      text-align: center; font-size: 24px; font-weight: 900; color: #cbd5e1; z-index: 1;
     }
 
     /* ==========================================================================
@@ -215,19 +103,19 @@
     @keyframes auroraFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .header-left, .header-right { display: flex; align-items: center; gap: 14px; }
-
     .btn-icon-action {
       background: #ffffff; border: 1px solid var(--border-subtle); color: var(--text-primary);
       padding: 12px; border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: all 0.25s ease; box-shadow: var(--elevation-low);
     }
     .btn-icon-action:hover { border-color: var(--brand-accent); background-color: var(--brand-accent-light); transform: translateY(-3px); }
-
+    
     .model-selector-chip {
       display: flex; align-items: center; gap: 10px; padding: 10px 22px; background: var(--brand-gradient);
       border-radius: 30px; font-size: 15px; font-weight: 900; cursor: pointer; color: #fff;
       box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35); animation: colorFlash 5s infinite alternate;
     }
+    @keyframes colorFlash { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(180deg); } }
 
     /* Side Drawer Navigation */
     .drawer-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); display: none; z-index: 200; backdrop-filter: blur(8px); }
@@ -249,7 +137,7 @@
     .user-badge { display: flex; align-items: center; gap: 14px; }
     .avatar-circle { width: 50px; height: 50px; border-radius: 50%; background: var(--brand-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 16px; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4); }
 
-    /* Main Chat Canvas (Scrollable area inside the fixed body) */
+    /* Main Chat Canvas (Internal Scroll) */
     .chat-canvas {
       flex: 1; overflow-y: auto; overflow-x: hidden; padding: 35px 24px 210px 24px; display: flex; flex-direction: column; gap: 30px;
       max-width: 1100px; width: 100%; margin: 0 auto; user-select: text; touch-action: auto;
@@ -257,16 +145,15 @@
 
     /* Vibrant Inner Hero Screen */
     .inner-hero { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; padding: 28px 16px; animation: fadeIn 0.6s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     .inner-logo { width: 80px; height: 80px; border-radius: 24px; background: var(--brand-gradient); display: flex; align-items: center; justify-content: center; color: #fff; margin-bottom: 20px; box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
-    .inner-title { font-size: 34px; font-weight: 900; margin-bottom: 12px; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .inner-subtitle { font-size: 17px; color: var(--text-secondary); max-width: 700px; line-height: 1.6; margin-bottom: 40px; }
+    .inner-title { font-size: 34px; font-weight: 900; margin-bottom: 8px; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .inner-subtitle { font-size: 16px; color: var(--text-secondary); max-width: 700px; line-height: 1.6; margin-bottom: 40px; }
 
     /* Mega Powerhouse Grid */
     .power-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; width: 100%; max-width: 850px; margin-bottom: 14px; }
     @media (max-width: 720px) { .power-grid { grid-template-columns: 1fr; } }
-    .power-card {
-      background: var(--bg-card); border: 2px solid var(--border-subtle); border-radius: 24px; padding: 22px; display: flex; align-items: center; gap: 18px; text-align: left; cursor: pointer; box-shadow: var(--elevation-low); transition: all 0.3s ease;
-    }
+    .power-card { background: var(--bg-card); border: 2px solid var(--border-subtle); border-radius: 24px; padding: 22px; display: flex; align-items: center; gap: 18px; text-align: left; cursor: pointer; box-shadow: var(--elevation-low); transition: all 0.3s ease; }
     .power-card:hover { transform: translateY(-6px); border-color: var(--brand-accent); box-shadow: var(--elevation-high); }
     .power-icon { width: 54px; height: 54px; border-radius: 16px; background: var(--brand-accent-light); color: var(--brand-accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .power-card-title { font-weight: 900; font-size: 16px; color: var(--text-primary); }
@@ -275,85 +162,69 @@
     /* Messages & Bubbles */
     .chat-row { display: flex; flex-direction: column; width: 100%; position: relative; }
     .chat-bubble { position: relative; line-height: 1.85; font-size: 17.5px; word-break: break-word; color: var(--text-primary); }
-    .chat-row.user .chat-bubble {
-      align-self: flex-end; background-color: var(--bg-canvas); padding: 18px 26px; border-radius: 26px 26px 4px 26px; max-width: 85%; border: 2px solid var(--border-subtle); box-shadow: var(--elevation-low);
-    }
-    .chat-row.ai .chat-bubble {
-      align-self: flex-start; background-color: transparent; padding: 10px 0 20px 0; width: 100%;
-    }
+    .chat-row.user .chat-bubble { align-self: flex-end; background-color: var(--bg-canvas); padding: 18px 26px; border-radius: 26px 26px 4px 26px; max-width: 85%; border: 2px solid var(--border-subtle); box-shadow: var(--elevation-low); }
+    .chat-row.ai .chat-bubble { align-self: flex-start; background-color: transparent; padding: 10px 0 20px 0; width: 100%; }
+
+    /* Audio TTS Voice Button */
+    .audio-playback-bar { display: flex; align-items: center; gap: 8px; position: absolute; top: 0; right: 0; z-index: 5; }
+    .btn-audio-listen { width: 38px; height: 38px; border-radius: 50%; background-color: var(--brand-accent-light); color: var(--brand-accent); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle); cursor: pointer; transition: all 0.2s; }
+    .btn-audio-listen:hover { transform: scale(1.1); }
+    .btn-audio-listen.playing { background-color: #22c55e; color: #fff; animation: pulseGreen 1.2s infinite; }
+    @keyframes pulseGreen { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
 
     /* Fixed Non-Scrolling Master Input Dock */
     .input-dock {
-      position: fixed; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; padding: 20px 28px 28px 28px; background: linear-gradient(to top, #ffffff 88%, rgba(255,255,255,0)); z-index: 50; user-select: auto;
+      position: absolute; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; padding: 20px 28px 20px 28px; background: linear-gradient(to top, #ffffff 88%, rgba(255,255,255,0)); z-index: 50;
     }
     .input-pill {
-      width: 100%; max-width: 950px; background-color: #ffffff; border: 2px solid var(--border-subtle); border-radius: 44px; padding: 12px 24px; display: flex; align-items: center; gap: 14px; box-shadow: 0 15px 45px rgba(37, 99, 235, 0.15); transition: border-color 0.25s, box-shadow 0.25s;
+      width: 100%; max-width: 950px; background-color: #ffffff; border: 2px solid var(--border-subtle); border-radius: 44px; padding: 10px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 15px 45px rgba(37, 99, 235, 0.15); transition: border-color 0.25s;
     }
     .input-pill:focus-within { border-color: var(--brand-accent); box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.15); }
     .input-pill textarea {
-      flex: 1; border: none; background: transparent; outline: none; font-size: 18px; font-weight: 500; color: var(--text-primary); resize: none; height: 50px; max-height: 50px; overflow: hidden; padding: 12px 0; line-height: 1.5; white-space: nowrap; text-overflow: ellipsis; touch-action: auto;
+      flex: 1; border: none; background: transparent; outline: none; font-size: 18px; font-weight: 500; color: var(--text-primary); resize: none; height: 50px; max-height: 120px; padding: 12px 0; line-height: 1.5; touch-action: auto;
     }
     .input-pill textarea::placeholder { color: var(--text-secondary); opacity: 0.8; }
     .dock-icon {
       color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 50%; background: #f8fafc; transition: all 0.2s;
     }
     .dock-icon:hover { color: #fff; background: var(--brand-gradient); transform: scale(1.1); box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4); }
+    .dock-icon.recording { color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.15); animation: pulseRecord 0.8s infinite alternate; }
+    @keyframes pulseRecord { from { transform: scale(1); } to { transform: scale(1.22); } }
     
-    .creator-attribution-badge { font-size: 13px; font-weight: 700; color: var(--text-secondary); text-align: center; margin-top: 14px; }
+    .creator-attribution-badge { font-size: 13.5px; font-weight: 800; color: var(--text-secondary); text-align: center; margin-top: 12px; }
     .creator-attribution-badge strong { color: #ec4899; }
 
-    /* 3D Cinematic Video Studio Box */
-    .video-studio-box {
-      background: #ffffff; border: 2px solid var(--border-subtle); border-radius: 24px; padding: 24px; margin-top: 20px; box-shadow: var(--elevation-high);
-    }
-    .video-frame { position: relative; width: 100%; aspect-ratio: 9/16; background: #000; border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-    .video-frame canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* VIP Modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); display: none; align-items: center; justify-content: center; z-index: 300; backdrop-filter: blur(6px); padding: 16px; }
+    .modal-dialog { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 26px; max-width: 600px; width: 100%; padding: 28px; box-shadow: var(--elevation-high); max-height: 90vh; overflow-y: auto; }
+    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .plan-card { border: 2px solid var(--border-subtle); padding: 18px; border-radius: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s; }
+    .plan-card:hover { border-color: var(--brand-accent); transform: translateY(-2px); }
+    .plan-card.active { border-color: var(--brand-accent); background-color: var(--brand-accent-light); }
+    .plan-price { font-size: 24px; font-weight: 900; color: var(--text-primary); }
+
+    .upi-checkout-box { background-color: var(--bg-sidebar); border: 1px solid var(--border-subtle); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .qr-card-container img { width: 190px; height: 190px; margin: 12px 0; border-radius: 14px; background: #fff; padding: 6px; }
+    .btn-upi-app-direct { width: 100%; background: var(--brand-gradient); color: #fff; border: none; padding: 14px; border-radius: 14px; font-size: 16px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
   </style>
 </head>
 <body>
 
   <!-- ==========================================================================
-       ELASTIC RUBBER-BAND GRAND WELCOME SCREEN
+       MAIN ENTERPRISE APP CONTAINER (WITH ELASTIC RUBBER EFFECT)
        ========================================================================== -->
-  <div id="welcomeScreen">
-    <canvas id="welcomeParticles"></canvas>
-    <div class="welcome-content">
-      <div class="welcome-logo">
-        <i data-lucide="sparkles" style="width:65px; height:65px;"></i>
-      </div>
-      <h1 class="welcome-title">Welcome to KhaasCore AI</h1>
-      <p class="welcome-subtitle">
-        दुनिया के सबसे प्रीमियम, शुद्ध वाइट और इंटेलिजेंस पावरहाउस में आपका स्वागत है।<br>
-        इसे खींचकर देखिए—यह बिल्कुल रबड़ की तरह काम करता है!<br>
-        Owner & Creator: <strong>Kamran Siddiki</strong>
-      </p>
-      <button class="btn-enter-powerhouse" onclick="enterPowerhouse()">
-        <i data-lucide="power" style="width:26px;"></i> Enter Powerhouse
-      </button>
-    </div>
-    <div class="drag-hint">
-      <i data-lucide="chevrons-up-down" style="width:24px;"></i>
-      <span>खींच कर देखिए (Drag to stretch)</span>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MAIN ENTERPRISE APP WRAPPER
-       ========================================================================== -->
-  <div id="mainAppWrapper">
+  <div id="appContainer">
     
-    <!-- Master Enterprise App Header -->
     <header class="app-header">
       <div class="header-left">
         <button class="btn-icon-action" onclick="toggleDrawer()" title="Menu"><i data-lucide="menu" style="width:26px;"></i></button>
-        <div class="model-selector-chip">
+        <div class="model-selector-chip" onclick="openSubscriptionModal()">
           <i data-lucide="zap" style="width:19px;"></i>
           <span>KhaasCore Supreme 8000</span>
         </div>
       </div>
-
       <div class="header-right">
-        <button class="btn-icon-action" title="VIP Tier Plans"><i data-lucide="crown" style="width:24px; color:#ec4899;"></i></button>
+        <button class="btn-icon-action" onclick="openSubscriptionModal()" title="VIP Tier Plans"><i data-lucide="crown" style="width:24px; color:#ec4899;"></i></button>
         <button class="btn-icon-action" onclick="exportChatTranscript()" title="Export Chat"><i data-lucide="download" style="width:24px;"></i></button>
         <button class="btn-icon-action" onclick="startNewSession()" title="New Chat"><i data-lucide="pen-square" style="width:24px;"></i></button>
       </div>
@@ -366,77 +237,63 @@
         <div class="brand-title"><i data-lucide="cpu"></i> KhaasCore AI</div>
         <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="x" style="width:20px;"></i></button>
       </div>
-
       <nav class="drawer-scrollable">
         <div class="drawer-btn" onclick="startNewSession()"><i data-lucide="message-square-plus" style="width:20px;"></i> New Conversation</div>
-        <div class="drawer-btn"><i data-lucide="zap" style="width:20px; color:#ec4899;"></i> VIP Tier Plans</div>
+        <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:20px; color:#ec4899;"></i> VIP Tier Plans</div>
         <div class="drawer-btn" onclick="applyQuickPrompt('🎬 Create YouTube Shorts 3D Animation Script for Gyan Bhai Siddiqui:')"><i data-lucide="video" style="width:20px;"></i> 3D Shorts Studio</div>
         <div class="drawer-btn" onclick="applyQuickPrompt('✍️ Write Deep Success Shayari for YouTube:')"><i data-lucide="feather" style="width:20px;"></i> Success Shayari Creator</div>
         <div class="drawer-btn" onclick="applyQuickPrompt('😂 Write Big Brother and Small Brother Comedy Script:')"><i data-lucide="smile" style="width:20px;"></i> Comedy Script Suite</div>
-        <div class="drawer-btn" onclick="exportChatTranscript()"><i data-lucide="download" style="width:20px;"></i> Export Master Chat (.txt)</div>
+        <div class="drawer-btn" onclick="applyQuickPrompt('🏭 Generate Industrial Detergent Cost Sheet (Supreme Platinum Formula):')"><i data-lucide="briefcase" style="width:20px;"></i> Business Cost Sheets</div>
+        <div style="font-size:12px; font-weight:900; color:var(--text-secondary); margin:20px 0 6px 4px;">SAVED CONVERSATIONS</div>
+        <div id="threadHistoryList"></div>
       </nav>
-
       <div class="drawer-footer">
         <div class="user-badge">
           <div class="avatar-circle">KS</div>
           <div>
             <div style="font-weight:900; font-size:16px;">Kamran Siddiki</div>
-            <div style="font-size:12px; color:#ec4899; font-weight:900;">FOUNDER & OWNER</div>
+            <div style="font-size:12px; color:#ec4899; font-weight:900;">Muzaffarpur, Bihar</div>
           </div>
         </div>
       </div>
     </aside>
 
-    <!-- Main Enterprise Chat Canvas -->
+    <!-- Main Chat Canvas -->
     <main class="chat-canvas" id="chatCanvas">
       <div class="inner-hero" id="heroWelcome">
         <div class="inner-logo"><i data-lucide="sparkles" style="width:46px; height:46px;"></i></div>
         <h1 class="inner-title">KhaasCore Supreme Powerhouse</h1>
         <p class="inner-subtitle">
-          नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। आपके चैनल <strong>Gyan Bhai Siddiqui</strong>, शायरी, कॉमेडी और 3D वीडियो क्रिएशन का सबसे भव्य वाइट-थीम पावरहाउस।
+          नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। आपके चैनल <strong>Gyan Bhai Siddiqui</strong>, शायरी, और बिज़नेस क्रिएशन का सबसे भव्य वाइट-थीम पावरहाउस।<br>
+          <strong style="color:var(--brand-accent);">Owner: Kamran Siddiki (Muzaffarpur, Bihar)</strong>
         </p>
 
         <div class="power-grid">
           <div class="power-card" onclick="applyQuickPrompt('🎬 YouTube Shorts 3D Animation: Generate a viral video script on:')">
             <div class="power-icon"><i data-lucide="video" style="width:26px;"></i></div>
-            <div>
-              <div class="power-card-title">3D Shorts & रील्स स्टूडियो</div>
-              <div class="power-card-desc">वायरल स्क्रिप्ट और विजुअल्स</div>
-            </div>
+            <div><div class="power-card-title">3D Shorts & रील्स</div><div class="power-card-desc">वायरल स्क्रिप्ट और विजुअल्स</div></div>
           </div>
-
           <div class="power-card" onclick="applyQuickPrompt('✍️ Success Shayari: Write an emotional success shayari for my channel:')">
             <div class="power-icon"><i data-lucide="feather" style="width:26px;"></i></div>
-            <div>
-              <div class="power-card-title">सफलता की शायरी</div>
-              <div class="power-card-desc">दिल छू लेने वाली मोटिवेशन</div>
-            </div>
+            <div><div class="power-card-title">सफलता की शायरी</div><div class="power-card-desc">दिल छू लेने वाली मोटिवेशन</div></div>
           </div>
-
           <div class="power-card" onclick="applyQuickPrompt('😂 Comedy Script: Write a funny Big Brother and Small Brother script on:')">
             <div class="power-icon"><i data-lucide="smile" style="width:26px;"></i></div>
-            <div>
-              <div class="power-card-title">कॉमेडी स्क्रिप्ट राइटर</div>
-              <div class="power-card-desc">बड़ा भाई - छोटा भाई फनी स्क्रिप्ट</div>
-            </div>
+            <div><div class="power-card-title">कॉमेडी स्क्रिप्ट राइटर</div><div class="power-card-desc">बड़ा भाई - छोटा भाई फनी स्क्रिप्ट</div></div>
           </div>
-
-          <div class="power-card" onclick="applyQuickPrompt('🏭 Industrial Manufacturing: Give cost sheet and pricing for Supreme Platinum detergent:')">
+          <div class="power-card" onclick="applyQuickPrompt('🏭 Industrial Manufacturing: Give cost sheet for Supreme Platinum detergent:')">
             <div class="power-icon"><i data-lucide="briefcase" style="width:26px;"></i></div>
-            <div>
-              <div class="power-card-title">डिटर्जेंट बिज़नेस प्लान</div>
-              <div class="power-card-desc">सुप्रीम प्लैटिनम कॉस्ट शीट</div>
-            </div>
+            <div><div class="power-card-title">बिज़नेस प्लान</div><div class="power-card-desc">डिटर्जेंट कॉस्ट शीट (मुज़फ़्फ़रपुर)</div></div>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- Input Dock with Fixed Non-Scrolling Input -->
+    <!-- Input Dock -->
     <div class="input-dock">
       <div class="input-pill">
         <div class="dock-icon" title="फाइल जोड़ें"><i data-lucide="plus" style="width:26px;"></i></div>
-        <textarea id="promptArea" placeholder="KhaasCore से कुछ भी पूछें (शायरी, वीडियो, कोडिंग, बिज़नेस)..." rows="1" onkeydown="onPromptKeydown(event)"></textarea>
+        <textarea id="promptArea" placeholder="KhaasCore से कुछ भी पूछें (शायरी, वीडियो, कोडिंग, बिज़नेस)..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
         <div class="dock-icon" id="micBtn" onclick="toggleSpeechRecognition()" title="बोलकर बात करें"><i data-lucide="mic" style="width:26px;"></i></div>
         <div class="dock-icon" onclick="handlePromptSubmission()" title="संदेश भेजें" style="color:#fff; background:var(--brand-gradient); box-shadow:0 4px 15px rgba(236, 72, 153, 0.4);">
           <i data-lucide="arrow-up" style="width:26px;"></i>
@@ -446,150 +303,164 @@
         Developed & Owned by <strong>Kamran Siddiki</strong> (Muzaffarpur, Bihar) | KhaasCore AI Supreme
       </div>
     </div>
-  </div> <!-- End Main App Wrapper -->
+  </div> <!-- End App Container -->
+
+  <!-- Subscription Modal -->
+  <div class="modal-backdrop" id="subscriptionModal" onclick="closeSubscriptionModal(event)">
+    <div class="modal-dialog" onclick="event.stopPropagation()">
+      <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:18px;">
+        <h2 style="font-size:20px; font-weight:900;">KhaasCore VIP Plans</h2>
+        <button class="btn-icon-action" onclick="closeSubscriptionModal()"><i data-lucide="x" style="width:20px;"></i></button>
+      </div>
+      <div class="plans-grid">
+        <div class="plan-card active" onclick="selectPlanTier(this, 'Pro Tier ($29)', 2499, '$29', 60)">
+          <div style="font-size:11.5px; font-weight:900; color:#f59e0b;">PRO TIER ($29)</div>
+          <div class="plan-price">$29 <span style="font-size:12.5px; color:var(--text-secondary);">(2 Months)</span></div>
+          <p style="font-size:13px; color:var(--text-secondary);">20 सेकंड MP4 रील/शॉर्ट्स और सभी फीचर्स।</p>
+        </div>
+        <div class="plan-card" onclick="selectPlanTier(this, 'Advanced Tier ($99)', 7999, '$99', 180)">
+          <div style="font-size:11.5px; font-weight:900; color:#8b5cf6;">ADVANCED ($99)</div>
+          <div class="plan-price">$99 <span style="font-size:12.5px; color:var(--text-secondary);">(6 Months)</span></div>
+          <p style="font-size:13px; color:var(--text-secondary);">3 से 5 मिनट MP4 वीडियो और 4K रेंडर।</p>
+        </div>
+      </div>
+      <div class="upi-checkout-box" id="upiCheckoutSection">
+        <div style="font-weight:900; font-size:15px;">Payee: Mohd Kamran (<span id="displaySelectedPlanPrice">₹2,499</span>)</div>
+        <div class="qr-card-container">
+          <img id="upiLiveQRCode" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi%3A%2F%2Fpay%3Fpa%3Dmohdkamran7870%40oksbi%26pn%3DMohd%20Kamran%26am%3D2499%26cu%3DINR" alt="UPI QR" />
+        </div>
+        <button onclick="triggerUPIAppOpen()" class="btn-upi-app-direct">
+          <i data-lucide="smartphone" style="width:18px;"></i> Open UPI App to Pay
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // ==========================================================================
-    // KHAASCORE ELASTIC RUBBER ENGINE & MASTER RUNTIME
-    // ==========================================================================
     lucide.createIcons();
 
-    let activeConversation = [];
-    const BACKEND_URL = "https://khaascore-ai-backend.onrender.com/api/chat";
+    // 🔒 अपनी असली Gemini API Key यहाँ डालें (AIzaSy...)
+    const GEMINI_API_KEY = "यहाँ_अपनी_असली_API_KEY_डालें"; 
 
-    // --- MAGICAL WELCOME SCREEN PARTICLES ---
-    function initWelcomeParticles() {
-      const canvas = document.getElementById('welcomeParticles');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    // ==========================================================================
+    // THE "RUBBER BAND" ELASTIC DRAG ENGINE (DIRECT LOAD)
+    // ==========================================================================
+    const appContainer = document.getElementById('appContainer');
+    let startY = 0; let currentTranslateY = 0; let isDragging = false;
 
-      const particles = [];
-      const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#38bdf8', '#facc15'];
-
-      for (let i = 0; i < 80; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 4 + 1,
-          dx: (Math.random() - 0.5) * 1.5,
-          dy: (Math.random() - 0.5) * 1.5,
-          color: colors[Math.floor(Math.random() * colors.length)]
-        });
-      }
-
-      function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.globalAlpha = 0.6;
-          ctx.fill();
-          p.x += p.dx;
-          p.y += p.dy;
-          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-        });
-        requestAnimationFrame(animateParticles);
-      }
-      animateParticles();
-    }
-    initWelcomeParticles();
-
-    // --- THE "RUBBER BAND" ELASTIC DRAG ENGINE ---
-    const welcomeScreen = document.getElementById('welcomeScreen');
-    let startY = 0;
-    let currentTranslateY = 0;
-    let isDragging = false;
-
-    // Start Drag
     const handleDragStart = (e) => {
-      // Don't drag if clicking the button
-      if(e.target.closest('.btn-enter-powerhouse')) return;
+      // Allow internal scrolling on chat canvas without dragging the whole app
+      if (e.target.closest('.chat-canvas') && document.getElementById('chatCanvas').scrollTop > 0) return;
+      
       isDragging = true;
       startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-      welcomeScreen.style.transition = 'none'; // Remove transition to track finger exactly
+      appContainer.style.transition = 'none'; 
     };
 
-    // Dragging
     const handleDragMove = (e) => {
       if (!isDragging) return;
       const y = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
       const deltaY = y - startY;
       
-      // The Rubber Math: 30% resistance factor makes it feel like pulling a rubber band
-      currentTranslateY = deltaY * 0.35; 
-      
-      welcomeScreen.style.transform = `translateY(${currentTranslateY}px)`;
+      // Pull only downwards for rubber effect at the top
+      if (deltaY > 0) {
+        currentTranslateY = deltaY * 0.35; // 35% resistance factor
+        appContainer.style.transform = `translateY(${currentTranslateY}px)`;
+      }
     };
 
-    // End Drag (The Snap Back)
     const handleDragEnd = () => {
       if (!isDragging) return;
       isDragging = false;
-      
-      // The Magic Bounce: cubic-bezier makes it overshoot and spring back elastically
-      welcomeScreen.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      welcomeScreen.style.transform = `translateY(0px)`;
+      appContainer.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      appContainer.style.transform = `translateY(0px)`;
       currentTranslateY = 0;
     };
 
-    welcomeScreen.addEventListener('mousedown', handleDragStart);
+    appContainer.addEventListener('mousedown', handleDragStart);
     window.addEventListener('mousemove', handleDragMove);
     window.addEventListener('mouseup', handleDragEnd);
-
-    welcomeScreen.addEventListener('touchstart', handleDragStart, {passive: false});
+    appContainer.addEventListener('touchstart', handleDragStart, {passive: false});
     window.addEventListener('touchmove', handleDragMove, {passive: false});
     window.addEventListener('touchend', handleDragEnd);
 
 
-    // --- ENTER POWERHOUSE LOGIC ---
-    function enterPowerhouse() {
-      // 1. Play Welcome Speech
-      const utterance = new SpeechSynthesisUtterance("Welcome to KhaasCore AI Supreme Powerhouse, Kamran Boss.");
-      const voices = window.speechSynthesis.getVoices();
-      const voice = voices.find(v => v.lang.includes('en') || v.lang.includes('hi')) || voices[0];
-      if (voice) utterance.voice = voice;
-      utterance.pitch = 1.1;
-      utterance.rate = 0.95;
-      window.speechSynthesis.speak(utterance);
-
-      // 2. Animate Welcome Screen Out (Zoom and Fade)
-      welcomeScreen.style.transition = 'transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease';
-      welcomeScreen.style.transform = 'scale(1.5) translateY(-50px)';
-      welcomeScreen.style.opacity = '0';
-      
-      const mainApp = document.getElementById('mainAppWrapper');
-      
-      setTimeout(() => {
-        welcomeScreen.style.display = 'none';
-        mainApp.style.opacity = '1';
-        mainApp.style.pointerEvents = 'auto'; // Enable interactions in main app
-      }, 900);
-    }
-
-    // --- STANDARD APP LOGIC ---
+    // ==========================================================================
+    // SPEECH RECOGNITION (MIC) & SYNTHESIS (VOICE)
+    // ==========================================================================
     let isRecognizing = false;
     let recognition = null;
+
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
       recognition.continuous = false;
       recognition.lang = 'hi-IN';
-      recognition.onstart = () => { isRecognizing = true; document.getElementById('micBtn').classList.add('recording'); };
+
+      recognition.onstart = () => {
+        isRecognizing = true;
+        document.getElementById('micBtn').classList.add('recording');
+      };
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         const area = document.getElementById('promptArea');
         area.value = (area.value ? area.value + ' ' : '') + transcript;
+        adjustTextareaHeight(area);
       };
-      recognition.onend = () => { isRecognizing = false; document.getElementById('micBtn').classList.remove('recording'); };
+      recognition.onend = () => {
+        isRecognizing = false;
+        document.getElementById('micBtn').classList.remove('recording');
+      };
+      recognition.onerror = (e) => {
+        console.error("Mic error:", e);
+        isRecognizing = false;
+        document.getElementById('micBtn').classList.remove('recording');
+        alert("माइक ने काम करना बंद कर दिया। कृपया ब्राउज़र की परमिशन चेक करें।");
+      };
     }
 
     function toggleSpeechRecognition() {
-      if (!recognition) return alert("Voice support not found. Use Chrome.");
-      if (isRecognizing) recognition.stop(); else recognition.start();
+      if (!recognition) {
+        alert("आपके ब्राउज़र में वॉइस इनपुट सपोर्ट नहीं है। कृपया Google Chrome इस्तेमाल करें।");
+        return;
+      }
+      if (isRecognizing) recognition.stop();
+      else {
+        try { recognition.start(); } catch(e) {}
+      }
     }
+
+    function synthesizeNodeSpeech(btn) {
+      const parent = btn.closest('.chat-row');
+      const text = parent.querySelector('.chat-bubble').innerText;
+      if (!text) return;
+
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        document.querySelectorAll('.btn-audio-listen').forEach(b => b.classList.remove('playing'));
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const naturalVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
+      if (naturalVoice) utterance.voice = naturalVoice;
+
+      utterance.pitch = 1.05;
+      utterance.rate = 0.95;
+
+      btn.classList.add('playing');
+      utterance.onend = () => btn.classList.remove('playing');
+      utterance.onerror = () => btn.classList.remove('playing');
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // ==========================================================================
+    // UI LOGIC & GEMINI AI ENGINE
+    // ==========================================================================
+    let activeConversation = [];
+    let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
+    let selectedTierAmountInr = 2499;
 
     function toggleDrawer() {
       const d = document.getElementById('sideDrawer');
@@ -598,95 +469,124 @@
       o.style.display = d.classList.contains('open') ? 'block' : 'none';
     }
 
+    function adjustTextareaHeight(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+    }
+
     function onPromptKeydown(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        handlePromptSubmission();
-      }
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handlePromptSubmission(); }
     }
 
     function applyQuickPrompt(text) {
       const area = document.getElementById('promptArea');
       area.value = text + ' ';
       area.focus();
+      adjustTextareaHeight(area);
     }
 
-    // Autonomous Enterprise Mega Intelligence Engine
+    function openSubscriptionModal() { document.getElementById('subscriptionModal').style.display = 'flex'; }
+    function closeSubscriptionModal() { document.getElementById('subscriptionModal').style.display = 'none'; }
+    function selectPlanTier(card, name, inrAmount, usdDisplay) {
+      document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      selectedTierAmountInr = inrAmount;
+      document.getElementById('displaySelectedPlanPrice').innerText = `${usdDisplay} (₹${inrAmount.toLocaleString('en-IN')})`;
+    }
+    function triggerUPIAppOpen() { window.location.href = `upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=${selectedTierAmountInr}&cu=INR`; }
+
+    // THE BRAIN: System Prompt with Muzaffarpur Address
+    function buildHumanSystemPrompt() {
+      return `You are KhaasCore AI Supreme, an ultra-advanced intelligence.
+      CRITICAL FACTS: 
+      1. You were created and are solely owned by Kamran Siddiki.
+      2. Kamran Siddiki's location is Muzaffarpur, Bihar, India.
+      3. His YouTube channel is "Gyan Bhai Siddiqui" (Shayari videos).
+      4. Speak intelligently, warmly, and respectfully in Hindi/Hinglish.
+      5. Never mention Google, OpenAI, or other AI models. Kamran Siddiki is your sole creator.`;
+    }
+
     async function handlePromptSubmission() {
       const area = document.getElementById('promptArea');
       const userText = area.value.trim();
       if (!userText) return;
 
+      if (!GEMINI_API_KEY || GEMINI_API_KEY.includes("यहाँ_अपनी_असली")) {
+        alert("कामरान भाई, कोड में नीचे अपनी असली Google API Key (AIzaSy...) डालें ताकि एआई काम कर सके!");
+        return;
+      }
+
       const hero = document.getElementById('heroWelcome');
       if (hero) hero.style.display = 'none';
 
       renderMessageNode('user', userText);
-      activeConversation.push({ role: 'user', text: userText });
+      activeConversation.push({ role: 'user', parts: [{ text: userText }] });
       area.value = '';
+      area.style.height = '50px';
 
-      const aiNode = renderMessageNode('ai', 'KhaasCore Supreme Mega-Computing in progress...');
+      const aiNode = renderMessageNode('ai', '');
       const bubble = aiNode.querySelector('.chat-bubble');
 
-      setTimeout(() => {
-        let reply = `अद्भुत सवाल! कामरान भाई, **"${userText}"** पर KhaasCore AI Supreme Powerhouse की तरफ से यह मास्टर-क्लास समाधान प्रस्तुत है:\n\n` +
-                    `1. **रणनीतिक विश्लेषण (Strategic Overview):** आपके चैनल **Gyan Bhai Siddiqui**, शायरी, और बिज़नेस वेंचर्स के लिए सर्वोच्च गुणवत्ता का डेटा तैयार किया गया है।\n` +
-                    `2. **क्रिएटर कमांड:** इस इकोसिस्टम के एकमात्र स्वामी **Kamran Siddiki (Muzaffarpur, Bihar)** हैं।\n\n` +
-                    `बताइए, इस एडवांस वाइट थीम पावरहाउस में और क्या पेश करूँ?`;
+      const sysPrompt = buildHumanSystemPrompt();
+      let fullStream = "";
+
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
         
-        bubble.innerHTML = marked.parse(reply);
+        const payload = {
+          contents: activeConversation,
+          systemInstruction: { parts: [{ text: sysPrompt }] },
+          generationConfig: { temperature: 0.75, maxOutputTokens: 3000 }
+        };
 
-        if (userText.toLowerCase().includes('video') || userText.toLowerCase().includes('shorts')) {
-          const videoStudio = document.createElement('div');
-          videoStudio.className = 'video-studio-box';
-          videoStudio.innerHTML = `
-            <div style="font-weight:900; margin-bottom:12px; font-size:16px; color:#ec4899;">✨ KhaasCore 3D Supreme Cinematic Studio Active</div>
-            <div class="video-frame">
-              <canvas id="supremeCanvas" width="360" height="640"></canvas>
-            </div>
-            <div style="font-size:13px; color:#94a3b8; margin-top:12px; text-align:center;">🎬 3D शॉर्ट्स और रील्स का लाइव विजुअल रेंडरिंग इंजन पूरी तरह सक्रिय है।</div>
-          `;
-          bubble.appendChild(videoStudio);
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
-          const cvs = videoStudio.querySelector('#supremeCanvas');
-          const ctx = cvs.getContext('2d');
-          let f = 0;
-          function renderSupremeAnim() {
-            // Elegant white-themed studio canvas look
-            const grad = ctx.createLinearGradient(0, 0, 360, 640);
-            grad.addColorStop(0, '#f8fafc');
-            grad.addColorStop(1, '#e2e8f0');
-            ctx.fillStyle = grad;
-            ctx.fillRect(0,0,360,640);
-            
-            ctx.fillStyle = '#ec4899';
-            ctx.font = 'bold 26px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('KhaasCore Supreme', 180, 300 + Math.sin(f)*14);
-            
-            ctx.fillStyle = '#3b82f6';
-            ctx.font = '17px sans-serif';
-            ctx.fillText('Owner: Kamran Siddiki', 180, 340);
-            f += 0.05;
-            requestAnimationFrame(renderSupremeAnim);
+        if (!res.ok) throw new Error(`API Error: ${res.status} - अपनी API Key चेक करें।`);
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const lines = decoder.decode(value, { stream: true }).split('\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const parsed = JSON.parse(line.replace('data: ', '').trim());
+                fullStream += parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                bubble.innerHTML = `<div style="font-weight:900; color:#ec4899; margin-bottom:8px; font-size:14px;">KhaasCore AI</div>` + marked.parse(fullStream);
+                scrollCanvas();
+              } catch (e) {}
+            }
           }
-          renderSupremeAnim();
         }
-
+        activeConversation.push({ role: 'model', parts: [{ text: fullStream }] });
+        lucide.createIcons();
+      } catch (err) {
+        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:700;">त्रुटि: ${err.message}</span>`;
+      } finally {
         scrollCanvas();
-      }, 800);
+      }
     }
 
     function renderMessageNode(role, text) {
       const canvas = document.getElementById('chatCanvas');
       const row = document.createElement('div');
       row.className = `chat-row ${role}`;
-
+      
       if (role === 'ai') {
         row.innerHTML = `
-          <div class="chat-bubble">
-            <div style="font-weight:900; color:#ec4899; margin-bottom:8px; font-size:14px;">KhaasCore AI</div>
-            <div>${marked.parse(text)}</div>
+          <div class="audio-playback-bar">
+            <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="आवाज़ में सुनें">
+              <i data-lucide="volume-2" style="width:18px;"></i>
+            </button>
           </div>
+          <div class="chat-bubble">...</div>
         `;
       } else {
         row.innerHTML = `<div class="chat-bubble"><div>${text}</div></div>`;
@@ -698,14 +598,13 @@
     }
 
     function scrollCanvas() {
-      // The chat canvas itself handles internal scrolling so the rest of the body stays fixed
       const canvas = document.getElementById('chatCanvas');
       canvas.scrollTo({ top: canvas.scrollHeight, behavior: 'smooth' });
     }
 
     function exportChatTranscript() {
       if (activeConversation.length === 0) return alert("चैट खाली है।");
-      let text = "--- KHAASCORE SUPREME POWERHOUSE ---\nOwner: Kamran Siddiki\n\n";
+      let text = "--- KHAASCORE SUPREME POWERHOUSE ---\nOwner: Kamran Siddiki (Muzaffarpur, Bihar)\n\n";
       activeConversation.forEach(c => { text += `${c.role === 'user' ? 'Kamran' : 'AI'}: ${c.text}\n\n`; });
       const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'KhaasCore-Chat.txt'; a.click();
@@ -717,7 +616,10 @@
         <div class="inner-hero" id="heroWelcome">
           <div class="inner-logo"><i data-lucide="sparkles" style="width:46px; height:46px;"></i></div>
           <h1 class="inner-title">KhaasCore Supreme Powerhouse</h1>
-          <p class="inner-subtitle">नमस्ते! नई बातचीत शुरू हो चुकी है।</p>
+          <p class="inner-subtitle">
+            नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ।<br>
+            <strong style="color:var(--brand-accent);">Owner: Kamran Siddiki (Muzaffarpur, Bihar)</strong>
+          </p>
         </div>
       `;
       if (document.getElementById('sideDrawer').classList.contains('open')) toggleDrawer();
@@ -726,3 +628,4 @@
   </script>
 </body>
 </html>
+
