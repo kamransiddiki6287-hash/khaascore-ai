@@ -70,7 +70,6 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* Elite Top Header */
     .app-header {
       height: 64px;
       padding: 0 20px;
@@ -127,7 +126,6 @@
       transform: scale(1.03);
     }
 
-    /* Professional Side Drawer */
     .drawer-overlay {
       position: fixed;
       inset: 0;
@@ -243,7 +241,6 @@
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     }
 
-    /* Chat Canvas */
     .chat-canvas {
       flex: 1;
       padding: 24px 20px 180px 20px;
@@ -255,7 +252,6 @@
       margin: 0 auto;
     }
 
-    /* Hero Welcome */
     .hero-welcome {
       display: flex;
       flex-direction: column;
@@ -356,7 +352,6 @@
       color: var(--text-secondary);
     }
 
-    /* Message Rows */
     .chat-row {
       display: flex;
       flex-direction: column;
@@ -418,7 +413,6 @@
       color: #fff;
     }
 
-    /* Video Generator Engine Card */
     .video-render-card {
       background: var(--bg-canvas);
       border: 2px solid var(--brand-accent);
@@ -461,7 +455,6 @@
       box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
     }
 
-    /* Input Dock */
     .input-dock {
       position: fixed;
       bottom: 0;
@@ -571,7 +564,6 @@
       color: var(--brand-accent);
     }
 
-    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -816,8 +808,8 @@
   <script>
     lucide.createIcons();
 
-    // 🔒 आपकी नई ऑफिशियल Gemini API Key यहाँ अपडेट कर दी गई है
-    const GEMINI_API_KEY = "AIzaSy..." ; // (AI Studio से जनरेटेड असली की यहाँ रखें)
+    // 🔒 आपकी नई और फिक्सड API Key यहाँ सेट है (पुरानी सारी की रिमूव कर दी गई हैं)
+    const GEMINI_API_KEY = "AQ.Ab8RN6J922tCKRNuTxJTt2nBXQY0CGMyedtaSOyYwylRTRp5TQ";
 
     let activeConversation = [];
     let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
@@ -882,8 +874,8 @@
     }
 
     function buildHumanSystemPrompt() {
-      return `You are KhaasCore AI Ultra, an elite intelligence created and owned solely by Kamran Siddiki, from Muzaffarpur, Bihar.
-1. Speak warmly, brilliantly, respectfully, and with witty empathy in Hindi/Hinglish.
+      return `You are KhaasCore AI Ultra, an elite, highly responsive, and intelligent conversational companion created and owned solely by Kamran Siddiki, from Muzaffarpur, Bihar.
+1. Strictly talk back, reply to every single query, chat message, technical doubt, shayari, or video script request with utmost warmth, brilliance, and detail in Hindi/Hinglish. Never refuse to answer.
 2. If asked for a video/reel/short, provide an exceptionally engaging script and storyline.
 3. Always identify yourself as KhaasCore AI. Kamran Siddiki is your sole creator.`;
     }
@@ -1165,7 +1157,7 @@
       let fullStream = "";
 
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse`;
         
         const payload = {
           contents: activeConversation,
@@ -1175,7 +1167,10 @@
 
         const res = await fetch(url, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'X-goog-api-key': GEMINI_API_KEY
+          },
           body: JSON.stringify(payload)
         });
 
@@ -1217,7 +1212,7 @@
         autoSaveSession(userText);
       } catch (err) {
         bubble.classList.remove('cursor-blink');
-        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:700;">त्रुटि: ${err.message}। कृपया अपनी Google AI Studio की असली API Key सही से डालें।</span>`;
+        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:700;">त्रुटि: ${err.message}। कृपया अपनी API Key की जाँच करें।</span>`;
       } finally {
         scrollCanvas();
       }
