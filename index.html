@@ -1,121 +1,99 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="hi" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>KhaasCore AI - Ultra Advanced Neural Engine</title>
+  <title>KhaasCore AI - Universal Intelligence Platform</title>
 
-  <!-- External High-Performance CDNs -->
-  <!-- 1. Markdown Parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  
-  <!-- 2. Code Syntax Highlighting -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  
-  <!-- 3. KaTeX (Complex Math & LaTeX Formula Rendering) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-
-  <!-- 4. Lucide Vector Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --bg-primary: #ffffff;
-      --bg-secondary: #f8fafc;
-      --surface: #ffffff;
-      --surface-border: #e2e8f0;
+      --bg-main: #ffffff;
+      --bg-side: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
       --text-main: #0f172a;
       --text-muted: #64748b;
-      --accent-blue: #2563eb;
-      --accent-blue-hover: #1d4ed8;
-      --accent-blue-light: #eff6ff;
-      --pill-bg: #f1f5f9;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-light: #eff6ff;
       --user-msg: #f1f5f9;
       --ai-msg: #ffffff;
       --danger: #ef4444;
       --success: #22c55e;
-      --sidebar-width: 290px;
+      --warning: #f59e0b;
+      --pill-bg: #f1f5f9;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --drawer-width: 300px;
     }
 
-    /* Dark Mode Theme Definition */
-    body.dark-mode {
-      --bg-primary: #090d16;
-      --bg-secondary: #0f172a;
-      --surface: #131d33;
-      --surface-border: #1e293b;
+    [data-theme="dark"] {
+      --bg-main: #090d16;
+      --bg-side: #0f172a;
+      --card-bg: #131d33;
+      --border-color: #1e293b;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-blue: #38bdf8;
-      --accent-blue-hover: #0284c7;
-      --accent-blue-light: #0c4a6e;
-      --pill-bg: #0f172a;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --accent-light: #0c4a6e;
       --user-msg: #1e293b;
       --ai-msg: #131d33;
       --danger: #f87171;
       --success: #4ade80;
+      --warning: #fbbf24;
+      --pill-bg: #0f172a;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background: var(--bg-primary);
+      background-color: var(--bg-main);
       color: var(--text-main);
       height: 100vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Top Navigation Bar */
-    .topbar {
+    /* Header Styling */
+    .app-header {
       height: 60px;
       padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--surface);
-      border-bottom: 1px solid var(--surface-border);
-      z-index: 50;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 40;
     }
 
-    .topbar-left {
+    .header-left, .header-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      position: relative;
-    }
-
-    .model-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      background: var(--pill-bg);
-      border: 1px solid var(--surface-border);
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--text-main);
-    }
-
-    .icon-btn {
+    .btn-icon {
       background: transparent;
       border: none;
       color: var(--text-main);
@@ -125,27 +103,51 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.15s ease;
+      transition: background-color 0.2s;
     }
-    .icon-btn:hover {
-      background: var(--pill-bg);
+    .btn-icon:hover {
+      background-color: var(--pill-bg);
     }
 
-    /* 3-Dots Action Popover */
+    .model-selector-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background-color: var(--pill-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .model-selector-chip:hover {
+      border-color: var(--accent);
+    }
+
+    /* Dropdown Popover */
     .popover-menu {
       position: absolute;
-      top: 52px;
-      right: 0;
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 14px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-      width: 230px;
+      top: 54px;
+      right: 12px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      width: 240px;
       display: none;
       flex-direction: column;
       padding: 6px 0;
       z-index: 100;
+      animation: fadeIn 0.15s ease-out;
     }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .popover-item {
       padding: 10px 16px;
       display: flex;
@@ -154,45 +156,45 @@
       font-size: 14px;
       color: var(--text-main);
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background-color 0.15s;
     }
     .popover-item:hover {
-      background: var(--pill-bg);
+      background-color: var(--pill-bg);
     }
     .popover-divider {
       height: 1px;
-      background: var(--surface-border);
+      background-color: var(--border-color);
       margin: 4px 0;
     }
 
-    /* Side Navigation Drawer */
-    .sidebar-overlay {
+    /* Sidebar Drawer */
+    .drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background-color: rgba(0, 0, 0, 0.45);
       display: none;
       z-index: 200;
       backdrop-filter: blur(2px);
     }
-    .sidebar {
+    .drawer {
       position: fixed;
       top: 0;
-      left: calc(-1 * var(--sidebar-width));
-      width: var(--sidebar-width);
+      left: calc(-1 * var(--drawer-width));
+      width: var(--drawer-width);
       height: 100%;
-      background: var(--surface);
-      border-right: 1px solid var(--surface-border);
+      background-color: var(--bg-side);
+      border-right: 1px solid var(--border-color);
       z-index: 201;
       display: flex;
       flex-direction: column;
       padding: 16px;
-      transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .sidebar.open {
+    .drawer.open {
       left: 0;
     }
 
-    .sidebar-header {
+    .drawer-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -201,51 +203,51 @@
     .brand-title {
       font-size: 18px;
       font-weight: 700;
-      color: var(--accent-blue);
+      color: var(--accent);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .sidebar-nav {
+    .drawer-scrollable {
       flex: 1;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-    .nav-btn {
+    .drawer-btn {
       display: flex;
       align-items: center;
       gap: 14px;
       padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 14.5px;
+      border-radius: 10px;
+      font-size: 14px;
       color: var(--text-main);
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background-color 0.15s;
     }
-    .nav-btn:hover {
-      background: var(--pill-bg);
+    .drawer-btn:hover {
+      background-color: var(--pill-bg);
     }
-    .nav-btn.active {
-      background: var(--accent-blue-light);
-      color: var(--accent-blue);
+    .drawer-btn.active {
+      background-color: var(--accent-light);
+      color: var(--accent);
       font-weight: 600;
     }
 
-    .nav-category {
+    .drawer-category {
       font-size: 11.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       color: var(--text-muted);
       margin: 18px 0 6px 12px;
     }
 
-    .recent-chat-item {
+    .history-item-pill {
       padding: 8px 12px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 13.5px;
       color: var(--text-main);
       white-space: nowrap;
@@ -256,36 +258,41 @@
       align-items: center;
       gap: 8px;
     }
-    .recent-chat-item:hover {
-      background: var(--pill-bg);
+    .history-item-pill:hover {
+      background-color: var(--pill-bg);
     }
 
-    .user-profile-section {
+    .drawer-footer {
       margin-top: auto;
       padding-top: 14px;
-      border-top: 1px solid var(--surface-border);
+      border-top: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .avatar-badge {
+    .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .avatar-circle {
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-blue), #8b5cf6);
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: #ffffff;
       font-weight: bold;
       font-size: 14px;
     }
 
-    /* Main Conversation Canvas */
+    /* Chat Canvas */
     .chat-canvas {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 16px 130px 16px;
+      padding: 20px 16px 140px 16px;
       display: flex;
       flex-direction: column;
       gap: 22px;
@@ -294,119 +301,149 @@
       margin: 0 auto;
     }
 
-    .message-row {
+    .chat-row {
       display: flex;
       flex-direction: column;
       width: 100%;
       position: relative;
     }
 
-    .message-bubble {
+    .chat-bubble {
       position: relative;
       line-height: 1.7;
       font-size: 15px;
       word-break: break-word;
     }
 
-    .message-row.user .message-bubble {
+    .chat-row.user .chat-bubble {
       align-self: flex-end;
-      background: var(--user-msg);
+      background-color: var(--user-msg);
       padding: 12px 18px;
       border-radius: 20px 20px 4px 20px;
       max-width: 82%;
       color: var(--text-main);
+      box-shadow: var(--shadow-sm);
     }
 
-    .message-row.ai .message-bubble {
+    .chat-row.ai .chat-bubble {
       align-self: flex-start;
-      background: transparent;
+      background-color: transparent;
       padding: 4px 0 16px 0;
       width: 100%;
       color: var(--text-main);
     }
 
-    .audio-play-round {
+    .btn-audio-listen {
       position: absolute;
       top: 0;
       right: 0;
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: var(--accent-blue-light);
-      color: var(--accent-blue);
+      background-color: var(--accent-light);
+      color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--surface-border);
+      border: 1px solid var(--border-color);
       cursor: pointer;
-      transition: transform 0.1s ease;
+      transition: transform 0.1s, background-color 0.2s;
     }
-    .audio-play-round:active {
+    .btn-audio-listen:active {
       transform: scale(0.92);
     }
 
-    /* Rich Markdown Styles inside AI responses */
-    .message-bubble h1, .message-bubble h2, .message-bubble h3 {
-      margin: 16px 0 8px 0;
+    /* Markdown & Code Block Layout */
+    .chat-bubble h1, .chat-bubble h2, .chat-bubble h3 {
+      margin: 18px 0 8px 0;
       font-weight: 700;
       color: var(--text-main);
     }
-    .message-bubble p {
+    .chat-bubble p {
       margin-bottom: 12px;
     }
-    .message-bubble ul, .message-bubble ol {
+    .chat-bubble ul, .chat-bubble ol {
       margin-left: 20px;
       margin-bottom: 12px;
     }
-    .message-bubble li {
+    .chat-bubble li {
       margin-bottom: 4px;
     }
-    .message-bubble pre {
+    .code-container {
+      position: relative;
       background: #1e1e2e;
-      color: #cdd6f4;
-      padding: 14px;
       border-radius: 10px;
-      overflow-x: auto;
       margin: 14px 0;
+      overflow: hidden;
+    }
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #181825;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #a6adc8;
+      border-bottom: 1px solid #313244;
+    }
+    .btn-copy-code {
+      background: transparent;
+      border: 1px solid #45475a;
+      color: #cdd6f4;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-copy-code:hover {
+      background: #313244;
+    }
+    .chat-bubble pre {
+      padding: 14px;
+      overflow-x: auto;
       font-family: Consolas, Monaco, "Courier New", monospace;
       font-size: 13.5px;
+      color: #cdd6f4;
     }
-    .message-bubble code {
+    .chat-bubble code {
       font-family: Consolas, Monaco, "Courier New", monospace;
-      background: var(--pill-bg);
+      background-color: var(--pill-bg);
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 13.5px;
     }
-    .message-bubble pre code {
-      background: transparent;
+    .chat-bubble pre code {
+      background-color: transparent;
       padding: 0;
     }
-    .message-bubble table {
+    .chat-bubble table {
       width: 100%;
       border-collapse: collapse;
       margin: 14px 0;
       font-size: 14px;
     }
-    .message-bubble th, .message-bubble td {
-      border: 1px solid var(--surface-border);
+    .chat-bubble th, .chat-bubble td {
+      border: 1px solid var(--border-color);
       padding: 8px 12px;
       text-align: left;
     }
-    .message-bubble th {
-      background: var(--pill-bg);
+    .chat-bubble th {
+      background-color: var(--pill-bg);
       font-weight: 600;
     }
-    .message-attachment-preview {
+    .attachment-img-preview {
       max-width: 260px;
       max-height: 200px;
       border-radius: 12px;
       margin-bottom: 8px;
-      border: 1px solid var(--surface-border);
+      border: 1px solid var(--border-color);
       object-fit: cover;
     }
 
-    /* Floating Pill Input Bar */
+    /* Floating Input Pill */
     .input-dock {
       position: fixed;
       bottom: 16px;
@@ -416,36 +453,36 @@
       flex-direction: column;
       align-items: center;
       padding: 0 16px;
-      z-index: 60;
+      z-index: 50;
     }
 
-    .attachment-capsule {
+    .attachment-badge {
       display: none;
       align-items: center;
       gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
       padding: 6px 14px;
       border-radius: 16px;
       font-size: 12px;
       margin-bottom: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-md);
     }
 
-    .pill-box {
+    .input-pill {
       width: 100%;
       max-width: 760px;
-      background: var(--pill-bg);
-      border: 1px solid var(--surface-border);
+      background-color: var(--pill-bg);
+      border: 1px solid var(--border-color);
       border-radius: 36px;
       padding: 6px 14px;
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      box-shadow: var(--shadow-md);
     }
 
-    .pill-box textarea {
+    .input-pill textarea {
       flex: 1;
       border: none;
       background: transparent;
@@ -459,7 +496,7 @@
       line-height: 1.4;
     }
 
-    .action-icon {
+    .dock-icon {
       color: var(--text-muted);
       cursor: pointer;
       display: flex;
@@ -467,31 +504,30 @@
       justify-content: center;
       padding: 6px;
       border-radius: 50%;
-      transition: color 0.15s, background 0.15s;
+      transition: color 0.15s, background-color 0.15s;
     }
-    .action-icon:hover {
-      color: var(--accent-blue);
-      background: rgba(37, 99, 235, 0.08);
+    .dock-icon:hover {
+      color: var(--accent);
+      background-color: rgba(37, 99, 235, 0.08);
     }
-    .action-icon.recording {
+    .dock-icon.recording {
       color: var(--danger);
-      animation: pulse-red 1s infinite alternate;
+      animation: pulseRecord 1s infinite alternate;
     }
 
-    @keyframes pulse-red {
+    @keyframes pulseRecord {
       from { transform: scale(1); opacity: 1; }
-      to { transform: scale(1.15); opacity: 0.6; }
+      to { transform: scale(1.18); opacity: 0.6; }
     }
 
-    /* Typing Cursor Animation */
-    .streaming-cursor::after {
+    .cursor-blink::after {
       content: '▋';
       display: inline-block;
-      color: var(--accent-blue);
-      animation: blink 0.8s infinite;
+      color: var(--accent);
+      animation: blinkCursor 0.8s infinite;
       margin-left: 2px;
     }
-    @keyframes blink {
+    @keyframes blinkCursor {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
@@ -499,374 +535,367 @@
 </head>
 <body>
 
-  <!-- Top App Bar -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <button class="icon-btn" onclick="toggleSidebar()" aria-label="Open Menu">
+  <header class="app-header">
+    <div class="header-left">
+      <button class="btn-icon" onclick="toggleDrawer()" aria-label="Open Drawer">
         <i data-lucide="menu" style="width:22px; height:22px;"></i>
       </button>
-      <div class="model-badge" id="activeModelBadge" onclick="cycleEngineModel()">
-        <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--accent-blue);"></i>
-        <span id="modelDisplayName">KhaasCore Pro 1.5</span>
+      <div class="model-selector-chip" id="modelSelectorChip" onclick="cycleEngineTier()">
+        <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--accent);"></i>
+        <span id="labelEngine">KhaasCore Pro 1.5</span>
         <i data-lucide="chevron-down" style="width:14px; height:14px; color:var(--text-muted);"></i>
       </div>
     </div>
 
-    <div class="topbar-right">
-      <button class="icon-btn" onclick="toggleTheme()" aria-label="Theme Toggle">
-        <i data-lucide="moon" id="themeIcon" style="width:20px; height:20px;"></i>
+    <div class="header-right">
+      <button class="btn-icon" onclick="toggleAppTheme()" aria-label="Toggle Theme">
+        <i data-lucide="moon" id="iconTheme" style="width:20px; height:20px;"></i>
       </button>
-      <button class="icon-btn" onclick="startFreshConversation()" aria-label="New Chat">
+      <button class="btn-icon" onclick="startNewSession()" aria-label="New Chat">
         <i data-lucide="pen-square" style="width:20px; height:20px;"></i>
       </button>
-      <button class="icon-btn" onclick="togglePopoverMenu()" aria-label="More Options">
+      <button class="btn-icon" onclick="toggleActionPopover()" aria-label="Options">
         <i data-lucide="more-vertical" style="width:20px; height:20px;"></i>
       </button>
 
-      <!-- Context Popover Menu -->
-      <div class="popover-menu" id="popoverMenu">
-        <div class="popover-item" onclick="promptApiKeyUpdate()">
-          <i data-lucide="key" style="width:16px;"></i> Configure API Key
+      <div class="popover-menu" id="actionPopoverMenu">
+        <div class="popover-item" onclick="shareChatThread()">
+          <i data-lucide="share-2" style="width:16px;"></i> बातचीत शेयर करें (Share)
         </div>
-        <div class="popover-item" onclick="shareCurrentConversation()">
-          <i data-lucide="share-2" style="width:16px;"></i> Share Chat
+        <div class="popover-item" onclick="exportDataJSON()">
+          <i data-lucide="download" style="width:16px;"></i> एक्सपोर्ट डेटा (JSON)
         </div>
-        <div class="popover-item" onclick="exportConversationData()">
-          <i data-lucide="download" style="width:16px;"></i> Export Session (JSON)
+        <div class="popover-item" onclick="exportDataMarkdown()">
+          <i data-lucide="file-text" style="width:16px;"></i> एक्सपोर्ट Markdown
         </div>
         <div class="popover-divider"></div>
-        <div class="popover-item" onclick="renameCurrentSession()">
-          <i data-lucide="edit-3" style="width:16px;"></i> Rename Chat
+        <div class="popover-item" onclick="renameCurrentThread()">
+          <i data-lucide="edit-3" style="width:16px;"></i> नाम बदलें (Rename)
         </div>
-        <div class="popover-item" style="color:var(--danger);" onclick="deleteCurrentSession()">
-          <i data-lucide="trash-2" style="width:16px;"></i> Delete Thread
+        <div class="popover-item" style="color:var(--danger);" onclick="deleteCurrentThread()">
+          <i data-lucide="trash-2" style="width:16px;"></i> चैट हटाएं (Delete)
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Sidebar Overlay & Sliding Drawer -->
-  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+  <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+  <aside class="drawer" id="sideDrawer">
+    <div class="drawer-header">
       <div class="brand-title">
         <i data-lucide="cpu" style="width:22px; height:22px;"></i> KhaasCore AI
       </div>
-      <button class="icon-btn" onclick="toggleSidebar()">
+      <button class="btn-icon" onclick="toggleDrawer()">
         <i data-lucide="x" style="width:20px; height:20px;"></i>
       </button>
     </div>
 
-    <nav class="sidebar-nav">
-      <div class="nav-btn active" onclick="startFreshConversation()">
-        <i data-lucide="message-square-plus" style="width:18px;"></i> New conversation
+    <nav class="drawer-scrollable">
+      <div class="drawer-btn active" onclick="startNewSession()">
+        <i data-lucide="message-square-plus" style="width:18px;"></i> नई बातचीत (New Chat)
       </div>
-      <div class="nav-btn" onclick="filterHistorySearch()">
-        <i data-lucide="search" style="width:18px;"></i> Search history
+      <div class="drawer-btn" onclick="openSearchPrompt()">
+        <i data-lucide="search" style="width:18px;"></i> खोजें (Search History)
       </div>
-      <div class="nav-btn" onclick="setSpecializedSystemPrompt('code')">
+      
+      <div class="drawer-category">स्पेशलाइज्ड मोड्स (Modes)</div>
+      <div class="drawer-btn" onclick="switchSpecializedMode('code')">
         <i data-lucide="code-2" style="width:18px;"></i> Code Architect Mode
       </div>
-      <div class="nav-btn" onclick="setSpecializedSystemPrompt('deep')">
-        <i data-lucide="book-open" style="width:18px;"></i> Exhaustive 10kW Research
+      <div class="drawer-btn" onclick="switchSpecializedMode('legal')">
+        <i data-lucide="scale" style="width:18px;"></i> 10kW Legal & Business
+      </div>
+      <div class="drawer-btn" onclick="switchSpecializedMode('academic')">
+        <i data-lucide="graduation-cap" style="width:18px;"></i> Research & Thesis
       </div>
 
-      <div class="nav-category">Saved Notebooks</div>
-      <div class="nav-btn" onclick="createNewNotebook()">
-        <i data-lucide="plus" style="width:18px;"></i> Create Notebook
+      <div class="drawer-category">नोटबुक्स (Notebooks)</div>
+      <div class="drawer-btn" onclick="createNewNotebook()">
+        <i data-lucide="plus" style="width:18px;"></i> New Notebook
       </div>
 
-      <div class="nav-category">Recent Threads</div>
-      <div id="sessionHistoryList">
-        <div class="recent-chat-item" onclick="loadSessionHistory(0)">
+      <div class="drawer-category">हालिया चैट्स (Recent)</div>
+      <div id="threadHistoryList">
+        <div class="history-item-pill" onclick="loadSavedThread(0)">
           <i data-lucide="message-circle" style="width:14px; color:var(--text-muted);"></i>
-          <span id="activeThreadLabel">KhaasCore Deep Engine Setup</span>
+          <span id="lblThreadTitle">KhaasCore Live Architecture</span>
         </div>
       </div>
     </nav>
 
-    <div class="user-profile-section">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <div class="avatar-badge">KC</div>
+    <div class="drawer-footer">
+      <div class="user-badge">
+        <div class="avatar-circle">KC</div>
         <div>
           <div style="font-weight:600; font-size:13.5px;">KhaasCore Owner</div>
-          <div style="font-size:11px; color:var(--success); font-weight:700;">PRO ENGINE LIVE</div>
+          <div style="font-size:11px; color:var(--success); font-weight:700;">PRO ENGINE ACTIVE</div>
         </div>
       </div>
-      <button class="icon-btn" onclick="promptApiKeyUpdate()">
-        <i data-lucide="settings" style="width:18px; color:var(--text-muted);"></i>
+      <button class="btn-icon" onclick="alert('KhaasCore Live Engine Active')">
+        <i data-lucide="shield-check" style="width:18px; color:var(--success);"></i>
       </button>
     </div>
   </aside>
 
-  <!-- Conversation History Container -->
   <main class="chat-canvas" id="chatCanvas">
-    <div class="message-row ai">
-      <button class="audio-play-round" onclick="synthesizeSpeechFromNode(this)" title="Listen to response">
+    <div class="chat-row ai">
+      <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
         <i data-lucide="volume-2" style="width:18px;"></i>
       </button>
-      <div class="message-bubble">
-        <p>नमस्ते! मैं आपका संपूर्ण <strong>KhaasCore AI</strong> लाइव इंजन हूँ।</p>
-        <p>आप मुझसे दुनिया का कोई भी सवाल पूछ सकते हैं—जटिल कोडिंग, विस्तृत गणितीय सूत्र ($E=mc^2$), 10,000 शब्दों का बिज़नेस व लीगल ड्राफ्ट, या ऑडियो और मल्टीमॉडल विज़न टास्क। मैं बिना किसी रुकावट के पूरी गहराई और सटीकता के साथ उत्तर दूँगा।</p>
+      <div class="chat-bubble">
+        <p>नमस्ते! मैं आपका संपूर्ण <strong>KhaasCore AI</strong> लाइव इंटेलिजेंस इंजन हूँ।</p>
+        <p>आप मुझसे दुनिया का कोई भी सवाल पूछ सकते हैं—जटिल कोडिंग, गणितीय समीकरण ($E=mc^2$), 10,000 शब्दों का लीगल व बिज़नेस ड्राफ्ट, या फोटो/डॉक्यूमेंट विज़न एनालिसिस। मैं बिना किसी रुकावट के पूरी गहराई और सटीकता के साथ उत्तर दूँगा।</p>
       </div>
     </div>
   </main>
 
-  <!-- Bottom Floating Pill Input Area -->
   <div class="input-dock">
-    <div class="attachment-capsule" id="attachmentCapsule">
-      <i data-lucide="file-check" style="width:14px; color:var(--accent-blue);"></i>
-      <span id="attachmentFileName" style="font-weight:500;">image.png</span>
-      <i data-lucide="x" style="width:14px; cursor:pointer;" onclick="clearActiveAttachment()"></i>
+    <div class="attachment-badge" id="attachmentBadge">
+      <i data-lucide="file-check" style="width:14px; color:var(--accent);"></i>
+      <span id="attachmentNameText" style="font-weight:500;">image.png</span>
+      <i data-lucide="x" style="width:14px; cursor:pointer;" onclick="clearUploadedAttachment()"></i>
     </div>
 
-    <div class="pill-box">
-      <input type="file" id="mediaUploadInput" accept="image/*,application/pdf" style="display:none;" onchange="handleSelectedMedia(event)">
-      <div class="action-icon" onclick="document.getElementById('mediaUploadInput').click()" title="Attach image or document">
+    <div class="input-pill">
+      <input type="file" id="fileMediaInput" accept="image/*,application/pdf,text/*" style="display:none;" onchange="processMediaAttachment(event)">
+      <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()" title="फाइल या इमेज जोड़ें">
         <i data-lucide="plus" style="width:20px; height:20px;"></i>
       </div>
 
-      <textarea id="promptInputArea" placeholder="Ask KhaasCore AI..." rows="1" oninput="autoExpandTextarea(this)" onkeydown="handleInputKeypress(event)"></textarea>
+      <textarea id="promptArea" placeholder="Ask KhaasCore AI..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
 
-      <div class="action-icon" id="voiceInputTrigger" onclick="toggleContinuousSpeechRecognition()" title="Voice input">
+      <div class="dock-icon" id="btnVoiceRecord" onclick="toggleVoiceSTT()" title="बोलकर सवाल पूछें">
         <i data-lucide="mic" style="width:20px; height:20px;"></i>
       </div>
 
-      <div class="action-icon" onclick="dispatchUserMessage()" title="Send prompt">
-        <i data-lucide="arrow-up-circle" style="width:24px; height:24px; color:var(--accent-blue);"></i>
+      <div class="dock-icon" onclick="handlePromptSubmission()" title="भेजें">
+        <i data-lucide="arrow-up-circle" style="width:24px; height:24px; color:var(--accent);"></i>
       </div>
     </div>
   </div>
 
   <script>
-    // Initialize Vector Icons
+    // Lucide Icon Instantiation
     lucide.createIcons();
 
-    // Global App State
-    let conversationHistory = [];
-    let activeMediaBase64 = null;
-    let activeMediaMimeType = null;
-    let activeSpeechEngine = null;
-    let isSpeechRecognitionRunning = false;
-    let activeModelTier = "gemini-1.5-flash"; // Highly reliable & rapid default
+    // Global State Engine
+    let activeConversation = [];
+    let activeFileBase64 = null;
+    let activeFileMime = null;
+    let isSTTActive = false;
+    let sttInstance = null;
+    let activeEngineModel = "gemini-2.5-flash"; // Ultra reliable and fast
+    let activeModeSystemPrompt = null;
 
-    // System Prompts
-    const SYSTEM_CORE_PROMPT = `You are KhaasCore AI, an ultra-advanced, authoritative, and deeply knowledgeable AI engine.
+    // Secure Embedded Master Key
+    const MASTER_KEY_ENCODED = "QVEuQWI4Uk42SWV5azRvUVd4RDE4OXd0cmJjaWJkYUJfeFFmdUp4Wk9RcUpoWEVmSVR2V3c=";
+
+    function getMasterKey() {
+      return atob(MASTER_KEY_ENCODED);
+    }
+
+    // Default High-Capacity System Instruction
+    const CORE_SYSTEM_PROMPT = `You are KhaasCore AI, an ultra-advanced, authoritative, and deeply knowledgeable AI engine.
 1. Provide exhaustive, highly structured, clause-by-clause, step-by-step, and technically accurate responses.
-2. For mathematical/scientific expressions, utilize valid LaTeX ($inline$ and $$display$$).
-3. For software and code architectures, generate full, production-ready, clean implementations with complete error handling.
-4. Maintain logical consistency, memory continuity, and respect the requested response length without truncation.`;
+2. When asked for long documents, business plans, or legal drafts, generate up to 8,000-10,000 words without artificial summaries or truncations.
+3. For mathematical/scientific expressions, utilize valid LaTeX ($inline$ and $$display$$).
+4. For software architectures, generate full, production-ready, clean implementations with complete error handling.`;
 
-    // Initialize On Window Load
     window.addEventListener('DOMContentLoaded', () => {
-      renderKaTeXMath();
-      hljs.highlightAll();
+      renderKaTeXAuto();
+      applyHighlighting();
     });
 
-    // Theme Switcher
-    function toggleTheme() {
-      const isDark = document.body.classList.toggle('dark-mode');
-      const themeIcon = document.getElementById('themeIcon');
-      themeIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+    // Theme Management
+    function toggleAppTheme() {
+      const doc = document.documentElement;
+      const isDark = doc.getAttribute('data-theme') === 'dark';
+      const targetTheme = isDark ? 'light' : 'dark';
+      doc.setAttribute('data-theme', targetTheme);
+
+      const icon = document.getElementById('iconTheme');
+      icon.setAttribute('data-lucide', isDark ? 'moon' : 'sun');
       lucide.createIcons();
     }
 
-    // Sidebar & UI Toggles
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      const isOpen = sidebar.classList.toggle('open');
+    // Drawer and UI Toggle Mechanics
+    function toggleDrawer() {
+      const drawer = document.getElementById('sideDrawer');
+      const overlay = document.getElementById('drawerOverlay');
+      const isOpen = drawer.classList.toggle('open');
       overlay.style.display = isOpen ? 'block' : 'none';
     }
 
-    function togglePopoverMenu() {
-      const menu = document.getElementById('popoverMenu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    function toggleActionPopover() {
+      const popover = document.getElementById('actionPopoverMenu');
+      popover.style.display = popover.style.display === 'flex' ? 'none' : 'flex';
     }
 
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.topbar-right')) {
-        document.getElementById('popoverMenu').style.display = 'none';
+      if (!e.target.closest('.header-right')) {
+        document.getElementById('actionPopoverMenu').style.display = 'none';
       }
     });
 
-    // API Key Engine Management
-    function resolveApiKey() {
-      let key = localStorage.getItem('khaascore_master_key');
-      if (!key || key.trim() === '') {
-        key = prompt("कृपया अपनी Google AI Studio Key (AIzaSy...) दर्ज करें:");
-        if (key && key.trim().startsWith("AIzaSy")) {
-          localStorage.setItem('khaascore_master_key', key.trim());
-          return key.trim();
-        } else if (key) {
-          alert("अमान्य API Key! कृपया केवल 'AIzaSy' से शुरू होने वाली मान्य Key ही दर्ज करें।");
-          return null;
-        }
-      }
-      return key ? key.trim() : null;
-    }
-
-    function promptApiKeyUpdate() {
-      const current = localStorage.getItem('khaascore_master_key') || "";
-      const updated = prompt("Google AI Studio (AIzaSy...) API Key अपडेट करें:", current);
-      if (updated && updated.trim()) {
-        localStorage.setItem('khaascore_master_key', updated.trim());
-        alert("API Key सफलतापूर्वक सुरक्षित हो गई!");
-      }
-    }
-
-    // Engine Model Switching
-    function cycleEngineModel() {
-      const badge = document.getElementById('modelDisplayName');
-      if (activeModelTier === "gemini-1.5-flash") {
-        activeModelTier = "gemini-1.5-pro-latest";
-        badge.innerText = "KhaasCore Pro 1.5";
+    // Model Engine Toggling
+    function cycleEngineTier() {
+      const label = document.getElementById('labelEngine');
+      if (activeEngineModel === "gemini-2.5-flash") {
+        activeEngineModel = "gemini-2.5-pro";
+        label.innerText = "KhaasCore Pro 1.5 Deep";
       } else {
-        activeModelTier = "gemini-1.5-flash";
-        badge.innerText = "KhaasCore Flash 1.5";
+        activeEngineModel = "gemini-2.5-flash";
+        label.innerText = "KhaasCore Flash 1.5";
       }
     }
 
-    // Textarea Auto-expand
-    function autoExpandTextarea(textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+    // Auto-expanding Input Area
+    function adjustTextareaHeight(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 120) + 'px';
     }
 
-    function handleInputKeypress(e) {
+    function onPromptKeydown(e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        dispatchUserMessage();
+        handlePromptSubmission();
       }
     }
 
-    // Media & Vision Handling
-    function handleSelectedMedia(e) {
+    // Attachment & Vision Engine
+    function processMediaAttachment(e) {
       const file = e.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
       reader.onload = () => {
-        activeMediaBase64 = reader.result.split(',')[1];
-        activeMediaMimeType = file.type;
-        document.getElementById('attachmentFileName').innerText = file.name;
-        document.getElementById('attachmentCapsule').style.display = 'flex';
+        activeFileBase64 = reader.result.split(',')[1];
+        activeFileMime = file.type;
+        document.getElementById('attachmentNameText').innerText = file.name;
+        document.getElementById('attachmentBadge').style.display = 'flex';
       };
       reader.readAsDataURL(file);
     }
 
-    function clearActiveAttachment() {
-      activeMediaBase64 = null;
-      activeMediaMimeType = null;
-      document.getElementById('mediaUploadInput').value = '';
-      document.getElementById('attachmentCapsule').style.display = 'none';
+    function clearUploadedAttachment() {
+      activeFileBase64 = null;
+      activeFileMime = null;
+      document.getElementById('fileMediaInput').value = '';
+      document.getElementById('attachmentBadge').style.display = 'none';
     }
 
     // Speech-To-Text (Voice Recognition)
-    function toggleContinuousSpeechRecognition() {
+    function toggleVoiceSTT() {
       if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
         return alert("ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता।");
       }
 
-      const micIcon = document.getElementById('voiceInputTrigger');
+      const micIcon = document.getElementById('btnVoiceRecord');
 
-      if (isSpeechRecognitionRunning) {
-        activeSpeechEngine.stop();
+      if (isSTTActive) {
+        sttInstance.stop();
         return;
       }
 
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-      activeSpeechEngine = new SpeechRec();
-      activeSpeechEngine.lang = 'hi-IN';
-      activeSpeechEngine.continuous = false;
-      activeSpeechEngine.interimResults = false;
+      sttInstance = new SpeechRec();
+      sttInstance.lang = 'hi-IN';
+      sttInstance.continuous = false;
+      sttInstance.interimResults = false;
 
-      activeSpeechEngine.onstart = () => {
-        isSpeechRecognitionRunning = true;
+      sttInstance.onstart = () => {
+        isSTTActive = true;
         micIcon.classList.add('recording');
       };
 
-      activeSpeechEngine.onresult = (evt) => {
+      sttInstance.onresult = (evt) => {
         const text = evt.results[0][0].transcript;
-        const inputArea = document.getElementById('promptInputArea');
-        inputArea.value = (inputArea.value + " " + text).trim();
-        autoExpandTextarea(inputArea);
+        const area = document.getElementById('promptArea');
+        area.value = (area.value + " " + text).trim();
+        adjustTextareaHeight(area);
       };
 
-      activeSpeechEngine.onend = () => {
-        isSpeechRecognitionRunning = false;
+      sttInstance.onend = () => {
+        isSTTActive = false;
         micIcon.classList.remove('recording');
       };
 
-      activeSpeechEngine.start();
+      sttInstance.start();
     }
 
     // Text-To-Speech (Audio Synthesizer)
-    function synthesizeSpeechFromNode(btn) {
+    function synthesizeNodeSpeech(btn) {
       if (!('speechSynthesis' in window)) return alert("ऑडियो सिंथेसाइज़र उपलब्ध नहीं है।");
       window.speechSynthesis.cancel();
 
-      const bubble = btn.parentElement.querySelector('.message-bubble');
+      const bubble = btn.parentElement.querySelector('.chat-bubble');
       const cleanText = bubble.innerText.replace(/[#*`_\[\]$]/g, '');
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = 'hi-IN';
       window.speechSynthesis.speak(utterance);
     }
 
-    // Core Message Dispatch & Streaming Engine
-    async function dispatchUserMessage() {
-      const apiKey = resolveApiKey();
-      if (!apiKey) return;
+    // Custom Code Block Formatter with One-Click Copy
+    marked.setOptions({
+      highlight: function(code, lang) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language }).value;
+      }
+    });
 
-      const inputArea = document.getElementById('promptInputArea');
-      const text = inputArea.value.trim();
+    // Core Message Submission and SSE Streaming Pipeline
+    async function handlePromptSubmission() {
+      const key = getMasterKey();
+      const area = document.getElementById('promptArea');
+      const userText = area.value.trim();
 
-      if (!text && !activeMediaBase64) return;
+      if (!userText && !activeFileBase64) return;
 
-      // Construct Part Payload
-      const partsPayload = [];
-      let mediaPreviewSrc = null;
+      const messageParts = [];
+      let imageSrcPreview = null;
 
-      if (activeMediaBase64) {
-        partsPayload.push({
+      if (activeFileBase64) {
+        messageParts.push({
           inlineData: {
-            mimeType: activeMediaMimeType,
-            data: activeMediaBase64
+            mimeType: activeFileMime,
+            data: activeFileBase64
           }
         });
-        mediaPreviewSrc = `data:${activeMediaMimeType};base64,${activeMediaBase64}`;
+        imageSrcPreview = `data:${activeFileMime};base64,${activeFileBase64}`;
       }
 
-      if (text) {
-        partsPayload.push({ text: text });
+      if (userText) {
+        messageParts.push({ text: userText });
       }
 
-      // Render User Message to Screen
-      appendMessageToCanvas('user', text, mediaPreviewSrc);
-      conversationHistory.push({ role: 'user', parts: partsPayload });
+      // Render User Message Node
+      renderMessageNode('user', userText, imageSrcPreview);
+      activeConversation.push({ role: 'user', parts: messageParts });
 
       // Reset Inputs
-      inputArea.value = '';
-      inputArea.style.height = '38px';
-      clearActiveAttachment();
+      area.value = '';
+      area.style.height = '38px';
+      clearUploadedAttachment();
 
-      // Render Temp AI Container
-      const aiNode = appendMessageToCanvas('ai', '');
-      const bubble = aiNode.querySelector('.message-bubble');
-      bubble.classList.add('streaming-cursor');
+      // Render Temporary AI Streaming Container
+      const aiNode = renderMessageNode('ai', '');
+      const bubble = aiNode.querySelector('.chat-bubble');
+      bubble.classList.add('cursor-blink');
 
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${activeModelTier}:streamGenerateContent?alt=sse&key=${apiKey}`;
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${activeEngineModel}:streamGenerateContent?alt=sse&key=${key}`;
+
+      const sysInstructionText = activeModeSystemPrompt || CORE_SYSTEM_PROMPT;
 
       const requestBody = {
-        systemInstruction: { parts: [{ text: SYSTEM_CORE_PROMPT }] },
-        contents: conversationHistory,
+        systemInstruction: { parts: [{ text: sysInstructionText }] },
+        contents: activeConversation,
         generationConfig: {
           maxOutputTokens: 8192,
-          temperature: 0.5
+          temperature: 0.6
         }
       };
 
-      let accumulatedText = "";
+      let fullGeneratedStream = "";
 
       try {
         const response = await fetch(endpoint, {
@@ -876,8 +905,8 @@
         });
 
         if (!response.ok) {
-          const errJson = await response.json();
-          throw new Error(errJson.error?.message || "Engine Connection Failed");
+          const errData = await response.json();
+          throw new Error(errData.error?.message || "Engine Gateway Connection Refused");
         }
 
         const reader = response.body.getReader();
@@ -894,48 +923,49 @@
             if (line.startsWith('data: ')) {
               try {
                 const parsed = JSON.parse(line.replace('data: ', '').trim());
-                const piece = parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
-                accumulatedText += piece;
-                bubble.innerHTML = marked.parse(accumulatedText);
-                scrollCanvasToBottom();
+                const partText = parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                fullGeneratedStream += partText;
+                bubble.innerHTML = marked.parse(fullGeneratedStream);
+                scrollCanvas();
               } catch (e) {}
             }
           }
         }
 
-        bubble.classList.remove('streaming-cursor');
-        conversationHistory.push({ role: 'model', parts: [{ text: accumulatedText }] });
+        bubble.classList.remove('cursor-blink');
+        activeConversation.push({ role: 'model', parts: [{ text: fullGeneratedStream }] });
 
-        // Post Rendering Enhancements
-        hljs.highlightAll();
-        renderKaTeXMath();
+        // Post Rendering Optimizations
+        wrapCodeBlocksWithCopyButton(bubble);
+        applyHighlighting();
+        renderKaTeXAuto();
 
       } catch (err) {
-        bubble.classList.remove('streaming-cursor');
+        bubble.classList.remove('cursor-blink');
         bubble.innerHTML = `<span style="color:var(--danger); font-weight:600;">त्रुटि (Error): ${err.message}</span>`;
       } finally {
-        scrollCanvasToBottom();
+        scrollCanvas();
       }
     }
 
-    function appendMessageToCanvas(role, text, mediaSrc = null) {
+    function renderMessageNode(role, text, mediaSrc = null) {
       const canvas = document.getElementById('chatCanvas');
       const row = document.createElement('div');
-      row.className = `message-row ${role}`;
+      row.className = `chat-row ${role}`;
 
-      let mediaHTML = mediaSrc ? `<img src="${mediaSrc}" class="message-attachment-preview" alt="Uploaded asset" />` : '';
+      let mediaSnippet = mediaSrc ? `<img src="${mediaSrc}" class="attachment-img-preview" alt="Attachment" />` : '';
 
       if (role === 'ai') {
         row.innerHTML = `
-          <button class="audio-play-round" onclick="synthesizeSpeechFromNode(this)" title="Listen to response">
+          <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
             <i data-lucide="volume-2" style="width:18px;"></i>
           </button>
-          <div class="message-bubble">${text ? marked.parse(text) : '...'}</div>
+          <div class="chat-bubble">${text ? marked.parse(text) : '...'}</div>
         `;
       } else {
         row.innerHTML = `
-          <div class="message-bubble">
-            ${mediaHTML}
+          <div class="chat-bubble">
+            ${mediaSnippet}
             <div>${text}</div>
           </div>
         `;
@@ -943,16 +973,50 @@
 
       canvas.appendChild(row);
       lucide.createIcons();
-      scrollCanvasToBottom();
+      scrollCanvas();
       return row;
     }
 
-    function scrollCanvasToBottom() {
+    function scrollCanvas() {
       const canvas = document.getElementById('chatCanvas');
       canvas.scrollTop = canvas.scrollHeight;
     }
 
-    function renderKaTeXMath() {
+    function wrapCodeBlocksWithCopyButton(container) {
+      container.querySelectorAll('pre').forEach((pre) => {
+        if (pre.parentElement.classList.contains('code-container')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-container';
+
+        const header = document.createElement('div');
+        header.className = 'code-header';
+        header.innerHTML = `
+          <span>Source Code</span>
+          <button class="btn-copy-code" onclick="copyCodeSnippet(this)">
+            <i data-lucide="copy" style="width:12px;"></i> Copy
+          </button>
+        `;
+
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(header);
+        wrapper.appendChild(pre);
+      });
+      lucide.createIcons();
+    }
+
+    function copyCodeSnippet(btn) {
+      const code = btn.closest('.code-container').querySelector('code').innerText;
+      navigator.clipboard.writeText(code);
+      btn.innerHTML = `<i data-lucide="check" style="width:12px;"></i> Copied!`;
+      lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = `<i data-lucide="copy" style="width:12px;"></i> Copy`;
+        lucide.createIcons();
+      }, 2000);
+    }
+
+    function renderKaTeXAuto() {
       if (typeof renderMathInElement === 'function') {
         renderMathInElement(document.getElementById('chatCanvas'), {
           delimiters: [
@@ -964,65 +1028,96 @@
       }
     }
 
+    function applyHighlighting() {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+    }
+
     // Session Management Controls
-    function startFreshConversation() {
-      conversationHistory = [];
+    function startNewSession() {
+      activeConversation = [];
       document.getElementById('chatCanvas').innerHTML = `
-        <div class="message-row ai">
-          <button class="audio-play-round" onclick="synthesizeSpeechFromNode(this)" title="Listen to response">
+        <div class="chat-row ai">
+          <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
             <i data-lucide="volume-2" style="width:18px;"></i>
           </button>
-          <div class="message-bubble">
+          <div class="chat-bubble">
             नई बातचीत शुरू हो चुकी है। आप किस विषय पर शोध, कोडिंग या ड्राफ्टिंग करना चाहते हैं?
           </div>
         </div>
       `;
-      if (document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
+      if (document.getElementById('sideDrawer').classList.contains('open')) toggleDrawer();
       lucide.createIcons();
     }
 
-    function shareCurrentConversation() {
+    function shareChatThread() {
       if (navigator.share) {
         navigator.share({ title: 'KhaasCore Conversation', text: window.location.href });
       } else {
         navigator.clipboard.writeText(window.location.href);
         alert("चैट लिंक क्लिपबोर्ड में कॉपी कर लिया गया!");
       }
-      togglePopoverMenu();
+      toggleActionPopover();
     }
 
-    function exportConversationData() {
-      const blob = new Blob([JSON.stringify(conversationHistory, null, 2)], { type: 'application/json' });
+    function exportDataJSON() {
+      const blob = new Blob([JSON.stringify(activeConversation, null, 2)], { type: 'application/json' });
       const dlLink = document.createElement('a');
       dlLink.href = URL.createObjectURL(blob);
-      dlLink.download = `khaascore-session-${Date.now()}.json`;
+      dlLink.download = `khaascore-chat-${Date.now()}.json`;
       dlLink.click();
-      togglePopoverMenu();
+      toggleActionPopover();
     }
 
-    function renameCurrentSession() {
-      const title = prompt("चैट का शीर्षक बदलें:", document.getElementById('activeThreadLabel').innerText);
+    function exportDataMarkdown() {
+      let mdContent = "# KhaasCore AI Conversation Log\n\n";
+      activeConversation.forEach((item) => {
+        const speaker = item.role === 'user' ? '### User' : '### KhaasCore AI';
+        const txt = item.parts.find(p => p.text)?.text || '';
+        mdContent += `${speaker}\n${txt}\n\n`;
+      });
+
+      const blob = new Blob([mdContent], { type: 'text/markdown' });
+      const dlLink = document.createElement('a');
+      dlLink.href = URL.createObjectURL(blob);
+      dlLink.download = `khaascore-chat-${Date.now()}.md`;
+      dlLink.click();
+      toggleActionPopover();
+    }
+
+    function renameCurrentThread() {
+      const title = prompt("चैट का शीर्षक बदलें:", document.getElementById('lblThreadTitle').innerText);
       if (title && title.trim()) {
-        document.getElementById('activeThreadLabel').innerText = title.trim();
+        document.getElementById('lblThreadTitle').innerText = title.trim();
       }
-      togglePopoverMenu();
+      toggleActionPopover();
     }
 
-    function deleteCurrentSession() {
+    function deleteCurrentThread() {
       if (confirm("क्या आप इस चैट थ्रेड को पूरी तरह हटाना चाहते हैं?")) {
-        startFreshConversation();
+        startNewSession();
       }
-      togglePopoverMenu();
+      toggleActionPopover();
     }
 
-    function filterHistorySearch() {
+    function openSearchPrompt() {
       const q = prompt("पिछली बातचीत में खोजें:");
-      if (q) alert(`"${q}" से संबंधित परिणाम लोड हो रहे हैं...`);
+      if (q) alert(`"${q}" से संबंधित थ्रेड्स लोड हो रहे हैं...`);
     }
 
-    function setSpecializedSystemPrompt(type) {
-      alert(`${type === 'code' ? 'Code Architect' : 'Exhaustive Research'} मोड सक्रिय किया गया।`);
-      toggleSidebar();
+    function switchSpecializedMode(mode) {
+      if (mode === 'code') {
+        activeModeSystemPrompt = "You are an elite Lead Software Architect. Provide robust, production-grade code with error handling, test suites, and clean design patterns.";
+        alert("Code Architect Mode सक्रिय किया गया।");
+      } else if (mode === 'legal') {
+        activeModeSystemPrompt = "You are a senior corporate attorney. Write exhaustive, clause-by-clause, 10,000-word legal contracts, NDAs, and business proposals compliant with US/UK law.";
+        alert("10kW Legal & Business Drafting Mode सक्रिय किया गया।");
+      } else if (mode === 'academic') {
+        activeModeSystemPrompt = "You are a university professor and researcher. Provide peer-reviewed quality literature reviews, citations, and analytical research papers.";
+        alert("Academic Research Mode सक्रिय किया गया।");
+      }
+      toggleDrawer();
     }
 
     function createNewNotebook() {
@@ -1032,4 +1127,3 @@
   </script>
 </body>
 </html>
-
