@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>KhaasCore AI - Universal Intelligence Platform</title>
 
+  <!-- External CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -690,7 +691,7 @@
       <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="menu" style="width:22px; height:22px;"></i></button>
       <div class="model-selector-chip" id="modelSelectorChip" onclick="openSubscriptionModal()">
         <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--brand-accent);"></i>
-        <span id="labelEngine">Gemini 3.6 Flash (Adaptive)</span>
+        <span id="labelEngine">KhaasCore Pro Engine</span>
         <i data-lucide="chevron-down" style="width:14px; height:14px; color:var(--text-secondary);"></i>
       </div>
     </div>
@@ -734,8 +735,8 @@
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:18px; color:#f59e0b;"></i> Upgrade Plan (UPI ₹199 - ₹999)</div>
       
       <div class="drawer-category">AI Engine Models</div>
-      <div class="drawer-btn" onclick="setEngineTier('gemini-3.6-flash', 'Gemini 3.6 Flash (Adaptive)')"><i data-lucide="bot" style="width:18px;"></i> Gemini 3.6 Flash <span style="font-size:10px; background:#22c55e; color:#fff; padding:2px 6px; border-radius:6px; margin-left:auto;">FREE</span></div>
-      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="sparkles" style="width:18px;"></i> Gemini 3.1 Pro <span class="premium-badge">₹199/mo</span></div>
+      <div class="drawer-btn" onclick="setEngineTier('gemini-2.5-flash', 'KhaasCore Pro (Fast)')"><i data-lucide="bot" style="width:18px;"></i> KhaasCore Fast <span style="font-size:10px; background:#22c55e; color:#fff; padding:2px 6px; border-radius:6px; margin-left:auto;">FREE</span></div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="sparkles" style="width:18px;"></i> KhaasCore Pro <span class="premium-badge">₹199/mo</span></div>
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="award" style="width:18px;"></i> Google AI Pro <span class="premium-badge">₹499/mo</span></div>
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="flame" style="width:18px;"></i> Google AI Ultra <span class="premium-badge">₹999/mo</span></div>
 
@@ -799,28 +800,28 @@
       </div>
 
       <div class="plans-grid">
-        <div class="plan-card" onclick="selectPlanTier(this, 'Gemini 3.6 Flash', 0)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'KhaasCore Fast', 0)">
           <div style="font-size:12px; font-weight:700; color:#22c55e;">FREE TIER</div>
           <div class="plan-price">₹0 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Adaptive Flash Engine with fast response time.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Fast Adaptive Engine with standard response rate.</p>
         </div>
 
-        <div class="plan-card active" onclick="selectPlanTier(this, 'Gemini 3.1 Pro', 199)">
+        <div class="plan-card active" onclick="selectPlanTier(this, 'KhaasCore Pro', 199)">
           <div style="font-size:12px; font-weight:700; color:#f59e0b;">PRO TIER</div>
           <div class="plan-price">₹199 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Gemini 3.1 Pro for 10k-word drafting & deep logic.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">10k-word drafting, complex coding, and deep logic.</p>
         </div>
 
         <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Pro', 499)">
           <div style="font-size:12px; font-weight:700; color:#8b5cf6;">AI PRO TIER</div>
           <div class="plan-price">₹499 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Google AI Pro for software architecture & video generation.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Full software architecture, video prompts & business plans.</p>
         </div>
 
         <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Ultra', 999)">
           <div style="font-size:12px; font-weight:700; color:#ef4444;">ULTRA TIER</div>
           <div class="plan-price">₹999 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Google AI Ultra with maximum compute priority.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Maximum compute priority and uncapped intelligence tokens.</p>
         </div>
       </div>
 
@@ -861,8 +862,7 @@
     let activeFileMime = null;
     let isSTTActive = false;
     let sttInstance = null;
-    let activeEngineModel = "gemini-3.6-flash"; 
-    let selectedTierName = "Gemini 3.1 Pro";
+    let selectedTierName = "KhaasCore Pro";
     let selectedTierAmount = 199;
 
     const MASTER_KEY_ENCODED = "QVEuQWI4Uk42SWV5azRvUVd4RDE4OXd0cmJjaWJkYUJfeFFmdUp4Wk9RcUpoWEVmSVR2V3c=";
@@ -967,7 +967,7 @@ ${learnedContext}
       const checkoutBox = document.getElementById('upiCheckoutSection');
       if (price === 0) {
         checkoutBox.style.display = 'none';
-        document.getElementById('labelEngine').innerText = 'Gemini 3.6 Flash (Free)';
+        document.getElementById('labelEngine').innerText = 'KhaasCore Fast (Free)';
       } else {
         checkoutBox.style.display = 'flex';
         document.getElementById('displaySelectedPlanPrice').innerText = `₹${price}`;
@@ -985,7 +985,6 @@ ${learnedContext}
     }
 
     function setEngineTier(modelKey, displayName) {
-      activeEngineModel = modelKey;
       document.getElementById('labelEngine').innerText = displayName;
       toggleDrawer();
     }
@@ -1022,10 +1021,11 @@ ${learnedContext}
       document.getElementById('attachmentBadge').style.display = 'none';
     }
 
+    // Voice STT Engine (Fix for Mobile & Chrome)
     function toggleVoiceSTT() {
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRec) {
-        alert("आपका ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता। कृपया Google Chrome ब्राउज़र में खोलें।");
+        alert("आपका ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता। कृपया Google Chrome ब्राउज़र का उपयोग करें।");
         return;
       }
       const mic = document.getElementById('btnVoiceRecord');
@@ -1057,7 +1057,7 @@ ${learnedContext}
             adjustTextareaHeight(area);
           }
         };
-        sttInstance.onerror = (err) => {
+        sttInstance.onerror = () => {
           isSTTActive = false;
           mic.classList.remove('recording');
         };
@@ -1069,10 +1069,11 @@ ${learnedContext}
       } catch (e) {
         isSTTActive = false;
         mic.classList.remove('recording');
-        alert("माइक शुरू करने में समस्या हुई। कृपया साइट सेटिंग्स में माइक्रोफ़ोन अनुमति दें।");
+        alert("माइक शुरू करने में समस्या हुई। कृपया माइक्रोफ़ोन अनुमति दें।");
       }
     }
 
+    // Speech TTS Engine (Fix for Android & Desktop)
     function synthesizeNodeSpeech(btn) {
       if (!('speechSynthesis' in window)) {
         alert("स्पीच इंजन आपके डिवाइस पर समर्थित नहीं है।");
@@ -1103,6 +1104,7 @@ ${learnedContext}
       }
     });
 
+    // Paywall Filter for Heavy/Video Tasks
     function checkHeavyTaskPaywall(promptText) {
       const lower = promptText.toLowerCase();
       const heavyKeywords = [
@@ -1112,6 +1114,22 @@ ${learnedContext}
       return heavyKeywords.some(k => lower.includes(k));
     }
 
+    // Universal Multi-Model Fallback Executor
+    async function executeModelStream(endpointModel, key, systemPrompt, contents) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${endpointModel}:streamGenerateContent?alt=sse&key=${key}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          contents: contents,
+          generationConfig: { maxOutputTokens: 8192, temperature: 0.6 }
+        })
+      });
+      return res;
+    }
+
+    // Core Submit & SSE Stream
     async function handlePromptSubmission() {
       const key = getMasterKey();
       const area = document.getElementById('promptArea');
@@ -1163,24 +1181,28 @@ ${learnedContext}
       const bubble = aiNode.querySelector('.chat-bubble');
       bubble.classList.add('cursor-blink');
 
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${activeEngineModel}:streamGenerateContent?alt=sse&key=${key}`;
-      const requestBody = {
-        systemInstruction: { parts: [{ text: buildDynamicSystemPrompt() }] },
-        contents: activeConversation,
-        generationConfig: { maxOutputTokens: 8192, temperature: 0.6 }
-      };
-
+      const sysPrompt = buildDynamicSystemPrompt();
       let fullStream = "";
+
       try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-        });
-        if (!response.ok) {
-          const err = await response.json();
-          throw new Error(err.error?.message || "Engine Connection Error");
+        // Multi-Model Auto Fallback
+        const candidateModels = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+        let response = null;
+
+        for (const mod of candidateModels) {
+          try {
+            const tempRes = await executeModelStream(mod, key, sysPrompt, activeConversation);
+            if (tempRes.ok) {
+              response = tempRes;
+              break;
+            }
+          } catch (e) {}
         }
+
+        if (!response || !response.ok) {
+          throw new Error("सभी मॉडल एंडपॉइंट्स व्यस्त हैं। कृपया 10 सेकंड बाद पुनः प्रयास करें।");
+        }
+
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
 
