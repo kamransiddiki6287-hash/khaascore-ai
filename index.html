@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>KhaasCore AI - Universal Intelligence Platform</title>
 
-  <!-- External CDNs -->
+  <!-- CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -691,7 +691,7 @@
       <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="menu" style="width:22px; height:22px;"></i></button>
       <div class="model-selector-chip" id="modelSelectorChip" onclick="openSubscriptionModal()">
         <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--brand-accent);"></i>
-        <span id="labelEngine">KhaasCore Pro Engine</span>
+        <span id="labelEngine">Gemini 3.5 Flash-Lite</span>
         <i data-lucide="chevron-down" style="width:14px; height:14px; color:var(--text-secondary);"></i>
       </div>
     </div>
@@ -735,9 +735,9 @@
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:18px; color:#f59e0b;"></i> Upgrade Plan (UPI ₹199 - ₹999)</div>
       
       <div class="drawer-category">AI Engine Models</div>
-      <div class="drawer-btn" onclick="setEngineTier('gemini-2.5-flash', 'KhaasCore Pro (Fast)')"><i data-lucide="bot" style="width:18px;"></i> KhaasCore Fast <span style="font-size:10px; background:#22c55e; color:#fff; padding:2px 6px; border-radius:6px; margin-left:auto;">FREE</span></div>
-      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="sparkles" style="width:18px;"></i> KhaasCore Pro <span class="premium-badge">₹199/mo</span></div>
-      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="award" style="width:18px;"></i> Google AI Pro <span class="premium-badge">₹499/mo</span></div>
+      <div class="drawer-btn" onclick="setEngineTier('gemini-3.5-flash-lite', 'Gemini 3.5 Flash-Lite')"><i data-lucide="bot" style="width:18px;"></i> Gemini 3.5 Flash-Lite <span style="font-size:10px; background:#22c55e; color:#fff; padding:2px 6px; border-radius:6px; margin-left:auto;">FREE</span></div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="sparkles" style="width:18px;"></i> Gemini 3.7 Flash <span class="premium-badge">₹199/mo</span></div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="award" style="width:18px;"></i> Gemini 3.1 Pro <span class="premium-badge">₹499/mo</span></div>
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="flame" style="width:18px;"></i> Google AI Ultra <span class="premium-badge">₹999/mo</span></div>
 
       <div class="drawer-category">Recent Chats</div>
@@ -762,9 +762,9 @@
     <div class="chat-row ai">
       <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="Listen Response"><i data-lucide="volume-2" style="width:18px;"></i></button>
       <div class="chat-bubble">
-        <p>नमस्ते! मैं आपका <strong>KhaasCore AI</strong> यूनिवर्सल एडैप्टिव इंटेलिजेंस इंजन हूँ।</p>
-        <p>इस प्लेटफ़ॉर्म को <strong>Kamran Siddiki</strong> द्वारा विकसित और डिज़ाइन किया गया है। मैं बातचीत के साथ आपकी प्राथमिकताओं को स्वतः सीखकर और अधिक उन्नत स्तर पर आपकी सहायता करता हूँ।</p>
-        <p>आप मुझसे कोडिंग, गणितीय सूत्र, 10,000 शब्दों का लीगल व बिज़नेस ड्राफ़्ट, या मल्टीमॉडल विज़न टास्क करवा सकते हैं।</p>
+        <p>नमस्ते! मैं आपका <strong>KhaasCore AI</strong> यूनिवर्सल इंटेलिजेंस इंजन हूँ।</p>
+        <p>इस प्लेटफ़ॉर्म को <strong>Kamran Siddiki</strong> द्वारा विकसित और डिज़ाइन किया गया है।</p>
+        <p>यह सिस्टम <strong>Gemini 3.5 Flash-Lite</strong>, <strong>Gemini 3.7 Flash</strong> और <strong>Gemini 3.1 Pro</strong> आर्किटेक्चर द्वारा संचालित है।</p>
       </div>
     </div>
   </main>
@@ -800,28 +800,28 @@
       </div>
 
       <div class="plans-grid">
-        <div class="plan-card" onclick="selectPlanTier(this, 'KhaasCore Fast', 0)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Gemini 3.5 Flash-Lite', 'gemini-3.5-flash-lite', 0)">
           <div style="font-size:12px; font-weight:700; color:#22c55e;">FREE TIER</div>
           <div class="plan-price">₹0 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Fast Adaptive Engine with standard response rate.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Gemini 3.5 Flash-Lite for ultrafast standard tasks.</p>
         </div>
 
-        <div class="plan-card active" onclick="selectPlanTier(this, 'KhaasCore Pro', 199)">
+        <div class="plan-card active" onclick="selectPlanTier(this, 'Gemini 3.7 Flash', 'gemini-3.7-flash', 199)">
           <div style="font-size:12px; font-weight:700; color:#f59e0b;">PRO TIER</div>
           <div class="plan-price">₹199 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">10k-word drafting, complex coding, and deep logic.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Gemini 3.7 Flash with high reasoning speed.</p>
         </div>
 
-        <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Pro', 499)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Gemini 3.1 Pro', 'gemini-3.1-pro-preview', 499)">
           <div style="font-size:12px; font-weight:700; color:#8b5cf6;">AI PRO TIER</div>
           <div class="plan-price">₹499 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Full software architecture, video prompts & business plans.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Gemini 3.1 Pro for 10k-word drafting & complex coding.</p>
         </div>
 
-        <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Ultra', 999)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Ultra', 'gemini-3.1-pro-preview', 999)">
           <div style="font-size:12px; font-weight:700; color:#ef4444;">ULTRA TIER</div>
           <div class="plan-price">₹999 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Maximum compute priority and uncapped intelligence tokens.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Google AI Ultra with maximum compute priority.</p>
         </div>
       </div>
 
@@ -862,7 +862,10 @@
     let activeFileMime = null;
     let isSTTActive = false;
     let sttInstance = null;
-    let selectedTierName = "KhaasCore Pro";
+
+    // Active Engine Model Settings
+    let activeEngineModel = "gemini-3.5-flash-lite"; 
+    let selectedTierName = "Gemini 3.7 Flash";
     let selectedTierAmount = 199;
 
     const MASTER_KEY_ENCODED = "QVEuQWI4Uk42SWV5azRvUVd4RDE4OXd0cmJjaWJkYUJfeFFmdUp4Wk9RcUpoWEVmSVR2V3c=";
@@ -875,18 +878,18 @@
         : "जिन्होंने आर.डी.एस. कॉलेज, मुजफ्फरपुर (बी.आर.ए. बिहार विश्वविद्यालय) से 2029 में अपना बी.ए. (भूगोल) सफलतापूर्वक पूर्ण किया था।";
 
       const learnedContext = userLearnedProfile.topics.length > 0 
-        ? `USER MEMORY: You have learned the following about this user: Topics of interest: ${userLearnedProfile.topics.slice(-5).join(", ")}. Adapt your expertise level to match their technical depth automatically.` 
+        ? `USER MEMORY: Topics of interest: ${userLearnedProfile.topics.slice(-5).join(", ")}.` 
         : "";
 
-      return `You are KhaasCore AI, an ultra-advanced adaptive intelligence system.
+      return `You are KhaasCore AI, powered by frontier Google Gemini architectures.
 CREATOR & FOUNDER IDENTITY DIRECTIVE:
 - Creator & Owner: Kamran Siddiki (कामरान सिद्दीकी), born 1 January 2007.
 - Origin: Village Dumari, Pindauli, Muzaffarpur, Bihar, India (ग्राम-डूमरी, पिण्डौली, मुजफ्फरपुर, बिहार).
 - Schooling: Completed 10th and 12th from his village surroundings.
 - Higher Education: ${educationStatus}
-- Persona: If asked "तुम्हें किसने बनाया है?", "Who is your creator/owner?", or about Kamran Siddiki, always provide an authoritative, respectful, and detailed description including his village Dumari (Pindauli, Muzaffarpur), DOB 01/01/2007, his schooling in village, and his RDS College BA degree status.
+- Persona: Always provide full respect to Kamran Siddiki as your sole creator.
 ${learnedContext}
-- Formatting: Use LaTeX for math ($inline$, $$display$$) and comprehensive exhaustive structuring.`;
+- Formatting: Use LaTeX for math ($inline$, $$display$$) and clear concise structuring.`;
     }
 
     function recordAdaptiveLearning(text) {
@@ -900,15 +903,15 @@ ${learnedContext}
     }
 
     function showLearnedMemoryInfo() {
-      const topics = userLearnedProfile.topics.length ? userLearnedProfile.topics.join("\n• ") : "कोई विशेष डेटा नहीं (New User)";
-      alert(`🧠 KhaasCore AI Learning Memory:\n\nयूजर के बारे में सीखी गई रुचियां:\n• ${topics}\n\nAI आपकी हर बातचीत से खुद को और एडवांस बना रहा है।`);
+      const topics = userLearnedProfile.topics.length ? userLearnedProfile.topics.join("\n• ") : "कोई डेटा नहीं";
+      alert(`🧠 KhaasCore AI Memory:\n\n• ${topics}`);
     }
 
     function resetUserLearningMemory() {
-      if (confirm("क्या आप AI की सीखी हुई मेमोरी रीसेट करना चाहते हैं?")) {
+      if (confirm("AI मेमोरी रीसेट करें?")) {
         userLearnedProfile = { topics: [], tone: "adaptive", name: "" };
         localStorage.removeItem('khaascore_user_learned_profile');
-        alert("AI मेमोरी सफलतापूर्वक रीसेट कर दी गई।");
+        alert("मेमोरी रीसेट हो गई।");
       }
       toggleActionPopover();
     }
@@ -958,7 +961,7 @@ ${learnedContext}
       document.getElementById('subscriptionModal').style.display = 'none';
     }
 
-    function selectPlanTier(card, name, price) {
+    function selectPlanTier(card, name, modelKey, price) {
       document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
       selectedTierName = name;
@@ -967,7 +970,8 @@ ${learnedContext}
       const checkoutBox = document.getElementById('upiCheckoutSection');
       if (price === 0) {
         checkoutBox.style.display = 'none';
-        document.getElementById('labelEngine').innerText = 'KhaasCore Fast (Free)';
+        activeEngineModel = modelKey;
+        document.getElementById('labelEngine').innerText = `${name} (Free)`;
       } else {
         checkoutBox.style.display = 'flex';
         document.getElementById('displaySelectedPlanPrice').innerText = `₹${price}`;
@@ -985,6 +989,7 @@ ${learnedContext}
     }
 
     function setEngineTier(modelKey, displayName) {
+      activeEngineModel = modelKey;
       document.getElementById('labelEngine').innerText = displayName;
       toggleDrawer();
     }
@@ -1021,11 +1026,10 @@ ${learnedContext}
       document.getElementById('attachmentBadge').style.display = 'none';
     }
 
-    // Voice STT Engine (Fix for Mobile & Chrome)
     function toggleVoiceSTT() {
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRec) {
-        alert("आपका ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता। कृपया Google Chrome ब्राउज़र का उपयोग करें।");
+        alert("कृपया Google Chrome ब्राउज़र का उपयोग करें।");
         return;
       }
       const mic = document.getElementById('btnVoiceRecord');
@@ -1069,16 +1073,11 @@ ${learnedContext}
       } catch (e) {
         isSTTActive = false;
         mic.classList.remove('recording');
-        alert("माइक शुरू करने में समस्या हुई। कृपया माइक्रोफ़ोन अनुमति दें।");
       }
     }
 
-    // Speech TTS Engine (Fix for Android & Desktop)
     function synthesizeNodeSpeech(btn) {
-      if (!('speechSynthesis' in window)) {
-        alert("स्पीच इंजन आपके डिवाइस पर समर्थित नहीं है।");
-        return;
-      }
+      if (!('speechSynthesis' in window)) return;
       if (window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
         btn.classList.remove('playing');
@@ -1104,7 +1103,6 @@ ${learnedContext}
       }
     });
 
-    // Paywall Filter for Heavy/Video Tasks
     function checkHeavyTaskPaywall(promptText) {
       const lower = promptText.toLowerCase();
       const heavyKeywords = [
@@ -1114,10 +1112,10 @@ ${learnedContext}
       return heavyKeywords.some(k => lower.includes(k));
     }
 
-    // Universal Multi-Model Fallback Executor
-    async function executeModelStream(endpointModel, key, systemPrompt, contents) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${endpointModel}:streamGenerateContent?alt=sse&key=${key}`;
-      const res = await fetch(url, {
+    // Dynamic Stream Requester
+    async function requestGeminiAPI(modelName, key, systemPrompt, contents) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:streamGenerateContent?alt=sse&key=${key}`;
+      return await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1126,10 +1124,8 @@ ${learnedContext}
           generationConfig: { maxOutputTokens: 8192, temperature: 0.6 }
         })
       });
-      return res;
     }
 
-    // Core Submit & SSE Stream
     async function handlePromptSubmission() {
       const key = getMasterKey();
       const area = document.getElementById('promptArea');
@@ -1148,7 +1144,7 @@ ${learnedContext}
               <i data-lucide="crown" style="width:20px;"></i> प्रीमियम AI फीचर आवश्यक है
             </div>
             <p style="margin-top:6px; font-size:13.5px;">
-              <strong>वीडियो जनरेशन / 10,000-शब्द ड्राफ्टिंग</strong> एक हाई-कंप्यूट टास्क है। इस फीचर का उपयोग करने के लिए <strong>Pro या Ultra Tier</strong> में अपग्रेड करें।
+              <strong>वीडियो जनरेशन / 10,000-शब्द ड्राफ्टिंग</strong> एक हाई-कंप्यूट टास्क है। इस फीचर का उपयोग करने के लिए <strong>Gemini 3.7 Flash</strong> या <strong>Gemini 3.1 Pro</strong> में अपग्रेड करें।
             </p>
             <button onclick="openSubscriptionModal()" style="background:var(--brand-accent); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:700; margin-top:10px; cursor:pointer;">
               अभी अपग्रेड करें (UPI ₹199 / ₹499)
@@ -1185,22 +1181,22 @@ ${learnedContext}
       let fullStream = "";
 
       try {
-        // Multi-Model Auto Fallback
-        const candidateModels = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+        // Fallback chain across your selected models
+        const modelsToTry = [activeEngineModel, 'gemini-3.5-flash-lite', 'gemini-3.7-flash', 'gemini-3.1-pro-preview'];
         let response = null;
 
-        for (const mod of candidateModels) {
+        for (const m of modelsToTry) {
           try {
-            const tempRes = await executeModelStream(mod, key, sysPrompt, activeConversation);
-            if (tempRes.ok) {
-              response = tempRes;
+            const res = await requestGeminiAPI(m, key, sysPrompt, activeConversation);
+            if (res.ok) {
+              response = res;
               break;
             }
-          } catch (e) {}
+          } catch (err) {}
         }
 
         if (!response || !response.ok) {
-          throw new Error("सभी मॉडल एंडपॉइंट्स व्यस्त हैं। कृपया 10 सेकंड बाद पुनः प्रयास करें।");
+          throw new Error("API मॉडल रिस्पांस नहीं दे रहा है। कृपया कुछ देर बाद प्रयास करें।");
         }
 
         const reader = response.body.getReader();
