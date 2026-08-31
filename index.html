@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>KhaasCore AI - Universal Intelligence Platform</title>
+  <title>KhaasCore AI - Universal Intelligence Operating System</title>
 
+  <!-- External High Performance CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -14,60 +15,70 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    /* =========================================================
+       CSS ARCHITECTURE & DESIGN SYSTEM TOKENS
+       ========================================================= */
     :root {
-      --bg-main: #ffffff;
-      --bg-side: #f8fafc;
-      --card-bg: #ffffff;
-      --border-color: #e2e8f0;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
-      --accent-light: #eff6ff;
-      --user-msg: #f1f5f9;
-      --ai-msg: #ffffff;
-      --danger: #ef4444;
-      --success: #22c55e;
-      --warning: #f59e0b;
-      --pill-bg: #f1f5f9;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --drawer-width: 300px;
+      --bg-canvas: #ffffff;
+      --bg-sidebar: #f8fafc;
+      --bg-card: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-focus: #2563eb;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --brand-accent: #2563eb;
+      --brand-accent-hover: #1d4ed8;
+      --brand-accent-light: #eff6ff;
+      --user-bubble: #f1f5f9;
+      --ai-bubble: #ffffff;
+      --status-danger: #ef4444;
+      --status-success: #22c55e;
+      --status-warning: #f59e0b;
+      --pill-surface: #f1f5f9;
+      --elevation-low: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+      --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --drawer-width: 320px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: Consolas, Monaco, "Courier New", monospace;
     }
 
     [data-theme="dark"] {
-      --bg-main: #090d16;
-      --bg-side: #0f172a;
-      --card-bg: #131d33;
-      --border-color: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-hover: #0284c7;
-      --accent-light: #0c4a6e;
-      --user-msg: #1e293b;
-      --ai-msg: #131d33;
-      --danger: #f87171;
-      --success: #4ade80;
-      --warning: #fbbf24;
-      --pill-bg: #0f172a;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+      --bg-canvas: #080c14;
+      --bg-sidebar: #0f172a;
+      --bg-card: #111a2e;
+      --border-subtle: #1e293b;
+      --border-focus: #38bdf8;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --brand-accent: #38bdf8;
+      --brand-accent-hover: #0284c7;
+      --brand-accent-light: #0c4a6e;
+      --user-bubble: #1e293b;
+      --ai-bubble: #111a2e;
+      --status-danger: #f87171;
+      --status-success: #4ade80;
+      --status-warning: #fbbf24;
+      --pill-surface: #0f172a;
+      --elevation-low: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+      --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
     }
 
+    /* Base Reset */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: var(--font-sans);
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg-main);
-      color: var(--text-main);
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -75,15 +86,15 @@
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Header Styling */
+    /* Top Navigation Header */
     .app-header {
       height: 60px;
       padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: var(--card-bg);
-      border-bottom: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
       z-index: 40;
     }
 
@@ -93,10 +104,10 @@
       gap: 10px;
     }
 
-    .btn-icon {
+    .btn-icon-action {
       background: transparent;
       border: none;
-      color: var(--text-main);
+      color: var(--text-primary);
       padding: 8px;
       border-radius: 50%;
       cursor: pointer;
@@ -105,8 +116,8 @@
       justify-content: center;
       transition: background-color 0.2s;
     }
-    .btn-icon:hover {
-      background-color: var(--pill-bg);
+    .btn-icon-action:hover {
+      background-color: var(--pill-surface);
     }
 
     .model-selector-chip {
@@ -114,56 +125,50 @@
       align-items: center;
       gap: 6px;
       padding: 6px 14px;
-      background-color: var(--pill-bg);
-      border: 1px solid var(--border-color);
+      background-color: var(--pill-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 20px;
       font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
-      color: var(--text-main);
-      transition: border-color 0.2s, background-color 0.2s;
+      color: var(--text-primary);
+      transition: border-color 0.2s;
     }
     .model-selector-chip:hover {
-      border-color: var(--accent);
+      border-color: var(--brand-accent);
     }
 
-    /* Dropdown Popover */
+    /* Context Popover */
     .popover-menu {
       position: absolute;
       top: 54px;
       right: 12px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      width: 240px;
+      box-shadow: var(--elevation-high);
+      width: 250px;
       display: none;
       flex-direction: column;
       padding: 6px 0;
       z-index: 100;
-      animation: fadeIn 0.15s ease-out;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .popover-item {
       padding: 10px 16px;
       display: flex;
       align-items: center;
       gap: 12px;
       font-size: 14px;
-      color: var(--text-main);
+      color: var(--text-primary);
       cursor: pointer;
       transition: background-color 0.15s;
     }
     .popover-item:hover {
-      background-color: var(--pill-bg);
+      background-color: var(--pill-surface);
     }
     .popover-divider {
       height: 1px;
-      background-color: var(--border-color);
+      background-color: var(--border-subtle);
       margin: 4px 0;
     }
 
@@ -171,7 +176,7 @@
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.45);
+      background-color: rgba(0, 0, 0, 0.5);
       display: none;
       z-index: 200;
       backdrop-filter: blur(2px);
@@ -182,8 +187,8 @@
       left: calc(-1 * var(--drawer-width));
       width: var(--drawer-width);
       height: 100%;
-      background-color: var(--bg-side);
-      border-right: 1px solid var(--border-color);
+      background-color: var(--bg-sidebar);
+      border-right: 1px solid var(--border-subtle);
       z-index: 201;
       display: flex;
       flex-direction: column;
@@ -198,12 +203,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .brand-title {
       font-size: 18px;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--brand-accent);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -223,49 +228,50 @@
       padding: 10px 14px;
       border-radius: 10px;
       font-size: 14px;
-      color: var(--text-main);
+      color: var(--text-primary);
       cursor: pointer;
       transition: background-color 0.15s;
     }
     .drawer-btn:hover {
-      background-color: var(--pill-bg);
+      background-color: var(--pill-surface);
     }
     .drawer-btn.active {
-      background-color: var(--accent-light);
-      color: var(--accent);
+      background-color: var(--brand-accent-light);
+      color: var(--brand-accent);
       font-weight: 600;
     }
 
     .drawer-category {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--text-muted);
-      margin: 18px 0 6px 12px;
+      color: var(--text-secondary);
+      margin: 16px 0 6px 12px;
     }
 
     .history-item-pill {
       padding: 8px 12px;
       border-radius: 8px;
       font-size: 13.5px;
-      color: var(--text-main);
+      color: var(--text-primary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       cursor: pointer;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 8px;
     }
     .history-item-pill:hover {
-      background-color: var(--pill-bg);
+      background-color: var(--pill-surface);
     }
 
     .drawer-footer {
       margin-top: auto;
       padding-top: 14px;
-      border-top: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -279,7 +285,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      background: linear-gradient(135deg, var(--brand-accent), #8b5cf6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -288,14 +294,14 @@
       font-size: 14px;
     }
 
-    /* Chat Canvas */
+    /* Main Chat Canvas */
     .chat-canvas {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 16px 140px 16px;
+      padding: 20px 16px 150px 16px;
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 24px;
       max-width: 900px;
       width: 100%;
       margin: 0 auto;
@@ -317,12 +323,12 @@
 
     .chat-row.user .chat-bubble {
       align-self: flex-end;
-      background-color: var(--user-msg);
+      background-color: var(--user-bubble);
       padding: 12px 18px;
       border-radius: 20px 20px 4px 20px;
       max-width: 82%;
-      color: var(--text-main);
-      box-shadow: var(--shadow-sm);
+      color: var(--text-primary);
+      box-shadow: var(--elevation-low);
     }
 
     .chat-row.ai .chat-bubble {
@@ -330,7 +336,7 @@
       background-color: transparent;
       padding: 4px 0 16px 0;
       width: 100%;
-      color: var(--text-main);
+      color: var(--text-primary);
     }
 
     .btn-audio-listen {
@@ -340,53 +346,43 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background-color: var(--accent-light);
-      color: var(--accent);
+      background-color: var(--brand-accent-light);
+      color: var(--brand-accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-subtle);
       cursor: pointer;
-      transition: transform 0.1s, background-color 0.2s;
+      transition: transform 0.1s;
     }
     .btn-audio-listen:active {
       transform: scale(0.92);
     }
 
-    /* Markdown & Code Block Layout */
-    .chat-bubble h1, .chat-bubble h2, .chat-bubble h3 {
-      margin: 18px 0 8px 0;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .chat-bubble p {
-      margin-bottom: 12px;
-    }
-    .chat-bubble ul, .chat-bubble ol {
-      margin-left: 20px;
-      margin-bottom: 12px;
-    }
-    .chat-bubble li {
-      margin-bottom: 4px;
-    }
+    /* Code Container & Live Sandbox */
     .code-container {
       position: relative;
-      background: #1e1e2e;
+      background: #181825;
       border-radius: 10px;
       margin: 14px 0;
       overflow: hidden;
+      border: 1px solid #313244;
     }
     .code-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #181825;
+      background: #11111b;
       padding: 6px 14px;
       font-size: 12px;
       color: #a6adc8;
       border-bottom: 1px solid #313244;
     }
-    .btn-copy-code {
+    .code-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-code-action {
       background: transparent;
       border: 1px solid #45475a;
       color: #cdd6f4;
@@ -398,19 +394,19 @@
       align-items: center;
       gap: 4px;
     }
-    .btn-copy-code:hover {
+    .btn-code-action:hover {
       background: #313244;
     }
     .chat-bubble pre {
       padding: 14px;
       overflow-x: auto;
-      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-family: var(--font-mono);
       font-size: 13.5px;
       color: #cdd6f4;
     }
     .chat-bubble code {
-      font-family: Consolas, Monaco, "Courier New", monospace;
-      background-color: var(--pill-bg);
+      font-family: var(--font-mono);
+      background-color: var(--pill-surface);
       padding: 2px 6px;
       border-radius: 4px;
       font-size: 13.5px;
@@ -419,6 +415,33 @@
       background-color: transparent;
       padding: 0;
     }
+
+    /* Sandbox iframe */
+    .sandbox-preview-frame {
+      width: 100%;
+      height: 250px;
+      background: #ffffff;
+      border: 1px solid #313244;
+      border-top: none;
+      display: none;
+    }
+
+    /* Markdown Formats */
+    .chat-bubble h1, .chat-bubble h2, .chat-bubble h3 {
+      margin: 18px 0 8px 0;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .chat-bubble p {
+      margin-bottom: 12px;
+    }
+    .chat-bubble ul, .chat-bubble ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+    .chat-bubble li {
+      margin-bottom: 4px;
+    }
     .chat-bubble table {
       width: 100%;
       border-collapse: collapse;
@@ -426,12 +449,12 @@
       font-size: 14px;
     }
     .chat-bubble th, .chat-bubble td {
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-subtle);
       padding: 8px 12px;
       text-align: left;
     }
     .chat-bubble th {
-      background-color: var(--pill-bg);
+      background-color: var(--pill-surface);
       font-weight: 600;
     }
     .attachment-img-preview {
@@ -439,11 +462,11 @@
       max-height: 200px;
       border-radius: 12px;
       margin-bottom: 8px;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-subtle);
       object-fit: cover;
     }
 
-    /* Floating Input Pill */
+    /* Floating Input Dock */
     .input-dock {
       position: fixed;
       bottom: 16px;
@@ -460,26 +483,26 @@
       display: none;
       align-items: center;
       gap: 8px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       padding: 6px 14px;
       border-radius: 16px;
       font-size: 12px;
       margin-bottom: 8px;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--elevation-mid);
     }
 
     .input-pill {
       width: 100%;
       max-width: 760px;
-      background-color: var(--pill-bg);
-      border: 1px solid var(--border-color);
+      background-color: var(--pill-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 36px;
       padding: 6px 14px;
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--elevation-mid);
     }
 
     .input-pill textarea {
@@ -488,7 +511,7 @@
       background: transparent;
       outline: none;
       font-size: 15px;
-      color: var(--text-main);
+      color: var(--text-primary);
       resize: none;
       height: 38px;
       max-height: 120px;
@@ -497,7 +520,7 @@
     }
 
     .dock-icon {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -507,11 +530,11 @@
       transition: color 0.15s, background-color 0.15s;
     }
     .dock-icon:hover {
-      color: var(--accent);
+      color: var(--brand-accent);
       background-color: rgba(37, 99, 235, 0.08);
     }
     .dock-icon.recording {
-      color: var(--danger);
+      color: var(--status-danger);
       animation: pulseRecord 1s infinite alternate;
     }
 
@@ -523,7 +546,7 @@
     .cursor-blink::after {
       content: '▋';
       display: inline-block;
-      color: var(--accent);
+      color: var(--brand-accent);
       animation: blinkCursor 0.8s infinite;
       margin-left: 2px;
     }
@@ -535,29 +558,31 @@
 </head>
 <body>
 
+  <!-- Top App Navigation Bar -->
   <header class="app-header">
     <div class="header-left">
-      <button class="btn-icon" onclick="toggleDrawer()" aria-label="Open Drawer">
+      <button class="btn-icon-action" onclick="toggleDrawer()" aria-label="Open Drawer">
         <i data-lucide="menu" style="width:22px; height:22px;"></i>
       </button>
       <div class="model-selector-chip" id="modelSelectorChip" onclick="cycleEngineTier()">
-        <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--accent);"></i>
-        <span id="labelEngine">KhaasCore Pro 1.5</span>
-        <i data-lucide="chevron-down" style="width:14px; height:14px; color:var(--text-muted);"></i>
+        <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--brand-accent);"></i>
+        <span id="labelEngine">KhaasCore Flash (3.6)</span>
+        <i data-lucide="chevron-down" style="width:14px; height:14px; color:var(--text-secondary);"></i>
       </div>
     </div>
 
     <div class="header-right">
-      <button class="btn-icon" onclick="toggleAppTheme()" aria-label="Toggle Theme">
+      <button class="btn-icon-action" onclick="toggleAppTheme()" aria-label="Toggle Theme">
         <i data-lucide="moon" id="iconTheme" style="width:20px; height:20px;"></i>
       </button>
-      <button class="btn-icon" onclick="startNewSession()" aria-label="New Chat">
+      <button class="btn-icon-action" onclick="startNewSession()" aria-label="New Chat">
         <i data-lucide="pen-square" style="width:20px; height:20px;"></i>
       </button>
-      <button class="btn-icon" onclick="toggleActionPopover()" aria-label="Options">
+      <button class="btn-icon-action" onclick="toggleActionPopover()" aria-label="Options">
         <i data-lucide="more-vertical" style="width:20px; height:20px;"></i>
       </button>
 
+      <!-- Dropdown Context Menu -->
       <div class="popover-menu" id="actionPopoverMenu">
         <div class="popover-item" onclick="shareChatThread()">
           <i data-lucide="share-2" style="width:16px;"></i> बातचीत शेयर करें (Share)
@@ -568,24 +593,28 @@
         <div class="popover-item" onclick="exportDataMarkdown()">
           <i data-lucide="file-text" style="width:16px;"></i> एक्सपोर्ट Markdown
         </div>
+        <div class="popover-item" onclick="window.print()">
+          <i data-lucide="printer" style="width:16px;"></i> प्रिंट / PDF सेव करें
+        </div>
         <div class="popover-divider"></div>
         <div class="popover-item" onclick="renameCurrentThread()">
           <i data-lucide="edit-3" style="width:16px;"></i> नाम बदलें (Rename)
         </div>
-        <div class="popover-item" style="color:var(--danger);" onclick="deleteCurrentThread()">
+        <div class="popover-item" style="color:var(--status-danger);" onclick="deleteCurrentThread()">
           <i data-lucide="trash-2" style="width:16px;"></i> चैट हटाएं (Delete)
         </div>
       </div>
     </div>
   </header>
 
+  <!-- Sidebar Overlay & Sliding Drawer -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
   <aside class="drawer" id="sideDrawer">
     <div class="drawer-header">
       <div class="brand-title">
         <i data-lucide="cpu" style="width:22px; height:22px;"></i> KhaasCore AI
       </div>
-      <button class="btn-icon" onclick="toggleDrawer()">
+      <button class="btn-icon-action" onclick="toggleDrawer()">
         <i data-lucide="x" style="width:20px; height:20px;"></i>
       </button>
     </div>
@@ -598,15 +627,15 @@
         <i data-lucide="search" style="width:18px;"></i> खोजें (Search History)
       </div>
       
-      <div class="drawer-category">स्पेशलाइज्ड मोड्स (Modes)</div>
+      <div class="drawer-category">स्पेशलाइज्ड मोड्स (Specialized Modes)</div>
       <div class="drawer-btn" onclick="switchSpecializedMode('code')">
-        <i data-lucide="code-2" style="width:18px;"></i> Code Architect Mode
+        <i data-lucide="code-2" style="width:18px;"></i> Full-Stack Code Architect
       </div>
       <div class="drawer-btn" onclick="switchSpecializedMode('legal')">
-        <i data-lucide="scale" style="width:18px;"></i> 10kW Legal & Business
+        <i data-lucide="scale" style="width:18px;"></i> 10kW US/UK Legal & Business
       </div>
       <div class="drawer-btn" onclick="switchSpecializedMode('academic')">
-        <i data-lucide="graduation-cap" style="width:18px;"></i> Research & Thesis
+        <i data-lucide="graduation-cap" style="width:18px;"></i> In-Depth Academic Thesis
       </div>
 
       <div class="drawer-category">नोटबुक्स (Notebooks)</div>
@@ -614,13 +643,8 @@
         <i data-lucide="plus" style="width:18px;"></i> New Notebook
       </div>
 
-      <div class="drawer-category">हालिया चैट्स (Recent)</div>
-      <div id="threadHistoryList">
-        <div class="history-item-pill" onclick="loadSavedThread(0)">
-          <i data-lucide="message-circle" style="width:14px; color:var(--text-muted);"></i>
-          <span id="lblThreadTitle">KhaasCore Live Architecture</span>
-        </div>
-      </div>
+      <div class="drawer-category">हालिया चैट्स (Sessions Database)</div>
+      <div id="threadHistoryList"></div>
     </nav>
 
     <div class="drawer-footer">
@@ -628,30 +652,32 @@
         <div class="avatar-circle">KC</div>
         <div>
           <div style="font-weight:600; font-size:13.5px;">KhaasCore Owner</div>
-          <div style="font-size:11px; color:var(--success); font-weight:700;">PRO ENGINE ACTIVE</div>
+          <div style="font-size:11px; color:var(--status-success); font-weight:700;">PRO ENGINE LIVE</div>
         </div>
       </div>
-      <button class="btn-icon" onclick="alert('KhaasCore Live Engine Active')">
-        <i data-lucide="shield-check" style="width:18px; color:var(--success);"></i>
+      <button class="btn-icon-action" onclick="alert('KhaasCore Universal Engine Active')">
+        <i data-lucide="shield-check" style="width:18px; color:var(--status-success);"></i>
       </button>
     </div>
   </aside>
 
+  <!-- Main Chat Canvas -->
   <main class="chat-canvas" id="chatCanvas">
     <div class="chat-row ai">
       <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
         <i data-lucide="volume-2" style="width:18px;"></i>
       </button>
       <div class="chat-bubble">
-        <p>नमस्ते! मैं आपका संपूर्ण <strong>KhaasCore AI</strong> लाइव इंटेलिजेंस इंजन हूँ।</p>
-        <p>आप मुझसे दुनिया का कोई भी सवाल पूछ सकते हैं—जटिल कोडिंग, गणितीय समीकरण ($E=mc^2$), 10,000 शब्दों का लीगल व बिज़नेस ड्राफ्ट, या फोटो/डॉक्यूमेंट विज़न एनालिसिस। मैं बिना किसी रुकावट के पूरी गहराई और सटीकता के साथ उत्तर दूँगा।</p>
+        <p>नमस्ते! मैं आपका संपूर्ण <strong>KhaasCore AI</strong> यूनिवर्सल इंटेलिजेंस ऑपरेटिंग सिस्टम हूँ।</p>
+        <p>आप मुझसे दुनिया का कोई भी कार्य करवा सकते हैं—लाइव कोडिंग व सैंडबॉक्स रनिंग, गणितीय समीकरण ($E=mc^2$), 10,000 शब्दों का लीगल व बिज़नेस ड्राफ्ट, या मल्टीमॉडल फाइल/इमेज विज़न एनालिसिस। मैं बिना किसी रुकावट के पूरी गहराई और सटीकता के साथ उत्तर प्रदान करूँगा।</p>
       </div>
     </div>
   </main>
 
+  <!-- Bottom Floating Input Dock -->
   <div class="input-dock">
     <div class="attachment-badge" id="attachmentBadge">
-      <i data-lucide="file-check" style="width:14px; color:var(--accent);"></i>
+      <i data-lucide="file-check" style="width:14px; color:var(--brand-accent);"></i>
       <span id="attachmentNameText" style="font-weight:500;">image.png</span>
       <i data-lucide="x" style="width:14px; cursor:pointer;" onclick="clearUploadedAttachment()"></i>
     </div>
@@ -669,32 +695,39 @@
       </div>
 
       <div class="dock-icon" onclick="handlePromptSubmission()" title="भेजें">
-        <i data-lucide="arrow-up-circle" style="width:24px; height:24px; color:var(--accent);"></i>
+        <i data-lucide="arrow-up-circle" style="width:24px; height:24px; color:var(--brand-accent);"></i>
       </div>
     </div>
   </div>
 
+  <!-- =========================================================
+       JAVASCRIPT ARCHITECTURE CORE
+       ========================================================= -->
   <script>
-    // Lucide Icon Instantiation
+    // Lucide Icons Render
     lucide.createIcons();
 
-    // Global State Engine
+    // Application Global State Machine
     let activeConversation = [];
+    let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
+    let currentSessionIndex = -1;
     let activeFileBase64 = null;
     let activeFileMime = null;
     let isSTTActive = false;
     let sttInstance = null;
-    let activeEngineModel = "gemini-2.5-flash"; // Ultra reliable and fast
+    
+    // Official Supported Google Endpoints
+    let activeEngineModel = "gemini-3.6-flash";
     let activeModeSystemPrompt = null;
 
-    // Secure Embedded Master Key
+    // Secure Pre-Embedded Master Key (Base64 Safe)
     const MASTER_KEY_ENCODED = "QVEuQWI4Uk42SWV5azRvUVd4RDE4OXd0cmJjaWJkYUJfeFFmdUp4Wk9RcUpoWEVmSVR2V3c=";
 
     function getMasterKey() {
       return atob(MASTER_KEY_ENCODED);
     }
 
-    // Default High-Capacity System Instruction
+    // Default System Instruction Architecture
     const CORE_SYSTEM_PROMPT = `You are KhaasCore AI, an ultra-advanced, authoritative, and deeply knowledgeable AI engine.
 1. Provide exhaustive, highly structured, clause-by-clause, step-by-step, and technically accurate responses.
 2. When asked for long documents, business plans, or legal drafts, generate up to 8,000-10,000 words without artificial summaries or truncations.
@@ -704,9 +737,10 @@
     window.addEventListener('DOMContentLoaded', () => {
       renderKaTeXAuto();
       applyHighlighting();
+      renderSavedSessionsList();
     });
 
-    // Theme Management
+    // Theme Switcher Engine
     function toggleAppTheme() {
       const doc = document.documentElement;
       const isDark = doc.getAttribute('data-theme') === 'dark';
@@ -718,7 +752,7 @@
       lucide.createIcons();
     }
 
-    // Drawer and UI Toggle Mechanics
+    // Drawer Mechanics
     function toggleDrawer() {
       const drawer = document.getElementById('sideDrawer');
       const overlay = document.getElementById('drawerOverlay');
@@ -740,16 +774,16 @@
     // Model Engine Toggling
     function cycleEngineTier() {
       const label = document.getElementById('labelEngine');
-      if (activeEngineModel === "gemini-2.5-flash") {
-        activeEngineModel = "gemini-2.5-pro";
-        label.innerText = "KhaasCore Pro 1.5 Deep";
+      if (activeEngineModel === "gemini-3.6-flash") {
+        activeEngineModel = "gemini-3.1-pro-preview";
+        label.innerText = "KhaasCore Pro (Deep)";
       } else {
-        activeEngineModel = "gemini-2.5-flash";
-        label.innerText = "KhaasCore Flash 1.5";
+        activeEngineModel = "gemini-3.6-flash";
+        label.innerText = "KhaasCore Flash (3.6)";
       }
     }
 
-    // Auto-expanding Input Area
+    // Dynamic Textarea Auto-expand
     function adjustTextareaHeight(el) {
       el.style.height = 'auto';
       el.style.height = Math.min(el.scrollHeight, 120) + 'px';
@@ -762,7 +796,7 @@
       }
     }
 
-    // Attachment & Vision Engine
+    // Multimodal Vision File Processor
     function processMediaAttachment(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -784,7 +818,7 @@
       document.getElementById('attachmentBadge').style.display = 'none';
     }
 
-    // Speech-To-Text (Voice Recognition)
+    // Speech-To-Text (Voice STT Engine)
     function toggleVoiceSTT() {
       if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
         return alert("ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता।");
@@ -823,7 +857,7 @@
       sttInstance.start();
     }
 
-    // Text-To-Speech (Audio Synthesizer)
+    // Text-To-Speech (Audio TTS Engine)
     function synthesizeNodeSpeech(btn) {
       if (!('speechSynthesis' in window)) return alert("ऑडियो सिंथेसाइज़र उपलब्ध नहीं है।");
       window.speechSynthesis.cancel();
@@ -835,7 +869,6 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    // Custom Code Block Formatter with One-Click Copy
     marked.setOptions({
       highlight: function(code, lang) {
         const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -843,7 +876,7 @@
       }
     });
 
-    // Core Message Submission and SSE Streaming Pipeline
+    // Core SSE Live Streaming Pipeline
     async function handlePromptSubmission() {
       const key = getMasterKey();
       const area = document.getElementById('promptArea');
@@ -868,16 +901,13 @@
         messageParts.push({ text: userText });
       }
 
-      // Render User Message Node
       renderMessageNode('user', userText, imageSrcPreview);
       activeConversation.push({ role: 'user', parts: messageParts });
 
-      // Reset Inputs
       area.value = '';
       area.style.height = '38px';
       clearUploadedAttachment();
 
-      // Render Temporary AI Streaming Container
       const aiNode = renderMessageNode('ai', '');
       const bubble = aiNode.querySelector('.chat-bubble');
       bubble.classList.add('cursor-blink');
@@ -935,14 +965,15 @@
         bubble.classList.remove('cursor-blink');
         activeConversation.push({ role: 'model', parts: [{ text: fullGeneratedStream }] });
 
-        // Post Rendering Optimizations
-        wrapCodeBlocksWithCopyButton(bubble);
+        wrapCodeBlocksWithActions(bubble);
         applyHighlighting();
         renderKaTeXAuto();
+        lucide.createIcons();
+        autoSaveSession(userText);
 
       } catch (err) {
         bubble.classList.remove('cursor-blink');
-        bubble.innerHTML = `<span style="color:var(--danger); font-weight:600;">त्रुटि (Error): ${err.message}</span>`;
+        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:600;">त्रुटि (Error): ${err.message}</span>`;
       } finally {
         scrollCanvas();
       }
@@ -982,26 +1013,51 @@
       canvas.scrollTop = canvas.scrollHeight;
     }
 
-    function wrapCodeBlocksWithCopyButton(container) {
+    // Code Sandbox & Actions Engine
+    function wrapCodeBlocksWithActions(container) {
       container.querySelectorAll('pre').forEach((pre) => {
         if (pre.parentElement.classList.contains('code-container')) return;
 
         const wrapper = document.createElement('div');
         wrapper.className = 'code-container';
 
+        const codeEl = pre.querySelector('code');
+        const isHTML = codeEl && (codeEl.classList.contains('language-html') || codeEl.classList.contains('language-xml'));
+
         const header = document.createElement('div');
         header.className = 'code-header';
         header.innerHTML = `
           <span>Source Code</span>
-          <button class="btn-copy-code" onclick="copyCodeSnippet(this)">
-            <i data-lucide="copy" style="width:12px;"></i> Copy
-          </button>
+          <div class="code-actions">
+            ${isHTML ? `<button class="btn-code-action" onclick="toggleLivePreview(this)"><i data-lucide="play" style="width:12px;"></i> Run Live</button>` : ''}
+            <button class="btn-code-action" onclick="copyCodeSnippet(this)"><i data-lucide="copy" style="width:12px;"></i> Copy</button>
+          </div>
         `;
+
+        const iframe = document.createElement('iframe');
+        iframe.className = 'sandbox-preview-frame';
 
         pre.parentNode.insertBefore(wrapper, pre);
         wrapper.appendChild(header);
         wrapper.appendChild(pre);
+        wrapper.appendChild(iframe);
       });
+      lucide.createIcons();
+    }
+
+    function toggleLivePreview(btn) {
+      const container = btn.closest('.code-container');
+      const iframe = container.querySelector('.sandbox-preview-frame');
+      const code = container.querySelector('code').innerText;
+
+      if (iframe.style.display === 'block') {
+        iframe.style.display = 'none';
+        btn.innerHTML = `<i data-lucide="play" style="width:12px;"></i> Run Live`;
+      } else {
+        iframe.style.display = 'block';
+        iframe.srcdoc = code;
+        btn.innerHTML = `<i data-lucide="eye-off" style="width:12px;"></i> Hide Preview`;
+      }
       lucide.createIcons();
     }
 
@@ -1034,9 +1090,70 @@
       });
     }
 
-    // Session Management Controls
+    // Sessions & Database Storage Engine
+    function autoSaveSession(titleHint) {
+      if (activeConversation.length === 0) return;
+      const title = titleHint.substring(0, 30) || "KhaasCore Conversation";
+      
+      if (currentSessionIndex === -1) {
+        savedSessions.unshift({ title, data: activeConversation, timestamp: Date.now() });
+        currentSessionIndex = 0;
+      } else {
+        savedSessions[currentSessionIndex].data = activeConversation;
+      }
+
+      localStorage.setItem('khaascore_saved_sessions', JSON.stringify(savedSessions));
+      renderSavedSessionsList();
+    }
+
+    function renderSavedSessionsList() {
+      const list = document.getElementById('threadHistoryList');
+      list.innerHTML = '';
+      savedSessions.forEach((sess, idx) => {
+        const item = document.createElement('div');
+        item.className = 'history-item-pill';
+        item.innerHTML = `
+          <div style="display:flex; align-items:center; gap:8px; overflow:hidden;" onclick="loadSavedThread(${idx})">
+            <i data-lucide="message-circle" style="width:14px; color:var(--text-secondary); flex-shrink:0;"></i>
+            <span style="overflow:hidden; text-overflow:ellipsis;">${sess.title}</span>
+          </div>
+          <i data-lucide="trash" style="width:12px; color:var(--status-danger); cursor:pointer;" onclick="deleteSpecificSession(${idx}, event)"></i>
+        `;
+        list.appendChild(item);
+      });
+      lucide.createIcons();
+    }
+
+    function loadSavedThread(idx) {
+      currentSessionIndex = idx;
+      activeConversation = savedSessions[idx].data;
+      const canvas = document.getElementById('chatCanvas');
+      canvas.innerHTML = '';
+
+      activeConversation.forEach(item => {
+        const txt = item.parts.find(p => p.text)?.text || '';
+        const img = item.parts.find(p => p.inlineData);
+        const imgSrc = img ? `data:${img.inlineData.mimeType};base64,${img.inlineData.data}` : null;
+        renderMessageNode(item.role === 'model' ? 'ai' : 'user', txt, imgSrc);
+      });
+
+      wrapCodeBlocksWithActions(canvas);
+      applyHighlighting();
+      renderKaTeXAuto();
+      toggleDrawer();
+    }
+
+    function deleteSpecificSession(idx, e) {
+      e.stopPropagation();
+      savedSessions.splice(idx, 1);
+      localStorage.setItem('khaascore_saved_sessions', JSON.stringify(savedSessions));
+      if (currentSessionIndex === idx) startNewSession();
+      else renderSavedSessionsList();
+    }
+
     function startNewSession() {
       activeConversation = [];
+      currentSessionIndex = -1;
       document.getElementById('chatCanvas').innerHTML = `
         <div class="chat-row ai">
           <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
@@ -1087,9 +1204,13 @@
     }
 
     function renameCurrentThread() {
-      const title = prompt("चैट का शीर्षक बदलें:", document.getElementById('lblThreadTitle').innerText);
+      const title = prompt("चैट का शीर्षक बदलें:", currentSessionIndex >= 0 ? savedSessions[currentSessionIndex].title : "KhaasCore Chat");
       if (title && title.trim()) {
-        document.getElementById('lblThreadTitle').innerText = title.trim();
+        if (currentSessionIndex >= 0) {
+          savedSessions[currentSessionIndex].title = title.trim();
+          localStorage.setItem('khaascore_saved_sessions', JSON.stringify(savedSessions));
+          renderSavedSessionsList();
+        }
       }
       toggleActionPopover();
     }
@@ -1103,7 +1224,11 @@
 
     function openSearchPrompt() {
       const q = prompt("पिछली बातचीत में खोजें:");
-      if (q) alert(`"${q}" से संबंधित थ्रेड्स लोड हो रहे हैं...`);
+      if (q) {
+        const match = savedSessions.find(s => s.title.toLowerCase().includes(q.toLowerCase()));
+        if (match) loadSavedThread(savedSessions.indexOf(match));
+        else alert(`"${q}" से संबंधित कोई परिणाम नहीं मिला।`);
+      }
     }
 
     function switchSpecializedMode(mode) {
