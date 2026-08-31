@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="hi" data-theme="dark">
+<html lang="hi" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>KhaasCore AI - Intelligence Platform by Kamran Siddiki</title>
   
   <link rel="canonical" href="https://kamransiddiki6287-hash.github.io/khaascore-ai/">
@@ -10,7 +10,7 @@
 
   <!-- CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -19,6 +19,26 @@
 
   <style>
     :root {
+      --bg-canvas: #ffffff;
+      --bg-sidebar: #f8fafc;
+      --bg-card: #ffffff;
+      --border-subtle: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --brand-accent: #2563eb;
+      --brand-accent-hover: #1d4ed8;
+      --brand-accent-light: #eff6ff;
+      --user-bubble: #f1f5f9;
+      --status-danger: #ef4444;
+      --status-success: #22c55e;
+      --status-warning: #f59e0b;
+      --pill-surface: #f1f5f9;
+      --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.04);
+      --elevation-high: 0 14px 35px rgba(37, 99, 235, 0.12);
+      --drawer-width: 310px;
+    }
+
+    [data-theme="dark"] {
       --bg-canvas: #131314;
       --bg-sidebar: #1e1f20;
       --bg-card: #1e1f20;
@@ -35,26 +55,6 @@
       --pill-surface: #1e1f20;
       --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.4);
       --elevation-high: 0 14px 35px rgba(0, 0, 0, 0.6);
-      --drawer-width: 310px;
-    }
-
-    [data-theme="light"] {
-      --bg-canvas: #f8fafc;
-      --bg-sidebar: #ffffff;
-      --bg-card: #ffffff;
-      --border-subtle: #e2e8f0;
-      --text-primary: #0f172a;
-      --text-secondary: #64748b;
-      --brand-accent: #2563eb;
-      --brand-accent-hover: #1d4ed8;
-      --brand-accent-light: #eff6ff;
-      --user-bubble: #e2e8f0;
-      --status-danger: #ef4444;
-      --status-success: #22c55e;
-      --status-warning: #f59e0b;
-      --pill-surface: #f1f5f9;
-      --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.04);
-      --elevation-high: 0 14px 35px rgba(37, 99, 235, 0.12);
     }
 
     * {
@@ -68,10 +68,11 @@
     body {
       background-color: var(--bg-canvas);
       color: var(--text-primary);
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow-y: auto; /* उंगली से आसानी से ऊपर-नीचे खींचने/स्क्रॉल करने के लिए */
+      -webkit-overflow-scrolling: touch;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
@@ -85,6 +86,8 @@
       background-color: var(--bg-canvas);
       border-bottom: 1px solid var(--border-subtle);
       backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
       z-index: 40;
     }
 
@@ -133,10 +136,10 @@
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.5);
       display: none;
       z-index: 200;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(4px);
     }
     .drawer {
       position: fixed;
@@ -165,7 +168,7 @@
     .brand-title {
       font-size: 19px;
       font-weight: 800;
-      background: linear-gradient(135deg, #4da3ff, #c38fff);
+      background: linear-gradient(135deg, #2563eb, #8b5cf6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: flex;
@@ -245,7 +248,7 @@
     /* Main Chat Canvas */
     .chat-canvas {
       flex: 1;
-      overflow-y: auto;
+      overflow-y: visible;
       padding: 20px 18px 160px 18px;
       display: flex;
       flex-direction: column;
@@ -262,7 +265,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      margin: auto 0;
+      margin: 40px auto;
       padding: 24px 12px;
       animation: fadeIn 0.4s ease-out;
     }
@@ -293,13 +296,13 @@
       font-size: 28px;
       font-weight: 800;
       margin-bottom: 8px;
-      background: linear-gradient(90deg, #4da3ff, #c38fff);
+      background: linear-gradient(90deg, #2563eb, #8b5cf6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: -0.5px;
     }
     .hero-subtitle {
-      font-size: 14.5px;
+      font-size: 15px;
       color: var(--text-secondary);
       max-width: 520px;
       line-height: 1.6;
@@ -357,16 +360,18 @@
     .chat-bubble {
       position: relative;
       line-height: 1.75;
-      font-size: 15.5px;
+      font-size: 16px; /* पढ़ने में आसान और साफ अक्षर */
       word-break: break-word;
+      color: var(--text-primary);
     }
 
     .chat-row.user .chat-bubble {
       align-self: flex-end;
       background-color: var(--user-bubble);
-      padding: 13px 20px;
+      padding: 14px 20px;
       border-radius: 22px 22px 4px 22px;
-      max-width: 82%;
+      max-width: 85%;
+      border: 1px solid var(--border-subtle);
     }
 
     .chat-row.ai .chat-bubble {
@@ -454,7 +459,7 @@
       overflow: hidden;
       background: #000;
       aspect-ratio: 9 / 16;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
     }
     .video-canvas-container.horizontal {
       aspect-ratio: 16 / 9;
@@ -483,16 +488,17 @@
       margin-top: 12px;
     }
 
-    /* Input Dock */
+    /* Input Dock - टाइपिंग बॉक्स अब बिल्कुल साफ, बड़ा और स्पष्ट दिखेगा */
     .input-dock {
       position: fixed;
-      bottom: 16px;
+      bottom: 0;
       left: 0;
       right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 16px;
+      padding: 10px 16px 18px 16px;
+      background: linear-gradient(to top, var(--bg-canvas) 85%, rgba(255,255,255,0));
       z-index: 50;
     }
 
@@ -512,12 +518,12 @@
       width: 100%;
       max-width: 800px;
       background-color: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1.5px solid var(--border-subtle);
       border-radius: 36px;
-      padding: 6px 14px;
+      padding: 8px 16px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       box-shadow: var(--elevation-high);
       transition: border-color 0.2s;
     }
@@ -525,18 +531,24 @@
       border-color: var(--brand-accent);
     }
 
+    /* टाइपिंग टेक्स्ट एरिया में अक्षर बड़े और स्पष्ट दिखेंगे, और बिल्कुल नहीं ढकेंगे */
     .input-pill textarea {
       flex: 1;
       border: none;
       background: transparent;
       outline: none;
-      font-size: 15px;
+      font-size: 16px; /* बड़े और साफ अक्षर */
+      font-weight: 500;
       color: var(--text-primary);
       resize: none;
-      height: 38px;
+      height: 44px;
       max-height: 120px;
-      padding: 8px 0;
-      line-height: 1.4;
+      padding: 10px 0;
+      line-height: 1.5;
+    }
+    .input-pill textarea::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.8;
     }
 
     .dock-icon {
@@ -545,7 +557,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 7px;
+      padding: 8px;
       border-radius: 50%;
       transition: color 0.15s, transform 0.15s;
     }
@@ -578,7 +590,7 @@
       font-size: 11.5px;
       color: var(--text-secondary);
       text-align: center;
-      margin-top: 6px;
+      margin-top: 8px;
     }
     .creator-attribution-badge strong {
       color: var(--brand-accent);
@@ -588,12 +600,12 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(0, 0, 0, 0.5);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 300;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(4px);
       padding: 16px;
     }
     .modal-dialog {
@@ -760,7 +772,7 @@
       <input type="file" id="fileMediaInput" accept="image/*,application/pdf,text/*" style="display:none;" onchange="processMediaAttachment(event)">
       <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()" title="फाइल जोड़ें"><i data-lucide="plus" style="width:20px;"></i></div>
       
-      <textarea id="promptArea" placeholder="KhaasCore AI से कुछ भी पूछें या 3D वीडियो बनवाएं..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
+      <textarea id="promptArea" placeholder="KhaasCore AI से कुछ भी पूछें..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
       
       <div class="dock-icon" id="micBtn" onclick="toggleSpeechRecognition()" title="बोलकर बात करें">
         <i data-lucide="mic" style="width:20px;"></i>
@@ -825,7 +837,7 @@
   <script>
     lucide.createIcons();
 
-    // 🔒 Render बैकएंड URL (बिल्कुल सही सेट है)
+    // 🔒 Render बैकएंड URL
     const BASE_BACKEND_URL = "https://khaascore-ai-backend.onrender.com";
 
     let activeConversation = [];
@@ -995,7 +1007,7 @@
       return ["वीडियो", "video", "रील", "reel", "shorts", "शॉर्ट्स", "animation", "एनिमेशन"].some(w => lower.includes(w));
     }
 
-    // --- KhaasCore 3D Animated Video Engine (Pollinations + Canvas Motion) ---
+    // --- KhaasCore 3D Animated Video Engine ---
     async function renderKhaasCore3DVideo(scriptText, topic, durationSec = 15, isVertical = true) {
       const card = document.createElement('div');
       card.className = 'video-render-card';
@@ -1031,7 +1043,6 @@
 
       lucide.createIcons();
 
-      // 1. बैकएंड से 3D एनिमेटेड सीन मंगाएं
       let sceneImg = new Image();
       sceneImg.crossOrigin = "anonymous";
       try {
@@ -1047,7 +1058,6 @@
         console.log("Fallback to generated scene");
       }
 
-      // 2. मीडिया रिकॉर्डर शुरू करें
       const stream = canvas.captureStream(30);
       let mediaRecorder;
       try {
@@ -1073,7 +1083,6 @@
 
       mediaRecorder.start();
 
-      // 3. इंसानी आवाज़ जोड़ें
       const utterance = new SpeechSynthesisUtterance(scriptText.substring(0, 180));
       const voices = window.speechSynthesis.getVoices();
       const naturalVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
@@ -1082,7 +1091,6 @@
       utterance.rate = 0.95;
       window.speechSynthesis.speak(utterance);
 
-      // 4. सिनेमैटिक कैमरा पैन और ज़ूम लूप
       const words = scriptText.replace(/[*#]/g, '').split(/\s+/).slice(0, 35);
       const totalFrames = durationSec * 30;
       let frame = 0;
@@ -1096,9 +1104,8 @@
 
         const t = frame / totalFrames;
 
-        // सिनेमैटिक ज़ूम इन कैमरा इफ़ेक्ट (Ken Burns Effect)
         if (sceneImg.complete && sceneImg.naturalWidth > 0) {
-          const zoom = 1 + t * 0.2; // 20% Smooth Zoom
+          const zoom = 1 + t * 0.2;
           const panX = Math.sin(t * Math.PI) * 20;
           ctx.save();
           ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -1106,14 +1113,12 @@
           ctx.drawImage(sceneImg, -canvas.width / 2 + panX, -canvas.height / 2, canvas.width, canvas.height);
           ctx.restore();
 
-          // हल्का सिनेमैटिक डार्क विगनेट (Vignette)
           const vignette = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.3, canvas.width/2, canvas.height/2, canvas.width*0.7);
           vignette.addColorStop(0, 'rgba(0,0,0,0)');
           vignette.addColorStop(1, 'rgba(0,0,0,0.65)');
           ctx.fillStyle = vignette;
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         } else {
-          // बैकअप ग्रेडिएंट अगर इमेज लोड न हो
           const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
           grad.addColorStop(0, '#0f172a');
           grad.addColorStop(1, '#1e1b4b');
@@ -1121,7 +1126,6 @@
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        // वाटरमार्क व ब्रांडिंग
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 26px sans-serif';
         ctx.textAlign = 'center';
@@ -1131,7 +1135,6 @@
         ctx.font = '18px sans-serif';
         ctx.fillText('Owner: Kamran Siddiki', canvas.width / 2, 100);
 
-        // बड़े एनिमेटेड पीले सबटाइटल्स
         const wordIndex = Math.floor(t * words.length);
         const currentSnippet = words.slice(Math.max(0, wordIndex - 2), wordIndex + 3).join(' ');
 
@@ -1142,7 +1145,6 @@
 
         wrapText(ctx, currentSnippet, canvas.width / 2, canvas.height * 0.72, canvas.width - 80, 48);
 
-        // प्रोग्रेस बार
         ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
         ctx.fillRect(40, canvas.height - 40, canvas.width - 80, 8);
         ctx.fillStyle = '#38bdf8';
@@ -1195,7 +1197,7 @@
       activeConversation.push({ role: 'user', parts: messageParts });
 
       area.value = '';
-      area.style.height = '38px';
+      area.style.height = '44px';
       clearUploadedAttachment();
 
       const aiNode = renderMessageNode('ai', '');
@@ -1286,8 +1288,7 @@
     }
 
     function scrollCanvas() {
-      const canvas = document.getElementById('chatCanvas');
-      canvas.scrollTop = canvas.scrollHeight;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 
     function renderKaTeXAuto() {
@@ -1373,3 +1374,4 @@
   </script>
 </body>
 </html>
+
