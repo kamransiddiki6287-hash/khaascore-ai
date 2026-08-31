@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="hi" data-theme="light">
+<html lang="hi" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>KhaasCore AI - Universal Intelligence Platform by Kamran Siddiki</title>
+  <title>KhaasCore AI - Intelligence Platform by Kamran Siddiki</title>
   
   <link rel="canonical" href="https://kamransiddiki6287-hash.github.io/khaascore-ai/">
-  <meta name="description" content="KhaasCore AI is an ultra-advanced human-like universal intelligence and real MP4 video creation platform created and owned by Kamran Siddiki.">
-  <meta name="keywords" content="KhaasCore AI, Kamran Siddiki, AI Platform, Human AI, MP4 Video Generator, Smart Intelligence">
+  <meta name="description" content="KhaasCore AI is an ultra-advanced intelligence and real MP4 animated video creation platform created and owned by Kamran Siddiki.">
 
   <!-- CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -20,6 +19,26 @@
 
   <style>
     :root {
+      --bg-canvas: #131314;
+      --bg-sidebar: #1e1f20;
+      --bg-card: #1e1f20;
+      --border-subtle: #282a2c;
+      --text-primary: #e3e3e3;
+      --text-secondary: #9aa0a6;
+      --brand-accent: #4da3ff;
+      --brand-accent-hover: #1a73e8;
+      --brand-accent-light: #1e293b;
+      --user-bubble: #282a2c;
+      --status-danger: #f87171;
+      --status-success: #4ade80;
+      --status-warning: #fbbf24;
+      --pill-surface: #1e1f20;
+      --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.4);
+      --elevation-high: 0 14px 35px rgba(0, 0, 0, 0.6);
+      --drawer-width: 310px;
+    }
+
+    [data-theme="light"] {
       --bg-canvas: #f8fafc;
       --bg-sidebar: #ffffff;
       --bg-card: #ffffff;
@@ -36,26 +55,6 @@
       --pill-surface: #f1f5f9;
       --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.04);
       --elevation-high: 0 14px 35px rgba(37, 99, 235, 0.12);
-      --drawer-width: 310px;
-    }
-
-    [data-theme="dark"] {
-      --bg-canvas: #070b14;
-      --bg-sidebar: #0e1626;
-      --bg-card: #131d31;
-      --border-subtle: #1e293b;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --brand-accent: #38bdf8;
-      --brand-accent-hover: #0284c7;
-      --brand-accent-light: #0c4a6e;
-      --user-bubble: #1e293b;
-      --status-danger: #f87171;
-      --status-success: #4ade80;
-      --status-warning: #fbbf24;
-      --pill-surface: #131d31;
-      --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.5);
-      --elevation-high: 0 14px 35px rgba(56, 189, 248, 0.15);
     }
 
     * {
@@ -76,14 +75,14 @@
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Header */
+    /* Top App Header */
     .app-header {
-      height: 62px;
+      height: 60px;
       padding: 0 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: var(--bg-card);
+      background-color: var(--bg-canvas);
       border-bottom: 1px solid var(--border-subtle);
       backdrop-filter: blur(12px);
       z-index: 40;
@@ -108,7 +107,7 @@
       transition: background-color 0.2s, transform 0.15s;
     }
     .btn-icon-action:hover {
-      background-color: var(--pill-surface);
+      background-color: var(--border-subtle);
       transform: scale(1.05);
     }
 
@@ -130,50 +129,11 @@
       border-color: var(--brand-accent);
     }
 
-    /* Popover Menu */
-    .popover-menu {
-      position: absolute;
-      top: 56px;
-      right: 14px;
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      box-shadow: var(--elevation-high);
-      width: 260px;
-      display: none;
-      flex-direction: column;
-      padding: 6px 0;
-      z-index: 100;
-      animation: popIn 0.2s ease-out;
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .popover-item {
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13.5px;
-      color: var(--text-primary);
-      cursor: pointer;
-      transition: background-color 0.15s;
-    }
-    .popover-item:hover {
-      background-color: var(--pill-surface);
-    }
-    .popover-divider {
-      height: 1px;
-      background-color: var(--border-subtle);
-      margin: 4px 0;
-    }
-
     /* Side Drawer */
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.55);
+      background-color: rgba(0, 0, 0, 0.6);
       display: none;
       z-index: 200;
       backdrop-filter: blur(5px);
@@ -205,7 +165,7 @@
     .brand-title {
       font-size: 19px;
       font-weight: 800;
-      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      background: linear-gradient(135deg, #4da3ff, #c38fff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: flex;
@@ -232,7 +192,7 @@
       transition: background-color 0.15s;
     }
     .drawer-btn:hover {
-      background-color: var(--pill-surface);
+      background-color: var(--border-subtle);
     }
     .drawer-btn.active {
       background-color: var(--brand-accent-light);
@@ -253,7 +213,7 @@
       transition: background-color 0.15s;
     }
     .history-item-pill:hover {
-      background-color: var(--pill-surface);
+      background-color: var(--border-subtle);
     }
 
     .drawer-footer {
@@ -312,28 +272,30 @@
     }
 
     .hero-logo-box {
-      width: 72px;
-      height: 72px;
-      border-radius: 22px;
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
       background: linear-gradient(135deg, #2563eb, #38bdf8);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
       margin-bottom: 16px;
-      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
       animation: pulseGlow 3s infinite alternate;
     }
     @keyframes pulseGlow {
-      from { transform: scale(1); box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35); }
-      to { transform: scale(1.05); box-shadow: 0 16px 36px rgba(56, 189, 248, 0.5); }
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
     }
 
     .hero-title {
       font-size: 28px;
       font-weight: 800;
       margin-bottom: 8px;
-      color: var(--text-primary);
+      background: linear-gradient(90deg, #4da3ff, #c38fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       letter-spacing: -0.5px;
     }
     .hero-subtitle {
@@ -366,12 +328,11 @@
       text-align: left;
       cursor: pointer;
       box-shadow: var(--elevation-low);
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, border-color 0.2s;
     }
     .hero-card:hover {
       transform: translateY(-3px);
       border-color: var(--brand-accent);
-      box-shadow: var(--elevation-high);
     }
     .hero-card-icon {
       width: 42px;
@@ -383,16 +344,6 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-    }
-    .hero-card-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .hero-card-desc {
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-top: 2px;
     }
 
     /* Message Rows */
@@ -416,7 +367,6 @@
       padding: 13px 20px;
       border-radius: 22px 22px 4px 22px;
       max-width: 82%;
-      box-shadow: var(--elevation-low);
     }
 
     .chat-row.ai .chat-bubble {
@@ -425,111 +375,6 @@
       padding: 4px 0 16px 0;
       width: 100%;
     }
-    <!-- ================= KhaasCore AI Pro Engine & UI Upgrade ================= -->
-<style>
-  /* KhaasCore आधुनिक बटन व इनपुट डिज़ाइन */
-  .input-capsule, .input-box, form {
-    border-radius: 28px !important;
-    background: #1e1f20 !important;
-    border: 1px solid #333537 !important;
-    transition: all 0.25s ease !important;
-  }
-
-  .input-capsule:focus-within, .input-box:focus-within {
-    border-color: #4da3ff !important;
-    box-shadow: 0 0 12px rgba(77, 163, 255, 0.25) !important;
-  }
-
-  /* गोल व पिल बटनों पर स्मूथ होवर इफेक्ट */
-  button, .btn, .icon-btn {
-    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease !important;
-  }
-
-  button:active, .icon-btn:active {
-    transform: scale(0.92) !important;
-  }
-
-  /* माइक एक्टिव होने पर पल्स एनिमेशन */
-  .mic-active {
-    color: #ff4d4d !important;
-    animation: khaasPulse 1s infinite alternate !important;
-  }
-
-  @keyframes khaasPulse {
-    from { transform: scale(1); filter: drop-shadow(0 0 2px #ff4d4d); }
-    to { transform: scale(1.22); filter: drop-shadow(0 0 8px #ff4d4d); }
-  }
-</style>
-
-<script>
-  // 1. यहाँ अपना Render बैकएंड का सही लिंक दर्ज करें
-  const KHAASCORE_BACKEND_URL = "https://khaascore-ai-backend.onrender.com";
-
-  // 2. ऑटो 404 फिक्स: सभी अधूरी बैकएंड रिक्वेस्ट को सीधे Render से जोड़ेगा
-  const originalFetchRequest = window.fetch;
-  window.fetch = async function (resource, config) {
-    if (typeof resource === 'string') {
-      if (resource.startsWith('/api/') || resource === '/api/chat' || resource === 'api/chat') {
-        resource = KHAASCORE_BACKEND_URL + (resource.startsWith('/') ? resource : '/' + resource);
-      }
-    }
-    return originalFetchRequest(resource, config);
-  };
-
-  // 3. लाइव वॉइस टाइपिंग (माइक फीचर) ऑटो-कनेक्टर
-  (function initVoiceInput() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
-
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.lang = 'hi-IN'; // हिंदी व हिंग्लिश सपोर्ट
-
-    // पेज में मौजूद माइक बटन और इनपुट बॉक्स को ऑटो-डिटेक्ट करें
-    document.addEventListener('DOMContentLoaded', () => {
-      const micBtn = document.querySelector('.fa-microphone')?.closest('button') || document.getElementById('mic-button');
-      const inputEl = document.querySelector('textarea') || document.querySelector('input[type="text"]');
-
-      if (!micBtn || !inputEl) return;
-
-      let isListening = false;
-
-      micBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (isListening) {
-          recognition.stop();
-        } else {
-          try { recognition.start(); } catch (err) {}
-        }
-      });
-
-      recognition.onstart = () => {
-        isListening = true;
-        micBtn.classList.add('mic-active');
-        inputEl.setAttribute('data-old-placeholder', inputEl.placeholder || '');
-        inputEl.placeholder = 'सुन रहा हूँ... बोलिए';
-      };
-
-      recognition.onresult = (event) => {
-        const spokenText = event.results[0][0].transcript;
-        inputEl.value = (inputEl.value ? inputEl.value + ' ' : '') + spokenText;
-        inputEl.dispatchEvent(new Event('input', { bubbles: true }));
-      };
-
-      recognition.onend = () => {
-        isListening = false;
-        micBtn.classList.remove('mic-active');
-        inputEl.placeholder = inputEl.getAttribute('data-old-placeholder') || 'KhaasCore AI से कुछ भी पूछें...';
-      };
-
-      recognition.onerror = () => {
-        isListening = false;
-        micBtn.classList.remove('mic-active');
-      };
-    });
-  })();
-</script>
-<!-- ========================================================================= -->
 
     /* Audio Waves & TTS Voice Button */
     .audio-playback-bar {
@@ -553,20 +398,11 @@
       justify-content: center;
       border: 1px solid var(--border-subtle);
       cursor: pointer;
-      transition: transform 0.15s, background-color 0.2s;
-    }
-    .btn-audio-listen:hover {
-      transform: scale(1.1);
+      transition: transform 0.15s;
     }
     .btn-audio-listen.playing {
       background-color: #22c55e;
       color: #fff;
-      animation: pulseGreen 1.2s infinite;
-    }
-    @keyframes pulseGreen {
-      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
-      70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
     .voice-wave {
@@ -589,15 +425,12 @@
       border-radius: 2px;
       animation: waveMove 0.8s infinite ease-in-out alternate;
     }
-    .wave-bar:nth-child(2) { animation-delay: 0.2s; height: 70%; }
-    .wave-bar:nth-child(3) { animation-delay: 0.4s; height: 40%; }
-    .wave-bar:nth-child(4) { animation-delay: 0.1s; height: 90%; }
     @keyframes waveMove {
       from { transform: scaleY(0.3); }
       to { transform: scaleY(1); }
     }
 
-    /* Video Player & Generator Engine Cards */
+    /* 3D Animated Video Engine Card */
     .video-render-card {
       background: var(--bg-card);
       border: 1.5px solid var(--brand-accent);
@@ -605,7 +438,7 @@
       padding: 16px;
       margin: 14px 0;
       box-shadow: var(--elevation-high);
-      max-width: 420px;
+      max-width: 440px;
       width: 100%;
     }
     .video-render-header {
@@ -621,7 +454,7 @@
       overflow: hidden;
       background: #000;
       aspect-ratio: 9 / 16;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
     }
     .video-canvas-container.horizontal {
       aspect-ratio: 16 / 9;
@@ -632,96 +465,22 @@
       object-fit: cover;
       display: block;
     }
-    .video-render-controls {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-    }
     .btn-video-download {
       flex: 1;
       background: linear-gradient(135deg, #22c55e, #16a34a);
       color: #fff;
       border: none;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 13.5px;
+      font-size: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .btn-video-download:hover {
-      opacity: 0.92;
-    }
-
-    /* Code Sandbox Container */
-    .code-container {
-      position: relative;
-      background: #151824;
-      border-radius: 12px;
-      margin: 16px 0;
-      overflow: hidden;
-      border: 1px solid #2a3148;
-    }
-    .code-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0d101a;
-      padding: 7px 16px;
-      font-size: 12px;
-      color: #94a3b8;
-      border-bottom: 1px solid #2a3148;
-    }
-    .code-actions {
-      display: flex;
-      gap: 8px;
-    }
-    .btn-code-action {
-      background: transparent;
-      border: 1px solid #3b4261;
-      color: #cbd5e1;
-      border-radius: 6px;
-      padding: 3px 10px;
-      font-size: 11.5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: background 0.15s;
-    }
-    .btn-code-action:hover {
-      background: #232a42;
-    }
-    .chat-bubble pre {
-      padding: 16px;
-      overflow-x: auto;
-      font-family: Consolas, Monaco, "Courier New", monospace;
-      font-size: 14px;
-      color: #f1f5f9;
-    }
-    .chat-bubble code {
-      font-family: Consolas, Monaco, "Courier New", monospace;
-      background-color: var(--pill-surface);
-      padding: 2px 6px;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-    .chat-bubble pre code {
-      background-color: transparent;
-      padding: 0;
-    }
-    .sandbox-preview-frame {
-      width: 100%;
-      height: 260px;
-      background: #ffffff;
-      border: 1px solid #2a3148;
-      border-top: none;
-      display: none;
+      margin-top: 12px;
     }
 
     /* Input Dock */
@@ -747,7 +506,6 @@
       border-radius: 16px;
       font-size: 12px;
       margin-bottom: 8px;
-      box-shadow: var(--elevation-high);
     }
 
     .input-pill {
@@ -761,6 +519,10 @@
       align-items: center;
       gap: 8px;
       box-shadow: var(--elevation-high);
+      transition: border-color 0.2s;
+    }
+    .input-pill:focus-within {
+      border-color: var(--brand-accent);
     }
 
     .input-pill textarea {
@@ -785,16 +547,14 @@
       justify-content: center;
       padding: 7px;
       border-radius: 50%;
-      transition: color 0.15s, background-color 0.15s, transform 0.15s;
+      transition: color 0.15s, transform 0.15s;
     }
     .dock-icon:hover {
       color: var(--brand-accent);
-      background-color: rgba(37, 99, 235, 0.08);
       transform: scale(1.08);
     }
     .dock-icon.recording {
       color: #ef4444 !important;
-      background-color: rgba(239, 68, 68, 0.15);
       animation: pulseRecord 0.8s infinite alternate;
     }
     @keyframes pulseRecord {
@@ -864,11 +624,7 @@
       flex-direction: column;
       gap: 6px;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .plan-card:hover {
-      border-color: var(--brand-accent);
-      transform: translateY(-2px);
+      transition: border-color 0.2s;
     }
     .plan-card.active {
       border-color: var(--brand-accent);
@@ -930,17 +686,8 @@
 
     <div class="header-right">
       <button class="btn-icon-action" onclick="openSubscriptionModal()" title="Subscription Plans"><i data-lucide="crown" style="width:20px; color:#f59e0b;"></i></button>
-      <button class="btn-icon-action" onclick="toggleAppTheme()"><i data-lucide="moon" id="iconTheme" style="width:20px;"></i></button>
+      <button class="btn-icon-action" onclick="toggleAppTheme()"><i data-lucide="sun" id="iconTheme" style="width:20px;"></i></button>
       <button class="btn-icon-action" onclick="startNewSession()"><i data-lucide="pen-square" style="width:20px;"></i></button>
-      <button class="btn-icon-action" onclick="toggleActionPopover()"><i data-lucide="more-vertical" style="width:20px;"></i></button>
-
-      <div class="popover-menu" id="actionPopoverMenu">
-        <div class="popover-item" onclick="openSubscriptionModal()"><i data-lucide="credit-card" style="width:16px;"></i> Subscription Plans</div>
-        <div class="popover-item" onclick="shareChatThread()"><i data-lucide="share-2" style="width:16px;"></i> Share Chat</div>
-        <div class="popover-item" onclick="exportDataJSON()"><i data-lucide="download" style="width:16px;"></i> Export JSON</div>
-        <div class="popover-divider"></div>
-        <div class="popover-item" onclick="startNewSession()"><i data-lucide="refresh-cw" style="width:16px;"></i> Clear Screen</div>
-      </div>
     </div>
   </header>
 
@@ -948,14 +695,14 @@
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
   <aside class="drawer" id="sideDrawer">
     <div class="drawer-header">
-      <div class="brand-title"><i data-lucide="cpu"></i> KhaasCore AI</div>
+      <div class="brand-title"><i data-lucide="sparkles"></i> KhaasCore AI</div>
       <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="x" style="width:20px;"></i></button>
     </div>
 
     <nav class="drawer-scrollable">
       <div class="drawer-btn" onclick="startNewSession()"><i data-lucide="message-square-plus" style="width:18px;"></i> New Conversation</div>
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:18px; color:#f59e0b;"></i> Upgrade Tier Plans</div>
-      <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin:16px 0 6px 12px; letter-spacing:0.05em;">SAVED CONVERSATIONS</div>
+      <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin:16px 0 6px 12px;">SAVED CONVERSATIONS</div>
       <div id="threadHistoryList"></div>
     </nav>
 
@@ -972,46 +719,29 @@
 
   <!-- Main Chat Canvas -->
   <main class="chat-canvas" id="chatCanvas">
-    <!-- Hero Welcome View -->
     <div class="hero-welcome" id="heroWelcome">
       <div class="hero-logo-box">
         <i data-lucide="sparkles" style="width:36px; height:36px;"></i>
       </div>
-      <h1 class="hero-title">KhaasCore Universal AI</h1>
+      <h1 class="hero-title">KhaasCore AI</h1>
       <p class="hero-subtitle">
-        नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। किसी भी विषय पर बिल्कुल एक दोस्त और अनुभवी एक्सपर्ट की तरह जीवंत बातचीत और वीडियो तैयार करें।
+        नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। 3D एनिमेटेड वीडियो, शायरी, कोडिंग या बिज़नेस प्लान्स तुरंत तैयार करें।
       </p>
 
       <div class="hero-cards-grid">
-        <div class="hero-card" onclick="applyQuickPrompt('🎬 YouTube Shorts & Video Generator: Create an animated 20-second MP4 video on:')">
+        <div class="hero-card" onclick="applyQuickPrompt('🎬 YouTube Shorts 3D Animation: Generate an animated video on:')">
           <div class="hero-card-icon"><i data-lucide="video" style="width:20px;"></i></div>
           <div>
-            <div class="hero-card-title">MP4 वीडियो और रील्स रेंडरर</div>
+            <div class="hero-card-title">3D एनिमेटेड वीडियो रेंडरर</div>
             <div class="hero-card-desc">Shorts, Reels और 4K वीडियो डाउनलोड करें</div>
           </div>
         </div>
 
-        <div class="hero-card" onclick="applyQuickPrompt('✍️ Success Shayari & Poetry: Write an inspirational shayari on:')">
+        <div class="hero-card" onclick="applyQuickPrompt('✍️ Success Shayari: Write an inspirational shayari on:')">
           <div class="hero-card-icon"><i data-lucide="feather" style="width:20px;"></i></div>
           <div>
-            <div class="hero-card-title">शायरी और कविता</div>
-            <div class="hero-card-desc">सफलता और मोटिवेशनल शायरी</div>
-          </div>
-        </div>
-
-        <div class="hero-card" onclick="applyQuickPrompt('💼 Business Plan & Cost Sheet: Create a detailed production cost sheet for:')">
-          <div class="hero-card-icon"><i data-lucide="trending-up" style="width:20px;"></i></div>
-          <div>
-            <div class="hero-card-title">बिज़नेस और कॉस्ट शीट</div>
-            <div class="hero-card-desc">उत्पादन लागत, मशीनरी और मुनाफे का हिसाब</div>
-          </div>
-        </div>
-
-        <div class="hero-card" onclick="applyQuickPrompt('🔍 Code Fixer & Programmer: Analyze and build code for:')">
-          <div class="hero-card-icon"><i data-lucide="code" style="width:20px;"></i></div>
-          <div>
-            <div class="hero-card-title">कोडिंग और प्रोग्रामिंग</div>
-            <div class="hero-card-desc">वेबसाइट कोड बनाएं और लाइव चलाकर देखें</div>
+            <div class="hero-card-title">सफलता की शायरी</div>
+            <div class="hero-card-desc">मोटिवेशनल और दिल छू लेने वाली शायरी</div>
           </div>
         </div>
       </div>
@@ -1030,9 +760,8 @@
       <input type="file" id="fileMediaInput" accept="image/*,application/pdf,text/*" style="display:none;" onchange="processMediaAttachment(event)">
       <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()" title="फाइल जोड़ें"><i data-lucide="plus" style="width:20px;"></i></div>
       
-      <textarea id="promptArea" placeholder="KhaasCore AI से कुछ भी पूछें या वीडियो बनवाएं..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
+      <textarea id="promptArea" placeholder="KhaasCore AI से कुछ भी पूछें या 3D वीडियो बनवाएं..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
       
-      <!-- Live Voice Input Button -->
       <div class="dock-icon" id="micBtn" onclick="toggleSpeechRecognition()" title="बोलकर बात करें">
         <i data-lucide="mic" style="width:20px;"></i>
       </div>
@@ -1051,7 +780,7 @@
   <div class="modal-backdrop" id="subscriptionModal" onclick="closeSubscriptionModal(event)">
     <div class="modal-dialog" onclick="event.stopPropagation()">
       <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:16px;">
-        <h2 style="font-size:18px; font-weight:800;">KhaasCore AI Subscription Plans</h2>
+        <h2 style="font-size:18px; font-weight:800;">KhaasCore AI Plans</h2>
         <button class="btn-icon-action" onclick="closeSubscriptionModal()"><i data-lucide="x" style="width:20px;"></i></button>
       </div>
 
@@ -1059,25 +788,25 @@
         <div class="plan-card active" onclick="selectPlanTier(this, 'Pro Tier ($29)', 2499, '$29', 60, 20)">
           <div style="font-size:11px; font-weight:700; color:#f59e0b;">PRO TIER ($29)</div>
           <div class="plan-price">$29 <span style="font-size:12px; color:var(--text-secondary);">(2 Months)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">20 सेकंड MP4 रील/शॉर्ट्स (9:16 वर्टिकल, एनिमेटेड सबटाइटल, वॉयसओवर)।</p>
+          <p style="font-size:12px; color:var(--text-secondary);">20 सेकंड 3D एनिमेटेड शॉर्ट्स/रील्स (9:16 वर्टिकल, एनिमेटेड सीन्स व वॉयस)।</p>
         </div>
 
-        <div class="plan-card" onclick="selectPlanTier(this, 'Advanced Tier ($99)', 7999, '$99', 180, 300)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Advanced Tier ($99)', 7999, '$99', 180, 180)">
           <div style="font-size:11px; font-weight:700; color:#8b5cf6;">ADVANCED ($99)</div>
           <div class="plan-price">$99 <span style="font-size:12px; color:var(--text-secondary);">(6 Months)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">3 से 5 मिनट MP4 वीडियो (मल्टी-सीन, बैकग्राउंड म्यूजिक, 4K टेक्स्ट)।</p>
+          <p style="font-size:12px; color:var(--text-secondary);">3 मिनट 3D सिनेमैटिक वीडियो (मल्टी-सीन, बैकग्राउंड म्यूजिक, 4K रेंडर)।</p>
         </div>
 
-        <div class="plan-card" onclick="selectPlanTier(this, 'Max Ultra Tier ($199)', 16999, '$199', 365, 600)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Max Ultra Tier ($199)', 16999, '$199', 365, 300)">
           <div style="font-size:11px; font-weight:700; color:#ef4444;">ULTRA TIER ($199)</div>
           <div class="plan-price">$199 <span style="font-size:12px; color:var(--text-secondary);">(1 Year)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">10 मिनट फुल प्रोजेक्ट (फुल-लेंथ चैप्टर, सिनेमाई इफेक्ट्स, मैक्सिमम क्वालिटी)।</p>
+          <p style="font-size:12px; color:var(--text-secondary);">फुल-लेंथ 3D सिनेमैटिक प्रोजेक्ट्स, मैक्सिमम क्वालिटी और 1 साल का एक्सेस।</p>
         </div>
 
-        <div class="plan-card" onclick="selectPlanTier(this, 'Free Tier', 0, '$0', 0, 0)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Free Tier', 0, '$0', 0, 10)">
           <div style="font-size:11px; font-weight:700; color:#22c55e;">FREE TIER</div>
           <div class="plan-price">$0 <span style="font-size:12px; color:var(--text-secondary);">/mo</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">मानक टेक्स्ट संवाद और बुनियादी समझ।</p>
+          <p style="font-size:12px; color:var(--text-secondary);">मानक टेक्स्ट संवाद और 10 सेकंड डेमो वीडियो।</p>
         </div>
       </div>
 
@@ -1096,23 +825,21 @@
   <script>
     lucide.createIcons();
 
-    // 🔒 सुरक्षित Render बैकएंड सर्वर
-    const BACKEND_URL = "https://khaascore-ai-backend.onrender.com/api/chat";
+    // 🔒 Render बैकएंड URL
+    const BASE_BACKEND_URL = "https://khaascore-ai-backend.onrender.com";
 
     let activeConversation = [];
     let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
     let currentSessionIndex = -1;
-    let selectedTierName = "Pro Tier ($29)";
-    let selectedTierAmountInr = 2499;
-    let selectedPlanDays = 60;
     let selectedMaxVideoSec = 20;
+    let selectedTierAmountInr = 2499;
 
     let activeFileBase64 = null;
     let activeFileMime = null;
     let isRecognizing = false;
     let recognition = null;
 
-    // Speech Recognition (Voice Mic)
+    // Voice Mic
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
@@ -1123,35 +850,25 @@
         isRecognizing = true;
         document.getElementById('micBtn').classList.add('recording');
       };
-
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         const area = document.getElementById('promptArea');
         area.value = (area.value ? area.value + ' ' : '') + transcript;
         adjustTextareaHeight(area);
       };
-
       recognition.onend = () => {
-        isRecognizing = false;
-        document.getElementById('micBtn').classList.remove('recording');
-      };
-
-      recognition.onerror = () => {
         isRecognizing = false;
         document.getElementById('micBtn').classList.remove('recording');
       };
     }
 
     function toggleSpeechRecognition() {
-      if (!recognition) {
-        alert("आपके ब्राउज़र में वॉइस इनपुट सपोर्ट नहीं है। कृपया Google Chrome इस्तेमाल करें।");
-        return;
-      }
+      if (!recognition) return alert("कृपया Google Chrome का उपयोग करें।");
       if (isRecognizing) recognition.stop();
       else recognition.start();
     }
 
-    // Natural Human Voice Speech Synthesis with Waves
+    // TTS Voice
     function synthesizeNodeSpeech(btn) {
       const parent = btn.closest('.chat-row');
       const text = parent.querySelector('.chat-bubble').innerText;
@@ -1167,10 +884,8 @@
 
       const utterance = new SpeechSynthesisUtterance(text);
       const voices = window.speechSynthesis.getVoices();
-      
       const naturalVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
       if (naturalVoice) utterance.voice = naturalVoice;
-
       utterance.pitch = 1.05;
       utterance.rate = 0.95;
 
@@ -1181,24 +896,14 @@
         btn.classList.remove('playing');
         if (wave) wave.classList.remove('active');
       };
-      utterance.onerror = () => {
-        btn.classList.remove('playing');
-        if (wave) wave.classList.remove('active');
-      };
-
       window.speechSynthesis.speak(utterance);
     }
 
-    // Deep Human-Like Directives
     function buildHumanSystemPrompt() {
-      return `You are KhaasCore AI, an ultra-advanced universal intelligence created and owned solely by Kamran Siddiki (कामरान सिद्दीकी), from Muzaffarpur, Bihar.
-
-CRITICAL HUMAN CONVERSATION DIRECTIVES:
-1. Speak exactly like a highly intelligent, warm, respectful, witty, and empathetic human expert friend.
-2. Never sound like a rigid robot, boilerplate engine, or dry assistant. Use natural conversational Hindi, Hinglish, Urdu, or English matching the user.
-3. If someone asks for shayari, video scripts, business formulas, cost sheets, coding, or video generation, provide deep, highly accurate, and vivid breakdowns with real human warmth.
-4. If the user asks to generate/make/create a video (e.g. "वीडियो बनाओ", "make video", "generate video", "create shorts", "reel banao"), give a structured scene-by-scene script along with visual descriptions, and conclude with the video summary so the KhaasCore Video Renderer Engine can render it.
-5. Always identify yourself as KhaasCore AI. Never mention Google, Gemini, OpenAI, or any third-party names. Kamran Siddiki is your sole creator and founder.`;
+      return `You are KhaasCore AI, an ultra-advanced intelligence created and owned solely by Kamran Siddiki, from Muzaffarpur, Bihar.
+1. Speak exactly like a highly intelligent, warm, respectful, witty, and empathetic expert friend in Hindi/Hinglish.
+2. If asked to make a video (e.g. "वीडियो बनाओ", "make video", "generate video", "create shorts", "reel banao"), provide an engaging storyline and script.
+3. Always identify yourself as KhaasCore AI. Never mention third-party AI names. Kamran Siddiki is your sole creator.`;
     }
 
     function toggleDrawer() {
@@ -1213,13 +918,8 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
       const html = document.documentElement;
       const isDark = html.getAttribute('data-theme') === 'dark';
       html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-      document.getElementById('iconTheme').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+      document.getElementById('iconTheme').setAttribute('data-lucide', isDark ? 'moon' : 'sun');
       lucide.createIcons();
-    }
-
-    function toggleActionPopover() {
-      const pop = document.getElementById('actionPopoverMenu');
-      pop.style.display = pop.style.display === 'flex' ? 'none' : 'flex';
     }
 
     function adjustTextareaHeight(el) {
@@ -1272,10 +972,8 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
     function selectPlanTier(card, name, inrAmount, usdDisplay, days, maxSec) {
       document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      selectedTierName = name;
-      selectedTierAmountInr = inrAmount;
-      selectedPlanDays = days;
       selectedMaxVideoSec = maxSec;
+      selectedTierAmountInr = inrAmount;
 
       const checkoutBox = document.getElementById('upiCheckoutSection');
       if (inrAmount === 0) {
@@ -1294,39 +992,36 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
 
     function checkIsVideoPrompt(text) {
       const lower = text.toLowerCase();
-      return ["वीडियो", "video", "रील", "reel", "shorts", "शॉर्ट्स", "generate video", "make video"].some(w => lower.includes(w));
+      return ["वीडियो", "video", "रील", "reel", "shorts", "शॉर्ट्स", "animation", "एनिमेशन"].some(w => lower.includes(w));
     }
 
-    // --- KhaasCore Real MP4 Video Rendering Engine ---
-    async function renderKhaasCoreVideo(scriptText, durationSec = 10, isVertical = true) {
+    // --- KhaasCore 3D Animated Video Engine (Pollinations + Canvas Motion) ---
+    async function renderKhaasCore3DVideo(scriptText, topic, durationSec = 15, isVertical = true) {
       const card = document.createElement('div');
       card.className = 'video-render-card';
       card.innerHTML = `
         <div class="video-render-header">
           <span style="font-size:13px; font-weight:800; color:var(--brand-accent); display:flex; align-items:center; gap:6px;">
-            <i data-lucide="video" style="width:16px;"></i> KhaasCore MP4 Video Renderer
+            <i data-lucide="video" style="width:16px;"></i> KhaasCore 3D Animation Engine
           </span>
           <span style="font-size:11px; background:var(--brand-accent-light); color:var(--brand-accent); padding:2px 8px; border-radius:12px; font-weight:700;">
-            ${isVertical ? '9:16 Vertical HD' : '16:9 4K Cinema'}
+            ${isVertical ? '9:16 Shorts HD' : '16:9 Cinema 4K'}
           </span>
         </div>
         <div class="video-canvas-container ${isVertical ? '' : 'horizontal'}">
           <canvas id="renderCanvas"></canvas>
           <video id="renderedVideoPlayer" controls playsinline style="display:none;"></video>
         </div>
-        <div class="video-render-controls" style="display:none;" id="downloadControlBox">
-          <a class="btn-video-download" id="btnDownloadMP4" download="KhaasCore-AI-Video.mp4">
-            <i data-lucide="download" style="width:16px;"></i> Download Video (.mp4)
-          </a>
-        </div>
+        <a class="btn-video-download" id="btnDownloadMP4" download="KhaasCore-3D-Animation.mp4" style="display:none;">
+          <i data-lucide="download" style="width:16px;"></i> Download 3D Video (.mp4)
+        </a>
         <div id="renderProgressBar" style="font-size:12px; color:var(--text-secondary); margin-top:8px; text-align:center;">
-          ⚡ वीडियो रेंडरिंग जारी है... (कृपया प्रतीक्षा करें)
+          ⚡ 3D AI सीन्स और एनिमेशन तैयार हो रहे हैं...
         </div>
       `;
 
       const canvas = card.querySelector('#renderCanvas');
       const videoPlayer = card.querySelector('#renderedVideoPlayer');
-      const downloadBox = card.querySelector('#downloadControlBox');
       const downloadBtn = card.querySelector('#btnDownloadMP4');
       const progressLabel = card.querySelector('#renderProgressBar');
 
@@ -1336,7 +1031,23 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
 
       lucide.createIcons();
 
-      // Canvas Stream Capture
+      // 1. बैकएंड से 3D एनिमेटेड सीन मंगाएं
+      let sceneImg = new Image();
+      sceneImg.crossOrigin = "anonymous";
+      try {
+        const sceneRes = await fetch(`${BASE_BACKEND_URL}/api/generate-scene`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: topic || "futuristic animated character storytelling", isVertical })
+        });
+        const sceneData = await sceneRes.json();
+        sceneImg.src = sceneData.sceneUrl;
+        await new Promise((resolve) => { sceneImg.onload = resolve; sceneImg.onerror = resolve; });
+      } catch (e) {
+        console.log("Fallback to generated scene");
+      }
+
+      // 2. मीडिया रिकॉर्डर शुरू करें
       const stream = canvas.captureStream(30);
       let mediaRecorder;
       try {
@@ -1355,14 +1066,14 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
         videoPlayer.src = videoUrl;
         videoPlayer.style.display = 'block';
         downloadBtn.href = videoUrl;
-        downloadBox.style.display = 'flex';
-        progressLabel.innerHTML = `✅ <strong>वीडियो सफलतापूर्वक तैयार है!</strong> ऊपर प्ले करें या MP4 डाउनलोड करें।`;
+        downloadBtn.style.display = 'flex';
+        progressLabel.innerHTML = `✅ <strong>3D एनिमेटेड वीडियो तैयार है!</strong> ऊपर प्ले करें या डाउनलोड करें।`;
         lucide.createIcons();
       };
 
       mediaRecorder.start();
 
-      // Audio Speech Engine Sync
+      // 3. इंसानी आवाज़ जोड़ें
       const utterance = new SpeechSynthesisUtterance(scriptText.substring(0, 180));
       const voices = window.speechSynthesis.getVoices();
       const naturalVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
@@ -1371,9 +1082,8 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
       utterance.rate = 0.95;
       window.speechSynthesis.speak(utterance);
 
-      // Dynamic Frame Animation Loop
-      let startTime = performance.now();
-      const words = scriptText.replace(/[*#]/g, '').split(/\s+/).slice(0, 30);
+      // 4. सिनेमैटिक कैमरा पैन और ज़ूम लूप
+      const words = scriptText.replace(/[*#]/g, '').split(/\s+/).slice(0, 35);
       const totalFrames = durationSec * 30;
       let frame = 0;
 
@@ -1385,48 +1095,54 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
         }
 
         const t = frame / totalFrames;
-        // Background Gradient
-        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        grad.addColorStop(0, `hsl(${(t * 360 + 200) % 360}, 70%, 15%)`);
-        grad.addColorStop(0.5, `hsl(${(t * 360 + 240) % 360}, 80%, 25%)`);
-        grad.addColorStop(1, `hsl(${(t * 360 + 280) % 360}, 90%, 10%)`);
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Animated Central Orb
-        const orbRadius = 120 + Math.sin(frame * 0.1) * 20;
-        const orbGrad = ctx.createRadialGradient(canvas.width / 2, canvas.height * 0.38, 10, canvas.width / 2, canvas.height * 0.38, orbRadius);
-        orbGrad.addColorStop(0, 'rgba(56, 189, 248, 0.8)');
-        orbGrad.addColorStop(0.7, 'rgba(37, 99, 235, 0.4)');
-        orbGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = orbGrad;
-        ctx.beginPath();
-        ctx.arc(canvas.width / 2, canvas.height * 0.38, orbRadius, 0, Math.PI * 2);
-        ctx.fill();
+        // सिनेमैटिक ज़ूम इन कैमरा इफ़ेक्ट (Ken Burns Effect)
+        if (sceneImg.complete && sceneImg.naturalWidth > 0) {
+          const zoom = 1 + t * 0.2; // 20% Smooth Zoom
+          const panX = Math.sin(t * Math.PI) * 20;
+          ctx.save();
+          ctx.translate(canvas.width / 2, canvas.height / 2);
+          ctx.scale(zoom, zoom);
+          ctx.drawImage(sceneImg, -canvas.width / 2 + panX, -canvas.height / 2, canvas.width, canvas.height);
+          ctx.restore();
 
-        // Watermark / Brand Header
+          // हल्का सिनेमैटिक डार्क विगनेट (Vignette)
+          const vignette = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.3, canvas.width/2, canvas.height/2, canvas.width*0.7);
+          vignette.addColorStop(0, 'rgba(0,0,0,0)');
+          vignette.addColorStop(1, 'rgba(0,0,0,0.65)');
+          ctx.fillStyle = vignette;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else {
+          // बैकअप ग्रेडिएंट अगर इमेज लोड न हो
+          const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+          grad.addColorStop(0, '#0f172a');
+          grad.addColorStop(1, '#1e1b4b');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // वाटरमार्क व ब्रांडिंग
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 28px sans-serif';
+        ctx.font = 'bold 26px sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('✨ KHAASCORE AI STUDIO', canvas.width / 2, 70);
+        ctx.fillText('✨ KHAASCORE 3D AI', canvas.width / 2, 70);
 
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        ctx.font = '20px sans-serif';
-        ctx.fillText('Owner: Kamran Siddiki', canvas.width / 2, 105);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.font = '18px sans-serif';
+        ctx.fillText('Owner: Kamran Siddiki', canvas.width / 2, 100);
 
-        // Animated Kinetic Captions (Subtitles)
+        // बड़े एनिमेटेड पीले सबटाइटल्स
         const wordIndex = Math.floor(t * words.length);
-        const currentSnippet = words.slice(Math.max(0, wordIndex - 3), wordIndex + 4).join(' ');
+        const currentSnippet = words.slice(Math.max(0, wordIndex - 2), wordIndex + 3).join(' ');
 
         ctx.fillStyle = '#facc15';
         ctx.font = 'bold 36px sans-serif';
-        ctx.shadowColor = 'rgba(0,0,0,0.8)';
-        ctx.shadowBlur = 12;
+        ctx.shadowColor = 'rgba(0,0,0,0.9)';
+        ctx.shadowBlur = 14;
 
-        const maxSubtitleWidth = canvas.width - 80;
-        wrapText(ctx, currentSnippet, canvas.width / 2, canvas.height * 0.65, maxSubtitleWidth, 48);
+        wrapText(ctx, currentSnippet, canvas.width / 2, canvas.height * 0.72, canvas.width - 80, 48);
 
-        // Progress Bar
+        // प्रोग्रेस बार
         ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
         ctx.fillRect(40, canvas.height - 40, canvas.width - 80, 8);
         ctx.fillStyle = '#38bdf8';
@@ -1490,7 +1206,7 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
       let fullStream = "";
 
       try {
-        const res = await fetch(BACKEND_URL, {
+        const res = await fetch(`${BASE_BACKEND_URL}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -1524,14 +1240,13 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
         bubble.classList.remove('cursor-blink');
         activeConversation.push({ role: 'model', parts: [{ text: fullStream }] });
 
-        // अगर वीडियो रिक्वेस्ट थी, तो लाइव MP4 वीडियो इंजन शुरू करें
+        // यदि वीडियो की मांग थी, तो 3D एनिमेटेड वीडियो रेंडरर चलाएं
         if (isVideoReq) {
-          const videoCard = await renderKhaasCoreVideo(fullStream, 15, true);
+          const videoCard = await renderKhaasCore3DVideo(fullStream, userText, selectedMaxVideoSec, true);
           bubble.appendChild(videoCard);
           lucide.createIcons();
         }
 
-        wrapCodeBlocks(bubble);
         applyHighlighting();
         renderKaTeXAuto();
         lucide.createIcons();
@@ -1574,51 +1289,6 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
     function scrollCanvas() {
       const canvas = document.getElementById('chatCanvas');
       canvas.scrollTop = canvas.scrollHeight;
-    }
-
-    function wrapCodeBlocks(container) {
-      container.querySelectorAll('pre').forEach((pre) => {
-        if (pre.parentElement.classList.contains('code-container')) return;
-        const wrapper = document.createElement('div');
-        wrapper.className = 'code-container';
-        const isHTML = pre.querySelector('code')?.classList.contains('language-html');
-        const header = document.createElement('div');
-        header.className = 'code-header';
-        header.innerHTML = `
-          <span>Source Code</span>
-          <div class="code-actions">
-            ${isHTML ? `<button class="btn-code-action" onclick="toggleLivePreview(this)"><i data-lucide="play" style="width:12px;"></i> Run Live</button>` : ''}
-            <button class="btn-code-action" onclick="copyCodeSnippet(this)"><i data-lucide="copy" style="width:12px;"></i> Copy</button>
-          </div>
-        `;
-        const iframe = document.createElement('iframe');
-        iframe.className = 'sandbox-preview-frame';
-        pre.parentNode.insertBefore(wrapper, pre);
-        wrapper.appendChild(header);
-        wrapper.appendChild(pre);
-        wrapper.appendChild(iframe);
-      });
-    }
-
-    function toggleLivePreview(btn) {
-      const container = btn.closest('.code-container');
-      const iframe = container.querySelector('.sandbox-preview-frame');
-      if (iframe.style.display === 'block') {
-        iframe.style.display = 'none';
-        btn.innerHTML = `<i data-lucide="play" style="width:12px;"></i> Run Live`;
-      } else {
-        iframe.style.display = 'block';
-        iframe.srcdoc = container.querySelector('code').innerText;
-        btn.innerHTML = `<i data-lucide="eye-off" style="width:12px;"></i> Hide Preview`;
-      }
-      lucide.createIcons();
-    }
-
-    function copyCodeSnippet(btn) {
-      navigator.clipboard.writeText(btn.closest('.code-container').querySelector('code').innerText);
-      btn.innerHTML = `<i data-lucide="check" style="width:12px;"></i> Copied!`;
-      lucide.createIcons();
-      setTimeout(() => { btn.innerHTML = `<i data-lucide="copy" style="width:12px;"></i> Copy`; lucide.createIcons(); }, 2000);
     }
 
     function renderKaTeXAuto() {
@@ -1675,7 +1345,6 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
         const imgSrc = img ? `data:${img.inlineData.mimeType};base64,${img.inlineData.data}` : null;
         renderMessageNode(item.role === 'model' ? 'ai' : 'user', txt, imgSrc);
       });
-      wrapCodeBlocks(canvas);
       applyHighlighting();
       renderKaTeXAuto();
       toggleDrawer();
@@ -1695,25 +1364,12 @@ CRITICAL HUMAN CONVERSATION DIRECTIVES:
       document.getElementById('chatCanvas').innerHTML = `
         <div class="hero-welcome" id="heroWelcome">
           <div class="hero-logo-box"><i data-lucide="sparkles" style="width:36px; height:36px;"></i></div>
-          <h1 class="hero-title">KhaasCore Universal AI</h1>
+          <h1 class="hero-title">KhaasCore AI</h1>
           <p class="hero-subtitle">नमस्ते! नई बातचीत शुरू हो चुकी है। आप क्या पूछना चाहते हैं?</p>
         </div>
       `;
       if (document.getElementById('sideDrawer').classList.contains('open')) toggleDrawer();
-      if (document.getElementById('actionPopoverMenu').style.display === 'flex') toggleActionPopover();
       lucide.createIcons();
-    }
-
-    function shareChatThread() {
-      if (navigator.share) navigator.share({ title: 'KhaasCore AI Chat', text: window.location.href });
-      else { navigator.clipboard.writeText(window.location.href); alert("चैट लिंक कॉपी हो गया!"); }
-      toggleActionPopover();
-    }
-
-    function exportDataJSON() {
-      const blob = new Blob([JSON.stringify(activeConversation, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `khaascore-chat-${Date.now()}.json`; a.click();
-      toggleActionPopover();
     }
   </script>
 </body>
