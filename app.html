@@ -708,8 +708,8 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 throw new Error("कृपया पहले ऊपर API Key बटन दबाकर अपनी Gemini Key सेव करें!");
             }
             
-            // सीधे आपके Render बैकएंड सर्वर को हिट करेगा (404 एरर खत्म)
-            const backendBaseUrl = "https://khaascore-ai-backend-1.onrender.com";
+            // बिल्कुल सही Render बैकएंड URL (बिना किसी फालतू -1 के)
+            const backendBaseUrl = "https://khaascore-ai-backend.onrender.com";
             const endpoint = `${backendBaseUrl}/api/chat`;
 
             const res = await fetch(endpoint, {
