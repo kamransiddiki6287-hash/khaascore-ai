@@ -130,7 +130,7 @@
         </div>
     </header>
     <!-- Main Workspace -->
-    <main class="max-w-7xl mx-auto px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mb-16
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mb-16">
         <!-- Left: Contract Input -->
         <section class="lg:col-span-5 flex flex-col gap-4">
             <div class="bg-frontier-card/90 border border-frontier-border/80 rounded-3xl p-4 shadow-xl space-y-3">
@@ -570,15 +570,12 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             showToast('PDF Exported successfully!', 'success');
         };
 
-        // 100% Fail-Safe Voice Engine (WebSpeech + Native Fallback)
         let isProcessingRequest = false;
         let micTimeoutTimer = null;
 
         window.speakDirect = function(textToSpeak) {
             const cleanText = textToSpeak.replace(/[*_#`~>]/g, '').trim();
             if (!cleanText) return;
-
-            // Stop ongoing mic before speaking
             stopMicImmediate();
 
             if (window.responsiveVoice) {
@@ -634,7 +631,6 @@ ARTICLE 2: RESTRICTIVE COVENANTS
                 micBtn.classList.add('bg-frontier-rose', 'text-slate-950', 'voice-active');
                 voiceStatus.classList.remove('hidden');
 
-                // Auto stop mic after 3.5 seconds to prevent OS audio block
                 clearTimeout(micTimeoutTimer);
                 micTimeoutTimer = setTimeout(() => {
                     if (isRecording) stopMicImmediate();
@@ -669,22 +665,16 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             if ('speechSynthesis' in window) {
                 try { window.speechSynthesis.cancel(); } catch(e) {}
             }
-
             if (!recognition) {
                 showToast('Use keyboard mic on this mobile browser.', 'info');
                 return;
             }
-
             if (isRecording) {
                 stopMicImmediate();
             } else {
                 if (isProcessingRequest) return;
                 recognition.lang = voiceLangSelector.value || 'hi-IN';
-                try {
-                    recognition.start();
-                } catch (e) {
-                    stopMicImmediate();
-                }
+                try { recognition.start(); } catch (e) { stopMicImmediate(); }
             }
         };
 
@@ -707,30 +697,47 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             document.getElementById('chatForm').dispatchEvent(new Event('submit'));
         };
 
-        async function executeGeminiAPI(apiKey, payloadText) {
-            const models = ['gemini-3.6-flash', 'gemini-3.1-pro'];
-            let lastError = '';
+        // --- DUAL GEMINI MODELS (PRO & FLASH) & RENDER BACKEND API ---
+        const AI_MODELS = {
+            flash: "gemini-2.5-flash", 
+            pro: "gemini-1.5-pro"       
+        };
 
-            for (const model of models) {
-                try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-                    const res = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ role: 'user', parts: [{ text: payloadText }] }]
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                        return data.candidates[0].content.parts[0].text;
-                    }
-                    if (data.error) lastError = data.error.message;
-                } catch (e) {
-                    lastError = e.message;
-                }
+        async function executeGeminiAPI(apiKey, promptPayload, isHeavyAudit = false) {
+            if (!apiKey) {
+                throw new Error("कृपया पहले ऊपर API Key बटन दबाकर अपनी Gemini Key सेव करें!");
             }
-            throw new Error(lastError || 'API Execution Error');
+            
+            // सीधे आपके Render बैकएंड सर्वर को हिट करेगा (404 एरर खत्म)
+            const backendBaseUrl = "https://khaascore-ai-backend-1.onrender.com";
+            const endpoint = `${backendBaseUrl}/api/chat`;
+
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    modelName: isHeavyAudit ? AI_MODELS.pro : AI_MODELS.flash,
+                    contents: promptPayload,
+                    systemInstruction: "You are KhaasCore Frontier Legal AI. Reply in Hindi/English with direct, short points."
+                })
+            });
+
+            if (!res.ok) {
+                const errText = await res.text();
+                throw new Error(errText || "Render Server Error");
+            }
+
+            const reader = res.body.getReader();
+            const decoder = new TextDecoder();
+            let fullResult = "";
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                fullResult += decoder.decode(value, { stream: true });
+            }
+
+            return fullResult;
         }
 
         document.getElementById('chatForm').addEventListener('submit', async (e) => {
@@ -756,12 +763,9 @@ ARTICLE 2: RESTRICTIVE COVENANTS
             const botMsgId = appendChat('⏳ AI Thinking...', 'bot');
             const botMsgDiv = document.getElementById(botMsgId);
 
-            const promptPayload = `You are KhaasCore Frontier Legal AI.
-Contract Context:
-${contractContext}
-User Question: ${msg}
-Reply in Hindi/English with direct, short points (max 2 sentences).`;
-        try {
+            const promptPayload = `Contract Context:\n${contractContext}\nUser Question: ${msg}`;
+
+            try {
                 const responseText = await executeGeminiAPI(geminiKey, promptPayload);
                 botMsgDiv.innerHTML = '';
                 const textSpan = document.createElement('span');
@@ -789,28 +793,8 @@ Reply in Hindi/English with direct, short points (max 2 sentences).`;
                 botMsgDiv.textContent = `⚠️ Error: ${err.message}`;
             }
         });
-        // --- DUAL GEMINI MODELS (PRO & FLASH) ---
-const AI_MODELS = {
-  flash: "gemini-1.5-flash", // तेज़ वॉयस और चैट के लिए
-  pro: "gemini-1.5-pro"       // डीप लीगल ऑडिट के लिए
-};
-async function executeGeminiAPI(apiKey, promptPayload, isHeavyAudit = false) {
-  if (!apiKey) {
-    throw new Error("कृपया पहले ऊपर API Key बटन दबाकर अपनी Gemini Key सेव करें!");
-  }
-  const selectedModel = isHeavyAudit ? AI_MODELS.pro : AI_MODELS.flash;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${apiKey}`;
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(promptPayload)
-  });
-  const data = await response.json();
-  if (data.error) throw new Error(data.error.message);
-  return data.candidates[0].content.parts[0].text;
-}
-function appendChat(text, sender) {
+        function appendChat(text, sender) {
             const box = document.getElementById('chatMessages');
             const div = document.createElement('div');
             const id = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
@@ -823,6 +807,7 @@ function appendChat(text, sender) {
             box.scrollTop = box.scrollHeight;
             return id;
         }
+
         document.getElementById('openConfigModal').onclick = () => {
             document.getElementById('geminiApiKey').value = localStorage.getItem('khaas_gemini_key') || '';
             document.getElementById('configModal').classList.remove('hidden');
@@ -842,6 +827,7 @@ function appendChat(text, sender) {
             document.getElementById('panelAudit').innerHTML = ''; 
             showToast('Editor cleared.', 'info');
         };
+
         document.getElementById('fileUploader').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -862,80 +848,6 @@ function appendChat(text, sender) {
                 reader.readAsText(file);
             }
         });
-          // --- VOICE SPEECH RECOGNITION (HINDI & MOBILE FIX) ---
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (SpeechRecognition) {
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = true;
-
-    function getVoiceLang() {
-      const el = document.getElementById('voiceLangSelector');
-      return el ? el.value : 'hi-IN';
-    }
-    window.toggleVoiceRecognition = function() {
-      try {
-        recognition.lang = getVoiceLang();
-        recognition.start();
-      } catch (e) {
-        try { recognition.stop(); } catch(err) {}
-      }
-    };
-    const micBtn = document.getElementById('micBtn') || document.querySelector('[onclick*="toggleVoice"]');
-    if (micBtn) {
-      micBtn.onclick = window.toggleVoiceRecognition;
-    }
-    recognition.onstart = () => {
-      const status = document.getElementById('recordingStatus');
-      if (status) status.classList.remove('hidden');
-      if (micBtn) micBtn.classList.add('voice-active');
-    };
-    recognition.onresult = (event) => {
-      let text = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        text += event.results[i][0].transcript;
-      }
-      const input = document.getElementById('textQueryInput') || document.getElementById('userVoiceInput');
-      if (input) input.value = text;
-    };
-    recognition.onerror = (event) => {
-      console.warn("Speech Error:", event.error);
-      if (micBtn) micBtn.classList.remove('voice-active');
-      const status = document.getElementById('recordingStatus');
-      if (status) status.classList.add('hidden');
-    };
-    recognition.onend = () => {
-      if (micBtn) micBtn.classList.remove('voice-active');
-      const status = document.getElementById('recordingStatus');
-      if (status) status.classList.add('hidden');
-
-      const input = document.getElementById('textQueryInput') || document.getElementById('userVoiceInput');
-      if (input && input.value.trim() !== '') {
-        const query = input.value.trim();
-        if (typeof appendChat === 'function') {
-          appendChat(query, 'user');
-        }
-        if (typeof executeAiQuery === 'function') {
-          executeAiQuery(query);
-        } else if (typeof sendVoiceMessage === 'function') {
-          sendVoiceMessage();
-        }
-      }
-    };
-  }
-  // Universal Voice AI फ्लोटिंग बटन इवेंट
-  document.addEventListener("DOMContentLoaded", () => {
-    const allBtns = document.querySelectorAll('button');
-    allBtns.forEach(btn => {
-      if (btn.innerText.includes('Universal Voice AI')) {
-        btn.onclick = () => {
-          if (window.toggleVoiceRecognition) {
-            window.toggleVoiceRecognition();
-          }
-        };
-      }
-    });
-  });
-</script>
+    </script>
 </body>
 </html>
