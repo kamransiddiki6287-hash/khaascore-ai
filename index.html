@@ -71,12 +71,11 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-y: auto; /* उंगली से आसानी से ऊपर-नीचे खींचने/स्क्रॉल करने के लिए */
+      overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Top App Header */
     .app-header {
       height: 60px;
       padding: 0 18px;
@@ -132,7 +131,6 @@
       border-color: var(--brand-accent);
     }
 
-    /* Side Drawer */
     .drawer-overlay {
       position: fixed;
       inset: 0;
@@ -245,7 +243,6 @@
       font-size: 14px;
     }
 
-    /* Main Chat Canvas */
     .chat-canvas {
       flex: 1;
       overflow-y: visible;
@@ -258,7 +255,6 @@
       margin: 0 auto;
     }
 
-    /* Hero Screen */
     .hero-welcome {
       display: flex;
       flex-direction: column;
@@ -349,7 +345,6 @@
       flex-shrink: 0;
     }
 
-    /* Message Rows */
     .chat-row {
       display: flex;
       flex-direction: column;
@@ -360,7 +355,7 @@
     .chat-bubble {
       position: relative;
       line-height: 1.75;
-      font-size: 16px; /* पढ़ने में आसान और साफ अक्षर */
+      font-size: 16px;
       word-break: break-word;
       color: var(--text-primary);
     }
@@ -381,7 +376,6 @@
       width: 100%;
     }
 
-    /* Audio Waves & TTS Voice Button */
     .audio-playback-bar {
       display: flex;
       align-items: center;
@@ -435,7 +429,6 @@
       to { transform: scaleY(1); }
     }
 
-    /* 3D Animated Video Engine Card */
     .video-render-card {
       background: var(--bg-card);
       border: 1.5px solid var(--brand-accent);
@@ -488,7 +481,6 @@
       margin-top: 12px;
     }
 
-    /* Input Dock - टाइपिंग बॉक्स अब बिल्कुल साफ, बड़ा और स्पष्ट दिखेगा */
     .input-dock {
       position: fixed;
       bottom: 0;
@@ -531,13 +523,12 @@
       border-color: var(--brand-accent);
     }
 
-    /* टाइपिंग टेक्स्ट एरिया में अक्षर बड़े और स्पष्ट दिखेंगे, और बिल्कुल नहीं ढकेंगे */
     .input-pill textarea {
       flex: 1;
       border: none;
       background: transparent;
       outline: none;
-      font-size: 16px; /* बड़े और साफ अक्षर */
+      font-size: 16px;
       font-weight: 500;
       color: var(--text-primary);
       resize: none;
@@ -596,7 +587,6 @@
       color: var(--brand-accent);
     }
 
-    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -837,8 +827,8 @@
   <script>
     lucide.createIcons();
 
-    // 🔒 Render बैकएंड URL
-    const BASE_BACKEND_URL = "https://khaascore-ai-backend.onrender.com";
+    // 🔒 आपकी सीधे जोड़ी गई API Key
+    const GEMINI_API_KEY = "AQ.Ab8RN6Ieyk4oQWxD189wtrbcibdaB_xQfuJxZOQqJhXEfITvWw";
 
     let activeConversation = [];
     let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
@@ -851,7 +841,6 @@
     let isRecognizing = false;
     let recognition = null;
 
-    // Voice Mic
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
@@ -880,7 +869,6 @@
       else recognition.start();
     }
 
-    // TTS Voice
     function synthesizeNodeSpeech(btn) {
       const parent = btn.closest('.chat-row');
       const text = parent.querySelector('.chat-bubble').innerText;
@@ -1007,7 +995,6 @@
       return ["वीडियो", "video", "रील", "reel", "shorts", "शॉर्ट्स", "animation", "एनिमेशन"].some(w => lower.includes(w));
     }
 
-    // --- KhaasCore 3D Animated Video Engine ---
     async function renderKhaasCore3DVideo(scriptText, topic, durationSec = 15, isVertical = true) {
       const card = document.createElement('div');
       card.className = 'video-render-card';
@@ -1046,17 +1033,10 @@
       let sceneImg = new Image();
       sceneImg.crossOrigin = "anonymous";
       try {
-        const sceneRes = await fetch(`${BASE_BACKEND_URL}/api/generate-scene`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: topic || "futuristic animated character storytelling", isVertical })
-        });
-        const sceneData = await sceneRes.json();
-        sceneImg.src = sceneData.sceneUrl;
+        const enhancedPrompt = encodeURIComponent(`${topic || "futuristic animated character storytelling"} 3d render cinematic lighting pixar style unreal engine 5 master`);
+        sceneImg.src = `https://image.pollinations.ai/prompt/${enhancedPrompt}?width=${canvas.width}&height=${canvas.height}&nologo=true`;
         await new Promise((resolve) => { sceneImg.onload = resolve; sceneImg.onerror = resolve; });
-      } catch (e) {
-        console.log("Fallback to generated scene");
-      }
+      } catch (e) {}
 
       const stream = canvas.captureStream(30);
       let mediaRecorder;
@@ -1208,18 +1188,24 @@
       let fullStream = "";
 
       try {
-        const res = await fetch(`${BASE_BACKEND_URL}/api/chat`, {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+        
+        const payload = {
+          contents: activeConversation,
+          systemInstruction: { parts: [{ text: sysPrompt }] },
+          generationConfig: { temperature: 0.75, maxOutputTokens: 3000 }
+        };
+
+        const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            modelName: 'gemini-2.5-flash',
-            systemInstruction: { parts: [{ text: sysPrompt }] }, 
-            contents: activeConversation,
-            generationConfig: { temperature: 0.75, maxOutputTokens: 3000 }
-          })
+          body: JSON.stringify(payload)
         });
 
-        if (!res.ok) throw new Error(`सर्वर से त्रुटि प्राप्त हुई (${res.status})`);
+        if (!res.ok) {
+          const errBody = await res.text();
+          throw new Error(`API त्रुटि (${res.status}): ${errBody}`);
+        }
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder('utf-8');
@@ -1254,7 +1240,7 @@
         autoSaveSession(userText);
       } catch (err) {
         bubble.classList.remove('cursor-blink');
-        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:600;">त्रुटि: ${err.message}। कृपया सुनिश्चित करें कि Render बैकएंड लाइव है।</span>`;
+        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:600;">त्रुटि: ${err.message}।</span>`;
       } finally {
         scrollCanvas();
       }
@@ -1374,4 +1360,3 @@
   </script>
 </body>
 </html>
-
