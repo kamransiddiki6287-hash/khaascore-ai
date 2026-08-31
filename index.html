@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus Ultra AI - Multi-Modal Intelligent System</title>
+  <title>OmniDraft Pro - US/UK Deep Legal & Business AI</title>
   
-  <!-- Markdown & Code Highlighting CDNs -->
+  <!-- CDNs for Markdown, Highlighting & Icons -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
       --bg: #090d16;
-      --sidebar: #0f172a;
-      --card: #131d33;
-      --chat-user: #1e3a8a;
-      --chat-ai: #17233f;
+      --card: #111a2e;
+      --user-msg: #1e3a8a;
+      --ai-msg: #17233f;
       --accent: #38bdf8;
+      --gold: #f59e0b;
       --text: #f8fafc;
       --text-muted: #94a3b8;
       --border: #1e293b;
@@ -31,139 +30,108 @@
       background: var(--bg);
       color: var(--text);
       display: flex;
+      justify-content: center;
       height: 100vh;
       overflow: hidden;
     }
 
-    /* Sidebar */
-    .sidebar {
-      width: 260px;
-      background: var(--sidebar);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      padding: 16px;
-      gap: 12px;
-      transition: all 0.3s ease;
-    }
-    .brand {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .btn {
-      background: var(--border);
-      color: var(--text);
-      border: 1px solid #334155;
-      padding: 10px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: 0.2s;
-    }
-    .btn:hover { background: #334155; }
-    .btn-primary { background: var(--accent); color: #090d16; font-weight: 600; border: none; }
-    .btn-primary:hover { opacity: 0.9; }
-
-    /* Main Container */
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+    .app-container {
+      width: 100%;
+      max-width: 950px;
       height: 100vh;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
     }
 
     /* Top Bar */
     .topbar {
-      height: 60px;
+      padding: 12px 16px;
+      background: #0f172a;
       border-bottom: 1px solid var(--border);
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
-      background: var(--sidebar);
-    }
-    .controls {
-      display: flex;
-      gap: 10px;
       align-items: center;
     }
-    select, input[type="password"] {
-      background: #060911;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 13px;
+    .brand {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-badge {
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+      border: 1px solid #22c55e;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
     }
 
+    /* 1-Click Viral US Templates */
+    .quick-chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 16px;
+      background: #0a0f1d;
+      border-bottom: 1px solid var(--border);
+      scrollbar-width: none;
+    }
+    .quick-chips::-webkit-scrollbar { display: none; }
+    .chip {
+      background: #1e293b;
+      color: #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .chip:hover { background: var(--accent); color: #090d16; font-weight: 600; }
+
     /* Chat Area */
-    .chat-container {
+    .chat-box {
       flex: 1;
       overflow-y: auto;
-      padding: 24px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
     .message {
-      max-width: 82%;
-      padding: 16px 20px;
+      max-width: 92%;
+      padding: 14px 18px;
       border-radius: 12px;
-      line-height: 1.65;
+      line-height: 1.7;
       font-size: 15px;
       word-break: break-word;
-      position: relative;
     }
     .message.user {
       align-self: flex-end;
-      background: var(--chat-user);
+      background: var(--user-msg);
       border-bottom-right-radius: 2px;
     }
     .message.ai {
       align-self: flex-start;
-      background: var(--chat-ai);
+      background: var(--ai-msg);
       border: 1px solid var(--border);
       border-bottom-left-radius: 2px;
       width: 100%;
-      max-width: 88%;
-    }
-    .message img.preview {
-      max-width: 250px;
-      max-height: 200px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      display: block;
-      border: 1px solid var(--border);
+      max-width: 98%;
     }
 
-    /* Action bar inside AI responses */
-    .msg-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 12px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .msg-actions span {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .msg-actions span:hover { color: var(--accent); }
-
-    /* Markdown Styling */
+    /* Output Styling */
     .message.ai pre {
       background: #060911;
       border: 1px solid #1e293b;
@@ -171,431 +139,269 @@
       padding: 12px;
       margin: 12px 0;
       overflow-x: auto;
-      position: relative;
     }
     .message.ai code { font-family: monospace; font-size: 14px; }
     .message.ai table {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0;
+      margin: 14px 0;
     }
     .message.ai th, .message.ai td {
       border: 1px solid var(--border);
       padding: 8px 12px;
       text-align: left;
     }
-    .message.ai th { background: #0b1329; }
+    .message.ai th { background: #0b1329; color: var(--accent); }
+    .message.ai ul, .message.ai ol { margin-left: 20px; margin-top: 8px; }
+    .message.ai li { margin-bottom: 6px; }
 
-    /* Input Footer */
-    .footer {
-      padding: 16px 20px;
-      background: var(--sidebar);
-      border-top: 1px solid var(--border);
+    /* Monetization / High-CPC Affiliate Cards */
+    .monetize-card {
+      background: #090e1c;
+      border: 1px solid #3b82f6;
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+    .monetize-head {
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--gold);
+      margin-bottom: 10px;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .offers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
-    .input-wrapper {
+    .offer-item {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .offer-item:hover { border-color: var(--accent); }
+    .offer-tag {
+      font-size: 10px;
+      background: var(--gold);
+      color: #000;
+      font-weight: bold;
+      padding: 3px;
+      border-radius: 4px;
+    }
+
+    /* Tip / Support Bar */
+    .support-bar {
+      background: #111a2e;
+      border-top: 1px solid var(--border);
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .btn-tip {
+      background: #22c55e;
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 11px;
+    }
+
+    /* Footer Input */
+    .footer {
+      padding: 12px 16px;
+      background: #0f172a;
+      border-top: 1px solid var(--border);
       display: flex;
       gap: 10px;
-      align-items: flex-end;
-      background: #060911;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px 12px;
+      align-items: center;
     }
     textarea {
       flex: 1;
-      background: transparent;
-      border: none;
+      background: #060911;
+      border: 1px solid var(--border);
       color: var(--text);
       font-size: 15px;
-      font-family: inherit;
+      border-radius: 8px;
+      padding: 10px 12px;
       resize: none;
       height: 48px;
       outline: none;
-      padding: 8px 0;
+      font-family: inherit;
     }
-    .icon-btn {
-      background: transparent;
+    .btn-send {
+      background: var(--accent);
+      color: #090d16;
       border: none;
-      color: var(--text-muted);
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
       cursor: pointer;
-      padding: 6px;
-      border-radius: 6px;
       display: flex;
       align-items: center;
-      transition: 0.2s;
+      justify-content: center;
     }
-    .icon-btn:hover { color: var(--accent); background: rgba(56, 189, 248, 0.1); }
-    .icon-btn.active { color: #ef4444; }
-
-    #filePreviewContainer {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      background: #111a2e;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      width: fit-content;
-    }
+    .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="brand"><i data-lucide="sparkles"></i> Nexus Ultra AI</div>
-    <button class="btn btn-primary" onclick="startNewChat()"><i data-lucide="plus"></i> New Chat</button>
-    <button class="btn" onclick="exportChat()"><i data-lucide="download"></i> Export Chat</button>
-    <button class="btn" onclick="clearAllData()"><i data-lucide="trash-2"></i> Clear History</button>
+<div class="app-container">
+  <!-- Header -->
+  <div class="topbar">
+    <div class="brand"><i data-lucide="sparkles"></i> OmniDraft AI <span style="font-size:11px; color:var(--text-muted); font-weight:400;">(US/UK Deep Engine)</span></div>
+    <div class="status-badge">● Engine Connected</div>
   </div>
 
-  <!-- Main Chat -->
-  <div class="main">
-    <div class="topbar">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <input type="password" id="apiKey" placeholder="Gemini API Key (AIzaSy...)" style="width: 240px;" />
-        <button class="btn" onclick="saveApiKey()" style="padding: 6px 12px; font-size: 12px;">Save Key</button>
-      </div>
+  <!-- 1-Click High-Value Drafting Templates -->
+  <div class="quick-chips">
+    <div class="chip" onclick="quickPrompt('Draft an exhaustive, court-admissible Non-Disclosure Agreement (NDA) compliant with US/Delaware corporate law.')">📜 US NDA Contract</div>
+    <div class="chip" onclick="quickPrompt('Write an exhaustive 5,000-word Investor-Ready Business Plan with executive summary, market analysis, and 5-year financials.')">💼 5,000W Business Plan</div>
+    <div class="chip" onclick="quickPrompt('Draft a full Independent Contractor / Freelance Agreement compliant with US & UK standards.')">⚖️ Contractor Agreement</div>
+    <div class="chip" onclick="quickPrompt('Write a 3,000-word high-ranking SEO affiliate pillar post on the Best AI Tools for US Businesses in 2026.')">🚀 SEO Affiliate Post</div>
+  </div>
 
-      <div class="controls">
-        <label style="font-size: 12px; color: var(--text-muted);">Mode:</label>
-        <select id="modeSelect">
-          <option value="adaptive">🎯 Adaptive (सटीक व विस्तृत)</option>
-          <option value="deep">📚 10,000-Word Exhaustive (गहरा विश्लेषण)</option>
-          <option value="concise">⚡ Concise (संक्षिप्त व बिंदुवार)</option>
-          <option value="code">💻 Software Architect (कोडिंग मोड)</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="chat-container" id="chatBox">
-      <div class="message ai">
-        नमस्ते! मैं आपका संपूर्ण मल्टीमॉडल AI साथी हूँ। आप मुझे तस्वीरें दिखा सकते हैं, वॉइस से बात कर सकते हैं, या जितना विस्तृत चाहें उतना लंबा व सटीक विश्लेषण प्राप्त कर सकते हैं।
-      </div>
-    </div>
-
-    <!-- Footer Input -->
-    <div class="footer">
-      <div id="filePreviewContainer">
-        <span id="fileName">file.png</span>
-        <i data-lucide="x" style="cursor:pointer; width:14px;" onclick="removeFile()"></i>
-      </div>
-
-      <div class="input-wrapper">
-        <input type="file" id="fileInput" accept="image/*,application/pdf" style="display: none;" onchange="handleFileUpload(event)">
-        <button class="icon-btn" title="Upload Image / Document" onclick="document.getElementById('fileInput').click()">
-          <i data-lucide="paperclip"></i>
-        </button>
-
-        <textarea id="userInput" placeholder="अपना सवाल पूछें या निर्देश दें..." onkeydown="handleKeyDown(event)"></textarea>
-
-        <button class="icon-btn" id="micBtn" title="Speak" onclick="toggleSpeechRecognition()">
-          <i data-lucide="mic"></i>
-        </button>
-
-        <button class="btn btn-primary" id="sendBtn" onclick="submitMessage()" style="padding: 8px 16px;">
-          <i data-lucide="send"></i>
-        </button>
-      </div>
+  <!-- Chat History Area -->
+  <div class="chat-box" id="chatBox">
+    <div class="message ai">
+      Welcome to <strong>OmniDraft Pro</strong>. Powered by the Gemini 1.5 Pro Deep Engine. Select a 1-click legal/business template above or enter your instructions below for exhaustive, clause-by-clause documents.
     </div>
   </div>
 
-  <script>
-    lucide.createIcons();
+  <!-- Support Bar (Donations in USD) -->
+  <div class="support-bar">
+    <span>💡 100% Free Deep AI Tool — Support Our Infrastructure</span>
+    <a href="https://paypal.me" target="_blank" class="btn-tip">☕ Tip $5 via PayPal</a>
+  </div>
 
-    let chatHistory = [];
-    let currentUploadedBase64 = null;
-    let currentMimeType = null;
-    let recognition = null;
-    let isListening = false;
+  <!-- Input Area -->
+  <div class="footer">
+    <textarea id="userInput" placeholder="Ask anything or request a deep 5,000+ word draft..." onkeydown="handleKeyDown(event)"></textarea>
+    <button class="btn-send" id="sendBtn" onclick="submitMessage()">
+      <i data-lucide="send"></i>
+    </button>
+  </div>
+</div>
 
-    window.onload = () => {
-      const savedKey = localStorage.getItem('gemini_api_key');
-      if (savedKey) document.getElementById('apiKey').value = savedKey;
+<script>
+  lucide.createIcons();
+  let chatHistory = [];
 
-      const savedHistory = localStorage.getItem('gemini_chat_history');
-      if (savedHistory) {
-        chatHistory = JSON.parse(savedHistory);
-        renderHistory();
+  // आपकी लाइव API Key एम्बेड कर दी गई है
+  const EMBEDDED_API_KEY = "AQ.Ab8RN6IZUv--A4TiGJisbTsOxlzatzOwr1eStxTXwDDa64Uv8g";
+
+  const SYSTEM_INSTRUCTION = `You are OmniDraft Pro, an elite US/UK corporate attorney, business strategist, and academic researcher.
+1. When asked to draft contracts, legal agreements, business plans, or articles, deliver exhaustive, full-length, clause-by-clause, and highly detailed documents (up to 8,000-10,000 words).
+2. Never summarize, truncate, or cut corners. Use proper markdown headers, tables, bullet points, and definitions.
+3. Ensure the tone is strictly professional, analytical, and authoritative.`;
+
+  // High CPC Monetization Banner
+  const AFFILIATE_HTML = `
+    <div class="monetize-card">
+      <div class="monetize-head"><i data-lucide="zap" style="width:14px;"></i> Essential Recommended Business Tools (Exclusive Partner Deals):</div>
+      <div class="offers-grid">
+        <a href="https://www.legalzoom.com" target="_blank" class="offer-item">
+          <strong>🏢 Incorporate US LLC</strong>
+          <span style="font-size:11px; color:var(--text-muted);">Form your official US Company ($0 + State Fee)</span>
+          <span class="offer-tag">Start LLC Now</span>
+        </a>
+        <a href="https://www.bluehost.com" target="_blank" class="offer-item">
+          <strong>🌐 Host Your Website</strong>
+          <span style="font-size:11px; color:var(--text-muted);">Fast WordPress hosting with free domain</span>
+          <span class="offer-tag">Claim 70% Off</span>
+        </a>
+      </div>
+    </div>
+  `;
+
+  function quickPrompt(text) {
+    document.getElementById('userInput').value = text;
+    submitMessage();
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      submitMessage();
+    }
+  }
+
+  async function submitMessage() {
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    appendMessage(text, 'user');
+    input.value = '';
+
+    const sendBtn = document.getElementById('sendBtn');
+    sendBtn.disabled = true;
+
+    const aiDiv = appendMessage('Synthesizing exhaustive document via Deep Engine...', 'ai');
+    chatHistory.push({ role: 'user', parts: [{ text }] });
+
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${EMBEDDED_API_KEY}`;
+
+    const requestBody = {
+      systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+      contents: chatHistory,
+      generationConfig: {
+        maxOutputTokens: 8192,
+        temperature: 0.3
       }
     };
 
-    function saveApiKey() {
-      const key = document.getElementById('apiKey').value.trim();
-      if (!key) return alert('कृपया मान्य API Key डालें!');
-      localStorage.setItem('gemini_api_key', key);
-      alert('API Key सफलतापूर्वक सुरक्षित की गई!');
-    }
-
-    function handleKeyDown(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        submitMessage();
-      }
-    }
-
-    // Speech-to-Text
-    function toggleSpeechRecognition() {
-      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        return alert('आपके ब्राउज़र में वॉइस इनपुट सपोर्ट उपलब्ध नहीं है।');
-      }
-
-      if (isListening) {
-        recognition.stop();
-        return;
-      }
-
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognition = new SpeechRecognition();
-      recognition.lang = 'hi-IN';
-      recognition.continuous = false;
-      recognition.interimResults = false;
-
-      recognition.onstart = () => {
-        isListening = true;
-        document.getElementById('micBtn').classList.add('active');
-      };
-
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById('userInput').value += ' ' + transcript;
-      };
-
-      recognition.onend = () => {
-        isListening = false;
-        document.getElementById('micBtn').classList.remove('active');
-      };
-
-      recognition.start();
-    }
-
-    // Text-to-Speech
-    function speakText(text) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const cleanText = text.replace(/[#*`_\[\]]/g, '');
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = 'hi-IN';
-        window.speechSynthesis.speak(utterance);
-      }
-    }
-
-    // File Handling
-    function handleFileUpload(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        currentUploadedBase64 = reader.result.split(',')[1];
-        currentMimeType = file.type;
-        document.getElementById('fileName').innerText = file.name;
-        document.getElementById('filePreviewContainer').style.display = 'flex';
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function removeFile() {
-      currentUploadedBase64 = null;
-      currentMimeType = null;
-      document.getElementById('fileInput').value = '';
-      document.getElementById('filePreviewContainer').style.display = 'none';
-    }
-
-    // Dynamic System Prompts
-    function getSystemInstruction(mode) {
-      switch(mode) {
-        case 'deep':
-          return `आप एक उच्च-स्तरीय अकादमिक, शोधकर्ता और विषय विशेषज्ञ हैं। उपयोगकर्ता के हर सवाल का उत्तर अत्यंत विस्तृत, संपूर्ण, चरणबद्ध और 5,000 से 10,000 शब्दों जैसे गहन विश्लेषण के साथ दें। हर पहलू, केस स्टडी और डेटा को गहराई से कवर करें।`;
-        case 'concise':
-          return `आप एक अत्यधिक सटीक और संक्षिप्त सहायक हैं। बिना किसी लंबी भूमिका के उत्तर केवल 2-4 बुलेट पॉइंट्स या आवश्यक पंक्तियों में दें।`;
-        case 'code':
-          return `आप एक सीनियर सॉफ्टवेयर आर्किटेक्ट हैं। बेस्ट प्रैक्टिसेज, क्लीन कोड आर्किटेक्चर, एरर हैंडलिंग और संपूर्ण कोड स्निपेट्स प्रदान करें।`;
-        default:
-          return `आप एक अत्यंत बुद्धिमान, दोस्ताना और तार्किक AI साथी हैं। उपयोगकर्ता जितनी लंबाई, गहराई और जिस लहजे में उत्तर मांगे, ठीक उसी निर्देश का कड़ाई से पालन करें। फॉर्मेटिंग के लिए Markdown, Tables और Code Blocks का व्यवस्थित उपयोग करें।`;
-      }
-    }
-
-    async function submitMessage() {
-      const apiKey = document.getElementById('apiKey').value.trim() || localStorage.getItem('gemini_api_key');
-      const input = document.getElementById('userInput');
-      const text = input.value.trim();
-      const mode = document.getElementById('modeSelect').value;
-
-      if (!apiKey) return alert('कृपया पहले अपनी Gemini API Key दर्ज करें!');
-      if (!text && !currentUploadedBase64) return;
-
-      // Prepare User Payload
-      const userParts = [];
-      if (currentUploadedBase64) {
-        userParts.push({
-          inlineData: { mimeType: currentMimeType, data: currentUploadedBase64 }
-        });
-      }
-      if (text) {
-        userParts.push({ text });
-      }
-
-      // Render User Message
-      renderMessage({ role: 'user', text, image: currentUploadedBase64, mimeType: currentMimeType });
-      chatHistory.push({ role: 'user', parts: userParts });
-
-      input.value = '';
-      const sendBtn = document.getElementById('sendBtn');
-      sendBtn.disabled = true;
-
-      // Temporary AI Node for Streaming
-      const aiNode = createAIMessageContainer();
-      const contentSpan = aiNode.querySelector('.content-body');
-      let fullResponseText = '';
-
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:streamGenerateContent?alt=sse&key=${apiKey}`;
-
-      const requestBody = {
-        systemInstruction: { parts: [{ text: getSystemInstruction(mode) }] },
-        contents: chatHistory,
-        generationConfig: {
-          maxOutputTokens: 8192,
-          temperature: mode === 'code' ? 0.2 : 0.7
-        }
-      };
-
-      try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
-        });
-
-        if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.error?.message || 'Server Error');
-        }
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder('utf-8');
-
-        removeFile();
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split('\n');
-
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              try {
-                const json = JSON.parse(line.replace('data: ', '').trim());
-                const piece = json.candidates?.[0]?.content?.parts?.[0]?.text || '';
-                fullResponseText += piece;
-                contentSpan.innerHTML = marked.parse(fullResponseText);
-                hljs.highlightAll();
-                document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
-              } catch (e) {}
-            }
-          }
-        }
-
-        chatHistory.push({ role: 'model', parts: [{ text: fullResponseText }] });
-        saveHistoryToStorage();
-        attachActionEvents(aiNode, fullResponseText);
-
-      } catch (err) {
-        contentSpan.innerHTML = `<span style="color:#ef4444;">त्रुटि: ${err.message}</span>`;
-      } finally {
-        sendBtn.disabled = false;
-      }
-    }
-
-    function createAIMessageContainer() {
-      const chatBox = document.getElementById('chatBox');
-      const div = document.createElement('div');
-      div.className = 'message ai';
-      div.innerHTML = `<div class="content-body">...</div>`;
-      chatBox.appendChild(div);
-      chatBox.scrollTop = chatBox.scrollHeight;
-      return div;
-    }
-
-    function attachActionEvents(aiNode, fullText) {
-      const actionsDiv = document.createElement('div');
-      actionsDiv.className = 'msg-actions';
-      actionsDiv.innerHTML = `
-        <span onclick="copyToClipboard(\`${encodeURIComponent(fullText)}\`)"><i data-lucide="copy" style="width:14px;"></i> Copy</span>
-        <span onclick="speakText(\`${encodeURIComponent(fullText)}\`)"><i data-lucide="volume-2" style="width:14px;"></i> Listen</span>
-      `;
-      aiNode.appendChild(actionsDiv);
-      lucide.createIcons();
-    }
-
-    function copyToClipboard(encodedText) {
-      navigator.clipboard.writeText(decodeURIComponent(encodedText));
-      alert('टेक्स्ट कॉपी कर लिया गया!');
-    }
-
-    function renderMessage(msg) {
-      const chatBox = document.getElementById('chatBox');
-      const div = document.createElement('div');
-      div.className = `message ${msg.role}`;
-
-      if (msg.image) {
-        const img = document.createElement('img');
-        img.className = 'preview';
-        img.src = `data:${msg.mimeType};base64,${msg.image}`;
-        div.appendChild(img);
-      }
-
-      if (msg.text) {
-        const body = document.createElement('div');
-        body.innerHTML = msg.role === 'ai' ? marked.parse(msg.text) : msg.text;
-        div.appendChild(body);
-      }
-
-      chatBox.appendChild(div);
-      chatBox.scrollTop = chatBox.scrollHeight;
-      hljs.highlightAll();
-    }
-
-    function saveHistoryToStorage() {
-      localStorage.setItem('gemini_chat_history', JSON.stringify(chatHistory));
-    }
-
-    function renderHistory() {
-      const chatBox = document.getElementById('chatBox');
-      chatBox.innerHTML = '';
-      chatHistory.forEach(item => {
-        const text = item.parts.find(p => p.text)?.text || '';
-        renderMessage({ role: item.role === 'model' ? 'ai' : 'user', text });
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
       });
-    }
 
-    function startNewChat() {
-      if (confirm('क्या आप नई बातचीत शुरू करना चाहते हैं?')) {
-        chatHistory = [];
-        localStorage.removeItem('gemini_chat_history');
-        location.reload();
+      const data = await res.json();
+
+      if (data.candidates && data.candidates[0].content.parts.length > 0) {
+        const reply = data.candidates[0].content.parts[0].text;
+        aiDiv.innerHTML = marked.parse(reply) + AFFILIATE_HTML;
+        chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+        hljs.highlightAll();
+        lucide.createIcons();
+      } else {
+        aiDiv.innerText = "Drafting service encountered an error. Please retry.";
       }
+    } catch (err) {
+      aiDiv.innerHTML = `<span style="color:#ef4444;">Connection error: ${err.message}</span>`;
+    } finally {
+      sendBtn.disabled = false;
+      document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
     }
+  }
 
-    function exportChat() {
-      const blob = new Blob([JSON.stringify(chatHistory, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `chat-session-${Date.now()}.json`;
-      a.click();
-    }
+  function appendMessage(text, role) {
+    const chatBox = document.getElementById('chatBox');
+    const div = document.createElement('div');
+    div.className = `message ${role}`;
+    div.innerHTML = text;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    return div;
+  }
+</script>
 
-    function clearAllData() {
-      if (confirm('क्या आप सभी चैट्स और API Key हटाना चाहते हैं?')) {
-        localStorage.clear();
-        location.reload();
-      }
-    }
-  </script>
 </body>
 </html>
