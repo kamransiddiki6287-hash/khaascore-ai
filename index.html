@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>KhaasCore AI - Universal Intelligence Platform</title>
 
-  <!-- External High Performance CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -166,7 +165,6 @@
       margin: 4px 0;
     }
 
-    /* Drawer */
     .drawer-overlay {
       position: fixed;
       inset: 0;
@@ -288,7 +286,6 @@
       font-size: 14px;
     }
 
-    /* Quick Tools */
     .quick-tools-bar {
       display: flex;
       gap: 8px;
@@ -318,7 +315,6 @@
       color: var(--brand-accent);
     }
 
-    /* Canvas */
     .chat-canvas {
       flex: 1;
       overflow-y: auto;
@@ -403,7 +399,6 @@
       100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* Code Container & Sandbox */
     .code-container {
       position: relative;
       background: #181825;
@@ -469,7 +464,6 @@
       display: none;
     }
 
-    /* Input Dock */
     .input-dock {
       position: fixed;
       bottom: 16px;
@@ -569,7 +563,6 @@
       color: var(--brand-accent);
     }
 
-    /* Subscription & Google Pay QR Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -631,7 +624,6 @@
       color: var(--text-primary);
     }
 
-    /* UPI Checkout Box */
     .upi-checkout-box {
       background-color: var(--pill-surface);
       border: 1px solid var(--border-subtle);
@@ -693,7 +685,6 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header class="app-header">
     <div class="header-left">
       <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="menu" style="width:22px; height:22px;"></i></button>
@@ -711,7 +702,6 @@
       <button class="btn-icon-action" onclick="startNewSession()"><i data-lucide="pen-square" style="width:20px;"></i></button>
       <button class="btn-icon-action" onclick="toggleActionPopover()"><i data-lucide="more-vertical" style="width:20px;"></i></button>
 
-      <!-- Dropdown -->
       <div class="popover-menu" id="actionPopoverMenu">
         <div class="popover-item" onclick="openSubscriptionModal()"><i data-lucide="credit-card" style="width:16px;"></i> Subscription Tiers (UPI)</div>
         <div class="popover-item" onclick="resetUserLearningMemory()"><i data-lucide="rotate-ccw" style="width:16px;"></i> Reset AI Memory</div>
@@ -725,7 +715,6 @@
     </div>
   </header>
 
-  <!-- Quick Action Tools Bar -->
   <div class="quick-tools-bar">
     <button class="quick-tool-btn" onclick="applyQuickPrompt('🔍 Code Review: Analyze and fix errors in this code:')"><i data-lucide="code" style="width:14px;"></i> Code Fixer</button>
     <button class="quick-tool-btn" onclick="applyQuickPrompt('📜 Legal Draft: Write a comprehensive, 5000-word agreement for:')"><i data-lucide="scale" style="width:14px;"></i> Legal Drafter</button>
@@ -733,7 +722,6 @@
     <button class="quick-tool-btn" onclick="applyQuickPrompt('🌐 Translate & Refine into formal English and Hindi:')"><i data-lucide="languages" style="width:14px;"></i> Translator</button>
   </div>
 
-  <!-- Drawer -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
   <aside class="drawer" id="sideDrawer">
     <div class="drawer-header">
@@ -755,7 +743,6 @@
       <div id="threadHistoryList"></div>
     </nav>
 
-    <!-- Creator Identity Footer -->
     <div class="drawer-footer">
       <div class="user-badge">
         <div class="avatar-circle">KS</div>
@@ -770,7 +757,6 @@
     </div>
   </aside>
 
-  <!-- Chat Canvas -->
   <main class="chat-canvas" id="chatCanvas">
     <div class="chat-row ai">
       <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="Listen Response"><i data-lucide="volume-2" style="width:18px;"></i></button>
@@ -782,7 +768,6 @@
     </div>
   </main>
 
-  <!-- Input Dock -->
   <div class="input-dock">
     <div class="attachment-badge" id="attachmentBadge">
       <i data-lucide="file-check" style="width:14px; color:var(--brand-accent);"></i>
@@ -803,7 +788,6 @@
     </div>
   </div>
 
-  <!-- Subscription & Direct Google Pay Modal -->
   <div class="modal-backdrop" id="subscriptionModal" onclick="closeSubscriptionModal(event)">
     <div class="modal-dialog" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -830,7 +814,7 @@
         <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Pro', 499)">
           <div style="font-size:12px; font-weight:700; color:#8b5cf6;">AI PRO TIER</div>
           <div class="plan-price">₹499 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">Google AI Pro for software architecture & research.</p>
+          <p style="font-size:12px; color:var(--text-secondary);">Google AI Pro for software architecture & video generation.</p>
         </div>
 
         <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Ultra', 999)">
@@ -840,7 +824,6 @@
         </div>
       </div>
 
-      <!-- Live Dynamic Google Pay QR Section -->
       <div class="upi-checkout-box" id="upiCheckoutSection">
         <div style="font-weight:700; font-size:15px; color:var(--text-primary);">
           Instant Payment Amount: <span id="displaySelectedPlanPrice" style="color:var(--brand-accent);">₹199</span>
@@ -860,9 +843,9 @@
           Scan using <strong>Google Pay, PhonePe, Paytm, or BHIM UPI</strong>
         </div>
 
-        <a id="btnDirectUPIPay" href="upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=199&cu=INR" class="btn-upi-app-direct">
+        <button id="btnDirectUPIPay" onclick="triggerUPIAppOpen()" class="btn-upi-app-direct">
           <i data-lucide="smartphone" style="width:18px;"></i> Open Google Pay / UPI App to Pay
-        </a>
+        </button>
       </div>
     </div>
   </div>
@@ -885,7 +868,6 @@
     const MASTER_KEY_ENCODED = "QVEuQWI4Uk42SWV5azRvUVd4RDE4OXd0cmJjaWJkYUJfeFFmdUp4Wk9RcUpoWEVmSVR2V3c=";
     function getMasterKey() { return atob(MASTER_KEY_ENCODED); }
 
-    // Dynamic Time-Aware Creator Identity & User Adaptive Context
     function buildDynamicSystemPrompt() {
       const currentYear = new Date().getFullYear();
       let educationStatus = currentYear < 2029 
@@ -976,7 +958,6 @@ ${learnedContext}
       document.getElementById('subscriptionModal').style.display = 'none';
     }
 
-    // Dynamic Google Pay / UPI Price & QR Switcher
     function selectPlanTier(card, name, price) {
       document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
@@ -995,8 +976,12 @@ ${learnedContext}
         const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
         
         document.getElementById('upiLiveQRCode').src = qrApi;
-        document.getElementById('btnDirectUPIPay').href = upiUri;
       }
+    }
+
+    function triggerUPIAppOpen() {
+      const upiUri = `upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=${selectedTierAmount}&cu=INR`;
+      window.location.href = upiUri;
     }
 
     function setEngineTier(modelKey, displayName) {
@@ -1037,38 +1022,65 @@ ${learnedContext}
       document.getElementById('attachmentBadge').style.display = 'none';
     }
 
-    // Voice STT
+    // Voice STT Engine (Fix for Mobile & Chrome)
     function toggleVoiceSTT() {
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRec) return alert("कृपया Google Chrome का उपयोग करें।");
+      if (!SpeechRec) {
+        alert("आपका ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता। कृपया Google Chrome ब्राउज़र में खोलें।");
+        return;
+      }
       const mic = document.getElementById('btnVoiceRecord');
-      if (isSTTActive) { if (sttInstance) sttInstance.stop(); return; }
+      if (isSTTActive) {
+        if (sttInstance) sttInstance.stop();
+        isSTTActive = false;
+        mic.classList.remove('recording');
+        return;
+      }
 
-      sttInstance = new SpeechRec();
-      sttInstance.lang = 'hi-IN';
-      sttInstance.continuous = true;
-      sttInstance.interimResults = true;
+      try {
+        sttInstance = new SpeechRec();
+        sttInstance.lang = 'hi-IN';
+        sttInstance.continuous = false;
+        sttInstance.interimResults = true;
 
-      sttInstance.onstart = () => { isSTTActive = true; mic.classList.add('recording'); };
-      sttInstance.onresult = (evt) => {
-        let trans = '';
-        for (let i = evt.resultIndex; i < evt.results.length; ++i) {
-          if (evt.results[i].isFinal) trans += evt.results[i][0].transcript;
-        }
-        if (trans) {
-          const area = document.getElementById('promptArea');
-          area.value = (area.value + " " + trans).trim();
-          adjustTextareaHeight(area);
-        }
-      };
-      sttInstance.onerror = () => { isSTTActive = false; mic.classList.remove('recording'); };
-      sttInstance.onend = () => { isSTTActive = false; mic.classList.remove('recording'); };
-      sttInstance.start();
+        sttInstance.onstart = () => {
+          isSTTActive = true;
+          mic.classList.add('recording');
+        };
+        sttInstance.onresult = (evt) => {
+          let trans = '';
+          for (let i = evt.resultIndex; i < evt.results.length; ++i) {
+            trans += evt.results[i][0].transcript;
+          }
+          if (trans) {
+            const area = document.getElementById('promptArea');
+            area.value = trans;
+            adjustTextareaHeight(area);
+          }
+        };
+        sttInstance.onerror = (err) => {
+          console.warn("STT Error", err);
+          isSTTActive = false;
+          mic.classList.remove('recording');
+        };
+        sttInstance.onend = () => {
+          isSTTActive = false;
+          mic.classList.remove('recording');
+        };
+        sttInstance.start();
+      } catch (e) {
+        isSTTActive = false;
+        mic.classList.remove('recording');
+        alert("माइक शुरू करने में समस्या हुई। कृपया साइट सेटिंग्स में माइक्रोफ़ोन अनुमति दें।");
+      }
     }
 
-    // Audio TTS
+    // Speech TTS Engine (Fix for Android & Desktop)
     function synthesizeNodeSpeech(btn) {
-      if (!('speechSynthesis' in window)) return alert("ऑडियो उपलब्ध नहीं है।");
+      if (!('speechSynthesis' in window)) {
+        alert("स्पीच इंजन आपके डिवाइस पर समर्थित नहीं है।");
+        return;
+      }
       if (window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
         btn.classList.remove('playing');
@@ -1076,8 +1088,11 @@ ${learnedContext}
       }
       const text = btn.parentElement.querySelector('.chat-bubble').innerText.replace(/[#*`_\[\]$]/g, '').trim();
       if (!text) return;
+
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'hi-IN';
+      u.rate = 1.0;
+      u.pitch = 1.0;
       u.onstart = () => btn.classList.add('playing');
       u.onend = () => btn.classList.remove('playing');
       u.onerror = () => btn.classList.remove('playing');
@@ -1091,12 +1106,47 @@ ${learnedContext}
       }
     });
 
+    // Paywall Trigger Filter for Heavy/Video Tasks
+    function checkHeavyTaskPaywall(promptText) {
+      const lower = promptText.toLowerCase();
+      const heavyKeywords = [
+        "वीडियो बनाओ", "video create", "generate video", "make video", "video banao",
+        "10000 शब्द", "10000 words", "10,000", "full stack project", "पूरा ऐप बनाओ"
+      ];
+      return heavyKeywords.some(k => lower.includes(k));
+    }
+
     // Core Submit & SSE Stream
     async function handlePromptSubmission() {
       const key = getMasterKey();
       const area = document.getElementById('promptArea');
       const userText = area.value.trim();
       if (!userText && !activeFileBase64) return;
+
+      // Smart Paywall Trigger
+      if (checkHeavyTaskPaywall(userText)) {
+        renderMessageNode('user', userText, null);
+        area.value = '';
+        area.style.height = '38px';
+        const aiNode = renderMessageNode('ai', '');
+        const bubble = aiNode.querySelector('.chat-bubble');
+        bubble.innerHTML = `
+          <div style="background:var(--brand-accent-light); border:1px solid var(--brand-accent); padding:16px; border-radius:12px; margin:8px 0;">
+            <div style="font-weight:800; font-size:16px; color:var(--brand-accent); display:flex; align-items:center; gap:8px;">
+              <i data-lucide="crown" style="width:20px;"></i> प्रीमियम AI फीचर आवश्यक है
+            </div>
+            <p style="margin-top:6px; font-size:13.5px;">
+              <strong>वीडियो जनरेशन / 10,000-शब्द ड्राफ्टिंग</strong> एक हाई-कंप्यूट टास्क है। इस फीचर का उपयोग करने के लिए <strong>Pro या Ultra Tier</strong> में अपग्रेड करें।
+            </p>
+            <button onclick="openSubscriptionModal()" style="background:var(--brand-accent); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:700; margin-top:10px; cursor:pointer;">
+              अभी अपग्रेड करें (UPI ₹199 / ₹499)
+            </button>
+          </div>
+        `;
+        lucide.createIcons();
+        openSubscriptionModal();
+        return;
+      }
 
       recordAdaptiveLearning(userText);
 
@@ -1119,7 +1169,8 @@ ${learnedContext}
       const bubble = aiNode.querySelector('.chat-bubble');
       bubble.classList.add('cursor-blink');
 
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${activeEngineModel}:streamGenerateContent?alt=sse&key=${key}`;
+      // Universal Fast Gemini Endpoint
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${key}`;
       const requestBody = {
         systemInstruction: { parts: [{ text: buildDynamicSystemPrompt() }] },
         contents: activeConversation,
