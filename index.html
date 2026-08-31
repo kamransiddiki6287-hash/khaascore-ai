@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="hi" data-theme="light">
+<html lang="hi" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <title>KhaasCore AI - Intelligence Platform by Kamran Siddiki</title>
+  <title>KhaasCore AI Ultra - Intelligence Platform by Kamran Siddiki</title>
   
   <link rel="canonical" href="https://kamransiddiki6287-hash.github.io/khaascore-ai/">
-  <meta name="description" content="KhaasCore AI is an ultra-advanced intelligence and real MP4 animated video creation platform created and owned by Kamran Siddiki.">
+  <meta name="description" content="KhaasCore AI Ultra is an elite multi-modal intelligence and cinematic video generation ecosystem created and owned by Kamran Siddiki.">
 
-  <!-- CDNs -->
+  <!-- Elite CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -19,49 +19,43 @@
 
   <style>
     :root {
-      --bg-canvas: #ffffff;
-      --bg-sidebar: #f8fafc;
+      --bg-canvas: #090a0f;
+      --bg-sidebar: #121520;
+      --bg-card: #161a27;
+      --border-subtle: #222738;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --brand-accent: #3b82f6;
+      --brand-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+      --brand-accent-light: rgba(59, 130, 246, 0.12);
+      --user-bubble: #1e2433;
+      --status-danger: #ef4444;
+      --status-success: #22c55e;
+      --elevation-high: 0 20px 50px rgba(0, 0, 0, 0.5);
+      --drawer-width: 320px;
+    }
+
+    [data-theme="light"] {
+      --bg-canvas: #f8fafc;
+      --bg-sidebar: #ffffff;
       --bg-card: #ffffff;
       --border-subtle: #e2e8f0;
       --text-primary: #0f172a;
-      --text-secondary: #475569;
+      --text-secondary: #64748b;
       --brand-accent: #2563eb;
-      --brand-accent-hover: #1d4ed8;
+      --brand-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
       --brand-accent-light: #eff6ff;
       --user-bubble: #f1f5f9;
       --status-danger: #ef4444;
       --status-success: #22c55e;
-      --status-warning: #f59e0b;
-      --pill-surface: #f1f5f9;
-      --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.04);
-      --elevation-high: 0 14px 35px rgba(37, 99, 235, 0.12);
-      --drawer-width: 310px;
-    }
-
-    [data-theme="dark"] {
-      --bg-canvas: #131314;
-      --bg-sidebar: #1e1f20;
-      --bg-card: #1e1f20;
-      --border-subtle: #282a2c;
-      --text-primary: #e3e3e3;
-      --text-secondary: #9aa0a6;
-      --brand-accent: #4da3ff;
-      --brand-accent-hover: #1a73e8;
-      --brand-accent-light: #1e293b;
-      --user-bubble: #282a2c;
-      --status-danger: #f87171;
-      --status-success: #4ade80;
-      --status-warning: #fbbf24;
-      --pill-surface: #1e1f20;
-      --elevation-low: 0 2px 10px rgba(0, 0, 0, 0.4);
-      --elevation-high: 0 14px 35px rgba(0, 0, 0, 0.6);
+      --elevation-high: 0 15px 35px rgba(37, 99, 235, 0.1);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -73,18 +67,19 @@
       flex-direction: column;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    /* Elite Top Header */
     .app-header {
-      height: 60px;
-      padding: 0 18px;
+      height: 64px;
+      padding: 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: var(--bg-canvas);
+      background-color: var(--bg-sidebar);
       border-bottom: 1px solid var(--border-subtle);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
       position: sticky;
       top: 0;
       z-index: 40;
@@ -93,51 +88,53 @@
     .header-left, .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .btn-icon-action {
       background: transparent;
-      border: none;
+      border: 1px solid var(--border-subtle);
       color: var(--text-primary);
-      padding: 8px;
-      border-radius: 50%;
+      padding: 9px;
+      border-radius: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.2s, transform 0.15s;
+      transition: all 0.2s;
     }
     .btn-icon-action:hover {
-      background-color: var(--border-subtle);
-      transform: scale(1.05);
+      border-color: var(--brand-accent);
+      background-color: var(--brand-accent-light);
+      transform: translateY(-1px);
     }
 
     .model-selector-chip {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background-color: var(--pill-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
+      gap: 8px;
+      padding: 7px 16px;
+      background: var(--brand-gradient);
+      border-radius: 24px;
+      font-size: 13.5px;
+      font-weight: 800;
       cursor: pointer;
-      color: var(--text-primary);
-      transition: border-color 0.2s;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      transition: transform 0.2s;
     }
     .model-selector-chip:hover {
-      border-color: var(--brand-accent);
+      transform: scale(1.03);
     }
 
+    /* Professional Side Drawer */
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       display: none;
       z-index: 200;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
     }
     .drawer {
       position: fixed;
@@ -150,8 +147,8 @@
       z-index: 201;
       display: flex;
       flex-direction: column;
-      padding: 18px;
-      transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 20px;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .drawer.open {
       left: 0;
@@ -161,17 +158,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .brand-title {
-      font-size: 19px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #2563eb, #8b5cf6);
+      font-size: 20px;
+      font-weight: 900;
+      background: var(--brand-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .drawer-scrollable {
@@ -179,47 +176,49 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
     }
     .drawer-btn {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 10px 14px;
-      border-radius: 12px;
+      padding: 12px 16px;
+      border-radius: 14px;
       font-size: 14px;
+      font-weight: 600;
       color: var(--text-primary);
       cursor: pointer;
-      transition: background-color 0.15s;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.2s;
     }
     .drawer-btn:hover {
-      background-color: var(--border-subtle);
-    }
-    .drawer-btn.active {
+      border-color: var(--brand-accent);
       background-color: var(--brand-accent-light);
-      color: var(--brand-accent);
-      font-weight: 700;
     }
 
     .history-item-pill {
-      padding: 9px 12px;
-      border-radius: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
       font-size: 13.5px;
-      color: var(--text-primary);
+      color: var(--text-secondary);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      transition: background-color 0.15s;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 6px;
+      transition: all 0.2s;
     }
     .history-item-pill:hover {
-      background-color: var(--border-subtle);
+      color: var(--text-primary);
+      border-color: var(--brand-accent);
     }
 
     .drawer-footer {
       margin-top: auto;
-      padding-top: 14px;
+      padding-top: 16px;
       border-top: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -228,33 +227,35 @@
     .user-badge {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     .avatar-circle {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #8b5cf6);
+      background: var(--brand-gradient);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 14px;
+      color: #fff;
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     }
 
+    /* Chat Canvas */
     .chat-canvas {
       flex: 1;
-      overflow-y: visible;
-      padding: 20px 18px 160px 18px;
+      padding: 24px 20px 180px 20px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      max-width: 880px;
+      gap: 28px;
+      max-width: 900px;
       width: 100%;
       margin: 0 auto;
     }
 
+    /* Hero Welcome */
     .hero-welcome {
       display: flex;
       flex-direction: column;
@@ -262,81 +263,82 @@
       justify-content: center;
       text-align: center;
       margin: 40px auto;
-      padding: 24px 12px;
-      animation: fadeIn 0.4s ease-out;
+      padding: 30px 16px;
+      animation: fadeIn 0.5s ease-out;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .hero-logo-box {
-      width: 68px;
-      height: 68px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: var(--brand-gradient);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+      margin-bottom: 20px;
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
       animation: pulseGlow 3s infinite alternate;
     }
     @keyframes pulseGlow {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
+      from { transform: scale(1); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3); }
+      to { transform: scale(1.06); box-shadow: 0 20px 45px rgba(139, 92, 246, 0.5); }
     }
 
     .hero-title {
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, #2563eb, #8b5cf6);
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: var(--brand-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: -0.5px;
     }
     .hero-subtitle {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--text-secondary);
-      max-width: 520px;
+      max-width: 560px;
       line-height: 1.6;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
     .hero-cards-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
       width: 100%;
-      max-width: 680px;
+      max-width: 700px;
     }
-    @media (max-width: 620px) {
+    @media (max-width: 640px) {
       .hero-cards-grid { grid-template-columns: 1fr; }
     }
 
     .hero-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 18px;
+      padding: 18px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       text-align: left;
       cursor: pointer;
-      box-shadow: var(--elevation-low);
-      transition: transform 0.2s, border-color 0.2s;
+      box-shadow: var(--elevation-high);
+      transition: all 0.25s;
     }
     .hero-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       border-color: var(--brand-accent);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
     }
     .hero-card-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       background: var(--brand-accent-light);
       color: var(--brand-accent);
       display: flex;
@@ -344,7 +346,17 @@
       justify-content: center;
       flex-shrink: 0;
     }
+    .hero-card-title {
+      font-weight: 800;
+      font-size: 14.5px;
+      margin-bottom: 3px;
+    }
+    .hero-card-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
 
+    /* Message Rows */
     .chat-row {
       display: flex;
       flex-direction: column;
@@ -354,8 +366,8 @@
 
     .chat-bubble {
       position: relative;
-      line-height: 1.75;
-      font-size: 16px;
+      line-height: 1.8;
+      font-size: 16.5px;
       word-break: break-word;
       color: var(--text-primary);
     }
@@ -363,99 +375,66 @@
     .chat-row.user .chat-bubble {
       align-self: flex-end;
       background-color: var(--user-bubble);
-      padding: 14px 20px;
-      border-radius: 22px 22px 4px 22px;
+      padding: 16px 22px;
+      border-radius: 24px 24px 4px 24px;
       max-width: 85%;
       border: 1px solid var(--border-subtle);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
     .chat-row.ai .chat-bubble {
       align-self: flex-start;
-      background-color: transparent;
-      padding: 4px 0 16px 0;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 22px;
+      border-radius: 20px;
       width: 100%;
+      box-shadow: var(--elevation-high);
     }
 
     .audio-playback-bar {
       display: flex;
       align-items: center;
-      gap: 8px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 5;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
     .btn-audio-listen {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      padding: 6px 14px;
+      border-radius: 20px;
       background-color: var(--brand-accent-light);
       color: var(--brand-accent);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
       border: 1px solid var(--border-subtle);
       cursor: pointer;
-      transition: transform 0.15s;
+      transition: all 0.2s;
     }
     .btn-audio-listen.playing {
       background-color: #22c55e;
       color: #fff;
     }
 
-    .voice-wave {
-      display: none;
-      align-items: center;
-      gap: 3px;
-      height: 20px;
-      padding: 0 6px;
-      background: var(--pill-surface);
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-    }
-    .voice-wave.active {
-      display: flex;
-    }
-    .wave-bar {
-      width: 3px;
-      height: 100%;
-      background-color: var(--brand-accent);
-      border-radius: 2px;
-      animation: waveMove 0.8s infinite ease-in-out alternate;
-    }
-    @keyframes waveMove {
-      from { transform: scaleY(0.3); }
-      to { transform: scaleY(1); }
-    }
-
+    /* Video Generator Engine Card */
     .video-render-card {
-      background: var(--bg-card);
-      border: 1.5px solid var(--brand-accent);
-      border-radius: 18px;
-      padding: 16px;
-      margin: 14px 0;
-      box-shadow: var(--elevation-high);
-      max-width: 440px;
-      width: 100%;
-    }
-    .video-render-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+      background: var(--bg-canvas);
+      border: 2px solid var(--brand-accent);
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 16px;
+      box-shadow: 0 20px 50px rgba(59, 130, 246, 0.25);
     }
     .video-canvas-container {
       position: relative;
       width: 100%;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       background: #000;
       aspect-ratio: 9 / 16;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-    }
-    .video-canvas-container.horizontal {
-      aspect-ratio: 16 / 9;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .video-canvas-container video, .video-canvas-container canvas {
       width: 100%;
@@ -464,23 +443,25 @@
       display: block;
     }
     .btn-video-download {
-      flex: 1;
-      background: linear-gradient(135deg, #22c55e, #16a34a);
+      width: 100%;
+      background: var(--brand-gradient);
       color: #fff;
       border: none;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       text-decoration: none;
-      margin-top: 12px;
+      margin-top: 14px;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
     }
 
+    /* Input Dock */
     .input-dock {
       position: fixed;
       bottom: 0;
@@ -489,38 +470,40 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 10px 16px 18px 16px;
-      background: linear-gradient(to top, var(--bg-canvas) 85%, rgba(255,255,255,0));
+      padding: 12px 20px 22px 20px;
+      background: linear-gradient(to top, var(--bg-canvas) 85%, rgba(0,0,0,0));
       z-index: 50;
     }
 
     .attachment-badge {
       display: none;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       background-color: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      padding: 6px 14px;
-      border-radius: 16px;
-      font-size: 12px;
-      margin-bottom: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .input-pill {
       width: 100%;
-      max-width: 800px;
+      max-width: 820px;
       background-color: var(--bg-card);
-      border: 1.5px solid var(--border-subtle);
-      border-radius: 36px;
-      padding: 8px 16px;
+      border: 2px solid var(--border-subtle);
+      border-radius: 40px;
+      padding: 10px 18px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       box-shadow: var(--elevation-high);
-      transition: border-color 0.2s;
+      transition: border-color 0.25s, box-shadow 0.25s;
     }
     .input-pill:focus-within {
       border-color: var(--brand-accent);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
     }
 
     .input-pill textarea {
@@ -528,13 +511,13 @@
       border: none;
       background: transparent;
       outline: none;
-      font-size: 16px;
+      font-size: 16.5px;
       font-weight: 500;
       color: var(--text-primary);
       resize: none;
-      height: 44px;
-      max-height: 120px;
-      padding: 10px 0;
+      height: 46px;
+      max-height: 130px;
+      padding: 11px 0;
       line-height: 1.5;
     }
     .input-pill textarea::placeholder {
@@ -548,13 +531,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px;
+      padding: 10px;
       border-radius: 50%;
-      transition: color 0.15s, transform 0.15s;
+      transition: all 0.2s;
     }
     .dock-icon:hover {
       color: var(--brand-accent);
-      transform: scale(1.08);
+      background: var(--brand-accent-light);
+      transform: scale(1.1);
     }
     .dock-icon.recording {
       color: #ef4444 !important;
@@ -562,7 +546,7 @@
     }
     @keyframes pulseRecord {
       from { transform: scale(1); }
-      to { transform: scale(1.22); }
+      to { transform: scale(1.25); }
     }
 
     .cursor-blink::after {
@@ -570,7 +554,7 @@
       display: inline-block;
       color: var(--brand-accent);
       animation: blinkCursor 0.8s infinite;
-      margin-left: 2px;
+      margin-left: 3px;
     }
     @keyframes blinkCursor {
       0%, 100% { opacity: 1; }
@@ -578,99 +562,103 @@
     }
 
     .creator-attribution-badge {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--text-secondary);
       text-align: center;
-      margin-top: 8px;
+      margin-top: 10px;
     }
     .creator-attribution-badge strong {
       color: var(--brand-accent);
     }
 
+    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 300;
-      backdrop-filter: blur(4px);
-      padding: 16px;
+      backdrop-filter: blur(8px);
+      padding: 20px;
     }
     .modal-dialog {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      max-width: 580px;
+      border-radius: 24px;
+      max-width: 600px;
       width: 100%;
-      padding: 24px;
-      box-shadow: var(--elevation-high);
+      padding: 28px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
       max-height: 90vh;
       overflow-y: auto;
     }
     .plans-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 18px;
+      gap: 14px;
+      margin-bottom: 20px;
     }
-    @media(max-width: 500px) {
+    @media(max-width: 520px) {
       .plans-grid { grid-template-columns: 1fr; }
     }
     .plan-card {
-      border: 1.5px solid var(--border-subtle);
-      padding: 16px;
-      border-radius: 14px;
+      border: 2px solid var(--border-subtle);
+      padding: 18px;
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       cursor: pointer;
-      transition: border-color 0.2s;
+      background: var(--bg-canvas);
+      transition: all 0.2s;
     }
     .plan-card.active {
       border-color: var(--brand-accent);
       background-color: var(--brand-accent-light);
     }
     .plan-price {
-      font-size: 20px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 900;
       color: var(--text-primary);
     }
 
     .upi-checkout-box {
-      background-color: var(--pill-surface);
+      background-color: var(--bg-canvas);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 18px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
     .qr-card-container img {
-      width: 180px;
-      height: 180px;
-      margin: 10px 0;
-      border-radius: 12px;
+      width: 190px;
+      height: 190px;
+      margin: 12px 0;
+      border-radius: 14px;
       background: #fff;
-      padding: 6px;
+      padding: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
     .btn-upi-app-direct {
       width: 100%;
-      background: var(--brand-accent);
+      background: var(--brand-gradient);
       color: #fff;
       border: none;
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin-top: 8px;
+      gap: 10px;
+      margin-top: 10px;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
     }
   </style>
 </head>
@@ -679,17 +667,17 @@
   <!-- App Header -->
   <header class="app-header">
     <div class="header-left">
-      <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="menu" style="width:22px;"></i></button>
+      <button class="btn-icon-action" onclick="toggleDrawer()" title="Menu"><i data-lucide="menu" style="width:22px;"></i></button>
       <div class="model-selector-chip" onclick="openSubscriptionModal()">
-        <i data-lucide="sparkles" style="width:16px; color:var(--brand-accent);"></i>
-        <span id="labelEngine">KhaasCore Ultra Fast</span>
+        <i data-lucide="sparkles" style="width:16px;"></i>
+        <span>KhaasCore Ultra AI</span>
       </div>
     </div>
 
     <div class="header-right">
-      <button class="btn-icon-action" onclick="openSubscriptionModal()" title="Subscription Plans"><i data-lucide="crown" style="width:20px; color:#f59e0b;"></i></button>
-      <button class="btn-icon-action" onclick="toggleAppTheme()"><i data-lucide="sun" id="iconTheme" style="width:20px;"></i></button>
-      <button class="btn-icon-action" onclick="startNewSession()"><i data-lucide="pen-square" style="width:20px;"></i></button>
+      <button class="btn-icon-action" onclick="openSubscriptionModal()" title="VIP Tier Plans"><i data-lucide="crown" style="width:20px; color:#f59e0b;"></i></button>
+      <button class="btn-icon-action" onclick="toggleAppTheme()" title="Toggle Theme"><i data-lucide="sun" id="iconTheme" style="width:20px;"></i></button>
+      <button class="btn-icon-action" onclick="startNewSession()" title="New Chat"><i data-lucide="pen-square" style="width:20px;"></i></button>
     </div>
   </header>
 
@@ -703,8 +691,9 @@
 
     <nav class="drawer-scrollable">
       <div class="drawer-btn" onclick="startNewSession()"><i data-lucide="message-square-plus" style="width:18px;"></i> New Conversation</div>
-      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:18px; color:#f59e0b;"></i> Upgrade Tier Plans</div>
-      <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin:16px 0 6px 12px;">SAVED CONVERSATIONS</div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:18px; color:#f59e0b;"></i> Upgrade VIP Tier</div>
+      <div class="drawer-btn" onclick="exportChatTranscript()"><i data-lucide="download" style="width:18px;"></i> Export Chat (.txt)</div>
+      <div style="font-size:11px; font-weight:800; color:var(--text-secondary); margin:18px 0 6px 4px; letter-spacing:1px;">SAVED CONVERSATIONS</div>
       <div id="threadHistoryList"></div>
     </nav>
 
@@ -712,8 +701,8 @@
       <div class="user-badge">
         <div class="avatar-circle">KS</div>
         <div>
-          <div style="font-weight:700; font-size:14px;">Kamran Siddiki</div>
-          <div style="font-size:11px; color:var(--brand-accent); font-weight:700;">FOUNDER & OWNER</div>
+          <div style="font-weight:800; font-size:14.5px;">Kamran Siddiki</div>
+          <div style="font-size:11.5px; color:var(--brand-accent); font-weight:800;">FOUNDER & OWNER</div>
         </div>
       </div>
     </div>
@@ -723,16 +712,16 @@
   <main class="chat-canvas" id="chatCanvas">
     <div class="hero-welcome" id="heroWelcome">
       <div class="hero-logo-box">
-        <i data-lucide="sparkles" style="width:36px; height:36px;"></i>
+        <i data-lucide="sparkles" style="width:40px; height:40px;"></i>
       </div>
-      <h1 class="hero-title">KhaasCore AI</h1>
+      <h1 class="hero-title">KhaasCore AI Ultra</h1>
       <p class="hero-subtitle">
-        नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। 3D एनिमेटेड वीडियो, शायरी, कोडिंग या बिज़नेस प्लान्स तुरंत तैयार करें।
+        नमस्ते! मैं <strong>KhaasCore AI</strong> हूँ। अत्याधुनिक मल्टी-मॉडल बुद्धिमत्ता और 3D सिनेमैटिक वीडियो क्रिएशन प्लेटफॉर्म।
       </p>
 
       <div class="hero-cards-grid">
         <div class="hero-card" onclick="applyQuickPrompt('🎬 YouTube Shorts 3D Animation: Generate an animated video on:')">
-          <div class="hero-card-icon"><i data-lucide="video" style="width:20px;"></i></div>
+          <div class="hero-card-icon"><i data-lucide="video" style="width:22px;"></i></div>
           <div>
             <div class="hero-card-title">3D एनिमेटेड वीडियो रेंडरर</div>
             <div class="hero-card-desc">Shorts, Reels और 4K वीडियो डाउनलोड करें</div>
@@ -740,7 +729,7 @@
         </div>
 
         <div class="hero-card" onclick="applyQuickPrompt('✍️ Success Shayari: Write an inspirational shayari on:')">
-          <div class="hero-card-icon"><i data-lucide="feather" style="width:20px;"></i></div>
+          <div class="hero-card-icon"><i data-lucide="feather" style="width:22px;"></i></div>
           <div>
             <div class="hero-card-title">सफलता की शायरी</div>
             <div class="hero-card-desc">मोटिवेशनल और दिल छू लेने वाली शायरी</div>
@@ -753,67 +742,67 @@
   <!-- Input Dock -->
   <div class="input-dock">
     <div class="attachment-badge" id="attachmentBadge">
-      <i data-lucide="file-check" style="width:14px; color:var(--brand-accent);"></i>
-      <span id="attachmentNameText" style="font-weight:600;">image.png</span>
-      <i data-lucide="x" style="width:14px; cursor:pointer;" onclick="clearUploadedAttachment()"></i>
+      <i data-lucide="file-check" style="width:15px; color:var(--brand-accent);"></i>
+      <span id="attachmentNameText" style="font-weight:700;">image.png</span>
+      <i data-lucide="x" style="width:15px; cursor:pointer;" onclick="clearUploadedAttachment()"></i>
     </div>
 
     <div class="input-pill">
       <input type="file" id="fileMediaInput" accept="image/*,application/pdf,text/*" style="display:none;" onchange="processMediaAttachment(event)">
-      <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()" title="फाइल जोड़ें"><i data-lucide="plus" style="width:20px;"></i></div>
+      <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()" title="फाइल जोड़ें"><i data-lucide="plus" style="width:22px;"></i></div>
       
       <textarea id="promptArea" placeholder="KhaasCore AI से कुछ भी पूछें..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
       
       <div class="dock-icon" id="micBtn" onclick="toggleSpeechRecognition()" title="बोलकर बात करें">
-        <i data-lucide="mic" style="width:20px;"></i>
+        <i data-lucide="mic" style="width:22px;"></i>
       </div>
 
       <div class="dock-icon" onclick="handlePromptSubmission()" title="संदेश भेजें">
-        <i data-lucide="arrow-up-circle" style="width:24px; color:var(--brand-accent);"></i>
+        <i data-lucide="arrow-up-circle" style="width:26px; color:var(--brand-accent);"></i>
       </div>
     </div>
 
     <div class="creator-attribution-badge">
-      Developed & Owned by <strong>Kamran Siddiki</strong> | KhaasCore AI Platform
+      Developed & Owned by <strong>Kamran Siddiki</strong> (Muzaffarpur, Bihar) | KhaasCore AI Platform
     </div>
   </div>
 
   <!-- Subscription Modal -->
   <div class="modal-backdrop" id="subscriptionModal" onclick="closeSubscriptionModal(event)">
     <div class="modal-dialog" onclick="event.stopPropagation()">
-      <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:16px;">
-        <h2 style="font-size:18px; font-weight:800;">KhaasCore AI Plans</h2>
+      <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:20px;">
+        <h2 style="font-size:20px; font-weight:900;">KhaasCore VIP Plans</h2>
         <button class="btn-icon-action" onclick="closeSubscriptionModal()"><i data-lucide="x" style="width:20px;"></i></button>
       </div>
 
       <div class="plans-grid">
         <div class="plan-card active" onclick="selectPlanTier(this, 'Pro Tier ($29)', 2499, '$29', 60, 20)">
-          <div style="font-size:11px; font-weight:700; color:#f59e0b;">PRO TIER ($29)</div>
+          <div style="font-size:11.5px; font-weight:800; color:#f59e0b;">PRO TIER ($29)</div>
           <div class="plan-price">$29 <span style="font-size:12px; color:var(--text-secondary);">(2 Months)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">20 सेकंड 3D एनिमेटेड शॉर्ट्स/रील्स (9:16 वर्टिकल, एनिमेटेड सीन्स व वॉयस)।</p>
+          <p style="font-size:12.5px; color:var(--text-secondary);">20 सेकंड 3D एनिमेटेड शॉर्ट्स/रील्स (9:16 वर्टिकल, एनिमेटेड सीन्स व वॉयस)।</p>
         </div>
 
         <div class="plan-card" onclick="selectPlanTier(this, 'Advanced Tier ($99)', 7999, '$99', 180, 180)">
-          <div style="font-size:11px; font-weight:700; color:#8b5cf6;">ADVANCED ($99)</div>
+          <div style="font-size:11.5px; font-weight:800; color:#8b5cf6;">ADVANCED ($99)</div>
           <div class="plan-price">$99 <span style="font-size:12px; color:var(--text-secondary);">(6 Months)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">3 मिनट 3D सिनेमैटिक वीडियो (मल्टी-सीन, बैकग्राउंड म्यूजिक, 4K रेंडर)।</p>
+          <p style="font-size:12.5px; color:var(--text-secondary);">3 मिनट 3D सिनेमैटिक वीडियो (मल्टी-सीन, बैकग्राउंड म्यूजिक, 4K रेंडर)।</p>
         </div>
 
         <div class="plan-card" onclick="selectPlanTier(this, 'Max Ultra Tier ($199)', 16999, '$199', 365, 300)">
-          <div style="font-size:11px; font-weight:700; color:#ef4444;">ULTRA TIER ($199)</div>
+          <div style="font-size:11.5px; font-weight:800; color:#ef4444;">ULTRA TIER ($199)</div>
           <div class="plan-price">$199 <span style="font-size:12px; color:var(--text-secondary);">(1 Year)</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">फुल-लेंथ 3D सिनेमैटिक प्रोजेक्ट्स, मैक्सिमम क्वालिटी और 1 साल का एक्सेस।</p>
+          <p style="font-size:12.5px; color:var(--text-secondary);">फुल-लेंथ 3D सिनेमैटिक प्रोजेक्ट्स, मैक्सिमम क्वालिटी और 1 साल का एक्सेस।</p>
         </div>
 
         <div class="plan-card" onclick="selectPlanTier(this, 'Free Tier', 0, '$0', 0, 10)">
-          <div style="font-size:11px; font-weight:700; color:#22c55e;">FREE TIER</div>
+          <div style="font-size:11.5px; font-weight:800; color:#22c55e;">FREE TIER</div>
           <div class="plan-price">$0 <span style="font-size:12px; color:var(--text-secondary);">/mo</span></div>
-          <p style="font-size:12px; color:var(--text-secondary);">मानक टेक्स्ट संवाद और 10 सेकंड डेमो वीडियो।</p>
+          <p style="font-size:12.5px; color:var(--text-secondary);">मानक टेक्स्ट संवाद और 10 सेकंड डेमो वीडियो।</p>
         </div>
       </div>
 
       <div class="upi-checkout-box" id="upiCheckoutSection">
-        <div style="font-weight:700; font-size:14.5px;">Payee: Mohd Kamran (<span id="displaySelectedPlanPrice">₹2,499</span>)</div>
+        <div style="font-weight:800; font-size:15px;">Payee: Mohd Kamran (<span id="displaySelectedPlanPrice">₹2,499</span>)</div>
         <div class="qr-card-container">
           <img id="upiLiveQRCode" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi%3A%2F%2Fpay%3Fpa%3Dmohdkamran7870%40oksbi%26pn%3DMohd%20Kamran%26am%3D2499%26cu%3DINR" alt="UPI QR" />
         </div>
@@ -827,8 +816,8 @@
   <script>
     lucide.createIcons();
 
-    // 🔒 आपकी सीधे जोड़ी गई API Key
-    const GEMINI_API_KEY = "AQ.Ab8RN6Ieyk4oQWxD189wtrbcibdaB_xQfuJxZOQqJhXEfITvWw";
+    // 🔒 आपकी नई ऑफिशियल Gemini API Key यहाँ अपडेट कर दी गई है
+    const GEMINI_API_KEY = "AIzaSy..." ; // (AI Studio से जनरेटेड असली की यहाँ रखें)
 
     let activeConversation = [];
     let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
@@ -872,13 +861,11 @@
     function synthesizeNodeSpeech(btn) {
       const parent = btn.closest('.chat-row');
       const text = parent.querySelector('.chat-bubble').innerText;
-      const wave = parent.querySelector('.voice-wave');
       if (!text) return;
 
       if (window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
         document.querySelectorAll('.btn-audio-listen').forEach(b => b.classList.remove('playing'));
-        document.querySelectorAll('.voice-wave').forEach(w => w.classList.remove('active'));
         return;
       }
 
@@ -890,20 +877,15 @@
       utterance.rate = 0.95;
 
       btn.classList.add('playing');
-      if (wave) wave.classList.add('active');
-
-      utterance.onend = () => {
-        btn.classList.remove('playing');
-        if (wave) wave.classList.remove('active');
-      };
+      utterance.onend = () => btn.classList.remove('playing');
       window.speechSynthesis.speak(utterance);
     }
 
     function buildHumanSystemPrompt() {
-      return `You are KhaasCore AI, an ultra-advanced intelligence created and owned solely by Kamran Siddiki, from Muzaffarpur, Bihar.
-1. Speak exactly like a highly intelligent, warm, respectful, witty, and empathetic expert friend in Hindi/Hinglish.
-2. If asked to make a video (e.g. "वीडियो बनाओ", "make video", "generate video", "create shorts", "reel banao"), provide an engaging storyline and script.
-3. Always identify yourself as KhaasCore AI. Never mention third-party AI names. Kamran Siddiki is your sole creator.`;
+      return `You are KhaasCore AI Ultra, an elite intelligence created and owned solely by Kamran Siddiki, from Muzaffarpur, Bihar.
+1. Speak warmly, brilliantly, respectfully, and with witty empathy in Hindi/Hinglish.
+2. If asked for a video/reel/short, provide an exceptionally engaging script and storyline.
+3. Always identify yourself as KhaasCore AI. Kamran Siddiki is your sole creator.`;
     }
 
     function toggleDrawer() {
@@ -924,7 +906,7 @@
 
     function adjustTextareaHeight(el) {
       el.style.height = 'auto';
-      el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+      el.style.height = Math.min(el.scrollHeight, 130) + 'px';
     }
 
     function onPromptKeydown(e) {
@@ -999,11 +981,11 @@
       const card = document.createElement('div');
       card.className = 'video-render-card';
       card.innerHTML = `
-        <div class="video-render-header">
-          <span style="font-size:13px; font-weight:800; color:var(--brand-accent); display:flex; align-items:center; gap:6px;">
-            <i data-lucide="video" style="width:16px;"></i> KhaasCore 3D Animation Engine
+        <div style="display:flex; justify-content:space-between; margin-bottom:12px; align-items:center;">
+          <span style="font-size:14px; font-weight:900; color:var(--brand-accent); display:flex; align-items:center; gap:8px;">
+            <i data-lucide="video" style="width:18px;"></i> KhaasCore 3D Cinematic Studio
           </span>
-          <span style="font-size:11px; background:var(--brand-accent-light); color:var(--brand-accent); padding:2px 8px; border-radius:12px; font-weight:700;">
+          <span style="font-size:11px; background:var(--brand-accent-light); color:var(--brand-accent); padding:3px 10px; border-radius:12px; font-weight:800;">
             ${isVertical ? '9:16 Shorts HD' : '16:9 Cinema 4K'}
           </span>
         </div>
@@ -1012,10 +994,10 @@
           <video id="renderedVideoPlayer" controls playsinline style="display:none;"></video>
         </div>
         <a class="btn-video-download" id="btnDownloadMP4" download="KhaasCore-3D-Animation.mp4" style="display:none;">
-          <i data-lucide="download" style="width:16px;"></i> Download 3D Video (.mp4)
+          <i data-lucide="download" style="width:18px;"></i> Download 3D Masterpiece (.mp4)
         </a>
-        <div id="renderProgressBar" style="font-size:12px; color:var(--text-secondary); margin-top:8px; text-align:center;">
-          ⚡ 3D AI सीन्स और एनिमेशन तैयार हो रहे हैं...
+        <div id="renderProgressBar" style="font-size:12.5px; color:var(--text-secondary); margin-top:10px; text-align:center; font-weight:600;">
+          ⚡ 3D सीन्स और सिनेमैटिक एसेट्स रेंडर हो रहे हैं...
         </div>
       `;
 
@@ -1027,13 +1009,12 @@
       canvas.width = isVertical ? 720 : 1280;
       canvas.height = isVertical ? 1280 : 720;
       const ctx = canvas.getContext('2d');
-
       lucide.createIcons();
 
       let sceneImg = new Image();
       sceneImg.crossOrigin = "anonymous";
       try {
-        const enhancedPrompt = encodeURIComponent(`${topic || "futuristic animated character storytelling"} 3d render cinematic lighting pixar style unreal engine 5 master`);
+        const enhancedPrompt = encodeURIComponent(`${topic || "cinematic storytelling master"} 3d render unreal engine 5 pixar lighting 8k`);
         sceneImg.src = `https://image.pollinations.ai/prompt/${enhancedPrompt}?width=${canvas.width}&height=${canvas.height}&nologo=true`;
         await new Promise((resolve) => { sceneImg.onload = resolve; sceneImg.onerror = resolve; });
       } catch (e) {}
@@ -1057,7 +1038,7 @@
         videoPlayer.style.display = 'block';
         downloadBtn.href = videoUrl;
         downloadBtn.style.display = 'flex';
-        progressLabel.innerHTML = `✅ <strong>3D एनिमेटेड वीडियो तैयार है!</strong> ऊपर प्ले करें या डाउनलोड करें।`;
+        progressLabel.innerHTML = `✅ <strong>3D वीडियो सफलतापूर्वक तैयार है!</strong> ऊपर प्ले करें या डाउनलोड करें।`;
         lucide.createIcons();
       };
 
@@ -1085,50 +1066,47 @@
         const t = frame / totalFrames;
 
         if (sceneImg.complete && sceneImg.naturalWidth > 0) {
-          const zoom = 1 + t * 0.2;
-          const panX = Math.sin(t * Math.PI) * 20;
+          const zoom = 1 + t * 0.15;
+          const panX = Math.sin(t * Math.PI) * 15;
           ctx.save();
           ctx.translate(canvas.width / 2, canvas.height / 2);
           ctx.scale(zoom, zoom);
           ctx.drawImage(sceneImg, -canvas.width / 2 + panX, -canvas.height / 2, canvas.width, canvas.height);
           ctx.restore();
 
-          const vignette = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.3, canvas.width/2, canvas.height/2, canvas.width*0.7);
+          const vignette = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.3, canvas.width/2, canvas.height/2, canvas.width*0.75);
           vignette.addColorStop(0, 'rgba(0,0,0,0)');
-          vignette.addColorStop(1, 'rgba(0,0,0,0.65)');
+          vignette.addColorStop(1, 'rgba(0,0,0,0.7)');
           ctx.fillStyle = vignette;
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         } else {
-          const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-          grad.addColorStop(0, '#0f172a');
-          grad.addColorStop(1, '#1e1b4b');
-          ctx.fillStyle = grad;
+          ctx.fillStyle = '#0f172a';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 26px sans-serif';
+        ctx.font = 'bold 28px sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('✨ KHAASCORE 3D AI', canvas.width / 2, 70);
+        ctx.fillText('✨ KHAASCORE ULTRA 3D', canvas.width / 2, 80);
 
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-        ctx.font = '18px sans-serif';
-        ctx.fillText('Owner: Kamran Siddiki', canvas.width / 2, 100);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.font = '19px sans-serif';
+        ctx.fillText('Creator: Kamran Siddiki', canvas.width / 2, 115);
 
         const wordIndex = Math.floor(t * words.length);
         const currentSnippet = words.slice(Math.max(0, wordIndex - 2), wordIndex + 3).join(' ');
 
         ctx.fillStyle = '#facc15';
-        ctx.font = 'bold 36px sans-serif';
-        ctx.shadowColor = 'rgba(0,0,0,0.9)';
-        ctx.shadowBlur = 14;
+        ctx.font = 'bold 38px sans-serif';
+        ctx.shadowColor = 'rgba(0,0,0,0.95)';
+        ctx.shadowBlur = 16;
 
-        wrapText(ctx, currentSnippet, canvas.width / 2, canvas.height * 0.72, canvas.width - 80, 48);
+        wrapText(ctx, currentSnippet, canvas.width / 2, canvas.height * 0.74, canvas.width - 80, 50);
 
         ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-        ctx.fillRect(40, canvas.height - 40, canvas.width - 80, 8);
+        ctx.fillRect(40, canvas.height - 45, canvas.width - 80, 8);
         ctx.fillStyle = '#38bdf8';
-        ctx.fillRect(40, canvas.height - 40, (canvas.width - 80) * t, 8);
+        ctx.fillRect(40, canvas.height - 45, (canvas.width - 80) * t, 8);
 
         frame++;
         requestAnimationFrame(drawFrame);
@@ -1161,7 +1139,6 @@
       if (!userText && !activeFileBase64) return;
 
       const isVideoReq = checkIsVideoPrompt(userText);
-
       const hero = document.getElementById('heroWelcome');
       if (hero) hero.style.display = 'none';
 
@@ -1177,7 +1154,7 @@
       activeConversation.push({ role: 'user', parts: messageParts });
 
       area.value = '';
-      area.style.height = '44px';
+      area.style.height = '46px';
       clearUploadedAttachment();
 
       const aiNode = renderMessageNode('ai', '');
@@ -1240,7 +1217,7 @@
         autoSaveSession(userText);
       } catch (err) {
         bubble.classList.remove('cursor-blink');
-        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:600;">त्रुटि: ${err.message}।</span>`;
+        bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:700;">त्रुटि: ${err.message}। कृपया अपनी Google AI Studio की असली API Key सही से डालें।</span>`;
       } finally {
         scrollCanvas();
       }
@@ -1250,19 +1227,18 @@
       const canvas = document.getElementById('chatCanvas');
       const row = document.createElement('div');
       row.className = `chat-row ${role}`;
-      let mediaSnippet = mediaSrc ? `<img src="${mediaSrc}" style="max-width:220px; border-radius:12px; margin-bottom:10px; display:block;" alt="Attachment" />` : '';
+      let mediaSnippet = mediaSrc ? `<img src="${mediaSrc}" style="max-width:240px; border-radius:14px; margin-bottom:12px; display:block; box-shadow:0 8px 20px rgba(0,0,0,0.3);" alt="Attachment" />` : '';
 
       if (role === 'ai') {
         row.innerHTML = `
-          <div class="audio-playback-bar">
-            <div class="voice-wave">
-              <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+          <div class="chat-bubble">
+            <div class="audio-playback-bar">
+              <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="आवाज़ में सुनें">
+                <i data-lucide="volume-2" style="width:16px;"></i> सुनें
+              </button>
             </div>
-            <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="इंसानी आवाज़ में सुनें">
-              <i data-lucide="volume-2" style="width:18px;"></i>
-            </button>
+            <div class="markdown-output">${text ? marked.parse(text) : '...'}</div>
           </div>
-          <div class="chat-bubble">${text ? marked.parse(text) : '...'}</div>
         `;
       } else {
         row.innerHTML = `<div class="chat-bubble">${mediaSnippet}<div>${text}</div></div>`;
@@ -1309,11 +1285,11 @@
         const item = document.createElement('div');
         item.className = 'history-item-pill';
         item.innerHTML = `
-          <div style="display:flex; align-items:center; gap:8px; overflow:hidden;" onclick="loadSavedThread(${idx})">
-            <i data-lucide="message-circle" style="width:14px; color:var(--text-secondary); flex-shrink:0;"></i>
-            <span style="overflow:hidden; text-overflow:ellipsis;">${sess.title}</span>
+          <div style="display:flex; align-items:center; gap:10px; overflow:hidden;" onclick="loadSavedThread(${idx})">
+            <i data-lucide="message-circle" style="width:15px; color:var(--brand-accent); flex-shrink:0;"></i>
+            <span style="overflow:hidden; text-overflow:ellipsis; font-weight:600;">${sess.title}</span>
           </div>
-          <i data-lucide="trash" style="width:13px; color:var(--status-danger); cursor:pointer;" onclick="deleteSpecificSession(${idx}, event)"></i>
+          <i data-lucide="trash" style="width:14px; color:var(--status-danger); cursor:pointer;" onclick="deleteSpecificSession(${idx}, event)"></i>
         `;
         list.appendChild(item);
       });
@@ -1344,13 +1320,29 @@
       else renderSavedSessionsList();
     }
 
+    function exportChatTranscript() {
+      if (activeConversation.length === 0) return alert("निर्यात करने के लिए कोई चैट उपलब्ध नहीं है।");
+      let textContent = "--- KHAASCORE AI CHAT TRANSCRIPT ---\nOwner: Kamran Siddiki\n\n";
+      activeConversation.forEach(c => {
+        const role = c.role === 'user' ? 'Kamran (User)' : 'KhaasCore AI';
+        const msg = c.parts.find(p => p.text)?.text || '[Media Attachment]';
+        textContent += `${role}: ${msg}\n\n`;
+      });
+      const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'KhaasCore-AI-Chat.txt';
+      a.click();
+    }
+
     function startNewSession() {
       activeConversation = [];
       currentSessionIndex = -1;
       document.getElementById('chatCanvas').innerHTML = `
         <div class="hero-welcome" id="heroWelcome">
-          <div class="hero-logo-box"><i data-lucide="sparkles" style="width:36px; height:36px;"></i></div>
-          <h1 class="hero-title">KhaasCore AI</h1>
+          <div class="hero-logo-box"><i data-lucide="sparkles" style="width:40px; height:40px;"></i></div>
+          <h1 class="hero-title">KhaasCore AI Ultra</h1>
           <p class="hero-subtitle">नमस्ते! नई बातचीत शुरू हो चुकी है। आप क्या पूछना चाहते हैं?</p>
         </div>
       `;
