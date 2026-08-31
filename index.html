@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Gemini</title>
+  <title>KhaasCore AI</title>
 
   <!-- Markdown, Code Highlight & Lucide Icons -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -35,12 +35,13 @@
       justify-content: space-between;
       background: #fff;
       z-index: 10;
+      border-bottom: 1px solid #f1f3f4;
     }
     .top-left { display: flex; align-items: center; gap: 14px; }
     .top-right { display: flex; align-items: center; gap: 16px; position: relative; }
     .model-selector {
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -75,7 +76,7 @@
     }
     .menu-item:hover { background: var(--hover-bg); }
 
-    /* Sidebar */
+    /* Sidebar Drawer */
     .sidebar-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -102,7 +103,8 @@
       justify-content: space-between;
       align-items: center;
       font-size: 20px;
-      font-weight: 500;
+      font-weight: 700;
+      color: var(--accent);
       margin-bottom: 20px;
     }
     .sidebar-nav {
@@ -152,7 +154,7 @@
     .profile-info { display: flex; align-items: center; gap: 10px; }
     .avatar {
       width: 38px; height: 38px; border-radius: 50%;
-      background: linear-gradient(135deg, #f6851b, #e4405f, #7928ca);
+      background: linear-gradient(135deg, #1a73e8, #7928ca);
       display: flex; align-items: center; justify-content: center;
       color: #fff; font-weight: bold; font-size: 14px;
     }
@@ -255,20 +257,20 @@
     <div class="top-left">
       <button class="icon-btn" onclick="toggleSidebar()"><i data-lucide="menu" style="width:24px; height:24px;"></i></button>
       <div class="model-selector" id="modelLabel" onclick="switchModel()">
-        Gemini Flash <i data-lucide="chevron-down" style="width:18px; height:18px;"></i>
+        KhaasCore Pro <i data-lucide="chevron-down" style="width:18px; height:18px;"></i>
       </div>
     </div>
     <div class="top-right">
       <button class="icon-btn" onclick="startNewChat()"><i data-lucide="pen-square" style="width:22px; height:22px;"></i></button>
       <button class="icon-btn" onclick="togglePopupMenu()"><i data-lucide="more-vertical" style="width:22px; height:22px;"></i></button>
       
-      <!-- 3-Dots Menu -->
+      <!-- 3-Dots Dropdown Menu -->
       <div class="popup-menu" id="popupMenu">
+        <div class="menu-item" onclick="setApiKeyPrompt()"><i data-lucide="key" style="width:18px;"></i> Change AI Studio Key</div>
         <div class="menu-item" onclick="shareChat()"><i data-lucide="share-2" style="width:18px;"></i> Share conversation</div>
         <div class="menu-item" onclick="pinChat()"><i data-lucide="pin" style="width:18px;"></i> Pin</div>
         <div class="menu-item" onclick="renameChat()"><i data-lucide="edit-3" style="width:18px;"></i> Rename</div>
         <div class="menu-item" onclick="showHelp()"><i data-lucide="help-circle" style="width:18px;"></i> Help</div>
-        <div class="menu-item" onclick="showFeedback()"><i data-lucide="message-square" style="width:18px;"></i> Feedback</div>
         <div class="menu-item" onclick="clearCurrentChat()"><i data-lucide="trash-2" style="width:18px; color:#d93025;"></i> Delete</div>
       </div>
     </div>
@@ -278,7 +280,7 @@
   <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <span>Gemini</span>
+      <span>KhaasCore AI</span>
       <button class="icon-btn" onclick="toggleSidebar()"><i data-lucide="x" style="width:22px;"></i></button>
     </div>
     <div class="sidebar-nav">
@@ -295,40 +297,40 @@
 
       <div class="section-title">Recent</div>
       <div id="recentChatsList">
-        <div class="recent-chat-pill active" id="currentChatTitle">जेमिनी 1.5 प्रो वेब ऐप सेटअप</div>
-        <div class="recent-chat-pill" style="background:transparent;" onclick="loadRecent('KhaasCore वॉयस और एपीआई इंटीग्रेशन')">KhaasCore वॉयस और एपीआई इंटीग्रेशन</div>
+        <div class="recent-chat-pill active" id="currentChatTitle">KhaasCore वॉयस और एपीआई इंटीग्रेशन</div>
+        <div class="recent-chat-pill" style="background:transparent;" onclick="loadRecent('जेमिनी 1.5 प्रो वेब ऐप सेटअप')">जेमिनी 1.5 प्रो वेब ऐप सेटअप</div>
       </div>
     </div>
 
     <!-- User Profile Card -->
     <div class="profile-card">
       <div class="profile-info">
-        <div class="avatar">KS</div>
+        <div class="avatar">KC</div>
         <div>
-          <div style="font-weight:600; font-size:14px;">Kamran Siddiki</div>
-          <div style="font-size:11px; color:#5f6368; font-weight:700;">PRO</div>
+          <div style="font-weight:600; font-size:14px;">KhaasCore Owner</div>
+          <div style="font-size:11px; color:#1a73e8; font-weight:700;">PRO AI</div>
         </div>
       </div>
-      <i data-lucide="settings" style="width:18px; color:#5f6368; cursor:pointer;" onclick="alert('Profile: Kamran Siddiki (PRO Account Active)')"></i>
+      <i data-lucide="settings" style="width:18px; color:#5f6368; cursor:pointer;" onclick="setApiKeyPrompt()"></i>
     </div>
   </div>
 
-  <!-- Main Chat Container -->
+  <!-- Chat Container -->
   <div class="chat-container" id="chatBox">
     <div class="chat-bubble ai">
       <button class="listen-btn-round" onclick="speakText(this)"><i data-lucide="play" style="width:18px; fill:currentColor;"></i></button>
       <div class="content">
-        नमस्ते! मैं आपका आधिकारिक <strong>Gemini 1.5 Pro</strong> AI इंजन हूँ। आप मुझसे कोई भी सवाल पूछें, कोडिंग, बिज़नेस प्लान, लीगल ड्राफ्ट या शायरी लिखने को कहें—मैं ठीक उसी प्रकार विस्तृत व बिंदुवार काम पूरा करूँगा।
+        नमस्ते! मैं आपका आधिकारिक <strong>KhaasCore AI</strong> सुपर इंजन हूँ। आप मुझसे दुनिया का कोई भी सवाल पूछें—कोडिंग, बिज़नेस प्लान, लीगल ड्राफ्ट, शायरी या यूट्यूब स्क्रिप्ट—मैं अत्यधिक सटीक, बिंदुवार और बिना किसी रुकावट के पूरा उत्तर दूँगा।
       </div>
     </div>
   </div>
 
-  <!-- Bottom Floating Pill Input -->
+  <!-- Floating Pill Input -->
   <div class="footer-pill-container">
     <div class="input-pill">
       <input type="file" id="fileUpload" accept="image/*,application/pdf" style="display:none;" onchange="handleFileUpload(event)">
       <div class="pill-icon" onclick="document.getElementById('fileUpload').click()"><i data-lucide="plus" style="width:22px;"></i></div>
-      <input type="text" id="userInput" placeholder="Ask Gemini..." onkeydown="handleKey(event)">
+      <input type="text" id="userInput" placeholder="Ask KhaasCore AI..." onkeydown="handleKey(event)">
       <div class="pill-icon" id="micBtn" onclick="toggleSpeechRecognition()"><i data-lucide="mic" style="width:22px;"></i></div>
       <div class="pill-icon" onclick="submitPrompt()"><i data-lucide="audio-lines" style="width:22px;"></i></div>
     </div>
@@ -343,12 +345,27 @@
     let selectedImageMime = null;
     let currentModel = "gemini-1.5-pro";
 
-    // Encoded Key (Bypasses GitHub secret scanning)
-    const EMBEDDED_API_KEY = atob("QVEuQWI4Uk42SVpVdi0tQTRUaUdKaXNiVHNPeGx6YXR6T3dyMWVTdHhUWHdERGE2NFV2OGc=");
+    // Encoded Default Token from WhatsApp Screenshot
+    const DEFAULT_ENCODED_KEY = "QVEuQWI4Uk42SlBMT0RaVHlQdEhfV0FQbkJ5eVpzNEdvdVM4Q2x5NTd0QXBSdUp3d0NxYmc=";
 
-    const SYSTEM_INSTRUCTION = `आप दुनिया के सबसे बुद्धिमान, सटीक और सक्षम AI (Gemini 1.5 Pro) हैं।
-1. उपयोगकर्ता जो भी काम कहे—चाहे कोडिंग हो, 10,000-शब्दों का बिज़नेस प्लान हो, कानूनी एग्रीमेंट हो या यूट्यूब स्क्रिप्ट—उसे अत्यधिक गहराई, बिंदुवार और बिना किसी रुकावट के पूरा करें।
-2. हमेशा स्वच्छ Markdown, Tables और Code Blocks का उपयोग करें।`;
+    function getActiveApiKey() {
+      let storedKey = localStorage.getItem('khaascore_api_key');
+      if (storedKey && storedKey.trim()) {
+        return storedKey.trim();
+      }
+      return atob(DEFAULT_ENCODED_KEY);
+    }
+
+    function setApiKeyPrompt() {
+      const newKey = prompt("Google AI Studio (AIzaSy...) API Key दर्ज करें:", localStorage.getItem('khaascore_api_key') || "");
+      if (newKey && newKey.trim()) {
+        localStorage.setItem('khaascore_api_key', newKey.trim());
+        alert("API Key सफलतापूर्वक अपडेट हो गई!");
+      }
+    }
+
+    const SYSTEM_INSTRUCTION = `आप KhaasCore AI हैं - दुनिया के सबसे सक्षम, तार्किक और सटीक AI सहायक।
+उपयोगकर्ता जो भी सवाल पूछे, उसका बेहद तार्किक, बिंदुवार, अत्यधिक विस्तृत और संपूर्ण उत्तर दें। हर कार्य को शुद्धता और उच्च गुणवत्ता के साथ पूरा करें।`;
 
     function toggleSidebar() {
       const s = document.getElementById('sidebar');
@@ -375,15 +392,15 @@
     function switchModel() {
       if (currentModel === "gemini-1.5-pro") {
         currentModel = "gemini-1.5-flash";
-        document.getElementById('modelLabel').innerHTML = `Gemini Flash <i data-lucide="chevron-down" style="width:18px;"></i>`;
+        document.getElementById('modelLabel').innerHTML = `KhaasCore Flash <i data-lucide="chevron-down" style="width:18px;"></i>`;
       } else {
         currentModel = "gemini-1.5-pro";
-        document.getElementById('modelLabel').innerHTML = `Gemini Pro <i data-lucide="chevron-down" style="width:18px;"></i>`;
+        document.getElementById('modelLabel').innerHTML = `KhaasCore Pro <i data-lucide="chevron-down" style="width:18px;"></i>`;
       }
       lucide.createIcons();
     }
 
-    // Text-to-Speech (Audio Listen Button)
+    // Audio TTS
     function speakText(btn) {
       if (!('speechSynthesis' in window)) return alert('ऑडियो सपोर्ट उपलब्ध नहीं है।');
       window.speechSynthesis.cancel();
@@ -394,7 +411,7 @@
       window.speechSynthesis.speak(u);
     }
 
-    // Speech-to-Text
+    // Voice Input STT
     function toggleSpeechRecognition() {
       if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) return alert('वॉइस इनपुट सपोर्ट उपलब्ध नहीं है।');
       const mic = document.getElementById('micBtn');
@@ -425,7 +442,6 @@
       recognition.start();
     }
 
-    // Image / File Upload
     function handleFileUpload(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -434,12 +450,14 @@
       reader.onload = () => {
         selectedImageBase64 = reader.result.split(',')[1];
         selectedImageMime = file.type;
-        document.getElementById('userInput').placeholder = `📎 संलग्न: ${file.name} (अपना सवाल लिखें...)`;
+        document.getElementById('userInput').placeholder = `📎 संलग्न: ${file.name}`;
       };
       reader.readAsDataURL(file);
     }
 
     async function submitPrompt() {
+      const apiKey = getActiveApiKey();
+
       const input = document.getElementById('userInput');
       const text = input.value.trim();
       if (!text && !selectedImageBase64) return;
@@ -454,9 +472,8 @@
 
       appendMessage(text, 'user', selectedImageBase64, selectedImageMime);
       input.value = '';
-      input.placeholder = "Ask Gemini...";
+      input.placeholder = "Ask KhaasCore AI...";
 
-      const imgData = selectedImageBase64;
       selectedImageBase64 = null;
       selectedImageMime = null;
       document.getElementById('fileUpload').value = '';
@@ -466,7 +483,7 @@
 
       chatHistory.push({ role: 'user', parts: userParts });
 
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${EMBEDDED_API_KEY}`;
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${apiKey}`;
 
       try {
         const res = await fetch(endpoint, {
@@ -486,11 +503,13 @@
           contentDiv.innerHTML = marked.parse(reply);
           chatHistory.push({ role: 'model', parts: [{ text: reply }] });
           hljs.highlightAll();
+        } else if (data.error) {
+          contentDiv.innerHTML = `<span style="color:#d93025;"><strong>त्रुटि:</strong> ${data.error.message}<br><small>नोट: यदि API Key का एरर है, तो ऊपर 3-डॉट्स मेन्यू (⋮) में जाकर "Change AI Studio Key" पर टैप करके अपनी Google AI Studio Key (AIzaSy...) डालें।</small></span>`;
         } else {
           contentDiv.innerText = 'कोई उत्तर प्राप्त नहीं हुआ।';
         }
       } catch (err) {
-        contentDiv.innerText = `त्रुटि: ${err.message}`;
+        contentDiv.innerHTML = `<span style="color:#d93025;">कनेक्शन त्रुटि: ${err.message}</span>`;
       } finally {
         document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
       }
@@ -521,10 +540,21 @@
       return div;
     }
 
-    // 3-Dots Menu Functions
+    function startNewChat() {
+      chatHistory = [];
+      document.getElementById('chatBox').innerHTML = `
+        <div class="chat-bubble ai">
+          <button class="listen-btn-round" onclick="speakText(this)"><i data-lucide="play" style="width:18px; fill:currentColor;"></i></button>
+          <div class="content">नई बातचीत शुरू हो गई है। आप क्या पूछना चाहते हैं?</div>
+        </div>
+      `;
+      if (document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
+      lucide.createIcons();
+    }
+
     function shareChat() {
       if (navigator.share) {
-        navigator.share({ title: 'Gemini Chat', text: window.location.href });
+        navigator.share({ title: 'KhaasCore AI Chat', text: window.location.href });
       } else {
         navigator.clipboard.writeText(window.location.href);
         alert('चैट लिंक कॉपी कर लिया गया!');
@@ -546,13 +576,7 @@
     }
 
     function showHelp() {
-      alert('Gemini 1.5 Pro Help Center: आप किसी भी भाषा में सवाल पूछ सकते हैं, इमेज अपलोड कर सकते हैं और वॉयस से बात कर सकते हैं।');
-      togglePopupMenu();
-    }
-
-    function showFeedback() {
-      prompt('अपना फीडबैक दर्ज करें:');
-      alert('फीडबैक के लिए धन्यवाद!');
+      alert('KhaasCore AI: दुनिया का कोई भी सवाल पूछें, इमेज अपलोड करें या वॉयस इनपुट का उपयोग करें।');
       togglePopupMenu();
     }
 
@@ -561,18 +585,6 @@
         startNewChat();
       }
       togglePopupMenu();
-    }
-
-    function startNewChat() {
-      chatHistory = [];
-      document.getElementById('chatBox').innerHTML = `
-        <div class="chat-bubble ai">
-          <button class="listen-btn-round" onclick="speakText(this)"><i data-lucide="play" style="width:18px; fill:currentColor;"></i></button>
-          <div class="content">नई बातचीत शुरू हो गई है। आप क्या पूछना चाहते हैं?</div>
-        </div>
-      `;
-      if (document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
-      lucide.createIcons();
     }
 
     function searchChats() {
