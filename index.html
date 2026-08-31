@@ -690,7 +690,7 @@
       <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="menu" style="width:22px; height:22px;"></i></button>
       <div class="model-selector-chip" id="modelSelectorChip" onclick="openSubscriptionModal()">
         <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--brand-accent);"></i>
-        <span id="labelEngine">Gemini 3.5 Flash (Adaptive)</span>
+        <span id="labelEngine">Gemini 3.6 Flash (Adaptive)</span>
         <i data-lucide="chevron-down" style="width:14px; height:14px; color:var(--text-secondary);"></i>
       </div>
     </div>
@@ -734,7 +734,7 @@
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:18px; color:#f59e0b;"></i> Upgrade Plan (UPI ₹199 - ₹999)</div>
       
       <div class="drawer-category">AI Engine Models</div>
-      <div class="drawer-btn" onclick="setEngineTier('gemini-2.5-flash', 'Gemini 3.5 Flash (Adaptive)')"><i data-lucide="bot" style="width:18px;"></i> Gemini 3.5 Flash <span style="font-size:10px; background:#22c55e; color:#fff; padding:2px 6px; border-radius:6px; margin-left:auto;">FREE</span></div>
+      <div class="drawer-btn" onclick="setEngineTier('gemini-3.6-flash', 'Gemini 3.6 Flash (Adaptive)')"><i data-lucide="bot" style="width:18px;"></i> Gemini 3.6 Flash <span style="font-size:10px; background:#22c55e; color:#fff; padding:2px 6px; border-radius:6px; margin-left:auto;">FREE</span></div>
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="sparkles" style="width:18px;"></i> Gemini 3.1 Pro <span class="premium-badge">₹199/mo</span></div>
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="award" style="width:18px;"></i> Google AI Pro <span class="premium-badge">₹499/mo</span></div>
       <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="flame" style="width:18px;"></i> Google AI Ultra <span class="premium-badge">₹999/mo</span></div>
@@ -799,7 +799,7 @@
       </div>
 
       <div class="plans-grid">
-        <div class="plan-card" onclick="selectPlanTier(this, 'Gemini 3.5 Flash', 0)">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Gemini 3.6 Flash', 0)">
           <div style="font-size:12px; font-weight:700; color:#22c55e;">FREE TIER</div>
           <div class="plan-price">₹0 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
           <p style="font-size:12px; color:var(--text-secondary);">Adaptive Flash Engine with fast response time.</p>
@@ -861,7 +861,7 @@
     let activeFileMime = null;
     let isSTTActive = false;
     let sttInstance = null;
-    let activeEngineModel = "gemini-2.5-flash"; 
+    let activeEngineModel = "gemini-3.6-flash"; 
     let selectedTierName = "Gemini 3.1 Pro";
     let selectedTierAmount = 199;
 
@@ -967,7 +967,7 @@ ${learnedContext}
       const checkoutBox = document.getElementById('upiCheckoutSection');
       if (price === 0) {
         checkoutBox.style.display = 'none';
-        document.getElementById('labelEngine').innerText = 'Gemini 3.5 Flash (Free)';
+        document.getElementById('labelEngine').innerText = 'Gemini 3.6 Flash (Free)';
       } else {
         checkoutBox.style.display = 'flex';
         document.getElementById('displaySelectedPlanPrice').innerText = `₹${price}`;
@@ -1022,7 +1022,6 @@ ${learnedContext}
       document.getElementById('attachmentBadge').style.display = 'none';
     }
 
-    // Voice STT Engine (Fix for Mobile & Chrome)
     function toggleVoiceSTT() {
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRec) {
@@ -1059,7 +1058,6 @@ ${learnedContext}
           }
         };
         sttInstance.onerror = (err) => {
-          console.warn("STT Error", err);
           isSTTActive = false;
           mic.classList.remove('recording');
         };
@@ -1075,7 +1073,6 @@ ${learnedContext}
       }
     }
 
-    // Speech TTS Engine (Fix for Android & Desktop)
     function synthesizeNodeSpeech(btn) {
       if (!('speechSynthesis' in window)) {
         alert("स्पीच इंजन आपके डिवाइस पर समर्थित नहीं है।");
@@ -1106,7 +1103,6 @@ ${learnedContext}
       }
     });
 
-    // Paywall Trigger Filter for Heavy/Video Tasks
     function checkHeavyTaskPaywall(promptText) {
       const lower = promptText.toLowerCase();
       const heavyKeywords = [
@@ -1116,14 +1112,12 @@ ${learnedContext}
       return heavyKeywords.some(k => lower.includes(k));
     }
 
-    // Core Submit & SSE Stream
     async function handlePromptSubmission() {
       const key = getMasterKey();
       const area = document.getElementById('promptArea');
       const userText = area.value.trim();
       if (!userText && !activeFileBase64) return;
 
-      // Smart Paywall Trigger
       if (checkHeavyTaskPaywall(userText)) {
         renderMessageNode('user', userText, null);
         area.value = '';
@@ -1169,8 +1163,7 @@ ${learnedContext}
       const bubble = aiNode.querySelector('.chat-bubble');
       bubble.classList.add('cursor-blink');
 
-      // Universal Fast Gemini Endpoint
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${key}`;
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${activeEngineModel}:streamGenerateContent?alt=sse&key=${key}`;
       const requestBody = {
         systemInstruction: { parts: [{ text: buildDynamicSystemPrompt() }] },
         contents: activeConversation,
