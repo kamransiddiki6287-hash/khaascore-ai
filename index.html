@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>KhaasCore AI - Universal Intelligence Operating System</title>
+  <title>KhaasCore AI - Universal Intelligence Platform</title>
 
   <!-- External High Performance CDNs -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -15,33 +15,24 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* =========================================================
-       CSS ARCHITECTURE & DESIGN SYSTEM TOKENS
-       ========================================================= */
     :root {
       --bg-canvas: #ffffff;
       --bg-sidebar: #f8fafc;
       --bg-card: #ffffff;
       --border-subtle: #e2e8f0;
-      --border-focus: #2563eb;
       --text-primary: #0f172a;
       --text-secondary: #64748b;
-      --text-muted: #94a3b8;
       --brand-accent: #2563eb;
       --brand-accent-hover: #1d4ed8;
       --brand-accent-light: #eff6ff;
       --user-bubble: #f1f5f9;
-      --ai-bubble: #ffffff;
       --status-danger: #ef4444;
       --status-success: #22c55e;
       --status-warning: #f59e0b;
       --pill-surface: #f1f5f9;
       --elevation-low: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-      --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --elevation-high: 0 10px 25px -3px rgba(0, 0, 0, 0.15);
       --drawer-width: 320px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-mono: Consolas, Monaco, "Courier New", monospace;
     }
 
     [data-theme="dark"] {
@@ -49,30 +40,25 @@
       --bg-sidebar: #0f172a;
       --bg-card: #111a2e;
       --border-subtle: #1e293b;
-      --border-focus: #38bdf8;
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
-      --text-muted: #64748b;
       --brand-accent: #38bdf8;
       --brand-accent-hover: #0284c7;
       --brand-accent-light: #0c4a6e;
       --user-bubble: #1e293b;
-      --ai-bubble: #111a2e;
       --status-danger: #f87171;
       --status-success: #4ade80;
       --status-warning: #fbbf24;
       --pill-surface: #0f172a;
       --elevation-low: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-      --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-      --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+      --elevation-high: 0 10px 25px -3px rgba(0, 0, 0, 0.6);
     }
 
-    /* Base Reset */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: var(--font-sans);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -86,7 +72,6 @@
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Top Navigation Header */
     .app-header {
       height: 60px;
       padding: 0 16px;
@@ -138,7 +123,16 @@
       border-color: var(--brand-accent);
     }
 
-    /* Context Popover */
+    .premium-badge {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-left: 4px;
+    }
+
     .popover-menu {
       position: absolute;
       top: 54px;
@@ -172,7 +166,7 @@
       margin: 4px 0;
     }
 
-    /* Sidebar Drawer */
+    /* Drawer */
     .drawer-overlay {
       position: fixed;
       inset: 0;
@@ -285,7 +279,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--brand-accent), #8b5cf6);
+      background: linear-gradient(135deg, #2563eb, #8b5cf6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -294,11 +288,41 @@
       font-size: 14px;
     }
 
-    /* Main Chat Canvas */
+    /* Quick Tools */
+    .quick-tools-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 16px 0 16px;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .quick-tool-btn {
+      white-space: nowrap;
+      background: var(--pill-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .quick-tool-btn:hover {
+      border-color: var(--brand-accent);
+      color: var(--brand-accent);
+    }
+
+    /* Canvas */
     .chat-canvas {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 16px 150px 16px;
+      padding: 16px 16px 150px 16px;
       display: flex;
       flex-direction: column;
       gap: 24px;
@@ -339,27 +363,47 @@
       color: var(--text-primary);
     }
 
+    .message-meta-info {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      display: flex;
+      gap: 12px;
+    }
+
     .btn-audio-listen {
       position: absolute;
       top: 0;
       right: 0;
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background-color: var(--brand-accent-light);
-      color: var(--brand-accent);
+      background-color: #dbeafe;
+      color: #1d4ed8;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid #bfdbfe;
       cursor: pointer;
-      transition: transform 0.1s;
+      transition: transform 0.15s, background-color 0.2s;
+      z-index: 5;
     }
     .btn-audio-listen:active {
-      transform: scale(0.92);
+      transform: scale(0.90);
+    }
+    .btn-audio-listen.playing {
+      background-color: #22c55e;
+      color: #ffffff;
+      animation: pulsePlay 1.2s infinite;
     }
 
-    /* Code Container & Live Sandbox */
+    @keyframes pulsePlay {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    /* Code Container & Sandbox */
     .code-container {
       position: relative;
       background: #181825;
@@ -400,12 +444,12 @@
     .chat-bubble pre {
       padding: 14px;
       overflow-x: auto;
-      font-family: var(--font-mono);
+      font-family: Consolas, Monaco, "Courier New", monospace;
       font-size: 13.5px;
       color: #cdd6f4;
     }
     .chat-bubble code {
-      font-family: var(--font-mono);
+      font-family: Consolas, Monaco, "Courier New", monospace;
       background-color: var(--pill-surface);
       padding: 2px 6px;
       border-radius: 4px;
@@ -416,7 +460,6 @@
       padding: 0;
     }
 
-    /* Sandbox iframe */
     .sandbox-preview-frame {
       width: 100%;
       height: 250px;
@@ -426,47 +469,7 @@
       display: none;
     }
 
-    /* Markdown Formats */
-    .chat-bubble h1, .chat-bubble h2, .chat-bubble h3 {
-      margin: 18px 0 8px 0;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .chat-bubble p {
-      margin-bottom: 12px;
-    }
-    .chat-bubble ul, .chat-bubble ol {
-      margin-left: 20px;
-      margin-bottom: 12px;
-    }
-    .chat-bubble li {
-      margin-bottom: 4px;
-    }
-    .chat-bubble table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 14px 0;
-      font-size: 14px;
-    }
-    .chat-bubble th, .chat-bubble td {
-      border: 1px solid var(--border-subtle);
-      padding: 8px 12px;
-      text-align: left;
-    }
-    .chat-bubble th {
-      background-color: var(--pill-surface);
-      font-weight: 600;
-    }
-    .attachment-img-preview {
-      max-width: 260px;
-      max-height: 200px;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      border: 1px solid var(--border-subtle);
-      object-fit: cover;
-    }
-
-    /* Floating Input Dock */
+    /* Input Dock */
     .input-dock {
       position: fixed;
       bottom: 16px;
@@ -534,13 +537,14 @@
       background-color: rgba(37, 99, 235, 0.08);
     }
     .dock-icon.recording {
-      color: var(--status-danger);
-      animation: pulseRecord 1s infinite alternate;
+      color: var(--status-danger) !important;
+      background-color: rgba(239, 68, 68, 0.15);
+      animation: pulseRecord 0.8s infinite alternate;
     }
 
     @keyframes pulseRecord {
       from { transform: scale(1); opacity: 1; }
-      to { transform: scale(1.18); opacity: 0.6; }
+      to { transform: scale(1.22); opacity: 0.5; }
     }
 
     .cursor-blink::after {
@@ -554,127 +558,231 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
     }
+
+    .creator-attribution-badge {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-top: 6px;
+    }
+    .creator-attribution-badge strong {
+      color: var(--brand-accent);
+    }
+
+    /* Subscription & Google Pay QR Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      backdrop-filter: blur(5px);
+      padding: 16px;
+    }
+    .modal-dialog {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      max-width: 540px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: var(--elevation-high);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media(max-width: 500px) {
+      .plans-grid { grid-template-columns: 1fr; }
+    }
+    .plan-card {
+      border: 1.5px solid var(--border-subtle);
+      padding: 16px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .plan-card:hover {
+      border-color: var(--brand-accent);
+      transform: translateY(-2px);
+    }
+    .plan-card.active {
+      border-color: var(--brand-accent);
+      background-color: var(--brand-accent-light);
+    }
+    .plan-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    /* UPI Checkout Box */
+    .upi-checkout-box {
+      background-color: var(--pill-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .qr-card-container {
+      background: #ffffff;
+      padding: 14px;
+      border-radius: 16px;
+      box-shadow: var(--elevation-mid);
+      margin: 12px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .qr-card-container img {
+      width: 185px;
+      height: 185px;
+      display: block;
+    }
+    .upi-id-badge {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: monospace;
+      font-weight: 700;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-upi-app-direct {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top App Navigation Bar -->
+  <!-- Header -->
   <header class="app-header">
     <div class="header-left">
-      <button class="btn-icon-action" onclick="toggleDrawer()" aria-label="Open Drawer">
-        <i data-lucide="menu" style="width:22px; height:22px;"></i>
-      </button>
-      <div class="model-selector-chip" id="modelSelectorChip" onclick="cycleEngineTier()">
+      <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="menu" style="width:22px; height:22px;"></i></button>
+      <div class="model-selector-chip" id="modelSelectorChip" onclick="openSubscriptionModal()">
         <i data-lucide="sparkles" style="width:16px; height:16px; color:var(--brand-accent);"></i>
-        <span id="labelEngine">KhaasCore Flash (3.6)</span>
+        <span id="labelEngine">Gemini 3.5 Flash (Adaptive)</span>
         <i data-lucide="chevron-down" style="width:14px; height:14px; color:var(--text-secondary);"></i>
       </div>
     </div>
 
     <div class="header-right">
-      <button class="btn-icon-action" onclick="toggleAppTheme()" aria-label="Toggle Theme">
-        <i data-lucide="moon" id="iconTheme" style="width:20px; height:20px;"></i>
-      </button>
-      <button class="btn-icon-action" onclick="startNewSession()" aria-label="New Chat">
-        <i data-lucide="pen-square" style="width:20px; height:20px;"></i>
-      </button>
-      <button class="btn-icon-action" onclick="toggleActionPopover()" aria-label="Options">
-        <i data-lucide="more-vertical" style="width:20px; height:20px;"></i>
-      </button>
+      <button class="btn-icon-action" onclick="showLearnedMemoryInfo()" title="View AI Memory"><i data-lucide="brain" style="width:20px; color:var(--brand-accent);"></i></button>
+      <button class="btn-icon-action" onclick="openSubscriptionModal()" title="Upgrade to Pro"><i data-lucide="crown" style="width:20px; color:#f59e0b;"></i></button>
+      <button class="btn-icon-action" onclick="toggleAppTheme()"><i data-lucide="moon" id="iconTheme" style="width:20px;"></i></button>
+      <button class="btn-icon-action" onclick="startNewSession()"><i data-lucide="pen-square" style="width:20px;"></i></button>
+      <button class="btn-icon-action" onclick="toggleActionPopover()"><i data-lucide="more-vertical" style="width:20px;"></i></button>
 
-      <!-- Dropdown Context Menu -->
+      <!-- Dropdown -->
       <div class="popover-menu" id="actionPopoverMenu">
-        <div class="popover-item" onclick="shareChatThread()">
-          <i data-lucide="share-2" style="width:16px;"></i> बातचीत शेयर करें (Share)
-        </div>
-        <div class="popover-item" onclick="exportDataJSON()">
-          <i data-lucide="download" style="width:16px;"></i> एक्सपोर्ट डेटा (JSON)
-        </div>
-        <div class="popover-item" onclick="exportDataMarkdown()">
-          <i data-lucide="file-text" style="width:16px;"></i> एक्सपोर्ट Markdown
-        </div>
-        <div class="popover-item" onclick="window.print()">
-          <i data-lucide="printer" style="width:16px;"></i> प्रिंट / PDF सेव करें
-        </div>
+        <div class="popover-item" onclick="openSubscriptionModal()"><i data-lucide="credit-card" style="width:16px;"></i> Subscription Tiers (UPI)</div>
+        <div class="popover-item" onclick="resetUserLearningMemory()"><i data-lucide="rotate-ccw" style="width:16px;"></i> Reset AI Memory</div>
+        <div class="popover-item" onclick="shareChatThread()"><i data-lucide="share-2" style="width:16px;"></i> Share Chat</div>
+        <div class="popover-item" onclick="exportDataJSON()"><i data-lucide="download" style="width:16px;"></i> Export JSON</div>
+        <div class="popover-item" onclick="exportDataMarkdown()"><i data-lucide="file-text" style="width:16px;"></i> Export Markdown</div>
         <div class="popover-divider"></div>
-        <div class="popover-item" onclick="renameCurrentThread()">
-          <i data-lucide="edit-3" style="width:16px;"></i> नाम बदलें (Rename)
-        </div>
-        <div class="popover-item" style="color:var(--status-danger);" onclick="deleteCurrentThread()">
-          <i data-lucide="trash-2" style="width:16px;"></i> चैट हटाएं (Delete)
-        </div>
+        <div class="popover-item" onclick="renameCurrentThread()"><i data-lucide="edit-3" style="width:16px;"></i> Rename Chat</div>
+        <div class="popover-item" style="color:var(--status-danger);" onclick="deleteCurrentThread()"><i data-lucide="trash-2" style="width:16px;"></i> Delete Chat</div>
       </div>
     </div>
   </header>
 
-  <!-- Sidebar Overlay & Sliding Drawer -->
+  <!-- Quick Action Tools Bar -->
+  <div class="quick-tools-bar">
+    <button class="quick-tool-btn" onclick="applyQuickPrompt('🔍 Code Review: Analyze and fix errors in this code:')"><i data-lucide="code" style="width:14px;"></i> Code Fixer</button>
+    <button class="quick-tool-btn" onclick="applyQuickPrompt('📜 Legal Draft: Write a comprehensive, 5000-word agreement for:')"><i data-lucide="scale" style="width:14px;"></i> Legal Drafter</button>
+    <button class="quick-tool-btn" onclick="applyQuickPrompt('📐 Math Solve: Solve step-by-step with LaTeX equations:')"><i data-lucide="superscript" style="width:14px;"></i> Math Solver</button>
+    <button class="quick-tool-btn" onclick="applyQuickPrompt('🌐 Translate & Refine into formal English and Hindi:')"><i data-lucide="languages" style="width:14px;"></i> Translator</button>
+  </div>
+
+  <!-- Drawer -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
   <aside class="drawer" id="sideDrawer">
     <div class="drawer-header">
-      <div class="brand-title">
-        <i data-lucide="cpu" style="width:22px; height:22px;"></i> KhaasCore AI
-      </div>
-      <button class="btn-icon-action" onclick="toggleDrawer()">
-        <i data-lucide="x" style="width:20px; height:20px;"></i>
-      </button>
+      <div class="brand-title"><i data-lucide="cpu" style="width:22px;"></i> KhaasCore AI</div>
+      <button class="btn-icon-action" onclick="toggleDrawer()"><i data-lucide="x" style="width:20px;"></i></button>
     </div>
 
     <nav class="drawer-scrollable">
-      <div class="drawer-btn active" onclick="startNewSession()">
-        <i data-lucide="message-square-plus" style="width:18px;"></i> नई बातचीत (New Chat)
-      </div>
-      <div class="drawer-btn" onclick="openSearchPrompt()">
-        <i data-lucide="search" style="width:18px;"></i> खोजें (Search History)
-      </div>
+      <div class="drawer-btn active" onclick="startNewSession()"><i data-lucide="message-square-plus" style="width:18px;"></i> New Chat</div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="zap" style="width:18px; color:#f59e0b;"></i> Upgrade Plan (UPI ₹199 - ₹999)</div>
       
-      <div class="drawer-category">स्पेशलाइज्ड मोड्स (Specialized Modes)</div>
-      <div class="drawer-btn" onclick="switchSpecializedMode('code')">
-        <i data-lucide="code-2" style="width:18px;"></i> Full-Stack Code Architect
-      </div>
-      <div class="drawer-btn" onclick="switchSpecializedMode('legal')">
-        <i data-lucide="scale" style="width:18px;"></i> 10kW US/UK Legal & Business
-      </div>
-      <div class="drawer-btn" onclick="switchSpecializedMode('academic')">
-        <i data-lucide="graduation-cap" style="width:18px;"></i> In-Depth Academic Thesis
-      </div>
+      <div class="drawer-category">AI Engine Models</div>
+      <div class="drawer-btn" onclick="setEngineTier('gemini-2.5-flash', 'Gemini 3.5 Flash (Adaptive)')"><i data-lucide="bot" style="width:18px;"></i> Gemini 3.5 Flash <span style="font-size:10px; background:#22c55e; color:#fff; padding:2px 6px; border-radius:6px; margin-left:auto;">FREE</span></div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="sparkles" style="width:18px;"></i> Gemini 3.1 Pro <span class="premium-badge">₹199/mo</span></div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="award" style="width:18px;"></i> Google AI Pro <span class="premium-badge">₹499/mo</span></div>
+      <div class="drawer-btn" onclick="openSubscriptionModal()"><i data-lucide="flame" style="width:18px;"></i> Google AI Ultra <span class="premium-badge">₹999/mo</span></div>
 
-      <div class="drawer-category">नोटबुक्स (Notebooks)</div>
-      <div class="drawer-btn" onclick="createNewNotebook()">
-        <i data-lucide="plus" style="width:18px;"></i> New Notebook
-      </div>
-
-      <div class="drawer-category">हालिया चैट्स (Sessions Database)</div>
+      <div class="drawer-category">Recent Chats</div>
       <div id="threadHistoryList"></div>
     </nav>
 
+    <!-- Creator Identity Footer -->
     <div class="drawer-footer">
       <div class="user-badge">
-        <div class="avatar-circle">KC</div>
+        <div class="avatar-circle">KS</div>
         <div>
-          <div style="font-weight:600; font-size:13.5px;">KhaasCore Owner</div>
-          <div style="font-size:11px; color:var(--status-success); font-weight:700;">PRO ENGINE LIVE</div>
+          <div style="font-weight:700; font-size:14px; color:var(--text-primary);">Kamran Siddiki</div>
+          <div style="font-size:11px; color:var(--brand-accent); font-weight:700;">FOUNDER & OWNER (PRO)</div>
         </div>
       </div>
-      <button class="btn-icon-action" onclick="alert('KhaasCore Universal Engine Active')">
-        <i data-lucide="shield-check" style="width:18px; color:var(--status-success);"></i>
+      <button class="btn-icon-action" onclick="alert('KhaasCore AI — Created & Owned by Kamran Siddiki')">
+        <i data-lucide="badge-check" style="width:20px; color:var(--brand-accent);"></i>
       </button>
     </div>
   </aside>
 
-  <!-- Main Chat Canvas -->
+  <!-- Chat Canvas -->
   <main class="chat-canvas" id="chatCanvas">
     <div class="chat-row ai">
-      <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
-        <i data-lucide="volume-2" style="width:18px;"></i>
-      </button>
+      <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="Listen Response"><i data-lucide="volume-2" style="width:18px;"></i></button>
       <div class="chat-bubble">
-        <p>नमस्ते! मैं आपका संपूर्ण <strong>KhaasCore AI</strong> यूनिवर्सल इंटेलिजेंस ऑपरेटिंग सिस्टम हूँ।</p>
-        <p>आप मुझसे दुनिया का कोई भी कार्य करवा सकते हैं—लाइव कोडिंग व सैंडबॉक्स रनिंग, गणितीय समीकरण ($E=mc^2$), 10,000 शब्दों का लीगल व बिज़नेस ड्राफ्ट, या मल्टीमॉडल फाइल/इमेज विज़न एनालिसिस। मैं बिना किसी रुकावट के पूरी गहराई और सटीकता के साथ उत्तर प्रदान करूँगा।</p>
+        <p>नमस्ते! मैं आपका <strong>KhaasCore AI</strong> यूनिवर्सल एडैप्टिव इंटेलिजेंस इंजन हूँ।</p>
+        <p>इस प्लेटफ़ॉर्म को <strong>Kamran Siddiki</strong> द्वारा विकसित और डिज़ाइन किया गया है। मैं बातचीत के साथ आपकी प्राथमिकताओं को स्वतः सीखकर और अधिक उन्नत स्तर पर आपकी सहायता करता हूँ।</p>
+        <p>आप मुझसे कोडिंग, गणितीय सूत्र, 10,000 शब्दों का लीगल व बिज़नेस ड्राफ़्ट, या मल्टीमॉडल विज़न टास्क करवा सकते हैं।</p>
       </div>
     </div>
   </main>
 
-  <!-- Bottom Floating Input Dock -->
+  <!-- Input Dock -->
   <div class="input-dock">
     <div class="attachment-badge" id="attachmentBadge">
       <i data-lucide="file-check" style="width:14px; color:var(--brand-accent);"></i>
@@ -684,55 +792,151 @@
 
     <div class="input-pill">
       <input type="file" id="fileMediaInput" accept="image/*,application/pdf,text/*" style="display:none;" onchange="processMediaAttachment(event)">
-      <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()" title="फाइल या इमेज जोड़ें">
-        <i data-lucide="plus" style="width:20px; height:20px;"></i>
-      </div>
-
+      <div class="dock-icon" onclick="document.getElementById('fileMediaInput').click()"><i data-lucide="plus" style="width:20px;"></i></div>
       <textarea id="promptArea" placeholder="Ask KhaasCore AI..." rows="1" oninput="adjustTextareaHeight(this)" onkeydown="onPromptKeydown(event)"></textarea>
+      <div class="dock-icon" id="btnVoiceRecord" onclick="toggleVoiceSTT()"><i data-lucide="mic" style="width:20px;"></i></div>
+      <div class="dock-icon" onclick="handlePromptSubmission()"><i data-lucide="arrow-up-circle" style="width:24px; color:var(--brand-accent);"></i></div>
+    </div>
 
-      <div class="dock-icon" id="btnVoiceRecord" onclick="toggleVoiceSTT()" title="बोलकर सवाल पूछें">
-        <i data-lucide="mic" style="width:20px; height:20px;"></i>
+    <div class="creator-attribution-badge">
+      Developed & Owned by <strong>Kamran Siddiki</strong> | Auto-Learning Nephron Intelligence
+    </div>
+  </div>
+
+  <!-- Subscription & Direct Google Pay Modal -->
+  <div class="modal-backdrop" id="subscriptionModal" onclick="closeSubscriptionModal(event)">
+    <div class="modal-dialog" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h2 style="font-size:20px; font-weight:800; color:var(--text-primary);">KhaasCore AI Premium Upgrade</h2>
+          <p style="font-size:13px; color:var(--text-secondary);">Direct Bank Payment via Google Pay / PhonePe / Paytm</p>
+        </div>
+        <button class="btn-icon-action" onclick="closeSubscriptionModal()"><i data-lucide="x" style="width:20px;"></i></button>
       </div>
 
-      <div class="dock-icon" onclick="handlePromptSubmission()" title="भेजें">
-        <i data-lucide="arrow-up-circle" style="width:24px; height:24px; color:var(--brand-accent);"></i>
+      <div class="plans-grid">
+        <div class="plan-card" onclick="selectPlanTier(this, 'Gemini 3.5 Flash', 0)">
+          <div style="font-size:12px; font-weight:700; color:#22c55e;">FREE TIER</div>
+          <div class="plan-price">₹0 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
+          <p style="font-size:12px; color:var(--text-secondary);">Adaptive Flash Engine with fast response time.</p>
+        </div>
+
+        <div class="plan-card active" onclick="selectPlanTier(this, 'Gemini 3.1 Pro', 199)">
+          <div style="font-size:12px; font-weight:700; color:#f59e0b;">PRO TIER</div>
+          <div class="plan-price">₹199 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
+          <p style="font-size:12px; color:var(--text-secondary);">Gemini 3.1 Pro for 10k-word drafting & deep logic.</p>
+        </div>
+
+        <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Pro', 499)">
+          <div style="font-size:12px; font-weight:700; color:#8b5cf6;">AI PRO TIER</div>
+          <div class="plan-price">₹499 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
+          <p style="font-size:12px; color:var(--text-secondary);">Google AI Pro for software architecture & research.</p>
+        </div>
+
+        <div class="plan-card" onclick="selectPlanTier(this, 'Google AI Ultra', 999)">
+          <div style="font-size:12px; font-weight:700; color:#ef4444;">ULTRA TIER</div>
+          <div class="plan-price">₹999 <span style="font-size:12px; color:var(--text-secondary);">/month</span></div>
+          <p style="font-size:12px; color:var(--text-secondary);">Google AI Ultra with maximum compute priority.</p>
+        </div>
+      </div>
+
+      <!-- Live Dynamic Google Pay QR Section -->
+      <div class="upi-checkout-box" id="upiCheckoutSection">
+        <div style="font-weight:700; font-size:15px; color:var(--text-primary);">
+          Instant Payment Amount: <span id="displaySelectedPlanPrice" style="color:var(--brand-accent);">₹199</span>
+        </div>
+        <div style="font-size:12px; color:var(--text-secondary); margin-top:4px;">
+          Payee: <strong>Mohd Kamran</strong>
+        </div>
+
+        <div class="qr-card-container">
+          <img id="upiLiveQRCode" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi%3A%2F%2Fpay%3Fpa%3Dmohdkamran7870%40oksbi%26pn%3DMohd%20Kamran%26am%3D199%26cu%3DINR" alt="Google Pay QR Code" />
+          <div class="upi-id-badge">
+            <i data-lucide="qr-code" style="width:14px;"></i> mohdkamran7870@oksbi
+          </div>
+        </div>
+
+        <div style="font-size:12px; color:var(--text-secondary);">
+          Scan using <strong>Google Pay, PhonePe, Paytm, or BHIM UPI</strong>
+        </div>
+
+        <a id="btnDirectUPIPay" href="upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=199&cu=INR" class="btn-upi-app-direct">
+          <i data-lucide="smartphone" style="width:18px;"></i> Open Google Pay / UPI App to Pay
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- =========================================================
-       JAVASCRIPT ARCHITECTURE CORE
-       ========================================================= -->
   <script>
-    // Lucide Icons Render
     lucide.createIcons();
 
-    // Application Global State Machine
     let activeConversation = [];
     let savedSessions = JSON.parse(localStorage.getItem('khaascore_saved_sessions') || '[]');
+    let userLearnedProfile = JSON.parse(localStorage.getItem('khaascore_user_learned_profile') || '{"topics":[],"tone":"adaptive","name":""}');
     let currentSessionIndex = -1;
     let activeFileBase64 = null;
     let activeFileMime = null;
     let isSTTActive = false;
     let sttInstance = null;
-    
-    // Official Supported Google Endpoints
-    let activeEngineModel = "gemini-3.6-flash";
-    let activeModeSystemPrompt = null;
+    let activeEngineModel = "gemini-2.5-flash"; 
+    let selectedTierName = "Gemini 3.1 Pro";
+    let selectedTierAmount = 199;
 
-    // Secure Pre-Embedded Master Key (Base64 Safe)
     const MASTER_KEY_ENCODED = "QVEuQWI4Uk42SWV5azRvUVd4RDE4OXd0cmJjaWJkYUJfeFFmdUp4Wk9RcUpoWEVmSVR2V3c=";
+    function getMasterKey() { return atob(MASTER_KEY_ENCODED); }
 
-    function getMasterKey() {
-      return atob(MASTER_KEY_ENCODED);
+    // Dynamic Time-Aware Creator Identity & User Adaptive Context
+    function buildDynamicSystemPrompt() {
+      const currentYear = new Date().getFullYear();
+      let educationStatus = currentYear < 2029 
+        ? "वह वर्तमान में आर.डी.एस. कॉलेज, मुजफ्फरपुर (बी.आर.ए. बिहार विश्वविद्यालय) से बी.ए. (भूगोल, सत्र 2025–2029) की पढ़ाई कर रहे हैं।" 
+        : "जिन्होंने आर.डी.एस. कॉलेज, मुजफ्फरपुर (बी.आर.ए. बिहार विश्वविद्यालय) से 2029 में अपना बी.ए. (भूगोल) सफलतापूर्वक पूर्ण किया था।";
+
+      const learnedContext = userLearnedProfile.topics.length > 0 
+        ? `USER MEMORY: You have learned the following about this user: Topics of interest: ${userLearnedProfile.topics.slice(-5).join(", ")}. Adapt your expertise level to match their technical depth automatically.` 
+        : "";
+
+      return `You are KhaasCore AI, an ultra-advanced adaptive intelligence system.
+CREATOR & FOUNDER IDENTITY DIRECTIVE:
+- Creator & Owner: Kamran Siddiki (कामरान सिद्दीकी), born 1 January 2007.
+- Origin: Village Dumari, Pindauli, Muzaffarpur, Bihar, India (ग्राम-डूमरी, पिण्डौली, मुजफ्फरपुर, बिहार).
+- Schooling: Completed 10th and 12th from his village surroundings.
+- Higher Education: ${educationStatus}
+- Persona: If asked "तुम्हें किसने बनाया है?", "Who is your creator/owner?", or about Kamran Siddiki, always provide an authoritative, respectful, and detailed description including his village Dumari (Pindauli, Muzaffarpur), DOB 01/01/2007, his schooling in village, and his RDS College BA degree status.
+${learnedContext}
+- Formatting: Use LaTeX for math ($inline$, $$display$$) and comprehensive exhaustive structuring.`;
     }
 
-    // Default System Instruction Architecture
-    const CORE_SYSTEM_PROMPT = `You are KhaasCore AI, an ultra-advanced, authoritative, and deeply knowledgeable AI engine.
-1. Provide exhaustive, highly structured, clause-by-clause, step-by-step, and technically accurate responses.
-2. When asked for long documents, business plans, or legal drafts, generate up to 8,000-10,000 words without artificial summaries or truncations.
-3. For mathematical/scientific expressions, utilize valid LaTeX ($inline$ and $$display$$).
-4. For software architectures, generate full, production-ready, clean implementations with complete error handling.`;
+    function recordAdaptiveLearning(text) {
+      if (text.length > 10) {
+        if (!userLearnedProfile.topics.includes(text.substring(0, 25))) {
+          userLearnedProfile.topics.push(text.substring(0, 25));
+          if (userLearnedProfile.topics.length > 20) userLearnedProfile.topics.shift();
+          localStorage.setItem('khaascore_user_learned_profile', JSON.stringify(userLearnedProfile));
+        }
+      }
+    }
+
+    function showLearnedMemoryInfo() {
+      const topics = userLearnedProfile.topics.length ? userLearnedProfile.topics.join("\n• ") : "कोई विशेष डेटा नहीं (New User)";
+      alert(`🧠 KhaasCore AI Learning Memory:\n\nयूजर के बारे में सीखी गई रुचियां:\n• ${topics}\n\nAI आपकी हर बातचीत से खुद को और एडवांस बना रहा है।`);
+    }
+
+    function resetUserLearningMemory() {
+      if (confirm("क्या आप AI की सीखी हुई मेमोरी रीसेट करना चाहते हैं?")) {
+        userLearnedProfile = { topics: [], tone: "adaptive", name: "" };
+        localStorage.removeItem('khaascore_user_learned_profile');
+        alert("AI मेमोरी सफलतापूर्वक रीसेट कर दी गई।");
+      }
+      toggleActionPopover();
+    }
+
+    function applyQuickPrompt(text) {
+      const area = document.getElementById('promptArea');
+      area.value = text + " ";
+      area.focus();
+      adjustTextareaHeight(area);
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
       renderKaTeXAuto();
@@ -740,50 +944,67 @@
       renderSavedSessionsList();
     });
 
-    // Theme Switcher Engine
     function toggleAppTheme() {
       const doc = document.documentElement;
       const isDark = doc.getAttribute('data-theme') === 'dark';
-      const targetTheme = isDark ? 'light' : 'dark';
-      doc.setAttribute('data-theme', targetTheme);
-
-      const icon = document.getElementById('iconTheme');
-      icon.setAttribute('data-lucide', isDark ? 'moon' : 'sun');
+      doc.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('iconTheme').setAttribute('data-lucide', isDark ? 'moon' : 'sun');
       lucide.createIcons();
     }
 
-    // Drawer Mechanics
     function toggleDrawer() {
-      const drawer = document.getElementById('sideDrawer');
-      const overlay = document.getElementById('drawerOverlay');
-      const isOpen = drawer.classList.toggle('open');
-      overlay.style.display = isOpen ? 'block' : 'none';
+      const d = document.getElementById('sideDrawer');
+      const o = document.getElementById('drawerOverlay');
+      const isOpen = d.classList.toggle('open');
+      o.style.display = isOpen ? 'block' : 'none';
     }
 
     function toggleActionPopover() {
-      const popover = document.getElementById('actionPopoverMenu');
-      popover.style.display = popover.style.display === 'flex' ? 'none' : 'flex';
+      const p = document.getElementById('actionPopoverMenu');
+      p.style.display = p.style.display === 'flex' ? 'none' : 'flex';
     }
 
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.header-right')) {
-        document.getElementById('actionPopoverMenu').style.display = 'none';
-      }
+      if (!e.target.closest('.header-right')) document.getElementById('actionPopoverMenu').style.display = 'none';
     });
 
-    // Model Engine Toggling
-    function cycleEngineTier() {
-      const label = document.getElementById('labelEngine');
-      if (activeEngineModel === "gemini-3.6-flash") {
-        activeEngineModel = "gemini-3.1-pro-preview";
-        label.innerText = "KhaasCore Pro (Deep)";
+    function openSubscriptionModal() {
+      document.getElementById('subscriptionModal').style.display = 'flex';
+      if (document.getElementById('sideDrawer').classList.contains('open')) toggleDrawer();
+    }
+    function closeSubscriptionModal(e) {
+      document.getElementById('subscriptionModal').style.display = 'none';
+    }
+
+    // Dynamic Google Pay / UPI Price & QR Switcher
+    function selectPlanTier(card, name, price) {
+      document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      selectedTierName = name;
+      selectedTierAmount = price;
+
+      const checkoutBox = document.getElementById('upiCheckoutSection');
+      if (price === 0) {
+        checkoutBox.style.display = 'none';
+        document.getElementById('labelEngine').innerText = 'Gemini 3.5 Flash (Free)';
       } else {
-        activeEngineModel = "gemini-3.6-flash";
-        label.innerText = "KhaasCore Flash (3.6)";
+        checkoutBox.style.display = 'flex';
+        document.getElementById('displaySelectedPlanPrice').innerText = `₹${price}`;
+        
+        const upiUri = `upi://pay?pa=mohdkamran7870@oksbi&pn=Mohd%20Kamran&am=${price}&cu=INR`;
+        const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+        
+        document.getElementById('upiLiveQRCode').src = qrApi;
+        document.getElementById('btnDirectUPIPay').href = upiUri;
       }
     }
 
-    // Dynamic Textarea Auto-expand
+    function setEngineTier(modelKey, displayName) {
+      activeEngineModel = modelKey;
+      document.getElementById('labelEngine').innerText = displayName;
+      toggleDrawer();
+    }
+
     function adjustTextareaHeight(el) {
       el.style.height = 'auto';
       el.style.height = Math.min(el.scrollHeight, 120) + 'px';
@@ -796,11 +1017,9 @@
       }
     }
 
-    // Multimodal Vision File Processor
     function processMediaAttachment(e) {
       const file = e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = () => {
         activeFileBase64 = reader.result.split(',')[1];
@@ -818,90 +1037,78 @@
       document.getElementById('attachmentBadge').style.display = 'none';
     }
 
-    // Speech-To-Text (Voice STT Engine)
+    // Voice STT
     function toggleVoiceSTT() {
-      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        return alert("ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता।");
-      }
-
-      const micIcon = document.getElementById('btnVoiceRecord');
-
-      if (isSTTActive) {
-        sttInstance.stop();
-        return;
-      }
-
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) return alert("कृपया Google Chrome का उपयोग करें।");
+      const mic = document.getElementById('btnVoiceRecord');
+      if (isSTTActive) { if (sttInstance) sttInstance.stop(); return; }
+
       sttInstance = new SpeechRec();
       sttInstance.lang = 'hi-IN';
-      sttInstance.continuous = false;
-      sttInstance.interimResults = false;
+      sttInstance.continuous = true;
+      sttInstance.interimResults = true;
 
-      sttInstance.onstart = () => {
-        isSTTActive = true;
-        micIcon.classList.add('recording');
-      };
-
+      sttInstance.onstart = () => { isSTTActive = true; mic.classList.add('recording'); };
       sttInstance.onresult = (evt) => {
-        const text = evt.results[0][0].transcript;
-        const area = document.getElementById('promptArea');
-        area.value = (area.value + " " + text).trim();
-        adjustTextareaHeight(area);
+        let trans = '';
+        for (let i = evt.resultIndex; i < evt.results.length; ++i) {
+          if (evt.results[i].isFinal) trans += evt.results[i][0].transcript;
+        }
+        if (trans) {
+          const area = document.getElementById('promptArea');
+          area.value = (area.value + " " + trans).trim();
+          adjustTextareaHeight(area);
+        }
       };
-
-      sttInstance.onend = () => {
-        isSTTActive = false;
-        micIcon.classList.remove('recording');
-      };
-
+      sttInstance.onerror = () => { isSTTActive = false; mic.classList.remove('recording'); };
+      sttInstance.onend = () => { isSTTActive = false; mic.classList.remove('recording'); };
       sttInstance.start();
     }
 
-    // Text-To-Speech (Audio TTS Engine)
+    // Audio TTS
     function synthesizeNodeSpeech(btn) {
-      if (!('speechSynthesis' in window)) return alert("ऑडियो सिंथेसाइज़र उपलब्ध नहीं है।");
-      window.speechSynthesis.cancel();
-
-      const bubble = btn.parentElement.querySelector('.chat-bubble');
-      const cleanText = bubble.innerText.replace(/[#*`_\[\]$]/g, '');
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.lang = 'hi-IN';
-      window.speechSynthesis.speak(utterance);
+      if (!('speechSynthesis' in window)) return alert("ऑडियो उपलब्ध नहीं है।");
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        btn.classList.remove('playing');
+        return;
+      }
+      const text = btn.parentElement.querySelector('.chat-bubble').innerText.replace(/[#*`_\[\]$]/g, '').trim();
+      if (!text) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'hi-IN';
+      u.onstart = () => btn.classList.add('playing');
+      u.onend = () => btn.classList.remove('playing');
+      u.onerror = () => btn.classList.remove('playing');
+      window.speechSynthesis.speak(u);
     }
 
     marked.setOptions({
-      highlight: function(code, lang) {
+      highlight: (code, lang) => {
         const language = hljs.getLanguage(lang) ? lang : 'plaintext';
         return hljs.highlight(code, { language }).value;
       }
     });
 
-    // Core SSE Live Streaming Pipeline
+    // Core Submit & SSE Stream
     async function handlePromptSubmission() {
       const key = getMasterKey();
       const area = document.getElementById('promptArea');
       const userText = area.value.trim();
-
       if (!userText && !activeFileBase64) return;
 
+      recordAdaptiveLearning(userText);
+
       const messageParts = [];
-      let imageSrcPreview = null;
-
+      let imageSrc = null;
       if (activeFileBase64) {
-        messageParts.push({
-          inlineData: {
-            mimeType: activeFileMime,
-            data: activeFileBase64
-          }
-        });
-        imageSrcPreview = `data:${activeFileMime};base64,${activeFileBase64}`;
+        messageParts.push({ inlineData: { mimeType: activeFileMime, data: activeFileBase64 } });
+        imageSrc = `data:${activeFileMime};base64,${activeFileBase64}`;
       }
+      if (userText) messageParts.push({ text: userText });
 
-      if (userText) {
-        messageParts.push({ text: userText });
-      }
-
-      renderMessageNode('user', userText, imageSrcPreview);
+      renderMessageNode('user', userText, imageSrc);
       activeConversation.push({ role: 'user', parts: messageParts });
 
       area.value = '';
@@ -913,64 +1120,55 @@
       bubble.classList.add('cursor-blink');
 
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${activeEngineModel}:streamGenerateContent?alt=sse&key=${key}`;
-
-      const sysInstructionText = activeModeSystemPrompt || CORE_SYSTEM_PROMPT;
-
       const requestBody = {
-        systemInstruction: { parts: [{ text: sysInstructionText }] },
+        systemInstruction: { parts: [{ text: buildDynamicSystemPrompt() }] },
         contents: activeConversation,
-        generationConfig: {
-          maxOutputTokens: 8192,
-          temperature: 0.6
-        }
+        generationConfig: { maxOutputTokens: 8192, temperature: 0.6 }
       };
 
-      let fullGeneratedStream = "";
-
+      let fullStream = "";
       try {
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(requestBody)
         });
-
         if (!response.ok) {
-          const errData = await response.json();
-          throw new Error(errData.error?.message || "Engine Gateway Connection Refused");
+          const err = await response.json();
+          throw new Error(err.error?.message || "Engine Connection Error");
         }
-
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
 
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split('\n');
-
+          const lines = decoder.decode(value, { stream: true }).split('\n');
           for (const line of lines) {
             if (line.startsWith('data: ')) {
               try {
                 const parsed = JSON.parse(line.replace('data: ', '').trim());
-                const partText = parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
-                fullGeneratedStream += partText;
-                bubble.innerHTML = marked.parse(fullGeneratedStream);
+                fullStream += parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                bubble.innerHTML = marked.parse(fullStream);
                 scrollCanvas();
               } catch (e) {}
             }
           }
         }
-
         bubble.classList.remove('cursor-blink');
-        activeConversation.push({ role: 'model', parts: [{ text: fullGeneratedStream }] });
+        activeConversation.push({ role: 'model', parts: [{ text: fullStream }] });
 
-        wrapCodeBlocksWithActions(bubble);
+        const wordCount = fullStream.trim().split(/\s+/).length;
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'message-meta-info';
+        metaDiv.innerHTML = `<span><i data-lucide="file-text" style="width:11px;"></i> ${wordCount} शब्द</span> <span><i data-lucide="check-check" style="width:11px;"></i> Verified</span>`;
+        bubble.appendChild(metaDiv);
+
+        wrapCodeBlocks(bubble);
         applyHighlighting();
         renderKaTeXAuto();
         lucide.createIcons();
         autoSaveSession(userText);
-
       } catch (err) {
         bubble.classList.remove('cursor-blink');
         bubble.innerHTML = `<span style="color:var(--status-danger); font-weight:600;">त्रुटि (Error): ${err.message}</span>`;
@@ -983,25 +1181,16 @@
       const canvas = document.getElementById('chatCanvas');
       const row = document.createElement('div');
       row.className = `chat-row ${role}`;
-
       let mediaSnippet = mediaSrc ? `<img src="${mediaSrc}" class="attachment-img-preview" alt="Attachment" />` : '';
 
       if (role === 'ai') {
         row.innerHTML = `
-          <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
-            <i data-lucide="volume-2" style="width:18px;"></i>
-          </button>
+          <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)"><i data-lucide="volume-2" style="width:18px;"></i></button>
           <div class="chat-bubble">${text ? marked.parse(text) : '...'}</div>
         `;
       } else {
-        row.innerHTML = `
-          <div class="chat-bubble">
-            ${mediaSnippet}
-            <div>${text}</div>
-          </div>
-        `;
+        row.innerHTML = `<div class="chat-bubble">${mediaSnippet}<div>${text}</div></div>`;
       }
-
       canvas.appendChild(row);
       lucide.createIcons();
       scrollCanvas();
@@ -1013,17 +1202,12 @@
       canvas.scrollTop = canvas.scrollHeight;
     }
 
-    // Code Sandbox & Actions Engine
-    function wrapCodeBlocksWithActions(container) {
+    function wrapCodeBlocks(container) {
       container.querySelectorAll('pre').forEach((pre) => {
         if (pre.parentElement.classList.contains('code-container')) return;
-
         const wrapper = document.createElement('div');
         wrapper.className = 'code-container';
-
-        const codeEl = pre.querySelector('code');
-        const isHTML = codeEl && (codeEl.classList.contains('language-html') || codeEl.classList.contains('language-xml'));
-
+        const isHTML = pre.querySelector('code')?.classList.contains('language-html');
         const header = document.createElement('div');
         header.className = 'code-header';
         header.innerHTML = `
@@ -1033,75 +1217,58 @@
             <button class="btn-code-action" onclick="copyCodeSnippet(this)"><i data-lucide="copy" style="width:12px;"></i> Copy</button>
           </div>
         `;
-
         const iframe = document.createElement('iframe');
         iframe.className = 'sandbox-preview-frame';
-
         pre.parentNode.insertBefore(wrapper, pre);
         wrapper.appendChild(header);
         wrapper.appendChild(pre);
         wrapper.appendChild(iframe);
       });
-      lucide.createIcons();
     }
 
     function toggleLivePreview(btn) {
       const container = btn.closest('.code-container');
       const iframe = container.querySelector('.sandbox-preview-frame');
-      const code = container.querySelector('code').innerText;
-
       if (iframe.style.display === 'block') {
         iframe.style.display = 'none';
         btn.innerHTML = `<i data-lucide="play" style="width:12px;"></i> Run Live`;
       } else {
         iframe.style.display = 'block';
-        iframe.srcdoc = code;
+        iframe.srcdoc = container.querySelector('code').innerText;
         btn.innerHTML = `<i data-lucide="eye-off" style="width:12px;"></i> Hide Preview`;
       }
       lucide.createIcons();
     }
 
     function copyCodeSnippet(btn) {
-      const code = btn.closest('.code-container').querySelector('code').innerText;
-      navigator.clipboard.writeText(code);
+      navigator.clipboard.writeText(btn.closest('.code-container').querySelector('code').innerText);
       btn.innerHTML = `<i data-lucide="check" style="width:12px;"></i> Copied!`;
       lucide.createIcons();
-      setTimeout(() => {
-        btn.innerHTML = `<i data-lucide="copy" style="width:12px;"></i> Copy`;
-        lucide.createIcons();
-      }, 2000);
+      setTimeout(() => { btn.innerHTML = `<i data-lucide="copy" style="width:12px;"></i> Copy`; lucide.createIcons(); }, 2000);
     }
 
     function renderKaTeXAuto() {
       if (typeof renderMathInElement === 'function') {
         renderMathInElement(document.getElementById('chatCanvas'), {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
+          delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }],
           throwOnError: false
         });
       }
     }
 
     function applyHighlighting() {
-      document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightElement(block);
-      });
+      document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
     }
 
-    // Sessions & Database Storage Engine
     function autoSaveSession(titleHint) {
       if (activeConversation.length === 0) return;
-      const title = titleHint.substring(0, 30) || "KhaasCore Conversation";
-      
+      const title = titleHint.substring(0, 30) || "Conversation";
       if (currentSessionIndex === -1) {
         savedSessions.unshift({ title, data: activeConversation, timestamp: Date.now() });
         currentSessionIndex = 0;
       } else {
         savedSessions[currentSessionIndex].data = activeConversation;
       }
-
       localStorage.setItem('khaascore_saved_sessions', JSON.stringify(savedSessions));
       renderSavedSessionsList();
     }
@@ -1129,15 +1296,13 @@
       activeConversation = savedSessions[idx].data;
       const canvas = document.getElementById('chatCanvas');
       canvas.innerHTML = '';
-
       activeConversation.forEach(item => {
         const txt = item.parts.find(p => p.text)?.text || '';
         const img = item.parts.find(p => p.inlineData);
         const imgSrc = img ? `data:${img.inlineData.mimeType};base64,${img.inlineData.data}` : null;
         renderMessageNode(item.role === 'model' ? 'ai' : 'user', txt, imgSrc);
       });
-
-      wrapCodeBlocksWithActions(canvas);
+      wrapCodeBlocks(canvas);
       applyHighlighting();
       renderKaTeXAuto();
       toggleDrawer();
@@ -1156,12 +1321,8 @@
       currentSessionIndex = -1;
       document.getElementById('chatCanvas').innerHTML = `
         <div class="chat-row ai">
-          <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)" title="उत्तर सुनें">
-            <i data-lucide="volume-2" style="width:18px;"></i>
-          </button>
-          <div class="chat-bubble">
-            नई बातचीत शुरू हो चुकी है। आप किस विषय पर शोध, कोडिंग या ड्राफ्टिंग करना चाहते हैं?
-          </div>
+          <button class="btn-audio-listen" onclick="synthesizeNodeSpeech(this)"><i data-lucide="volume-2" style="width:18px;"></i></button>
+          <div class="chat-bubble">नई बातचीत शुरू हो चुकी है। आप क्या पूछना चाहते हैं?</div>
         </div>
       `;
       if (document.getElementById('sideDrawer').classList.contains('open')) toggleDrawer();
@@ -1169,85 +1330,38 @@
     }
 
     function shareChatThread() {
-      if (navigator.share) {
-        navigator.share({ title: 'KhaasCore Conversation', text: window.location.href });
-      } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert("चैट लिंक क्लिपबोर्ड में कॉपी कर लिया गया!");
-      }
+      if (navigator.share) navigator.share({ title: 'KhaasCore AI Chat', text: window.location.href });
+      else { navigator.clipboard.writeText(window.location.href); alert("चैट लिंक कॉपी हो गया!"); }
       toggleActionPopover();
     }
 
     function exportDataJSON() {
       const blob = new Blob([JSON.stringify(activeConversation, null, 2)], { type: 'application/json' });
-      const dlLink = document.createElement('a');
-      dlLink.href = URL.createObjectURL(blob);
-      dlLink.download = `khaascore-chat-${Date.now()}.json`;
-      dlLink.click();
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `chat-${Date.now()}.json`; a.click();
       toggleActionPopover();
     }
 
     function exportDataMarkdown() {
-      let mdContent = "# KhaasCore AI Conversation Log\n\n";
-      activeConversation.forEach((item) => {
-        const speaker = item.role === 'user' ? '### User' : '### KhaasCore AI';
-        const txt = item.parts.find(p => p.text)?.text || '';
-        mdContent += `${speaker}\n${txt}\n\n`;
-      });
-
-      const blob = new Blob([mdContent], { type: 'text/markdown' });
-      const dlLink = document.createElement('a');
-      dlLink.href = URL.createObjectURL(blob);
-      dlLink.download = `khaascore-chat-${Date.now()}.md`;
-      dlLink.click();
+      let md = "# KhaasCore AI Log\n\n";
+      activeConversation.forEach(i => md += `### ${i.role === 'user' ? 'User' : 'AI'}\n${i.parts.find(p => p.text)?.text || ''}\n\n`);
+      const blob = new Blob([md], { type: 'text/markdown' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `chat-${Date.now()}.md`; a.click();
       toggleActionPopover();
     }
 
     function renameCurrentThread() {
-      const title = prompt("चैट का शीर्षक बदलें:", currentSessionIndex >= 0 ? savedSessions[currentSessionIndex].title : "KhaasCore Chat");
-      if (title && title.trim()) {
-        if (currentSessionIndex >= 0) {
-          savedSessions[currentSessionIndex].title = title.trim();
-          localStorage.setItem('khaascore_saved_sessions', JSON.stringify(savedSessions));
-          renderSavedSessionsList();
-        }
+      const t = prompt("Rename chat:", currentSessionIndex >= 0 ? savedSessions[currentSessionIndex].title : "Chat");
+      if (t && t.trim() && currentSessionIndex >= 0) {
+        savedSessions[currentSessionIndex].title = t.trim();
+        localStorage.setItem('khaascore_saved_sessions', JSON.stringify(savedSessions));
+        renderSavedSessionsList();
       }
       toggleActionPopover();
     }
 
     function deleteCurrentThread() {
-      if (confirm("क्या आप इस चैट थ्रेड को पूरी तरह हटाना चाहते हैं?")) {
-        startNewSession();
-      }
+      if (confirm("चैट हटाएं?")) startNewSession();
       toggleActionPopover();
-    }
-
-    function openSearchPrompt() {
-      const q = prompt("पिछली बातचीत में खोजें:");
-      if (q) {
-        const match = savedSessions.find(s => s.title.toLowerCase().includes(q.toLowerCase()));
-        if (match) loadSavedThread(savedSessions.indexOf(match));
-        else alert(`"${q}" से संबंधित कोई परिणाम नहीं मिला।`);
-      }
-    }
-
-    function switchSpecializedMode(mode) {
-      if (mode === 'code') {
-        activeModeSystemPrompt = "You are an elite Lead Software Architect. Provide robust, production-grade code with error handling, test suites, and clean design patterns.";
-        alert("Code Architect Mode सक्रिय किया गया।");
-      } else if (mode === 'legal') {
-        activeModeSystemPrompt = "You are a senior corporate attorney. Write exhaustive, clause-by-clause, 10,000-word legal contracts, NDAs, and business proposals compliant with US/UK law.";
-        alert("10kW Legal & Business Drafting Mode सक्रिय किया गया।");
-      } else if (mode === 'academic') {
-        activeModeSystemPrompt = "You are a university professor and researcher. Provide peer-reviewed quality literature reviews, citations, and analytical research papers.";
-        alert("Academic Research Mode सक्रिय किया गया।");
-      }
-      toggleDrawer();
-    }
-
-    function createNewNotebook() {
-      const nb = prompt("नए नोटबुक का नाम दर्ज करें:");
-      if (nb) alert(`नोटबुक "${nb}" सुरक्षित हो गई है।`);
     }
   </script>
 </body>
