@@ -1240,7 +1240,6 @@
         bubble.classList.remove('cursor-blink');
         activeConversation.push({ role: 'model', parts: [{ text: fullStream }] });
 
-        // यदि वीडियो की मांग थी, तो 3D एनिमेटेड वीडियो रेंडरर चलाएं
         if (isVideoReq) {
           const videoCard = await renderKhaasCore3DVideo(fullStream, userText, selectedMaxVideoSec, true);
           bubble.appendChild(videoCard);
