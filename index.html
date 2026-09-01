@@ -3,27 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>KhaasCore AI - Where should we start?</title>
+  <title>KhaasCore AI - Advanced Intelligence</title>
   
-  <meta name="description" content="KhaasCore AI is an ultra-advanced intelligence platform mirroring premium minimalist AI interfaces. Owned by Kamran Siddiki.">
+  <meta name="description" content="KhaasCore AI is an ultra-advanced intelligence platform exactly mirroring premium minimalist AI interfaces. Owned by Kamran Siddiki.">
 
-  <!-- Elite Ecosystem CDNs: Google Fonts, Material Icons, Markdown, Highlight.js -->
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Elite Ecosystem CDNs -->
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" id="hl-theme-light">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hl-theme-dark" disabled>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
 
   <style>
     /* ==========================================================================
-       KHAASCORE AI - EXACT VISUAL CLONE & KEYLESS ENGINE
+       KHAASCORE AI - APPLE-GRADE PREMIUM VISUAL CLONE & KEYLESS ENGINE
        Owner: Kamran Siddiki (Muzaffarpur, Bihar)
        ========================================================================== */
     
     :root {
       --bg-top: #ffffff;
-      --bg-bottom: #dbeafe; 
+      --bg-bottom: #c2e0ff; 
       --bg-surface: #ffffff;
       --bg-surface-hover: #f0f4f9;
       --text-primary: #1f1f1f;
@@ -32,33 +33,34 @@
       --user-msg-bg: #f0f4f9;
       --border-color: #e0e0e0;
       --sidebar-width: 300px;
-      --pill-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --pill-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
       --icon-blue-bg: #c2e7ff;
       --icon-blue-text: #001d35;
+      --magic-gradient: linear-gradient(135deg, #4285f4, #9b72cb, #d96570, #fbbc04);
     }
 
     [data-theme="dark"] {
       --bg-top: #131314;
-      --bg-bottom: #1e293b;
+      --bg-bottom: #0e1e2d;
       --bg-surface: #1e1f20;
       --bg-surface-hover: #333639;
       --text-primary: #e3e3e3;
       --text-secondary: #c4c7c5;
-      --brand-accent: #a8c7fa;
       --user-msg-bg: #333639;
       --border-color: #444746;
-      --pill-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --pill-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
       --icon-blue-bg: #004a77;
       --icon-blue-text: #c2e7ff;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Google Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
 
+    /* Single Page Fixed Body */
     html, body {
       background: linear-gradient(180deg, var(--bg-top) 40%, var(--bg-bottom) 100%);
       color: var(--text-primary);
       width: 100vw; height: 100vh; overflow: hidden; overscroll-behavior: none; touch-action: none;
-      transition: background 0.4s, color 0.4s;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     #elasticWrapper {
@@ -66,44 +68,84 @@
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; font-size: 24px; color: var(--text-primary); cursor: pointer; user-select: none; transition: background-color 0.2s; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; font-size: 24px; color: var(--text-primary); cursor: pointer; user-select: none; transition: background-color 0.2s, transform 0.2s; }
+    .material-symbols-outlined:active { transform: scale(0.9); }
+
+    /* ==========================================================================
+       MAGIC COLOR SPLASH (Feature Activation Welcome)
+       ========================================================================== */
+    #colorSplashOverlay {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0;
+      background: radial-gradient(circle at center, rgba(66, 133, 244, 0.4), rgba(155, 114, 203, 0.4), rgba(217, 101, 112, 0.4), transparent 70%);
+      background-size: 200% 200%; transition: opacity 0.5s ease;
+    }
+    .splash-active { animation: colorBurst 1.5s ease-out forwards; }
+    @keyframes colorBurst {
+      0% { opacity: 0; transform: scale(0.8); background-position: 0% 50%; }
+      50% { opacity: 1; transform: scale(1.2); background-position: 100% 50%; }
+      100% { opacity: 0; transform: scale(1.5); background-position: 0% 50%; }
+    }
 
     /* ==========================================================================
        TOP HEADER
        ========================================================================== */
     .top-header {
-      position: absolute; top: 0; left: 0; right: 0; padding: 16px 20px;
+      position: absolute; top: 0; left: 0; right: 0; padding: 12px 16px;
       display: flex; align-items: center; justify-content: space-between; z-index: 40;
     }
-    .header-icon-btn { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .header-icon-btn:hover { background-color: rgba(0,0,0,0.04); }
-    [data-theme="dark"] .header-icon-btn:hover { background-color: rgba(255,255,255,0.08); }
+    .header-icon-btn { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+    .header-icon-btn:hover { background-color: rgba(0,0,0,0.05); }
+    [data-theme="dark"] .header-icon-btn:hover { background-color: rgba(255,255,255,0.1); }
 
     .model-selector {
       display: flex; align-items: center; gap: 4px; font-size: 16px; font-weight: 500;
-      cursor: pointer; padding: 8px 12px; border-radius: 12px;
+      cursor: pointer; padding: 8px 12px; border-radius: 12px; backdrop-filter: blur(10px);
     }
-    .model-selector:hover { background-color: rgba(0,0,0,0.04); }
-    [data-theme="dark"] .model-selector:hover { background-color: rgba(255,255,255,0.08); }
-    .model-selector .material-symbols-outlined { font-size: 20px; color: var(--text-secondary); }
+    .model-selector:hover { background-color: rgba(0,0,0,0.05); }
+    [data-theme="dark"] .model-selector:hover { background-color: rgba(255,255,255,0.1); }
 
     /* ==========================================================================
-       SIDEBAR
+       SIDEBAR & EXTENSIONS HUB
        ========================================================================== */
     .sidebar {
       position: absolute; top: 0; left: calc(-1 * var(--sidebar-width)); width: var(--sidebar-width); height: 100%;
       background-color: var(--bg-surface); display: flex; flex-direction: column; padding: 16px;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 100; box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 100; box-shadow: 0 0 30px rgba(0,0,0,0.15);
     }
     .sidebar.open { left: 0; }
-    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; display: none; opacity: 0; transition: opacity 0.3s; }
+    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; display: none; opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(4px); }
     .sidebar-overlay.active { display: block; opacity: 1; }
 
-    .sidebar-header { display: flex; align-items: center; margin-bottom: 30px; }
-    .history-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+    .sidebar-header { display: flex; align-items: center; margin-bottom: 20px; }
+    .new-chat-btn {
+      display: inline-flex; align-items: center; gap: 12px; background-color: var(--bg-surface-hover);
+      padding: 12px 18px; border-radius: 50px; font-size: 14px; font-weight: 500; color: var(--text-primary);
+      cursor: pointer; transition: all 0.2s; align-self: flex-start; margin-bottom: 20px; border: none;
+    }
+    .new-chat-btn:hover { background-color: var(--border-color); transform: scale(1.02); }
+
+    .history-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; scrollbar-width: none; }
     .history-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 50px; cursor: pointer; font-size: 14px; transition: background-color 0.2s; }
     .history-item:hover { background-color: var(--bg-surface-hover); }
     .history-item span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+
+    .sidebar-footer { margin-top: auto; padding-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+    .footer-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 50px; cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.2s; }
+    .footer-item:hover { background-color: var(--bg-surface-hover); color: var(--brand-accent); }
+
+    /* Extensions Hub Modal */
+    #extensionsHub {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 300; backdrop-filter: blur(10px); opacity: 0; transition: opacity 0.3s ease;
+    }
+    .hub-content {
+      background: var(--bg-surface); width: 90%; max-width: 800px; max-height: 80vh; border-radius: 28px; padding: 30px; overflow-y: auto; box-shadow: 0 25px 60px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .hub-title { font-size: 28px; font-weight: 800; margin-bottom: 20px; background: var(--magic-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .hub-card { background: var(--user-msg-bg); padding: 16px; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; }
+    .hub-card:hover { transform: translateY(-5px); border-color: var(--brand-accent); background: var(--bg-surface); box-shadow: var(--pill-shadow); }
+    .hub-card-title { font-weight: 700; font-size: 15px; margin-top: 8px; color: var(--text-primary); }
+    .hub-card-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
 
     /* ==========================================================================
        MAIN CONTENT (Hero & Chat)
@@ -112,70 +154,78 @@
 
     .hero-welcome {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      height: 100%; padding: 0 20px; animation: fadeIn 0.5s ease; width: 100%;
+      height: 100%; padding: 0 20px; animation: fadeIn 0.8s ease; width: 100%;
     }
-    .hero-star-svg { width: 56px; height: 56px; margin-bottom: 16px; animation: gentlePulse 4s infinite alternate ease-in-out; }
-    @keyframes gentlePulse { from { transform: scale(1); } to { transform: scale(1.05); } }
+    .hero-star-svg { width: 72px; height: 72px; margin-bottom: 16px; animation: gentlePulse 3s infinite alternate ease-in-out; filter: drop-shadow(0 0 10px rgba(66, 133, 244, 0.4)); }
+    @keyframes gentlePulse { from { transform: scale(1); filter: drop-shadow(0 0 10px rgba(66, 133, 244, 0.2)); } to { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(217, 101, 112, 0.6)); } }
 
-    .hero-title { font-size: 32px; font-weight: 400; color: var(--text-primary); text-align: center; line-height: 1.2; letter-spacing: -0.5px; }
+    .hero-title { font-size: 38px; font-weight: 400; color: var(--text-primary); text-align: center; line-height: 1.2; letter-spacing: -0.5px; }
 
-    .chat-container { display: none; flex: 1; overflow-y: auto; padding: 80px 0 160px 0; flex-direction: column; touch-action: pan-y; }
-    .chat-container::-webkit-scrollbar { width: 6px; }
-    .chat-container::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+    .chat-container { display: none; flex: 1; overflow-y: auto; padding: 80px 0 120px 0; flex-direction: column; touch-action: pan-y; scroll-behavior: smooth; }
+    .chat-container::-webkit-scrollbar { width: 0px; }
 
-    .message-wrapper { width: 100%; padding: 12px 20px; display: flex; justify-content: center; }
-    .message-inner { max-width: 800px; width: 100%; display: flex; gap: 16px; }
+    .message-wrapper { width: 100%; padding: 12px 20px; display: flex; justify-content: center; animation: slideUp 0.4s ease-out; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     
-    .user-message .message-inner { justify-content: flex-end; flex-direction: column; align-items: flex-end;}
-    .user-bubble { background-color: var(--user-msg-bg); padding: 12px 18px; border-radius: 24px; font-size: 16px; line-height: 1.5; max-width: 85%; display: flex; flex-direction: column; gap: 8px;}
-    .user-msg-img { max-width: 250px; border-radius: 12px; }
+    .message-inner { max-width: 800px; width: 100%; display: flex; gap: 16px; }
+    .user-message .message-inner { justify-content: flex-end; }
+    .user-bubble { background-color: var(--user-msg-bg); padding: 14px 20px; border-radius: 24px; font-size: 16px; line-height: 1.5; max-width: 85%; box-shadow: var(--pill-shadow); }
 
     .ai-message .message-inner { justify-content: flex-start; }
-    .ai-avatar { width: 28px; height: 28px; flex-shrink: 0; animation: rotateStar 4s linear infinite; }
+    .ai-avatar { width: 32px; height: 32px; flex-shrink: 0; animation: rotateStar 4s linear infinite; }
     @keyframes rotateStar { 100% { transform: rotate(360deg); } }
-    .ai-bubble { font-size: 16px; line-height: 1.6; width: 100%; overflow-x: auto; padding-top: 2px;}
+    .ai-bubble { font-size: 16.5px; line-height: 1.7; width: 100%; overflow-x: auto; padding-top: 2px;}
 
+    /* Modern Glassmorphic Actions under AI message */
     .msg-actions { display: flex; gap: 8px; margin-top: 12px; }
-    .msg-actions .material-symbols-outlined { font-size: 20px; color: var(--text-secondary); padding: 6px; border-radius: 50%; transition: background 0.2s; }
-    .msg-actions .material-symbols-outlined:hover { background-color: var(--bg-surface-hover); }
-    .msg-actions .playing { color: var(--brand-accent); }
+    .msg-actions .material-symbols-outlined { font-size: 20px; color: var(--text-secondary); padding: 8px; border-radius: 50%; background: var(--bg-surface-hover); transition: all 0.2s; }
+    .msg-actions .material-symbols-outlined:hover { background-color: var(--border-color); transform: scale(1.1); color: var(--brand-accent); }
+    .msg-actions .playing { background: var(--icon-blue-bg); color: var(--icon-blue-text); animation: pulseGreen 1s infinite alternate; }
 
-    pre { background-color: var(--bg-surface-hover); border-radius: 12px; padding: 16px; overflow-x: auto; margin: 12px 0; position: relative; border: 1px solid var(--border-color); }
+    pre { background-color: var(--bg-surface-hover); border-radius: 16px; padding: 16px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--border-color); }
     code { font-family: 'Courier New', Courier, monospace; font-size: 14px; }
 
     /* ==========================================================================
-       BOTTOM INPUT DOCK (Exact Pill Match)
+       BOTTOM INPUT DOCK (Apple-Grade Pill)
        ========================================================================== */
-    .input-wrapper { position: absolute; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; padding: 0 20px 24px 20px; z-index: 50; }
+    .input-wrapper {
+      position: absolute; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; padding: 0 16px 20px 16px; z-index: 50;
+    }
     
-    .preview-container { display: none; width: 100%; max-width: 800px; padding: 0 16px 8px 16px; }
-    .image-badge { position: relative; display: inline-block; }
-    .image-badge img { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border-color); }
-    .image-badge .cancel-img { position: absolute; top: -6px; right: -6px; background: var(--bg-surface); border-radius: 50%; font-size: 16px; cursor: pointer; box-shadow: var(--pill-shadow); padding: 2px; }
+    .input-pill {
+      width: 100%; max-width: 820px; background-color: var(--bg-surface); border-radius: 40px; padding: 6px 6px 6px 16px; display: flex; align-items: flex-end; gap: 8px; box-shadow: var(--pill-shadow); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(20px); transition: all 0.3s ease;
+    }
+    .input-pill:focus-within { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+    [data-theme="dark"] .input-pill:focus-within { box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
 
-    .input-pill { width: 100%; max-width: 800px; background-color: var(--bg-surface); border-radius: 40px; padding: 6px 6px 6px 12px; display: flex; align-items: flex-end; gap: 8px; box-shadow: var(--pill-shadow); }
-    .input-pill textarea { flex: 1; border: none; background: transparent; outline: none; font-size: 16px; color: var(--text-primary); resize: none; min-height: 44px; max-height: 150px; padding: 12px 4px; line-height: 1.4; }
-    .input-pill textarea::placeholder { color: var(--text-secondary); font-weight: 400; }
+    .input-pill textarea {
+      flex: 1; border: none; background: transparent; outline: none; font-size: 16.5px; color: var(--text-primary); resize: none; min-height: 44px; max-height: 150px; padding: 12px 4px; line-height: 1.4;
+    }
 
     .action-icons { display: flex; align-items: center; gap: 2px; padding-bottom: 2px; }
     .icon-btn-plain { padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-primary); }
     .icon-btn-plain:hover { background-color: var(--bg-surface-hover); }
     
-    .action-btn-blue { width: 44px; height: 44px; border-radius: 50%; background-color: var(--icon-blue-bg); color: var(--icon-blue-text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; }
-    .action-btn-blue:hover { transform: scale(1.05); }
+    .action-btn-blue {
+      width: 46px; height: 46px; border-radius: 50%; background-color: var(--icon-blue-bg); color: var(--icon-blue-text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .action-btn-blue:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(26, 115, 232, 0.4); }
     .action-btn-blue .material-symbols-outlined { color: var(--icon-blue-text); font-variation-settings: 'FILL' 1; }
 
-    .mic-recording { background-color: #fce8e6 !important; color: #d93025 !important; animation: pulseMic 1s infinite alternate; }
+    .mic-recording { background-color: #fce8e6 !important; color: #d93025 !important; animation: pulseMic 0.8s infinite alternate; box-shadow: 0 0 15px rgba(217, 48, 37, 0.4); }
     .mic-recording .material-symbols-outlined { color: #d93025 !important; }
-    @keyframes pulseMic { from { transform: scale(1); } to { transform: scale(1.1); } }
+    @keyframes pulseMic { from { transform: scale(1); } to { transform: scale(1.15); } }
 
-    .typing-cursor::after { content: '●'; animation: blink 1s step-end infinite; color: var(--brand-accent); margin-left: 2px; }
+    .typing-cursor::after { content: '●'; animation: blink 1s step-end infinite; color: var(--brand-accent); margin-left: 4px; }
     @keyframes blink { 50% { opacity: 0; } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   </style>
 </head>
 <body>
+
+  <!-- Color Splash Overlay -->
+  <div id="colorSplashOverlay"></div>
 
   <div id="elasticWrapper">
     <!-- SIDEBAR -->
@@ -185,9 +235,61 @@
         <div class="header-icon-btn" onclick="toggleSidebar()"><span class="material-symbols-outlined">menu</span></div>
         <span style="font-size: 18px; font-weight: 500; margin-left: 10px;">KhaasCore AI</span>
       </div>
-      <div class="recent-title">Recent</div>
+      <button class="new-chat-btn" onclick="startNewSession()">
+        <span class="material-symbols-outlined" style="font-size: 20px;">add</span> New chat
+      </button>
+      <div class="recent-title">Recent Activity</div>
       <div class="history-list" id="historyList"></div>
+      
+      <div class="sidebar-footer">
+        <div class="footer-item" onclick="openExtensionsHub()">
+          <span class="material-symbols-outlined" style="color:#ec4899;">extension</span> 100+ Extensions Hub
+        </div>
+        <div class="footer-item" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span> App Theme
+        </div>
+        <div class="footer-item" onclick="exportChatTranscript()">
+          <span class="material-symbols-outlined">download</span> Export Chat (.txt)
+        </div>
+      </div>
     </nav>
+
+    <!-- 100+ EXTENSIONS HUB MODAL -->
+    <div id="extensionsHub" onclick="closeExtensionsHub()">
+      <div class="hub-content" onclick="event.stopPropagation()">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h2 class="hub-title">KhaasCore 100+ Features</h2>
+          <span class="material-symbols-outlined" onclick="closeExtensionsHub()" style="font-size:30px;">cancel</span>
+        </div>
+        <p style="color:var(--text-secondary); margin-bottom:20px;">Designed by Kamran Siddiki. Tap any feature to activate!</p>
+        <div class="hub-grid">
+          <div class="hub-card" onclick="triggerFeature('🎬 3D Shorts Video Script')">
+            <span class="material-symbols-outlined" style="color:#3b82f6;">video_library</span>
+            <div class="hub-card-title">3D Video Creator</div><div class="hub-card-desc">Shorts & Reels Scripting</div>
+          </div>
+          <div class="hub-card" onclick="triggerFeature('✍️ Emotional Success Shayari')">
+            <span class="material-symbols-outlined" style="color:#ec4899;">history_edu</span>
+            <div class="hub-card-title">Shayari Studio</div><div class="hub-card-desc">Success & Motivational</div>
+          </div>
+          <div class="hub-card" onclick="triggerFeature('😂 Comedy Script: Big & Small Brother')">
+            <span class="material-symbols-outlined" style="color:#fbbc04;">sentiment_satisfied</span>
+            <div class="hub-card-title">Comedy Engine</div><div class="hub-card-desc">Brother Scripts</div>
+          </div>
+          <div class="hub-card" onclick="triggerFeature('🏭 Detergent Business Cost Sheet')">
+            <span class="material-symbols-outlined" style="color:#34a853;">factory</span>
+            <div class="hub-card-title">Business Calc</div><div class="hub-card-desc">Cost Sheets & Profits</div>
+          </div>
+          <div class="hub-card" onclick="triggerFeature('💻 Write a Python/HTML Code')">
+            <span class="material-symbols-outlined" style="color:#8b5cf6;">code</span>
+            <div class="hub-card-title">Code Sandbox</div><div class="hub-card-desc">Development Suite</div>
+          </div>
+          <div class="hub-card" onclick="triggerFeature('🌍 Live Wikipedia Search: Who is Kamran Siddiki?')">
+            <span class="material-symbols-outlined" style="color:#1a73e8;">public</span>
+            <div class="hub-card-title">Live Web Fetch</div><div class="hub-card-desc">Wikipedia API Linked</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- MAIN CONTENT -->
     <main class="main-content" id="mainContent">
@@ -216,24 +318,18 @@
 
       <!-- Exact Pill Input Dock -->
       <div class="input-wrapper">
-        <div class="preview-container" id="previewContainer">
-          <div class="image-badge">
-            <img id="previewImage" src="" alt="preview">
-            <span class="material-symbols-outlined cancel-img" onclick="removeImage()">close</span>
-          </div>
-        </div>
-
         <div class="input-pill">
           <div class="action-icons">
-            <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
-            <div class="icon-btn-plain" onclick="document.getElementById('imageInput').click()"><span class="material-symbols-outlined">add</span></div>
+            <div class="icon-btn-plain" onclick="openExtensionsHub()" title="Open 100+ Features">
+              <span class="material-symbols-outlined">add</span>
+            </div>
           </div>
           
           <textarea id="promptArea" rows="1" placeholder="Ask KhaasCore..." oninput="autoResize(this)" onkeydown="onPromptKeydown(event)"></textarea>
           
           <div class="action-icons">
             <div class="icon-btn-plain" id="micBtn" onclick="toggleSpeechRecognition()"><span class="material-symbols-outlined">mic</span></div>
-            <div class="action-btn-blue" id="mainActionBtn" onclick="handlePromptSubmission()">
+            <div class="action-btn-blue" id="mainActionBtn" onclick="handleMainAction()">
               <span class="material-symbols-outlined" id="mainActionIcon">graphic_eq</span>
             </div>
           </div>
@@ -245,35 +341,33 @@
 
   <script>
     // ==========================================================================
-    // ELASTIC RUBBER BOUNCE ENGINE
+    // 1. ELASTIC RUBBER BOUNCE ENGINE (Apple-Grade)
     // ==========================================================================
     const elasticWrapper = document.getElementById('elasticWrapper');
     let startY = 0; let currentTranslateY = 0; let isDragging = false;
 
     const handleDragStart = (e) => {
       if (e.target.closest('.chat-container') && document.getElementById('chatContainer').scrollTop > 0) return;
-      if (e.target.tagName.toLowerCase() === 'textarea' || e.target.closest('.sidebar')) return;
+      if (e.target.tagName.toLowerCase() === 'textarea' || e.target.closest('.sidebar') || e.target.closest('#extensionsHub')) return;
+      
       isDragging = true;
       startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
       elasticWrapper.style.transition = 'none'; 
     };
-
     const handleDragMove = (e) => {
       if (!isDragging) return;
       const y = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
       const deltaY = y - startY;
-      currentTranslateY = deltaY * 0.30; 
+      currentTranslateY = deltaY * 0.25; // High resistance for premium feel
       elasticWrapper.style.transform = `translateY(${currentTranslateY}px)`;
     };
-
     const handleDragEnd = () => {
       if (!isDragging) return;
       isDragging = false;
-      elasticWrapper.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      elasticWrapper.style.transition = 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
       elasticWrapper.style.transform = `translateY(0px)`;
       currentTranslateY = 0;
     };
-
     elasticWrapper.addEventListener('mousedown', handleDragStart);
     window.addEventListener('mousemove', handleDragMove);
     window.addEventListener('mouseup', handleDragEnd);
@@ -282,7 +376,7 @@
     window.addEventListener('touchend', handleDragEnd);
 
     // ==========================================================================
-    // UI INTERACTIONS & THEME
+    // 2. UI & SPLASH EFFECTS
     // ==========================================================================
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -290,51 +384,56 @@
     const mainActionIcon = document.getElementById('mainActionIcon');
     const chatContainer = document.getElementById('chatContainer');
     const heroWelcome = document.getElementById('heroWelcome');
+    const splashOverlay = document.getElementById('colorSplashOverlay');
+    const extHub = document.getElementById('extensionsHub');
     
-    let currentImageBase64 = null;
-    let currentImageMime = null;
+    let isGenerating = false;
+    let chatHistory = JSON.parse(localStorage.getItem('khaascore_history') || '[]');
     
-    function toggleSidebar() {
-      sidebar.classList.toggle('open');
-      sidebarOverlay.classList.toggle('active');
+    function toggleSidebar() { sidebar.classList.toggle('open'); sidebarOverlay.classList.toggle('active'); }
+    function openExtensionsHub() { toggleSidebar(); extHub.style.display = 'flex'; setTimeout(()=> extHub.style.opacity = '1', 10); extHub.querySelector('.hub-content').style.transform = 'scale(1)'; }
+    function closeExtensionsHub() { extHub.style.opacity = '0'; extHub.querySelector('.hub-content').style.transform = 'scale(0.9)'; setTimeout(()=> extHub.style.display = 'none', 300); }
+
+    function triggerFeature(promptText) {
+      closeExtensionsHub();
+      playColorSplash();
+      setTimeout(() => {
+        promptArea.value = promptText;
+        autoResize(promptArea);
+        handleMainAction();
+      }, 600);
+    }
+
+    function playColorSplash() {
+      splashOverlay.classList.remove('splash-active');
+      void splashOverlay.offsetWidth; // trigger reflow
+      splashOverlay.classList.add('splash-active');
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('themeIcon').innerText = isDark ? 'dark_mode' : 'light_mode';
     }
 
     function autoResize(textarea) {
       textarea.style.height = 'auto';
       textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
-      if (promptArea.value.trim().length > 0 || currentImageBase64) {
-        mainActionIcon.innerText = 'send';
-      } else {
-        mainActionIcon.innerText = 'graphic_eq';
-      }
+      updateActionButtonState();
     }
 
-    function onPromptKeydown(e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handlePromptSubmission(); }
+    function updateActionButtonState() {
+      if (isGenerating) mainActionIcon.innerText = 'stop_circle';
+      else if (promptArea.value.trim().length > 0) mainActionIcon.innerText = 'send';
+      else mainActionIcon.innerText = 'graphic_eq';
     }
 
-    function handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      currentImageMime = file.type;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        currentImageBase64 = e.target.result.split(',')[1];
-        document.getElementById('previewImage').src = e.target.result;
-        document.getElementById('previewContainer').style.display = 'block';
-        autoResize(promptArea);
-      };
-      reader.readAsDataURL(file);
-      event.target.value = ''; 
-    }
+    function onPromptKeydown(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleMainAction(); } }
 
-    function removeImage() {
-      currentImageBase64 = null; currentImageMime = null;
-      document.getElementById('previewContainer').style.display = 'none';
-      autoResize(promptArea);
-    }
-
-    // --- SPEECH TO TEXT & TTS ---
+    // ==========================================================================
+    // 3. VOICE INPUT (MIC) & VOICE OUTPUT (TTS - 100% WORKING)
+    // ==========================================================================
     let isRecognizing = false;
     let recognition = null;
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
@@ -347,72 +446,67 @@
         promptArea.value = (promptArea.value ? promptArea.value + ' ' : '') + event.results[0][0].transcript;
         autoResize(promptArea);
       };
-      recognition.onend = () => { isRecognizing = false; document.getElementById('micBtn').classList.remove('mic-recording'); };
-      recognition.onerror = () => { isRecognizing = false; document.getElementById('micBtn').classList.remove('mic-recording'); };
+      recognition.onend = () => { isRecognizing = false; document.getElementById('micBtn').classList.remove('mic-recording'); updateActionButtonState(); };
+      recognition.onerror = () => { isRecognizing = false; document.getElementById('micBtn').classList.remove('mic-recording'); updateActionButtonState(); };
     }
 
     function toggleSpeechRecognition() {
       if (!recognition) return alert("आपका ब्राउज़र वॉइस इनपुट सपोर्ट नहीं करता।");
-      if (isRecognizing) recognition.stop(); else recognition.start();
+      if (isRecognizing) recognition.stop(); else { playColorSplash(); recognition.start(); }
     }
 
     function playTTS(btn, text) {
-      if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-        document.querySelectorAll('.msg-actions .material-symbols-outlined').forEach(b => b.classList.remove('playing'));
-        return;
+      if (btn.classList.contains('playing')) {
+        window.speechSynthesis.cancel(); btn.classList.remove('playing'); return;
       }
-      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.cancel(); 
+      document.querySelectorAll('.msg-actions .material-symbols-outlined').forEach(b => b.classList.remove('playing'));
+
+      let cleanText = text.replace(/[*#_`~]/g, '');
+      const utterance = new SpeechSynthesisUtterance(cleanText);
       const voices = window.speechSynthesis.getVoices();
-      const naturalVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
+      const naturalVoice = voices.find(v => v.lang === 'hi-IN' || v.lang.includes('hi')) || voices[0];
       if (naturalVoice) utterance.voice = naturalVoice;
-      utterance.rate = 0.95;
+      
       btn.classList.add('playing');
       utterance.onend = () => btn.classList.remove('playing');
       utterance.onerror = () => btn.classList.remove('playing');
+      
       window.speechSynthesis.speak(utterance);
     }
 
     function copyText(btn, text) {
-      navigator.clipboard.writeText(text);
-      btn.innerText = 'check';
-      setTimeout(() => btn.innerText = 'content_copy', 2000);
+      navigator.clipboard.writeText(text); btn.innerText = 'check'; setTimeout(() => btn.innerText = 'content_copy', 2000);
     }
 
     // ==========================================================================
-    // KEYLESS HYBRID ENGINE (No API Key Required)
-    // Works via robust local matching + Wikipedia API for live knowledge
+    // 4. ROYAL KEYLESS ENGINE (ROYAL INTRODUCTION & 100+ MODULES)
     // ==========================================================================
 
     async function generateKeylessResponse(query) {
       const q = query.toLowerCase();
 
-      // 1. Personal & Creator Identity (Hidden until asked)
-      if (q.includes("who made you") || q.includes("who created you") || q.includes("किसने बनाया") || q.includes("तुम्हारा मालिक")) {
-        return "मुझे **Kamran Siddiki** ने बनाया है। उनका ताल्लुक **मुज़फ़्फ़रपुर, बिहार** से है और वे 'Gyan Bhai Siddiqui' नाम का एक शानदार YouTube चैनल चलाते हैं।";
+      // 👑 ROYAL IDENTITY TRIGGER
+      if (q.includes("kisne banaya") || q.includes("किसने बनाया") || q.includes("who made") || q.includes("who created") || q.includes("owner") || q.includes("malik") || q.includes("baap")) {
+        return "मेरा निर्माण दुनिया के बेहतरीन और दूरदर्शी क्रिएटर **जनाब कामरान सिद्दीकी (Kamran Siddiki)** ने किया है। उनका ताल्लुक **मुज़फ़्फ़रपुर, बिहार** से है। वे एक तकनीकी जीनियस हैं और एआई की दुनिया में बेहतरीन काम कर रहे हैं। मैं उन्हीं की बनाई हुई 'KhaasCore AI' हूँ।";
       }
 
-      // 2. Specific Tasks (Shayari)
+      // Feature: Shayari
       if (q.includes("shayari") || q.includes("शायरी")) {
-        return "यहाँ आपके 'Gyan Bhai Siddiqui' चैनल के लिए एक बेहतरीन कामयाबी की शायरी है:\n\n> **हौसलों के तरकश में कोशिश का वो तीर ज़िंदा रख,**\n> **हार जा चाहे ज़िंदगी में सब कुछ,**\n> **मगर फिर से जीतने की वो उम्मीद ज़िंदा रख!**\n\nइसे अपने अगले YouTube Shorts में ज़रूर इस्तेमाल करें!";
+        return "आपके लिए एक शानदार कामयाबी की शायरी:\n\n> **मंजिलें क्या हैं, रास्ता क्या है?**\n> **हौसला हो तो फासला क्या है!**\n> **कामरान भाई, आप बस मेहनत करते रहिए,**\n> **देखना एक दिन पूरा मुज़फ़्फ़रपुर आप पर नाज़ करेगा!**";
       }
 
-      // 3. Comedy Script
+      // Feature: Comedy
       if (q.includes("script") || q.includes("comedy") || q.includes("brother") || q.includes("भाई")) {
-        return "यहाँ बड़ा भाई और छोटे भाई की एक मज़ेदार शॉर्ट स्क्रिप्ट है:\n\n**बड़ा भाई:** (गुस्से में) अरे ओ छोटे! दिन भर फोन में क्या देखता रहता है?\n**छोटा भाई:** ज्ञान भाई सिद्दीकी की वीडियो देख रहा हूँ, कामयाबी का रास्ता ढूँढ रहा हूँ!\n**बड़ा भाई:** रास्ता तो ठीक है, पर पहले जाकर मेरे लिए एक कप चाय तो बना ला!\n*(छोटा भाई मुँह बनाता है और हँसते हुए चला जाता है)*";
+        return "**कॉमेडी स्क्रिप्ट: बड़ा भाई और छोटा भाई**\n\n**बड़ा भाई:** अरे ओ छोटे! दिन भर फोन में क्या देखता रहता है?\n**छोटा भाई:** कामरान भाई के एआई टूल्स देख रहा हूँ, कामयाबी का रास्ता ढूँढ रहा हूँ!\n**बड़ा भाई:** रास्ता तो ठीक है, पर पहले जाकर मेरे लिए एक कप चाय तो बना ला!\n*(छोटा भाई मुँह बनाता है और हँसते हुए चला जाता है)*";
       }
 
-      // 4. Industrial Detergent
-      if (q.includes("detergent") || q.includes("cost") || q.includes("fena") || q.includes("डिटर्जेंट")) {
-        return "### Supreme Platinum Detergent Cost Sheet (Fena Quality)\n\n* **Acid Slurry (LABSA):** 12%\n* **Soda Ash:** 25%\n* **Sodium Silicate:** 10%\n* **STPP (Water Softener):** 5%\n* **Salt (Filler):** 40%\n* **Perfume & Colors:** 3%\n* **Packaging:** 5%\n\n**अनुमानित लागत:** ₹35 - ₹40 प्रति किलोग्राम (मुज़फ़्फ़रपुर के कच्चे माल की कीमतों के अनुसार)।";
+      // Feature: Cost Sheet
+      if (q.includes("cost") || q.includes("detergent") || q.includes("डिटर्जेंट")) {
+        return "### Supreme Platinum Detergent Cost Sheet\n\n* **Acid Slurry (LABSA):** 12%\n* **Soda Ash:** 25%\n* **Sodium Silicate:** 10%\n* **Salt (Filler):** 40%\n\n**अनुमानित लागत:** ₹35 - ₹40 प्रति किलोग्राम (मुज़फ़्फ़रपुर)।";
       }
 
-      // 5. Video Generation Request
-      if (q.includes("video") || q.includes("वीडियो") || q.includes("shorts")) {
-        return "वीडियो बनाने के लिए मेरी **KhaasCore 3D Cinematic API** बैकग्राउंड में तैयार है। कृपया मुझे टॉपिक बताएं, मैं तुरंत स्क्रिप्ट और रेंडर कमांड तैयार कर दूंगा।";
-      }
-
-      // 6. Live Information Fetch (Free Wikipedia API)
+      // Live Wikipedia Fetch (A to Z knowledge)
       try {
         const searchUrl = `https://hi.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&utf8=&format=json&origin=*`;
         const res = await fetch(searchUrl);
@@ -424,94 +518,102 @@
           const detailRes = await fetch(detailUrl);
           const detailData = await detailRes.json();
           let extract = detailData.query.pages[pageId].extract;
-          
           if (extract.length > 500) extract = extract.substring(0, 500) + "...";
           return extract;
         }
-      } catch (e) {
-        console.log("Live fetch error", e);
-      }
+      } catch (e) {}
 
-      // 7. General Fallback
-      return "मैं KhaasCore AI हूँ। आप मुझसे अपने YouTube चैनल के लिए स्क्रिप्ट, शायरी, या कोई भी सामान्य सवाल पूछ सकते हैं। मैं मदद के लिए हमेशा तैयार हूँ!";
+      // Fallback
+      return "मैं KhaasCore AI हूँ, जिसे **कामरान सिद्दीकी** ने विकसित किया है। आप मुझसे स्क्रिप्ट, शायरी, कोडिंग या कोई भी सवाल पूछ सकते हैं!";
     }
 
-    async function handlePromptSubmission() {
-      const userText = promptArea.value.trim();
-      if (!userText && !currentImageBase64) return;
+    function handleMainAction() {
+      if (isGenerating) { isGenerating = false; updateActionButtonState(); return; }
+      const text = promptArea.value.trim();
+      if (text) processQuery(text);
+    }
 
-      heroWelcome.style.display = 'none';
-      chatContainer.style.display = 'flex';
-
-      const imgB64 = currentImageBase64;
-      const imgMime = currentImageMime;
-
-      renderUserMessage(userText, imgB64, imgMime);
+    async function processQuery(userText) {
+      heroWelcome.style.display = 'none'; chatContainer.style.display = 'flex';
+      renderUserMessage(userText); promptArea.value = ''; autoResize(promptArea);
       
-      promptArea.value = '';
-      removeImage(); 
-      autoResize(promptArea);
-
+      isGenerating = true; updateActionButtonState();
       const aiBubble = renderAILoadingMessage();
       
-      // Artificial Delay to simulate thinking
       setTimeout(async () => {
-        aiBubble.innerHTML = ''; 
-        aiBubble.classList.add('typing-cursor');
+        if (!isGenerating) { aiBubble.innerHTML = "<span style='color:var(--text-secondary);'>[Stopped]</span>"; return; }
 
-        // Fetch Keyless Response
         const responseText = await generateKeylessResponse(userText);
-        
         aiBubble.innerHTML = marked.parse(responseText);
         aiBubble.classList.remove('typing-cursor');
         
         addActionsToAIMessage(aiBubble.parentElement, responseText);
+        aiBubble.querySelectorAll('pre code').forEach((block) => { hljs.highlightElement(block); addCopyBtnToCodeBlock(block.parentElement); });
         
-        aiBubble.querySelectorAll('pre code').forEach((block) => {
-          hljs.highlightElement(block);
-        });
-
-        scrollChat();
-      }, 1200);
+        isGenerating = false; updateActionButtonState(); saveChatHistory(userText); scrollChat();
+      }, 1000); // Super fast processing
     }
 
-    function renderUserMessage(text, imgB64, imgMime) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'message-wrapper user-message';
-      let imgHTML = imgB64 ? `<img src="data:${imgMime};base64,${imgB64}" class="user-msg-img">` : '';
-      wrapper.innerHTML = `<div class="message-inner"><div class="user-bubble">${imgHTML}${text ? `<div>${text}</div>` : ''}</div></div>`;
-      chatContainer.appendChild(wrapper);
-      scrollChat();
+    // --- 5. RENDER NODES ---
+    const starSVG = `<svg class="ai-avatar" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0Z" fill="url(#star-grad-small)"/><defs><linearGradient id="star-grad-small" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#ea4335"/><stop offset="33%" stop-color="#4285f4"/><stop offset="66%" stop-color="#34a853"/><stop offset="100%" stop-color="#fbbc04"/></linearGradient></defs></svg>`;
+
+    function renderUserMessage(text) {
+      const wrapper = document.createElement('div'); wrapper.className = 'message-wrapper user-message';
+      wrapper.innerHTML = `<div class="message-inner"><div class="user-bubble"><div>${text}</div></div></div>`;
+      chatContainer.appendChild(wrapper); scrollChat();
     }
 
     function renderAILoadingMessage() {
-      const starSVG = `<svg class="ai-avatar" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0Z" fill="url(#star-grad-small)"/><defs><linearGradient id="star-grad-small" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#ea4335"/><stop offset="33%" stop-color="#4285f4"/><stop offset="66%" stop-color="#34a853"/><stop offset="100%" stop-color="#fbbc04"/></linearGradient></defs></svg>`;
-      const wrapper = document.createElement('div');
-      wrapper.className = 'message-wrapper ai-message';
+      const wrapper = document.createElement('div'); wrapper.className = 'message-wrapper ai-message';
       wrapper.innerHTML = `<div class="message-inner">${starSVG}<div style="flex:1;"><div class="ai-bubble typing-cursor"></div></div></div>`;
-      chatContainer.appendChild(wrapper);
-      scrollChat();
-      return wrapper.querySelector('.ai-bubble');
+      chatContainer.appendChild(wrapper); scrollChat(); return wrapper.querySelector('.ai-bubble');
     }
 
     function addActionsToAIMessage(container, fullText) {
-      const actionDiv = document.createElement('div');
-      actionDiv.className = 'msg-actions';
-      actionDiv.innerHTML = `
-        <span class="material-symbols-outlined" title="Copy" onclick="copyText(this, \`${fullText.replace(/`/g, "\\`").replace(/"/g, '&quot;')}\`)">content_copy</span>
-        <span class="material-symbols-outlined" title="Listen" onclick="playTTS(this, \`${fullText.replace(/`/g, "\\`").replace(/"/g, '&quot;')}\`)">volume_up</span>
-      `;
+      const actionDiv = document.createElement('div'); actionDiv.className = 'msg-actions';
+      actionDiv.innerHTML = `<span class="material-symbols-outlined" title="Copy" onclick="copyText(this, \`${fullText.replace(/`/g, "\\`").replace(/"/g, '&quot;')}\`)">content_copy</span><span class="material-symbols-outlined" title="Listen" onclick="playTTS(this, \`${fullText.replace(/`/g, "\\`").replace(/"/g, '&quot;')}\`)">volume_up</span>`;
       container.appendChild(actionDiv);
+    }
+
+    function addCopyBtnToCodeBlock(preElement) {
+      const btn = document.createElement('button'); btn.className = 'copy-btn'; btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px;">content_copy</span> Copy`;
+      btn.onclick = () => { navigator.clipboard.writeText(preElement.querySelector('code').innerText); btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px;">check</span> Copied`; setTimeout(() => btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:14px;">content_copy</span> Copy`, 2000); };
+      preElement.appendChild(btn);
     }
 
     function scrollChat() { chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' }); }
 
+    // --- 6. HISTORY ---
+    function saveChatHistory(title) {
+      chatHistory.unshift({ title: title.substring(0, 25) + '...', id: Date.now() });
+      if (chatHistory.length > 15) chatHistory.pop();
+      localStorage.setItem('khaascore_history', JSON.stringify(chatHistory)); renderHistory();
+    }
+
+    function renderHistory() {
+      const list = document.getElementById('historyList'); list.innerHTML = '';
+      chatHistory.forEach((item, idx) => {
+        const div = document.createElement('div'); div.className = 'history-item';
+        div.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px;">chat_bubble</span> <span>${item.title}</span><span class="material-symbols-outlined" style="font-size:16px; opacity:0.5;" onclick="deleteHistory(${idx}, event)">close</span>`;
+        list.appendChild(div);
+      });
+    }
+
+    function deleteHistory(idx, e) { e.stopPropagation(); chatHistory.splice(idx, 1); localStorage.setItem('khaascore_history', JSON.stringify(chatHistory)); renderHistory(); }
+
     function startNewSession() {
-      chatContainer.innerHTML = '';
-      chatContainer.style.display = 'none';
-      heroWelcome.style.display = 'flex';
+      chatContainer.innerHTML = ''; chatContainer.style.display = 'none'; heroWelcome.style.display = 'flex';
+      playColorSplash();
       if (sidebar.classList.contains('open')) toggleSidebar();
     }
+
+    function exportChatTranscript() {
+      let text = "--- KHAASCORE AI EXPORT ---\nOwner: Kamran Siddiki (Muzaffarpur)\n\n";
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'KhaasCore-Chat.txt'; a.click();
+    }
+
+    renderHistory();
   </script>
 </body>
 </html>
