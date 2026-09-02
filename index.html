@@ -1,143 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="or">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Language Advanced Web Experience</title>
+    <title>Enterprise Multi-Language OS</title>
     <meta name="color-scheme" content="dark light">
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b);
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --border-glow: rgba(255, 255, 255, 0.1);
-            --accent-neon: #818cf8;
+            --bg-primary: #090d16;
+            --bg-surface: rgba(255, 255, 255, 0.03);
+            --border-glow: rgba(255, 255, 255, 0.08);
+            --accent-neon: #6366f1;
+            --accent-success: #10b981;
             --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.3s ease; }
+
         body {
-            margin: 0;
             font-family: system-ui, -apple-system, sans-serif;
-            background: var(--bg-gradient);
+            background: radial-gradient(circle at top right, #1e1b4b, var(--bg-primary) 60%);
             color: var(--text-main);
             min-height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
 
-        /* Navigation & Language Dock */
+        /* 1. Glassmorphism Navigation Dock */
         nav {
             position: fixed;
             top: 20px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            z-index: 1000;
+            background: rgba(9, 13, 22, 0.7);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--border-glow);
-            padding: 10px 25px;
-            border-radius: 30px;
+            padding: 12px 24px;
+            border-radius: 40px;
             display: flex;
             align-items: center;
-            gap: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            gap: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        nav a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; }
-        nav a:hover { color: var(--accent-neon); }
+        nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+        nav a:hover, nav a.active { color: var(--accent-neon); text-shadow: 0 0 10px var(--accent-neon); }
 
-        /* Advanced Language Selector Dropdown */
+        .lang-container { display: flex; align-items: center; gap: 8px; }
+        
         .lang-select {
-            background: rgba(0, 0, 0, 0.5);
+            background: #111827;
             color: white;
             border: 1px solid var(--accent-neon);
-            padding: 5px 10px;
-            border-radius: 15px;
+            padding: 6px 12px;
+            border-radius: 20px;
             cursor: pointer;
             outline: none;
+            font-size: 0.85rem;
         }
 
-        main { text-align: center; max-width: 800px; padding: 40px; margin-top: 100px; }
+        /* 2. Layout Grid Container */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 100px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+
+        /* 3. Reusable Futuristic Cards */
+        .card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card:hover { border-color: rgba(99, 102, 241, 0.4); transform: translateY(-2px); }
 
         h1 {
-            font-size: 3rem;
-            background: linear-gradient(to right, #6366f1, #a855f7);
+            font-size: 2.8rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, #818cf8, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
+
+        p { color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+
+        /* 4. Action Controls */
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
 
         button {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
             color: white;
             border: none;
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-size: 1rem;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        button:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5); }
+        
+        button.secondary {
+            background: transparent;
+            border: 1px solid var(--border-glow);
+            box-shadow: none;
+        }
+        button.secondary:hover { background: rgba(255,255,255,0.05); }
+
+        /* 5. Smart Built-in Accordion Component */
+        details {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-glow);
+            padding: 16px;
+            border-radius: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        details[open] { border-color: var(--accent-neon); }
+        summary { font-weight: 600; color: var(--text-main); outline: none; list-style: none; display: flex; justify-content: space-between; }
+        summary::after { content: '➔'; transition: 0.3s; }
+        details[open] summary::after { transform: rotate(90deg); color: var(--accent-neon); }
+        .details-content { padding-top: 12px; color: var(--text-muted); font-size: 0.9rem; }
+
+        /* 6. Smart Forms & Utilities Grid */
+        .utility-box { display: flex; flex-direction: column; gap: 15px; }
+        
+        input, textarea {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border-glow);
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+        }
+        input:focus, textarea:focus { border-color: var(--accent-neon); }
+
+        /* 7. Native High-Performance Modal */
+        dialog {
+            background: #0f172a;
+            color: white;
+            border: 1px solid var(--accent-neon);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            margin: auto;
+            box-shadow: 0 0 50px rgba(99,102,241,0.4);
+        }
+        dialog::backdrop { background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
     </style>
 </head>
 <body>
 
+    <!-- Global Navigation Dock -->
     <nav>
-        <a href="#" id="nav-home">Home</a>
+        <a href="#" id="nav-home" class="active">Home</a>
         <a href="#" id="nav-features">Features</a>
-        <!-- Language Switcher Dropdown -->
-        <select class="lang-select" onchange="changeLanguage(this.value)">
-            <option value="en">🌐 English</option>
-            <option value="hi">🌐 हिंदी (Hindi)</option>
-            <option value="es">🌐 Español (Spanish)</option>
-        </select>
+        <div class="lang-container">
+            <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+                <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                <option value="en">English</option>
+                <option value="hi">हिंदी (Hindi)</option>
+            </select>
+        </div>
     </nav>
 
+    <!-- Main Dynamic Application Body -->
     <main>
-        <!-- Data attributes are used for smooth switching -->
-        <h1 id="main-heading">Duniya ki Sabse Advance Tech Website</h1>
-        <p id="main-desc">Yeh page pure HTML5 aur CSS3 ke advanced parameters par bana hai.</p>
-        <button id="main-btn">Launch AI Terminal</button>
+        <!-- Left Side: Core Interactive Control Room -->
+        <section class="card">
+            <h1 id="main-heading">ୱେବସାଇଟ୍‌କୁ ସ୍ୱାଗତ</h1>
+            <p id="main-desc">ଏହି ପୃଷ୍ଠାଟି ସମ୍ପୂର୍ଣ୍ଣ ଆଧୁନିକ HTML5, CSS3 ଏବଂ ସ୍ମାର୍ଟ ଆର୍ଟିଫିସିଆଲ୍ ଇଣ୍ଟେଲିଜେନ୍ସ ସ୍ଥାପତ୍ୟ ଉପରେ ଆଧାରିତ | ଏହା ପ୍ରତ୍ୟେକ ଉପଭୋକ୍ତାଙ୍କ ପାଇଁ ସୁବିଧାଜନକ ଏବଂ ଅତ୍ୟନ୍ତ ଦ୍ରୁତ ଅଟେ |</p>
+            
+            <div class="btn-group">
+                <button id="btn-terminal" onclick="document.getElementById('aiModal').showModal()">🚀 Launch Terminal</button>
+                <button class="secondary" id="btn-audio" onclick="speakText()">🔊 Speak Text (AI Voice)</button>
+            </div>
+
+            <!-- Built-in Smart Accordion Structure -->
+            <details>
+                <summary id="acc-title">🔐 Core Engine Metrics</summary>
+                <div class="details-content" id="acc-content">
+                    ଏହି ଆକର୍ଡିଅନ୍ ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ବିନା କୌଣସି ଜାଭାସ୍କ୍ରିପ୍ଟ ବ୍ୟବହାର କରି କାମ କରେ, ଯାହା ୱେବସାଇଟ୍‌କୁ ସୁରକ୍ଷିତ ଏବଂ ହାଲୁକା ରଖିଥାଏ |
+                </div>
+            </details>
+        </section>
+
+        <!-- Right Side: Fast Dynamic Actions & Communication Hub -->
+        <section class="card utility-box">
+            <h3 id="form-heading">📨 ତତକ୍ଷଣାତ ଯୋଗାଯୋଗ</h3>
+            <input type="text" id="input-name" placeholder="ଆପଣଙ୍କ ନାମ">
+            <input type="email" id="input-email" placeholder="ଆପଣଙ୍କ ଇମେଲ୍">
+            <textarea id="input-msg" rows="4" placeholder="ଆପଣଙ୍କ ବାର୍ତ୍ତା"></textarea>
+            <button style="width: 100%; justify-content: center;" id="btn-submit" onclick="alert('Done!')">Send Protocol</button>
+        </section>
     </main>
 
+    <!-- Native Dynamic Dialog Terminal -->
+    <dialog id="aiModal">
+        <h2 style="margin-bottom: 15px;" id="modal-title">🤖 AI ସିଷ୍ଟମ୍ ସକ୍ରିୟ ହେଲା</h2>
+        <p style="font-size: 0.95rem;" id="modal-desc">ଆପଣ ବର୍ତ୍ତମାନ ବିଶ୍ୱର ସବୁଠାରୁ ଅତ୍ୟାଧୁନିକ କ୍ଲାଉଡ୍ ନେଟିଭ୍ ୱେବ୍ ଇଣ୍ଟରଫେସ୍ ପରିଚାଳନା କରୁଛନ୍ତି |</p>
+        <button onclick="document.getElementById('aiModal').close()" style="background: var(--accent-success);" id="modal-close">Shutdown Terminal</button>
+    </dialog>
+
     <script>
-        // Language Dictionary Data
-        const translations = {
+        // Global High-Performance Multilingual Repository
+        const repository = {
+            or: {
+                langCode: "or-IN",
+                home: "ମୁଖ୍ୟ ପୃଷ୍ଠା", features: "ବିଶେଷତା",
+                heading: "ୱେବସାଇଟ୍‌କୁ ସ୍ୱାଗତ",
+                desc: "ଏହି ପୃଷ୍ଠାଟି ସମ୍ପୂର୍ଣ୍ଣ ଆଧୁନିକ HTML5, CSS3 ଏବଂ ସ୍ମାର୍ଟ ଆର୍ଟିଫିସିଆଲ୍ ଇଣ୍ଟେଲିଜେନ୍ସ ସ୍ଥାପତ୍ୟ ଉପରେ ଆଧାରିତ | ଏହା ପ୍ରତ୍ୟେକ ଉପଭୋକ୍ତାଙ୍କ ପାଇଁ ସୁବିଧାଜନକ ଏବଂ ଅତ୍ୟନ୍ତ ଦ୍ରուତ ଅଟେ |",
+                btnTerminal: "🚀 ଟର୍ମିନାଲ୍ ଆରମ୍ଭ କରନ୍ତୁ", btnAudio: "🔊 AI ସ୍ୱର ଶୁଣନ୍ତୁ",
+                accTitle: "🔐 କୋର୍ ଇଞ୍ଜିନ୍ ମେଟ୍ରିକ୍ସ", accContent: "ଏହି ଆକର୍ଡିଅନ୍ ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ବିନା କୌଣସି ଜାଭାସ୍କ୍ରିପ୍ଟ ବ୍ୟବହାର କରି କାମ କରେ, ଯାହା ୱେବସାଇଟ୍‌କୁ ସୁରକ୍ଷିତ ଏବଂ ହାଲୁକା ରଖିଥାଏ |",
+                formHeading: "📨 ତତକ୍ଷଣାତ ଯୋଗାଯୋଗ", pName: "ଆପଣଙ୍କ ନାମ", pEmail: "ଆପଣଙ୍କ ଇମେଲ୍", pMsg: "ଆପଣଙ୍କ ବାର୍ତ୍ତା", btnSubmit: "ପ୍ରୋଟୋକଲ୍ ପଠାନ୍ତୁ",
+                mTitle: "🤖 AI ସିଷ୍ଟମ୍ ସକ୍ରିୟ ହେଲା", mDesc: "ଆପଣ ବର୍ତ୍ତମାନ ବିଶ୍ୱର ସବୁଠାରୁ ଅତ୍ୟାଧୁନିକ କ୍ଲାଉଡ୍ ନେଟିଭ୍ ୱେବ୍ ଇଣ୍ଟରଫେସ୍ ପରିଚାଳନା କରୁଛନ୍ତି |", mClose: "ଟର୍ମିନାଲ୍ ବନ୍ଦ କରନ୍ତୁ"
+            },
             en: {
-                home: "Home",
-                features: "Features",
-                heading: "The World's Most Advanced Website",
-                desc: "This page is built using high-performance HTML5, CSS3, and Smart AI architecture.",
-                btn: "Launch AI Terminal"
-            },
-            hi: {
-                home: "होम",
-                features: "विशेषताएं",
-                heading: "दुनिया की सबसे एडवांस वेबसाइट",
-                desc: "यह पेज हाई-परफॉर्मेंस HTML5, CSS3 और स्मार्ट AI आर्किटेक्चर का उपयोग करके बनाया गया है।",
-                btn: "एआई टर्मिनल शुरू करें"
-            },
-            es: {
-                home: "Inicio",
-                features: "Características",
-                heading: "El sitio web más avanzado del mundo",
-                desc: "Esta página está creada con una arquitectura inteligente HTML5, CSS3 y IA de alto rendimiento.",
-                btn: "Iniciar terminal de IA"
-            }
-        };
-
-        // Function to change language instantly without reload
-        function changeLanguage(lang) {
-            document.getElementById('nav-home').innerText = translations[lang].home;
-            document.getElementById('nav-features').innerText = translations[lang].features;
-            document.getElementById('main-heading').innerText = translations[lang].heading;
-            document.getElementById('main-desc').innerText = translations[lang].desc;
-            document.getElementById('main-btn').innerText = translations[lang].btn;
-            
-            // Updates the document language attribute for SEO and screen readers
-            document.documentElement.lang = lang;
-        }
-
-        // Set default language on load
-        changeLanguage('en');
-    </script>
-</body>
-</html>
+                langCode: "en-US",
+                home: "Home", features: "Features",
+                heading: "The Ultimate Future OS",
+                desc: "This framework is structurally built using lightweight semantic architecture, rendering ultra-responsive animations instantly across distributed clusters.",
