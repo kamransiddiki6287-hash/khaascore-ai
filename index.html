@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi" class="dark select-none">
+<html lang="hi" class="select-none">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,11 +10,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            brand: { 500: '#6366f1', 600: '#4f46e5', accent: '#06b6d4' }
+            brand: { 500: '#4f46e5', 600: '#4338ca', accent: '#0284c7' }
           }
         }
       }
@@ -24,154 +23,129 @@
   
   <style>
     html { scroll-behavior: smooth; }
-    body { background-color: #030712; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
-    #neuralCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.2; }
+    body { background-color: #f8fafc; color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
+    #neuralCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.12; }
     
-    /* Apple / Stripe स्टाइल प्रीमियम ग्लास इफेक्ट */
-    .glass-hud {
-      background: rgba(13, 17, 28, 0.75);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-hud:hover {
-      border-color: rgba(99, 102, 241, 0.25);
+    .glass-panel-light {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.04);
     }
 
-    .apple-button {
-      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    .apple-action-btn-light {
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(15, 23, 42, 0.08);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .apple-button:hover {
-      background: linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(6,182,212,0.1) 100%);
-      border-color: rgba(99,102,241,0.4);
+    .apple-action-btn-light:hover {
+      background: rgba(79, 70, 229, 0.08);
+      border-color: rgba(79, 70, 229, 0.3);
       transform: translateY(-1px);
-      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3);
     }
 
-    .neon-glow {
-      box-shadow: 0 0 30px -5px rgba(99, 102, 241, 0.25);
-    }
-
-    .teleprompter-active { position: fixed; inset: 0; z-index: 9999; background: #000; padding: 4rem 2rem; overflow-y: scroll; scroll-behavior: smooth; font-size: 2rem; line-height: 2.3; color: #ffffff; }
+    .teleprompter-active { position: fixed; inset: 0; z-index: 9999; background: #ffffff; padding: 4rem 2rem; overflow-y: scroll; scroll-behavior: smooth; font-size: 2rem; line-height: 2.3; color: #0f172a; }
     .voice-wave-bar { animation: soundWave 1.2s infinite ease-in-out alternate; }
     @keyframes soundWave { 0% { height: 4px; } 100% { height: 24px; } }
-    ::selection { background: #6366f1; color: #ffffff; }
+    ::selection { background: #4f46e5; color: #ffffff; }
     
-    #securityLockOverlay { display: none; position: fixed; inset: 0; z-index: 999999; background: #000000; color: #ef4444; flex-direction: column; align-items: center; justify-content: center; font-family: monospace; text-align: center; padding: 20px; }
+    #securityLockOverlay { display: none; position: fixed; inset: 0; z-index: 999999; background: #ffffff; color: #ef4444; flex-direction: column; align-items: center; justify-content: center; font-family: monospace; text-align: center; padding: 20px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col relative" oncontextmenu="return false;">
+<body class="min-h-screen flex flex-col relative justify-between" oncontextmenu="return false;">
 
-  <!-- 🚨 सुरक्षा लॉक ओवरले -->
   <div id="securityLockOverlay">
     <i class="fa-solid fa-triangle-exclamation text-6xl mb-4 animate-bounce text-red-500"></i>
     <h1 class="text-2xl font-black tracking-widest uppercase mb-2">SECURITY BREACH PREVENTED</h1>
-    <p class="text-xs text-slate-400 max-w-sm">अनधिकृत टूल्स और डिबगिंग ब्लॉक कर दिए गए हैं।</p>
-    <span class="mt-4 text-[11px] font-mono text-indigo-400">ARCHITECT: KAMRAN SIDDIKI</span>
+    <p class="text-xs text-slate-500 max-w-sm">अनधिकृत टूल्स और डिबगिंग ब्लॉक कर दिए गए हैं।</p>
+    <span class="mt-4 text-[11px] font-mono text-indigo-600">ARCHITECT: KAMRAN SIDDIKI</span>
   </div>
 
   <canvas id="neuralCanvas"></canvas>
 
-  <!-- 🌟 Apple स्टाइल प्रीमियम हेडर -->
-  <header class="sticky top-0 z-40 glass-hud border-b border-slate-800/60 backdrop-blur-xl">
-    <div class="max-w-4xl mx-auto px-5 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3.5">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-xl shadow-indigo-500/20">
+  <header class="w-full glass-panel-light border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-sky-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
           <i class="fa-solid fa-brain text-white text-lg"></i>
         </div>
         <div>
-          <span class="text-lg font-black tracking-tight text-white block">Khaascore <span class="text-cyan-400 font-light">AI</span></span>
-          <span class="text-[9px] font-mono text-indigo-400 uppercase tracking-widest block">Autonomous Neural Core</span>
+          <span class="text-lg font-black tracking-tight text-slate-900 block">Khaascore <span class="text-indigo-600 font-light">AI</span></span>
+          <span class="text-[9px] font-mono text-indigo-600 uppercase tracking-widest block">Autonomous Neural Core</span>
         </div>
       </div>
 
-      <div class="flex items-center space-x-3">
-        <div class="hidden sm:flex items-center space-x-2 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800/80 text-xs font-mono text-slate-300">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>2099 SECURE</span>
-        </div>
-        <button onclick="alert('फाउंडर प्रोटोकॉल: Khaascore AI के एकमात्र आर्किटेक्ट और विजनरी Kamran Siddiki हैं।')" class="apple-button text-xs font-bold text-white px-4 py-2 rounded-xl flex items-center space-x-2 shadow-lg">
-          <i class="fa-solid fa-fingerprint text-indigo-400"></i>
-          <span>फाउंडर</span>
-        </button>
-      </div>
+      <button onclick="alert('फाउंडर प्रोटोकॉल: Khaascore AI के एकमात्र आर्किटेक्ट और विजनरी Kamran Siddiki हैं।')" class="apple-action-btn-light text-xs font-bold text-slate-800 px-4 py-2 rounded-xl flex items-center space-x-2">
+        <i class="fa-solid fa-fingerprint text-indigo-600"></i>
+        <span>फाउंडर</span>
+      </button>
     </div>
   </header>
 
-  <!-- मुख्य वर्कस्पेस (प्राकृतिक स्क्रॉलिंग के साथ) -->
-  <main class="flex-1 max-w-4xl mx-auto w-full px-5 py-8 flex flex-col space-y-6 relative z-10">
+  <main class="w-full max-w-4xl mx-auto px-6 py-6 flex-1 flex flex-col space-y-6 relative z-10">
 
-    <!-- सेंट्रल आउटपुट कंसोल (रबड़ जैसी स्मूथ स्क्रॉलिंग और ब्राइट व्हाइट टेक्स्ट) -->
-    <section class="glass-hud rounded-3xl p-6 sm:p-8 flex-1 min-h-[500px] flex flex-col relative overflow-hidden neon-glow">
+    <section class="glass-panel-light rounded-3xl p-6 sm:p-8 flex-1 flex flex-col relative overflow-hidden min-h-[450px]">
       
-      <!-- यूटिलिटी बार -->
-      <div class="flex items-center justify-between border-b border-slate-800/60 pb-4 mb-4 text-xs text-slate-400">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4 text-xs text-slate-500">
         <div class="flex items-center space-x-2.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
-          <span class="font-mono text-xs text-cyan-300 font-semibold tracking-wide">LIVE NEURAL STREAM</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-ping"></span>
+          <span class="font-mono text-xs text-indigo-600 font-semibold tracking-wide">LIVE NEURAL STREAM</span>
         </div>
         <div class="flex items-center space-x-2">
-          <button onclick="toggleTeleprompter()" class="apple-button px-3.5 py-1.5 rounded-xl text-slate-300 text-xs transition font-medium">
-            <i class="fa-solid fa-desktop mr-1.5 text-indigo-400"></i> टेलीप्रॉम्प्टर
+          <button onclick="toggleTeleprompter()" class="apple-action-btn-light px-3.5 py-1.5 rounded-xl text-slate-700 text-xs transition font-medium">
+            <i class="fa-solid fa-desktop mr-1.5 text-indigo-600"></i> टेलीप्रॉम्प्टर
           </button>
-          <button onclick="playNeuralSpeech()" class="apple-button px-3.5 py-1.5 rounded-xl text-slate-300 text-xs transition font-medium">
-            <i class="fa-solid fa-headphones mr-1.5 text-cyan-400"></i> सुनें
+          <button onclick="playNeuralSpeech()" class="apple-action-btn-light px-3.5 py-1.5 rounded-xl text-slate-700 text-xs transition font-medium">
+            <i class="fa-solid fa-headphones mr-1.5 text-sky-600"></i> सुनें
           </button>
-          <button onclick="copyOutput()" class="apple-button px-3.5 py-1.5 rounded-xl text-slate-300 text-xs transition font-medium">
-            <i class="fa-solid fa-copy mr-1.5 text-emerald-400"></i> कॉपी
+          <button onclick="copyOutput()" class="apple-action-btn-light px-3.5 py-1.5 rounded-xl text-slate-700 text-xs transition font-medium">
+            <i class="fa-solid fa-copy mr-1.5 text-emerald-600"></i> कॉपी
           </button>
         </div>
       </div>
 
-      <!-- थिंकिंग स्टेट -->
-      <div id="thinkingState" class="hidden my-auto text-center space-y-4 py-28">
-        <div class="inline-flex p-5 rounded-3xl bg-indigo-500/10 border border-indigo-500/30 neon-glow">
-          <i class="fa-solid fa-atom text-4xl text-cyan-400 animate-spin"></i>
+      <div id="thinkingState" class="hidden my-auto text-center space-y-4 py-24">
+        <div class="inline-flex p-5 rounded-3xl bg-indigo-50 border border-indigo-200 shadow-sm">
+          <i class="fa-solid fa-atom text-4xl text-indigo-600 animate-spin"></i>
         </div>
-        <p id="thinkingStep" class="text-xs font-mono text-cyan-300 tracking-wider">[क्वांटम प्रोसेसिंग जारी...]</p>
+        <p id="thinkingStep" class="text-xs font-mono text-indigo-600 tracking-wider">[क्वांटम प्रोसेसिंग जारी...]</p>
       </div>
 
-      <!-- आउटपुट स्क्रीन (साफ और ब्राइट व्हाइट टेक्स्ट) -->
-      <div id="outputConsole" class="flex-1 overflow-y-auto text-base sm:text-lg leading-relaxed space-y-4 whitespace-pre-wrap text-white font-normal selection:bg-indigo-500 selection:text-white">
-        <div class="text-slate-400 text-center py-32 font-light space-y-3">
-          <i class="fa-solid fa-bolt text-5xl mb-3 block text-cyan-400 animate-pulse"></i>
-          <p class="text-xl font-bold text-white tracking-tight">Khaascore AI न्यूरल कोर ऑनलाइन है।</p>
-          <p class="text-sm text-slate-400 max-w-md mx-auto">बिना किसी मोड को चुने, नीचे सीधे अपना सवाल दर्ज करें। यह दुनिया का सबसे एडवांस और सुरक्षित एआई है।</p>
+      <div id="outputConsole" class="flex-1 overflow-y-auto text-base sm:text-lg leading-relaxed space-y-4 whitespace-pre-wrap text-slate-900 font-normal selection:bg-indigo-500 selection:text-white">
+        <div class="text-slate-500 text-center py-28 font-light space-y-3">
+          <i class="fa-solid fa-bolt text-5xl mb-3 block text-indigo-600 animate-pulse"></i>
+          <p class="text-xl font-bold text-slate-900 tracking-tight">Khaascore AI न्यूरल कोर ऑनलाइन है।</p>
+          <p class="text-sm text-slate-500 max-w-md mx-auto">बिना किसी मोड को चुने, नीचे सीधे अपना सवाल दर्ज करें।</p>
         </div>
       </div>
 
-      <!-- स्मार्ट नेक्स्ट-स्टेप्स -->
-      <div id="nextStepsRow" class="hidden mt-4 pt-4 border-t border-slate-800/60 flex flex-wrap gap-2.5">
-        <button onclick="injectNext('इसे और अधिक विस्तार से समझाओ')" class="apple-button text-xs px-3.5 py-2 rounded-xl text-indigo-300 font-medium transition">
+      <div id="nextStepsRow" class="hidden mt-4 pt-4 border-t border-slate-200 flex flex-wrap gap-2.5">
+        <button onclick="injectNext('इसे और अधिक विस्तार से समझाओ')" class="apple-action-btn-light text-xs px-3.5 py-2 rounded-xl text-indigo-700 font-medium transition">
           🚀 इसे और विस्तार दें
         </button>
-        <button onclick="injectNext('इसमें क्या तकनीकी कमियाँ हैं, उन्हें सुधारो')" class="apple-button text-xs px-3.5 py-2 rounded-xl text-indigo-300 font-medium transition">
+        <button onclick="injectNext('इसमें क्या तकनीकी कमियाँ हैं, उन्हें सुधारो')" class="apple-action-btn-light text-xs px-3.5 py-2 rounded-xl text-indigo-700 font-medium transition">
           ⚙️ तकनीकी सुधार सुझाएं
         </button>
       </div>
     </section>
 
-    <!-- इनपुट कंट्रोल डेक (Apple स्टाइल लिक्विड बार) -->
-    <section class="glass-hud p-4 rounded-3xl relative shadow-2xl">
+    <section class="glass-panel-light p-4 rounded-3xl relative shadow-xl">
       <div id="voiceWaveBar" class="hidden pb-2.5 px-2 flex items-center space-x-1.5 justify-center">
-        <span class="text-[11px] font-mono text-cyan-400 mr-2 tracking-wider">सुन रहा हूँ...</span>
-        <div class="w-1 bg-cyan-400 voice-wave-bar rounded-full" style="animation-delay: 0.1s"></div>
-        <div class="w-1 bg-cyan-400 voice-wave-bar rounded-full" style="animation-delay: 0.3s"></div>
-        <div class="w-1 bg-cyan-400 voice-wave-bar rounded-full" style="animation-delay: 0.2s"></div>
+        <span class="text-[11px] font-mono text-indigo-600 mr-2 tracking-wider">सुन रहा हूँ...</span>
+        <div class="w-1 bg-indigo-600 voice-wave-bar rounded-full" style="animation-delay: 0.1s"></div>
+        <div class="w-1 bg-indigo-600 voice-wave-bar rounded-full" style="animation-delay: 0.3s"></div>
+        <div class="w-1 bg-indigo-600 voice-wave-bar rounded-full" style="animation-delay: 0.2s"></div>
       </div>
 
       <div class="flex items-end space-x-3">
         <div class="flex-1 relative">
-          <textarea id="promptBox" rows="2" placeholder="यहाँ कुछ भी पूछें... (ऑटोनॉमस न्यूरल इंजन सक्रिय)" class="w-full bg-slate-950/80 text-base text-white placeholder-slate-500 rounded-2xl p-4 focus:outline-none border border-slate-800 focus:border-indigo-500 resize-none transition shadow-inner font-normal"></textarea>
+          <textarea id="promptBox" rows="2" placeholder="यहाँ कुछ भी पूछें... (ऑटोनॉमस न्यूरल इंजन सक्रिय)" class="w-full bg-white text-base text-slate-900 placeholder-slate-400 rounded-2xl p-4 focus:outline-none border border-slate-200 focus:border-indigo-600 resize-none transition shadow-inner font-normal"></textarea>
         </div>
-        <button onclick="toggleVoiceInput()" id="micBtn" class="apple-button h-14 w-14 rounded-2xl text-slate-300 flex items-center justify-center transition flex-shrink-0 text-lg">
+        <button onclick="toggleVoiceInput()" id="micBtn" class="apple-action-btn-light h-14 w-14 rounded-2xl text-slate-700 flex items-center justify-center transition flex-shrink-0 text-lg">
           <i class="fa-solid fa-microphone"></i>
         </button>
-        <button onclick="executeEngine()" class="h-14 w-14 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 hover:opacity-90 text-white flex items-center justify-center transition shadow-xl shadow-indigo-500/40 flex-shrink-0 text-lg">
+        <button onclick="executeEngine()" class="h-14 w-14 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-sky-400 hover:opacity-90 text-white flex items-center justify-center transition shadow-xl shadow-indigo-500/30 flex-shrink-0 text-lg">
           <i class="fa-solid fa-arrow-up"></i>
         </button>
       </div>
@@ -225,7 +199,7 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#6366f1';
+        ctx.fillStyle = '#4f46e5';
         ctx.fill();
       }
     }
@@ -243,7 +217,7 @@
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(99, 102, 241, ${1 - dist / 120})`;
+            ctx.strokeStyle = `rgba(79, 70, 229, ${1 - dist / 120})`;
             ctx.lineWidth = 0.4;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -304,36 +278,52 @@
       output.textContent = '';
       triggerThinking(true);
 
-      try {
-        const res = await fetch(`${BACKEND_URL}/api/generate/stream`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer guest_token' },
-          body: JSON.stringify({ prompt: prompt, tool: 'general', persona: 'shark' })
-        });
+      const endpoints = [
+        `${BACKEND_URL}/api/generate/stream`,
+        "https://khaascore-ai-backend-1.onrender.com/api/generate/stream"
+      ];
 
-        triggerThinking(false);
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder('utf-8');
+      let success = false;
 
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              try {
-                const parsed = JSON.parse(line.replace('data: ', ''));
-                if (parsed.type === 'stream_chunk') output.textContent += parsed.payload.chunk;
-                if (parsed.type === 'error') output.textContent = parsed.payload.message;
-              } catch(e) {}
+      for (const endpoint of endpoints) {
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer guest_token' },
+            body: JSON.stringify({ prompt: prompt, tool: 'general', persona: 'shark' })
+          });
+
+          if (!res.ok) continue;
+
+          triggerThinking(false);
+          success = true;
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder('utf-8');
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            const chunk = decoder.decode(value);
+            const lines = chunk.split('\n');
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                try {
+                  const parsed = JSON.parse(line.replace('data: ', ''));
+                  if (parsed.type === 'stream_chunk') output.textContent += parsed.payload.chunk;
+                  if (parsed.type === 'error') output.textContent = parsed.payload.message;
+                } catch(e) {}
+              }
             }
           }
-        }
-        nextSteps.classList.remove('hidden');
-      } catch (err) {
+          break;
+        } catch (err) {}
+      }
+
+      if (!success) {
         triggerThinking(false);
-        output.textContent = 'सुरक्षा कनेक्शन अवरोध: सर्वर से पुनः कनेक्ट करें। कृपया सुनिश्चित करें कि बैकएंड एक्टिव है।';
+        output.textContent = "न्यूरल क्लस्टर री-कनेक्ट हो रहा है... कृपया एक सेकंड रुककर दोबारा कमांड दें। (सर्वर स्लीप मोड से जाग रहा है)";
+      } else {
+        nextSteps.classList.remove('hidden');
       }
     }
 
@@ -365,7 +355,7 @@
       recognition.onstart = () => {
         recognition.running = true;
         wave.classList.remove('hidden');
-        micBtn.classList.add('text-cyan-400', 'border-cyan-500');
+        micBtn.classList.add('text-indigo-600', 'border-indigo-600');
       };
       recognition.onresult = (e) => {
         document.getElementById('promptBox').value = e.results[0][0].transcript;
@@ -373,7 +363,7 @@
       recognition.onend = () => {
         recognition.running = false;
         wave.classList.add('hidden');
-        micBtn.classList.remove('text-cyan-400', 'border-cyan-500');
+        micBtn.classList.remove('text-indigo-600', 'border-indigo-600');
       };
       recognition.start();
     }
