@@ -1,240 +1,382 @@
 <!DOCTYPE html>
-<html lang="or">
+<html lang="hi" class="dark select-none">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Multi-Language OS</title>
-    <meta name="color-scheme" content="dark light">
-    <style>
-        :root {
-            --bg-primary: #090d16;
-            --bg-surface: rgba(255, 255, 255, 0.03);
-            --border-glow: rgba(255, 255, 255, 0.08);
-            --accent-neon: #6366f1;
-            --accent-success: #10b981;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https: wss:; img-src 'self' https: data:; font-src 'self' https: data:;">
+  <meta name="author" content="Kamran Siddiki">
+  <title>Khaascore AI — Autonomous Neural Studio OS</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#6366f1', 600: '#4f46e5', accent: '#06b6d4' }
+          }
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.3s ease; }
-
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at top right, #1e1b4b, var(--bg-primary) 60%);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* 1. Glassmorphism Navigation Dock */
-        nav {
-            position: fixed;
-            top: 20px;
-            z-index: 1000;
-            background: rgba(9, 13, 22, 0.7);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-glow);
-            padding: 12px 24px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
-        nav a:hover, nav a.active { color: var(--accent-neon); text-shadow: 0 0 10px var(--accent-neon); }
-
-        .lang-container { display: flex; align-items: center; gap: 8px; }
-        
-        .lang-select {
-            background: #111827;
-            color: white;
-            border: 1px solid var(--accent-neon);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            outline: none;
-            font-size: 0.85rem;
-        }
-
-        /* 2. Layout Grid Container */
-        main {
-            max-width: 1200px;
-            width: 100%;
-            margin-top: 100px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-        }
-
-        @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
-
-        /* 3. Reusable Futuristic Cards */
-        .card {
-            background: var(--bg-surface);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-glow);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .card:hover { border-color: rgba(99, 102, 241, 0.4); transform: translateY(-2px); }
-
-        h1 {
-            font-size: 2.8rem;
-            line-height: 1.2;
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-        }
-
-        p { color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
-
-        /* 4. Action Controls */
-        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
-
-        button {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        button:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5); }
-        
-        button.secondary {
-            background: transparent;
-            border: 1px solid var(--border-glow);
-            box-shadow: none;
-        }
-        button.secondary:hover { background: rgba(255,255,255,0.05); }
-
-        /* 5. Smart Built-in Accordion Component */
-        details {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-glow);
-            padding: 16px;
-            border-radius: 16px;
-            margin-top: 15px;
-            cursor: pointer;
-        }
-        details[open] { border-color: var(--accent-neon); }
-        summary { font-weight: 600; color: var(--text-main); outline: none; list-style: none; display: flex; justify-content: space-between; }
-        summary::after { content: '➔'; transition: 0.3s; }
-        details[open] summary::after { transform: rotate(90deg); color: var(--accent-neon); }
-        .details-content { padding-top: 12px; color: var(--text-muted); font-size: 0.9rem; }
-
-        /* 6. Smart Forms & Utilities Grid */
-        .utility-box { display: flex; flex-direction: column; gap: 15px; }
-        
-        input, textarea {
-            width: 100%;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--border-glow);
-            padding: 12px 16px;
-            border-radius: 12px;
-            color: white;
-            outline: none;
-        }
-        input:focus, textarea:focus { border-color: var(--accent-neon); }
-
-        /* 7. Native High-Performance Modal */
-        dialog {
-            background: #0f172a;
-            color: white;
-            border: 1px solid var(--accent-neon);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
-            margin: auto;
-            box-shadow: 0 0 50px rgba(99,102,241,0.4);
-        }
-        dialog::backdrop { background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
-    </style>
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    body { background-color: #030712; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
+    #neuralCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.25; }
+    .glass-hud { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+    .neon-pulse { animation: pulseGlow 3s infinite alternate; }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 10px rgba(99, 102, 241, 0.15); }
+      100% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.35), 0 0 40px rgba(6, 182, 212, 0.2); }
+    }
+    .teleprompter-active { position: fixed; inset: 0; z-index: 9999; background: #000; padding: 3rem 1.5rem; overflow-y: scroll; scroll-behavior: smooth; font-size: 1.85rem; line-height: 2.2; }
+    .voice-wave-bar { animation: soundWave 1.2s infinite ease-in-out alternate; }
+    @keyframes soundWave { 0% { height: 4px; } 100% { height: 22px; } }
+    ::selection { background: #6366f1; color: #ffffff; }
+    #securityLockOverlay { display: none; position: fixed; inset: 0; z-index: 999999; background: #000000; color: #ef4444; flex-direction: column; align-items: center; justify-content: center; font-family: monospace; text-align: center; padding: 20px; }
+  </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col relative" oncontextmenu="return false;">
 
-    <!-- Global Navigation Dock -->
-    <nav>
-        <a href="#" id="nav-home" class="active">Home</a>
-        <a href="#" id="nav-features">Features</a>
-        <div class="lang-container">
-            <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
-                <option value="or">ଓଡ଼ିଆ (Odia)</option>
-                <option value="en">English</option>
-                <option value="hi">हिंदी (Hindi)</option>
-            </select>
+  <!-- 🚨 सुरक्षा लॉक ओवरले -->
+  <div id="securityLockOverlay">
+    <i class="fa-solid fa-triangle-exclamation text-5xl mb-3 animate-bounce"></i>
+    <h1 class="text-xl font-black tracking-widest uppercase mb-1">SECURITY BREACH PREVENTED</h1>
+    <p class="text-xs text-slate-400 max-w-sm">अनधिकृत टूल्स ब्लॉक कर दिए गए हैं।</p>
+    <span class="mt-3 text-[10px] font-mono text-slate-600">ARCHITECT: KAMRAN SIDDIKI</span>
+  </div>
+
+  <canvas id="neuralCanvas"></canvas>
+
+  <!-- 🌟 प्रीमियम हेडर -->
+  <header class="sticky top-0 z-40 glass-hud border-b border-slate-800/80">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+          <i class="fa-solid fa-brain text-white text-lg"></i>
         </div>
-    </nav>
+        <div>
+          <span class="text-lg font-black tracking-tight text-white block">Khaascore <span class="text-cyan-400">AI</span></span>
+          <span class="text-[9px] font-mono text-indigo-400 uppercase tracking-widest block">Autonomous Neural Core</span>
+        </div>
+      </div>
 
-    <!-- Main Dynamic Application Body -->
-    <main>
-        <!-- Left Side: Core Interactive Control Room -->
-        <section class="card">
-            <h1 id="main-heading">ୱେବସାଇଟ୍‌କୁ ସ୍ୱାଗତ</h1>
-            <p id="main-desc">ଏହି ପୃଷ୍ଠାଟି ସମ୍ପୂର୍ଣ୍ଣ ଆଧୁନିକ HTML5, CSS3 ଏବଂ ସ୍ମାର୍ଟ ଆର୍ଟିଫିସିଆଲ୍ ଇଣ୍ଟେଲିଜେନ୍ସ ସ୍ଥାପତ୍ୟ ଉପରେ ଆଧାରିତ | ଏହା ପ୍ରତ୍ୟେକ ଉପଭୋକ୍ତାଙ୍କ ପାଇଁ ସୁବିଧାଜନକ ଏବଂ ଅତ୍ୟନ୍ତ ଦ୍ରୁତ ଅଟେ |</p>
-            
-            <div class="btn-group">
-                <button id="btn-terminal" onclick="document.getElementById('aiModal').showModal()">🚀 Launch Terminal</button>
-                <button class="secondary" id="btn-audio" onclick="speakText()">🔊 Speak Text (AI Voice)</button>
-            </div>
+      <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-medium">
+          <span class="text-amber-400">🔥 2099</span>
+          <span class="text-slate-600">|</span>
+          <span class="text-indigo-400 font-bold">⚡ प्राइवेसी लॉक्ड</span>
+        </div>
+        <button onclick="alert('फाउंडर प्रोटोकॉल: Khaascore AI के एकमात्र आर्किटेक्ट और विजनरी Kamran Siddiki हैं।')" class="text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-1.5 rounded-xl transition shadow-md shadow-indigo-600/30 flex items-center space-x-1.5">
+          <i class="fa-solid fa-fingerprint"></i>
+          <span>फाउंडर</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-            <!-- Built-in Smart Accordion Structure -->
-            <details>
-                <summary id="acc-title">🔐 Core Engine Metrics</summary>
-                <div class="details-content" id="acc-content">
-                    ଏହି ଆକର୍ଡିଅନ୍ ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ବିନା କୌଣସି ଜାଭାସ୍କ୍ରିପ୍ଟ ବ୍ୟବହାର କରି କାମ କରେ, ଯାହା ୱେବସାଇଟ୍‌କୁ ସୁରକ୍ଷିତ ଏବଂ ହାଲୁକା ରଖିଥାଏ |
-                </div>
-            </details>
-        </section>
+  <!-- मुख्य सिंगल-पेज वर्कस्पेस -->
+  <main class="flex-1 max-w-5xl mx-auto w-full px-4 py-6 flex flex-col space-y-4 relative z-10">
 
-        <!-- Right Side: Fast Dynamic Actions & Communication Hub -->
-        <section class="card utility-box">
-            <h3 id="form-heading">📨 ତତକ୍ଷଣାତ ଯୋଗାଯୋଗ</h3>
-            <input type="text" id="input-name" placeholder="ଆପଣଙ୍କ ନାମ">
-            <input type="email" id="input-email" placeholder="ଆପଣଙ୍କ ଇମେଲ୍">
-            <textarea id="input-msg" rows="4" placeholder="ଆପଣଙ୍କ ବାର୍ତ୍ତା"></textarea>
-            <button style="width: 100%; justify-content: center;" id="btn-submit" onclick="alert('Done!')">Send Protocol</button>
-        </section>
-    </main>
+    <!-- सेंट्रल व्यूस्पेस और आउटपुट कंसोल -->
+    <section class="glass-hud rounded-2xl p-5 flex-1 min-h-[520px] flex flex-col relative overflow-hidden">
+      
+      <!-- यूटिलिटी बार -->
+      <div class="flex items-center justify-between border-b border-slate-800/80 pb-3 mb-3 text-xs text-slate-400">
+        <div class="flex items-center space-x-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+          <span class="font-mono text-xs text-cyan-300">LIVE NEURAL STREAM ACTIVE</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="toggleTeleprompter()" class="bg-slate-900 hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300 transition text-xs">
+            <i class="fa-solid fa-desktop mr-1"></i> टेलीप्रॉम्प्टर
+          </button>
+          <button onclick="playNeuralSpeech()" class="bg-slate-900 hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300 transition text-xs">
+            <i class="fa-solid fa-headphones mr-1"></i> सुनें
+          </button>
+          <button onclick="copyOutput()" class="bg-slate-900 hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300 transition text-xs">
+            <i class="fa-solid fa-copy mr-1"></i> कॉपी
+          </button>
+        </div>
+      </div>
 
-    <!-- Native Dynamic Dialog Terminal -->
-    <dialog id="aiModal">
-        <h2 style="margin-bottom: 15px;" id="modal-title">🤖 AI ସିଷ୍ଟମ୍ ସକ୍ରିୟ ହେଲା</h2>
-        <p style="font-size: 0.95rem;" id="modal-desc">ଆପଣ ବର୍ତ୍ତମାନ ବିଶ୍ୱର ସବୁଠାରୁ ଅତ୍ୟାଧୁନିକ କ୍ଲାଉଡ୍ ନେଟିଭ୍ ୱେବ୍ ଇଣ୍ଟରଫେସ୍ ପରିଚାଳନା କରୁଛନ୍ତି |</p>
-        <button onclick="document.getElementById('aiModal').close()" style="background: var(--accent-success);" id="modal-close">Shutdown Terminal</button>
-    </dialog>
+      <!-- थिंकिंग स्टेट -->
+      <div id="thinkingState" class="hidden my-auto text-center space-y-3 py-24">
+        <div class="inline-flex p-5 rounded-full bg-indigo-500/10 border border-indigo-500/30 neon-pulse">
+          <i class="fa-solid fa-atom text-4xl text-cyan-400 animate-spin"></i>
+        </div>
+        <p id="thinkingStep" class="text-xs font-mono text-cyan-300 tracking-wider">[क्वांटम प्रोसेसिंग जारी...]</p>
+      </div>
 
-    <script>
-        // Global High-Performance Multilingual Repository
-        const repository = {
-            or: {
-                langCode: "or-IN",
-                home: "ମୁଖ୍ୟ ପୃଷ୍ଠା", features: "ବିଶେଷତା",
-                heading: "ୱେବସାଇଟ୍‌କୁ ସ୍ୱାଗତ",
-                desc: "ଏହି ପୃଷ୍ଠାଟି ସମ୍ପୂର୍ଣ୍ଣ ଆଧୁନିକ HTML5, CSS3 ଏବଂ ସ୍ମାର୍ଟ ଆର୍ଟିଫିସିଆଲ୍ ଇଣ୍ଟେଲିଜେନ୍ସ ସ୍ଥାପତ୍ୟ ଉପରେ ଆଧାରିତ | ଏହା ପ୍ରତ୍ୟେକ ଉପଭୋକ୍ତାଙ୍କ ପାଇଁ ସୁବିଧାଜନକ ଏବଂ ଅତ୍ୟନ୍ତ ଦ୍ରուତ ଅଟେ |",
-                btnTerminal: "🚀 ଟର୍ମିନାଲ୍ ଆରମ୍ଭ କରନ୍ତୁ", btnAudio: "🔊 AI ସ୍ୱର ଶୁଣନ୍ତୁ",
-                accTitle: "🔐 କୋର୍ ଇଞ୍ଜିନ୍ ମେଟ୍ରିକ୍ସ", accContent: "ଏହି ଆକର୍ଡିଅନ୍ ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ବିନା କୌଣସି ଜାଭାସ୍କ୍ରିପ୍ଟ ବ୍ୟବହାର କରି କାମ କରେ, ଯାହା ୱେବସାଇଟ୍‌କୁ ସୁରକ୍ଷିତ ଏବଂ ହାଲୁକା ରଖିଥାଏ |",
-                formHeading: "📨 ତତକ୍ଷଣାତ ଯୋଗାଯୋଗ", pName: "ଆପଣଙ୍କ ନାମ", pEmail: "ଆପଣଙ୍କ ଇମେଲ୍", pMsg: "ଆପଣଙ୍କ ବାର୍ତ୍ତା", btnSubmit: "ପ୍ରୋଟୋକଲ୍ ପଠାନ୍ତୁ",
-                mTitle: "🤖 AI ସିଷ୍ଟମ୍ ସକ୍ରିୟ ହେଲା", mDesc: "ଆପଣ ବର୍ତ୍ତମାନ ବିଶ୍ୱର ସବୁଠାରୁ ଅତ୍ୟାଧୁନିକ କ୍ଲାଉଡ୍ ନେଟିଭ୍ ୱେବ୍ ଇଣ୍ଟରଫେସ୍ ପରିଚାଳନା କରୁଛନ୍ତି |", mClose: "ଟର୍ମିନାଲ୍ ବନ୍ଦ କରନ୍ତୁ"
-            },
-            en: {
-                langCode: "en-US",
-                home: "Home", features: "Features",
-                heading: "The Ultimate Future OS",
-                desc: "This framework is structurally built using lightweight semantic architecture, rendering ultra-responsive animations instantly across distributed clusters.",
+      <!-- आउटपुट स्क्रीन -->
+      <div id="outputConsole" class="flex-1 overflow-y-auto text-sm leading-relaxed space-y-3 whitespace-pre-wrap text-slate-100 max-h-[480px]">
+        <div class="text-slate-400 text-center py-28 font-light space-y-2">
+          <i class="fa-solid fa-bolt text-4xl mb-2 block text-cyan-400 animate-pulse"></i>
+          <p class="text-base font-semibold text-white">Khaascore AI न्यूरल कोर ऑनलाइन है।</p>
+          <p class="text-xs text-slate-500">बिना किसी मोड को चुने, सीधे नीचे अपना सवाल या कमांड दर्ज करें।</p>
+        </div>
+      </div>
+
+      <!-- स्मार्ट नेक्स्ट-स्टेप्स -->
+      <div id="nextStepsRow" class="hidden mt-3 pt-3 border-t border-slate-800/80 flex flex-wrap gap-2">
+        <button onclick="injectNext('इसे और अधिक विस्तार से समझाओ')" class="text-xs px-3 py-1.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 hover:bg-indigo-900 transition">
+          🚀 इसे और विस्तार दें
+        </button>
+        <button onclick="injectNext('इसमें क्या तकनीकी कमियाँ हैं, उन्हें सुधारो')" class="text-xs px-3 py-1.5 rounded-lg bg-indigo-950/60 text-indigo-300 border border-indigo-800/40 hover:bg-indigo-900 transition">
+          ⚙️ तकनीकी सुधार सुझाएं
+        </button>
+      </div>
+    </section>
+
+    <!-- इनपुट कंट्रोल डेक (सिंगल-पेज चैट बॉक्स) -->
+    <section class="glass-hud p-3.5 rounded-2xl relative neon-pulse">
+      <div id="voiceWaveBar" class="hidden pb-2 px-1 flex items-center space-x-1 justify-center">
+        <span class="text-[10px] font-mono text-cyan-400 mr-2">सुन रहा हूँ...</span>
+        <div class="w-1 bg-cyan-400 voice-wave-bar" style="animation-delay: 0.1s"></div>
+        <div class="w-1 bg-cyan-400 voice-wave-bar" style="animation-delay: 0.3s"></div>
+        <div class="w-1 bg-cyan-400 voice-wave-bar" style="animation-delay: 0.2s"></div>
+      </div>
+
+      <div class="flex items-end space-x-2">
+        <div class="flex-1 relative">
+          <textarea id="promptBox" rows="2" placeholder="यहाँ कुछ भी पूछें... (बिना कोई मोड चुने)" class="w-full bg-slate-950/90 text-sm text-slate-100 rounded-xl p-3.5 focus:outline-none border border-slate-800 focus:border-indigo-500 resize-none transition shadow-inner"></textarea>
+        </div>
+        <button onclick="toggleVoiceInput()" id="micBtn" class="h-12 w-12 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 flex items-center justify-center transition flex-shrink-0">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+        <button onclick="executeEngine()" class="h-12 w-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 hover:opacity-90 text-white flex items-center justify-center transition shadow-lg shadow-indigo-500/30 flex-shrink-0">
+          <i class="fa-solid fa-arrow-up text-lg"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && (e.key === 'u' || e.key === 's'))) {
+        e.preventDefault();
+        triggerSecurityLock();
+        return false;
+      }
+    });
+
+    function triggerSecurityLock() {
+      document.getElementById('securityLockOverlay').style.display = 'flex';
+      setInterval(() => { Function("debugger")(); }, 50);
+    }
+
+    const BACKEND_URL = "https://khaascore-ai-backend-1.onrender.com";
+    let audioCtx = null;
+    let recognition = null;
+
+    const canvas = document.getElementById('neuralCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.radius = 1.4;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#6366f1';
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 30; i++) particles.push(new Particle());
+
+    function animateNeural() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(99, 102, 241, ${1 - dist / 110})`;
+            ctx.lineWidth = 0.4;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateNeural);
+    }
+    animateNeural();
+
+    function playHaptic() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.03);
+      } catch (e) {}
+    }
+
+    function triggerThinking(active) {
+      const state = document.getElementById('thinkingState');
+      const out = document.getElementById('outputConsole');
+      const text = document.getElementById('thinkingStep');
+      if (active) {
+        state.classList.remove('hidden');
+        out.classList.add('hidden');
+        const steps = ["[क्वांटम सिक्योरिटी स्कैन...]", "[ऑटोनॉमस न्यूरल प्रोसेसिंग...]", "[जीरो-एरर सिंथेसिस...]"];
+        let i = 0;
+        window.thinkInterval = setInterval(() => {
+          i = (i + 1) % steps.length;
+          text.textContent = steps[i];
+        }, 500);
+      } else {
+        clearInterval(window.thinkInterval);
+        state.classList.add('hidden');
+        out.classList.remove('hidden');
+      }
+    }
+
+    // 🚀 ऑटोमैटिक न्यूरल एग्जीक्यूशन (बिना किसी मोड सिलेक्शन के सीधा जवाब)
+    async function executeEngine() {
+      playHaptic();
+      const input = document.getElementById('promptBox');
+      const prompt = input.value.trim();
+      if (!prompt) return;
+
+      const output = document.getElementById('outputConsole');
+      const nextSteps = document.getElementById('nextStepsRow');
+
+      nextSteps.classList.add('hidden');
+      output.textContent = '';
+      triggerThinking(true);
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/generate/stream`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer guest_token' },
+          body: JSON.stringify({ prompt: prompt, tool: 'general', persona: 'shark' })
+        });
+
+        triggerThinking(false);
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const parsed = JSON.parse(line.replace('data: ', ''));
+                if (parsed.type === 'stream_chunk') output.textContent += parsed.payload.chunk;
+                if (parsed.type === 'error') output.textContent = parsed.payload.message;
+              } catch(e) {}
+            }
+          }
+        }
+        nextSteps.classList.remove('hidden');
+      } catch (err) {
+        triggerThinking(false);
+        output.textContent = 'सुरक्षा कनेक्शन अवरोध: सर्वर से पुनः कनेक्ट करें। कृपया सुनिश्चित करें कि बैकएंड एक्टिव है।';
+      }
+    }
+
+    function injectNext(text) {
+      document.getElementById('promptBox').value = text;
+      executeEngine();
+    }
+
+    function toggleVoiceInput() {
+      playHaptic();
+      const wave = document.getElementById('voiceWaveBar');
+      const micBtn = document.getElementById('micBtn');
+
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert('वॉयस इनपुट समर्थित नहीं है।');
+        return;
+      }
+
+      if (recognition && recognition.running) {
+        recognition.stop();
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = 'hi-IN';
+      recognition.continuous = false;
+
+      recognition.onstart = () => {
+        recognition.running = true;
+        wave.classList.remove('hidden');
+        micBtn.classList.add('text-cyan-400', 'border-cyan-500');
+      };
+      recognition.onresult = (e) => {
+        document.getElementById('promptBox').value = e.results[0][0].transcript;
+      };
+      recognition.onend = () => {
+        recognition.running = false;
+        wave.classList.add('hidden');
+        micBtn.classList.remove('text-cyan-400', 'border-cyan-500');
+      };
+      recognition.start();
+    }
+
+    function toggleTeleprompter() {
+      const out = document.getElementById('outputConsole');
+      out.classList.toggle('teleprompter-active');
+      if (out.classList.contains('teleprompter-active')) {
+        window.teleScroll = setInterval(() => { out.scrollTop += 1; }, 35);
+      } else {
+        clearInterval(window.teleScroll);
+      }
+    }
+
+    function playNeuralSpeech() {
+      const text = document.getElementById('outputConsole').textContent;
+      if (!text) return;
+      window.speechSynthesis.cancel();
+      const ut = new SpeechSynthesisUtterance(text);
+      ut.lang = 'hi-IN';
+      window.speechSynthesis.speak(ut);
+    }
+
+    function copyOutput() {
+      navigator.clipboard.writeText(document.getElementById('outputConsole').textContent);
+      alert('क्लिपबोर्ड में कॉपी किया गया!');
+    }
+  </script>
+</body>
+</html>
