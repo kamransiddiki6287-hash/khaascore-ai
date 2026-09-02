@@ -5,147 +5,138 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https: wss:; img-src 'self' https: data:; font-src 'self' https: data:;">
   <meta name="author" content="Kamran Siddiki">
-  <title>Khaascore AI — Autonomous Neural Studio OS</title>
+  <title>Khaascore AI — 2099 Ultimate Neural Studio</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { 500: '#4f46e5', 600: '#4338ca', accent: '#0284c7' }
-          }
-        }
-      }
-    }
-  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    html { scroll-behavior: smooth; }
-    body { background-color: #f8fafc; color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
+    /* 100% वन-पेज फिक्स्ड लेआउट - बाहर कोई स्क्रॉल नहीं, केवल अंदर रबर स्क्रॉल */
+    html, body { height: 100vh; margin: 0; padding: 0; overflow: hidden; background-color: #f8fafc; color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif; -webkit-user-select: none; user-select: none; }
     #neuralCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.12; }
     
-    .glass-panel-light {
-      background: rgba(255, 255, 255, 0.85);
+    .glass-box {
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(40px);
       -webkit-backdrop-filter: blur(40px);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(79, 70, 229, 0.1);
+      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
     }
 
-    .apple-action-btn-light {
-      background: rgba(15, 23, 42, 0.03);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    .action-btn {
+      background: #ffffff;
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      transition: all 0.2s ease;
     }
-    .apple-action-btn-light:hover {
-      background: rgba(79, 70, 229, 0.08);
-      border-color: rgba(79, 70, 229, 0.3);
-      transform: translateY(-1px);
+    .action-btn:hover {
+      background: rgba(79, 70, 229, 0.05);
+      border-color: rgba(79, 70, 229, 0.4);
     }
 
-    .teleprompter-active { position: fixed; inset: 0; z-index: 9999; background: #ffffff; padding: 4rem 2rem; overflow-y: scroll; scroll-behavior: smooth; font-size: 2rem; line-height: 2.3; color: #0f172a; }
-    .voice-wave-bar { animation: soundWave 1.2s infinite ease-in-out alternate; }
+    .teleprompter-active { position: fixed; inset: 0; z-index: 9999; background: #ffffff; padding: 4rem 2rem; overflow-y: scroll; scroll-behavior: smooth; font-size: 2.2rem; line-height: 2.4; color: #0f172a; }
+    .voice-wave { animation: soundWave 1s infinite ease-in-out alternate; }
     @keyframes soundWave { 0% { height: 4px; } 100% { height: 24px; } }
     ::selection { background: #4f46e5; color: #ffffff; }
-    
-    #securityLockOverlay { display: none; position: fixed; inset: 0; z-index: 999999; background: #ffffff; color: #ef4444; flex-direction: column; align-items: center; justify-content: center; font-family: monospace; text-align: center; padding: 20px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col relative justify-between" oncontextmenu="return false;">
-
-  <div id="securityLockOverlay">
-    <i class="fa-solid fa-triangle-exclamation text-6xl mb-4 animate-bounce text-red-500"></i>
-    <h1 class="text-2xl font-black tracking-widest uppercase mb-2">SECURITY BREACH PREVENTED</h1>
-    <p class="text-xs text-slate-500 max-w-sm">अनधिकृत टूल्स और डिबगिंग ब्लॉक कर दिए गए हैं।</p>
-    <span class="mt-4 text-[11px] font-mono text-indigo-600">ARCHITECT: KAMRAN SIDDIKI</span>
-  </div>
+<body class="flex flex-col justify-between h-screen w-screen relative" oncontextmenu="return false;">
 
   <canvas id="neuralCanvas"></canvas>
 
-  <header class="w-full glass-panel-light border-b border-slate-200 sticky top-0 z-40">
-    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+  <!-- 🌟 शुद्ध वाइट प्रीमियम हेडर -->
+  <header class="w-full glass-box border-b border-slate-200 z-40 flex-shrink-0">
+    <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-sky-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <i class="fa-solid fa-brain text-white text-lg"></i>
+        <div class="w-9 h-9 rounded-2xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-500/20">
+          <i class="fa-solid fa-brain text-white text-base"></i>
         </div>
         <div>
-          <span class="text-lg font-black tracking-tight text-slate-900 block">Khaascore <span class="text-indigo-600 font-light">AI</span></span>
-          <span class="text-[9px] font-mono text-indigo-600 uppercase tracking-widest block">Autonomous Neural Core</span>
+          <span class="text-base font-black tracking-tight text-slate-900 block">Khaascore <span class="text-indigo-600 font-light">AI</span></span>
+          <span class="text-[8px] font-mono text-indigo-600 uppercase tracking-widest block font-bold">Autonomous Neural Studio</span>
         </div>
       </div>
 
-      <button onclick="alert('फाउंडर प्रोटोकॉल: Khaascore AI के एकमात्र आर्किटेक्ट और विजनरी Kamran Siddiki हैं।')" class="apple-action-btn-light text-xs font-bold text-slate-800 px-4 py-2 rounded-xl flex items-center space-x-2">
-        <i class="fa-solid fa-fingerprint text-indigo-600"></i>
-        <span>फाउंडर</span>
-      </button>
+      <div class="flex items-center space-x-2">
+        <button onclick="stopHumanVoice()" class="action-btn text-[11px] font-medium text-rose-600 px-3 py-1.5 rounded-xl flex items-center space-x-1">
+          <i class="fa-solid fa-volume-xmark"></i>
+          <span>आवाज़ रोकें</span>
+        </button>
+        <button onclick="alert('फाउंडर प्रोटोकॉल: Khaascore AI के एकमात्र आर्किटेक्ट और विजनरी Kamran Siddiki हैं।')" class="action-btn text-xs font-bold text-slate-800 px-3 py-1.5 rounded-xl flex items-center space-x-1">
+          <i class="fa-solid fa-fingerprint text-indigo-600"></i>
+          <span>फाउंडर</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="w-full max-w-4xl mx-auto px-6 py-6 flex-1 flex flex-col space-y-6 relative z-10">
+  <!-- मुख्य वर्कस्पेस -->
+  <main class="w-full max-w-4xl mx-auto px-6 py-4 flex-1 flex flex-col space-y-3 relative z-10 overflow-hidden">
 
-    <section class="glass-panel-light rounded-3xl p-6 sm:p-8 flex-1 flex flex-col relative overflow-hidden min-h-[450px]">
+    <!-- आउटपुट स्क्रीन (स्मूथ रबर स्क्रॉलिंग कंसोल) -->
+    <section class="glass-box rounded-3xl p-5 flex-1 flex flex-col relative overflow-hidden">
       
-      <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4 text-xs text-slate-500">
-        <div class="flex items-center space-x-2.5">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-3 text-xs text-slate-500 flex-shrink-0">
+        <div class="flex items-center space-x-2">
           <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-ping"></span>
-          <span class="font-mono text-xs text-indigo-600 font-semibold tracking-wide">LIVE NEURAL STREAM</span>
+          <span class="font-mono text-xs text-indigo-600 font-bold">मानवीकृत स्वर और लाइव स्ट्रीम सक्रिय</span>
         </div>
         <div class="flex items-center space-x-2">
-          <button onclick="toggleTeleprompter()" class="apple-action-btn-light px-3.5 py-1.5 rounded-xl text-slate-700 text-xs transition font-medium">
-            <i class="fa-solid fa-desktop mr-1.5 text-indigo-600"></i> टेलीप्रॉम्प्टर
+          <button onclick="toggleTeleprompter()" class="action-btn px-2.5 py-1 rounded-xl text-slate-700 text-xs font-medium">
+            <i class="fa-solid fa-desktop mr-1 text-indigo-600"></i> टेलीप्रॉम्प्टर
           </button>
-          <button onclick="playNeuralSpeech()" class="apple-action-btn-light px-3.5 py-1.5 rounded-xl text-slate-700 text-xs transition font-medium">
-            <i class="fa-solid fa-headphones mr-1.5 text-sky-600"></i> सुनें
+          <button onclick="replayVoice()" class="action-btn px-2.5 py-1 rounded-xl text-slate-700 text-xs font-medium">
+            <i class="fa-solid fa-volume-high mr-1 text-sky-600"></i> सुनें
           </button>
-          <button onclick="copyOutput()" class="apple-action-btn-light px-3.5 py-1.5 rounded-xl text-slate-700 text-xs transition font-medium">
-            <i class="fa-solid fa-copy mr-1.5 text-emerald-600"></i> कॉपी
+          <button onclick="copyOutput()" class="action-btn px-2.5 py-1 rounded-xl text-slate-700 text-xs font-medium">
+            <i class="fa-solid fa-copy mr-1 text-emerald-600"></i> कॉपी
           </button>
         </div>
       </div>
 
-      <div id="thinkingState" class="hidden my-auto text-center space-y-4 py-24">
-        <div class="inline-flex p-5 rounded-3xl bg-indigo-50 border border-indigo-200 shadow-sm">
-          <i class="fa-solid fa-atom text-4xl text-indigo-600 animate-spin"></i>
+      <div id="thinkingState" class="hidden my-auto text-center space-y-3 py-16 flex-shrink-0">
+        <div class="inline-flex p-4 rounded-3xl bg-indigo-50 border border-indigo-200">
+          <i class="fa-solid fa-atom text-3xl text-indigo-600 animate-spin"></i>
         </div>
-        <p id="thinkingStep" class="text-xs font-mono text-indigo-600 tracking-wider">[क्वांटम प्रोसेसिंग जारी...]</p>
+        <p id="thinkingStep" class="text-xs font-mono text-indigo-600 tracking-wider">[क्वांटम प्रोसेसिंग और स्वर तैयार हो रहा है...]</p>
       </div>
 
-      <div id="outputConsole" class="flex-1 overflow-y-auto text-base sm:text-lg leading-relaxed space-y-4 whitespace-pre-wrap text-slate-900 font-normal selection:bg-indigo-500 selection:text-white">
-        <div class="text-slate-500 text-center py-28 font-light space-y-3">
-          <i class="fa-solid fa-bolt text-5xl mb-3 block text-indigo-600 animate-pulse"></i>
-          <p class="text-xl font-bold text-slate-900 tracking-tight">Khaascore AI न्यूरल कोर ऑनलाइन है।</p>
-          <p class="text-sm text-slate-500 max-w-md mx-auto">बिना किसी मोड को चुने, नीचे सीधे अपना सवाल दर्ज करें।</p>
+      <!-- आउटपुट कंसोल (यहाँ टेक्स्ट दिखेगा और रबड़ की तरह स्क्रॉल होगा) -->
+      <div id="outputConsole" class="flex-1 overflow-y-auto text-base leading-relaxed space-y-3 whitespace-pre-wrap text-slate-900 font-normal pr-2">
+        <div class="text-slate-500 text-center py-16 font-light space-y-2">
+          <i class="fa-solid fa-bolt text-4xl mb-2 block text-indigo-600 animate-pulse"></i>
+          <p class="text-lg font-bold text-slate-900">Khaascore AI न्यूरल कोर ऑनलाइन है।</p>
+          <p class="text-xs text-slate-500 max-w-sm mx-auto">नीचे अपना सवाल पूछें। एआई तुरंत सटीक जवाब देगा और मानवीकृत स्वर में बोलकर बताएगा भी।</p>
         </div>
       </div>
 
-      <div id="nextStepsRow" class="hidden mt-4 pt-4 border-t border-slate-200 flex flex-wrap gap-2.5">
-        <button onclick="injectNext('इसे और अधिक विस्तार से समझाओ')" class="apple-action-btn-light text-xs px-3.5 py-2 rounded-xl text-indigo-700 font-medium transition">
-          🚀 इसे और विस्तार दें
+      <!-- स्मार्ट नेक्स्ट-स्टेप्स -->
+      <div id="nextStepsRow" class="hidden mt-3 pt-3 border-t border-slate-200 flex flex-wrap gap-2 flex-shrink-0">
+        <button onclick="injectNext('इसे और अधिक विस्तार से समझाओ')" class="action-btn text-xs px-3 py-1.5 rounded-xl text-indigo-700 font-medium">
+          🚀 इसे विस्तार दें
         </button>
-        <button onclick="injectNext('इसमें क्या तकनीकी कमियाँ हैं, उन्हें सुधारो')" class="apple-action-btn-light text-xs px-3.5 py-2 rounded-xl text-indigo-700 font-medium transition">
-          ⚙️ तकनीकी सुधार सुझाएं
+        <button onclick="injectNext('इसमें क्या तकनीकी कमियाँ हैं, उन्हें सुधारो')" class="action-btn text-xs px-3 py-1.5 rounded-xl text-indigo-700 font-medium">
+          ⚙️ तकनीकी सुधार
         </button>
       </div>
     </section>
 
-    <section class="glass-panel-light p-4 rounded-3xl relative shadow-xl">
-      <div id="voiceWaveBar" class="hidden pb-2.5 px-2 flex items-center space-x-1.5 justify-center">
-        <span class="text-[11px] font-mono text-indigo-600 mr-2 tracking-wider">सुन रहा हूँ...</span>
-        <div class="w-1 bg-indigo-600 voice-wave-bar rounded-full" style="animation-delay: 0.1s"></div>
-        <div class="w-1 bg-indigo-600 voice-wave-bar rounded-full" style="animation-delay: 0.3s"></div>
-        <div class="w-1 bg-indigo-600 voice-wave-bar rounded-full" style="animation-delay: 0.2s"></div>
+    <!-- इनपुट कंट्रोल डेक -->
+    <section class="glass-box p-3.5 rounded-3xl relative shadow-lg flex-shrink-0 mb-1">
+      <div id="voiceWaveBar" class="hidden pb-2 px-2 flex items-center space-x-1.5 justify-center">
+        <span class="text-[11px] font-mono text-indigo-600 mr-2 font-bold">आवाज़ सुन रहा हूँ...</span>
+        <div class="w-1 bg-indigo-600 voice-wave rounded-full" style="animation-delay: 0.1s"></div>
+        <div class="w-1 bg-indigo-600 voice-wave rounded-full" style="animation-delay: 0.3s"></div>
+        <div class="w-1 bg-indigo-600 voice-wave rounded-full" style="animation-delay: 0.2s"></div>
       </div>
 
-      <div class="flex items-end space-x-3">
+      <div class="flex items-end space-x-2.5">
         <div class="flex-1 relative">
-          <textarea id="promptBox" rows="2" placeholder="यहाँ कुछ भी पूछें... (ऑटोनॉमस न्यूरल इंजन सक्रिय)" class="w-full bg-white text-base text-slate-900 placeholder-slate-400 rounded-2xl p-4 focus:outline-none border border-slate-200 focus:border-indigo-600 resize-none transition shadow-inner font-normal"></textarea>
+          <textarea id="promptBox" rows="2" placeholder="यहाँ कुछ भी पूछें... (मानवीकृत स्वर और ऑटो-स्पीक सक्रिय)" class="w-full bg-white text-sm sm:text-base text-slate-900 placeholder-slate-400 rounded-2xl p-3.5 focus:outline-none border border-slate-200 focus:border-indigo-600 resize-none transition shadow-inner"></textarea>
         </div>
-        <button onclick="toggleVoiceInput()" id="micBtn" class="apple-action-btn-light h-14 w-14 rounded-2xl text-slate-700 flex items-center justify-center transition flex-shrink-0 text-lg">
+        <button onclick="toggleVoiceInput()" id="micBtn" class="action-btn h-12 w-12 rounded-2xl text-slate-700 flex items-center justify-center transition flex-shrink-0 text-base">
           <i class="fa-solid fa-microphone"></i>
         </button>
-        <button onclick="executeEngine()" class="h-14 w-14 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-sky-400 hover:opacity-90 text-white flex items-center justify-center transition shadow-xl shadow-indigo-500/30 flex-shrink-0 text-lg">
+        <button onclick="executeEngine()" class="h-12 w-12 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition shadow-md shadow-indigo-500/30 flex-shrink-0 text-base">
           <i class="fa-solid fa-arrow-up"></i>
         </button>
       </div>
@@ -154,22 +145,11 @@
 
   <script>
     document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && (e.key === 'u' || e.key === 's'))) {
-        e.preventDefault();
-        triggerSecurityLock();
-        return false;
-      }
-    });
-
-    function triggerSecurityLock() {
-      document.getElementById('securityLockOverlay').style.display = 'flex';
-      setInterval(() => { Function("debugger")(); }, 50);
-    }
 
     const BACKEND_URL = "https://khaascore-ai-backend-1.onrender.com";
-    let audioCtx = null;
     let recognition = null;
+    let speechSynth = window.speechSynthesis;
+    let currentUtterance = null;
 
     const canvas = document.getElementById('neuralCanvas');
     const ctx = canvas.getContext('2d');
@@ -186,8 +166,8 @@
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
         this.radius = 1.5;
       }
       update() {
@@ -204,7 +184,7 @@
       }
     }
 
-    for (let i = 0; i < 35; i++) particles.push(new Particle());
+    for (let i = 0; i < 30; i++) particles.push(new Particle());
 
     function animateNeural() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -229,44 +209,42 @@
     }
     animateNeural();
 
-    function playHaptic() {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.frequency.setValueAtTime(700, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.03);
-        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.03);
-      } catch (e) {}
-    }
-
     function triggerThinking(active) {
       const state = document.getElementById('thinkingState');
       const out = document.getElementById('outputConsole');
-      const text = document.getElementById('thinkingStep');
       if (active) {
         state.classList.remove('hidden');
         out.classList.add('hidden');
-        const steps = ["[क्वांटम सिक्योरिटी स्कैन...]", "[ऑटोनॉमस न्यूरल प्रोसेसिंग...]", "[जीरो-एरर सिंथेसिस...]"];
-        let i = 0;
-        window.thinkInterval = setInterval(() => {
-          i = (i + 1) % steps.length;
-          text.textContent = steps[i];
-        }, 500);
       } else {
-        clearInterval(window.thinkInterval);
         state.classList.add('hidden');
         out.classList.remove('hidden');
       }
     }
 
+    // 🌟 अत्यंत मधुर और प्राकृतिक मानवीकृत स्वर (Natural Human Voice)
+    function speakHumanVoice(text) {
+      if (!speechSynth) return;
+      speechSynth.cancel();
+
+      const cleanText = text.replace(/[*#_`]/g, '').trim();
+      currentUtterance = new SpeechSynthesisUtterance(cleanText);
+      currentUtterance.lang = 'hi-IN';
+      currentUtterance.rate = 0.95; // शांत और स्पष्ट गति
+      currentUtterance.pitch = 1.0; // प्राकृतिक टोन
+
+      const voices = speechSynth.getVoices();
+      const humanVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN')) || voices[0];
+      if (humanVoice) currentUtterance.voice = humanVoice;
+
+      speechSynth.speak(currentUtterance);
+    }
+
+    function stopHumanVoice() {
+      if (speechSynth) speechSynth.cancel();
+    }
+
     async function executeEngine() {
-      playHaptic();
+      stopHumanVoice();
       const input = document.getElementById('promptBox');
       const prompt = input.value.trim();
       if (!prompt) return;
@@ -284,6 +262,7 @@
       ];
 
       let success = false;
+      let fullResponseText = "";
 
       for (const endpoint of endpoints) {
         try {
@@ -309,8 +288,15 @@
               if (line.startsWith('data: ')) {
                 try {
                   const parsed = JSON.parse(line.replace('data: ', ''));
-                  if (parsed.type === 'stream_chunk') output.textContent += parsed.payload.chunk;
-                  if (parsed.type === 'error') output.textContent = parsed.payload.message;
+                  if (parsed.type === 'stream_chunk') {
+                    const textChunk = parsed.payload.chunk;
+                    output.textContent += textChunk;
+                    fullResponseText += textChunk;
+                  }
+                  if (parsed.type === 'error') {
+                    output.textContent = parsed.payload.message;
+                    fullResponseText = parsed.payload.message;
+                  }
                 } catch(e) {}
               }
             }
@@ -321,9 +307,12 @@
 
       if (!success) {
         triggerThinking(false);
-        output.textContent = "न्यूरल क्लस्टर री-कनेक्ट हो रहा है... कृपया एक सेकंड रुककर दोबारा कमांड दें। (सर्वर स्लीप मोड से जाग रहा है)";
+        const fallbackMsg = "न्यूरल क्लस्टर री-कनेक्ट हो रहा है... कृपया एक सेकंड रुककर दोबारा कमांड दें।";
+        output.textContent = fallbackMsg;
+        speakHumanVoice(fallbackMsg);
       } else {
         nextSteps.classList.remove('hidden');
+        speakHumanVoice(fullResponseText);
       }
     }
 
@@ -333,7 +322,6 @@
     }
 
     function toggleVoiceInput() {
-      playHaptic();
       const wave = document.getElementById('voiceWaveBar');
       const micBtn = document.getElementById('micBtn');
 
@@ -378,13 +366,9 @@
       }
     }
 
-    function playNeuralSpeech() {
+    function replayVoice() {
       const text = document.getElementById('outputConsole').textContent;
-      if (!text) return;
-      window.speechSynthesis.cancel();
-      const ut = new SpeechSynthesisUtterance(text);
-      ut.lang = 'hi-IN';
-      window.speechSynthesis.speak(ut);
+      if (text) speakHumanVoice(text);
     }
 
     function copyOutput() {
