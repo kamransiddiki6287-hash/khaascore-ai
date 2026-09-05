@@ -3,111 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Core AI - The Future of Intelligence</title>
+    <title>Global Hourly & Paycheck Calculator - Pro</title>
     <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #38bdf8;
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --danger: #f43f5e;
+            --border: #334155;
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
+
         body {
-            background-color: #000;
-            color: #f5f5f7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        nav {
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .logo {
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: #86868b;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover {
-            color: #f5f5f7;
-        }
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at center, #111 0%, #000 70%);
+            min-height: 100vh;
+            padding: 16px;
         }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
         h1 {
-            font-size: 56px;
+            font-size: 1.25rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background-color: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .row .input-group {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 700;
-            letter-spacing: -1.5px;
-            margin-bottom: 10px;
-            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: opacity 0.2s;
         }
-        p {
-            font-size: 21px;
-            color: #86868b;
-            max-ئن-width: 600px;
-            margin-bottom: 30px;
-            font-weight: 400;
+
+        button:hover {
+            opacity: 0.9;
         }
-        .cta-btn {
-            background-color: #0071e3;
-            color: #white;
-            padding: 12px 24px;
-            border-radius: 980px;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 400;
-            transition: background 0.3s;
+
+        .error-msg {
+            color: var(--danger);
+            font-size: 0.75rem;
+            margin-top: 4px;
+            display: none;
         }
-        .cta-btn:hover {
-            background-color: #0077ed;
+
+        .results-panel {
+            margin-top: 24px;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .result-item span:last-child {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .result-item.highlight span:last-child {
+            color: var(--primary);
+            font-size: 1.1rem;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">Core AI</div>
-        <ul class="nav-links">
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">Platform</a></li>
-            <li><a href="#">Solutions</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Support</a></li>
-        </ul>
-    </nav>
+<div class="container">
+    <h1>Global Paycheck Engine</h1>
+    
+    <div class="input-group">
+        <label for="hourlyRate">Hourly Rate ($)</label>
+        <input type="number" id="hourlyRate" placeholder="e.g. 35.00" step="0.01">
+        <div id="rateError" class="error-msg">कृपया वैध पॉजिटिव वैल्यू दर्ज करें।</div>
+    </div>
 
-    <section class="hero">
-        <h1>Revolutionize Your World with Core AI</h1>
-        <p>The future of Artificial Intelligence. Smarter, Faster, Everywhere.</p>
-        <a href="#" class="cta-btn">Explore Platform</a>
-    </section>
+    <div class="row">
+        <div class="input-group">
+            <label for="hoursPerWeek">Hours / Week</label>
+            <input type="number" id="hoursPerWeek" placeholder="e.g. 40" step="1">
+        </div>
+        <div class="input-group">
+            <label for="taxRate">Estimated Tax (%)</label>
+            <input type="number" id="taxRate" placeholder="e.g. 15" value="15" step="0.1">
+        </div>
+    </div>
+
+    <button id="calculateBtn">Compute Earnings</button>
+
+    <div class="results-panel">
+        <div class="result-item">
+            <span>Gross Weekly:</span>
+            <span id="resWeekly">$0.00</span>
+        </div>
+        <div class="result-item">
+            <span>Estimated Taxes:</span>
+            <span id="resTax" style="color: var(--danger);">$0.00</span>
+        </div>
+        <div class="result-item highlight">
+            <span>Net Take-Home (Monthly):</span>
+            <span id="resMonthly">$0.00</span>
+        </div>
+        <div class="result-item highlight">
+            <span>Projected Annual:</span>
+            <span id="resAnnual">$0.00</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    /**
+     * Enterprise Grade Execution Engine
+     * Strict Type Casting & Defensive Boundary Checks
+     */
+    document.getElementById('calculateBtn').addEventListener('click', () => {
+        try {
+            // Data sanitization and parsing
+            const rawRate = parseFloat(document.getElementById('hourlyRate').value);
+            const rawHours = parseFloat(document.getElementById('hoursPerWeek').value);
+            const rawTax = parseFloat(document.getElementById('taxRate').value);
+
+            const rateError = document.getElementById('rateError');
+
+            // Defensive Validation Matrix
+            if (isNaN(rawRate) || rawRate <= 0) {
+                rateError.style.display = 'block';
+                return;
+            } else {
+                rateError.style.display = 'none';
+            }
+
+            const hours = (isNaN(rawHours) || rawHours < 0) ? 40 : rawHours;
+            const taxPercentage = (isNaN(rawTax) || rawTax < 0) ? 0 : Math.min(rawTax, 100);
+
+            // Core Financial Algorithmic Calculations
+            const grossWeekly = rawRate * hours;
+            const grossAnnual = grossWeekly * 52;
+            
+            const totalTaxAmountAnnual = grossAnnual * (taxPercentage / 100);
+            const netAnnual = grossAnnual - totalTaxAmountAnnual;
+            const netMonthly = netAnnual / 12;
+            const totalTaxAmountMonthly = totalTaxAmountAnnual / 12;
+
+            // International Currency Formatting (USD Standard for US/UK/CA Target Markets)
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2
+            });
+
+            // DOM Mutation Binding
+            document.getElementById('resWeekly').innerText = formatter.format(grossWeekly);
+            document.getElementById('resTax').innerText = `-${formatter.format(totalTaxAmountMonthly)}/mo`;
+            document.getElementById('resMonthly').innerText = formatter.format(netMonthly);
+            document.getElementById('resAnnual').innerText = formatter.format(netAnnual);
+
+        } catch (error) {
+            console.error("Execution Exception Handled:", error);
+        }
+    });
+</script>
 
 </body>
 </html>
+
